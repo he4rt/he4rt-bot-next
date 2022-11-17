@@ -1,8 +1,12 @@
 {
   "TIMEOUT_COMMAND": 60000,
   "TIMEOUT_COMMAND_STRING": "__INVALID__RESPONSE__",
+  "HE4RT_ICON_1_URL": "https://i.imgur.com/iWhfWMa.png",
   "COLORS": {
     "HE4RT": "#8146DC",
-    "HE4RT_DELAS": "#F485A2"
+    "HE4RT_DELAS": "#F485A2",
+    "SUCCESS": "#46E363",
+    "ERROR": "#C90B04",
+    "WARNING": "#FFD421"
   }
 }

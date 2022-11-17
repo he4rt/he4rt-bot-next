@@ -14,6 +14,7 @@ export type Maybe<T> = T | undefined | null
 
 export interface EmbedTemplateOptions {
   title: string
+  footer?: boolean
   author?: User
   color?: HexColorString
   url?: string

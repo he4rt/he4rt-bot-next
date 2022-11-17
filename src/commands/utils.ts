@@ -1,5 +1,5 @@
 import { EmbedBuilder, HexColorString, User } from 'discord.js'
-import { COLORS } from '../defines/values.json'
+import { COLORS, HE4RT_ICON_1_URL } from '../defines/values.json'
 import { EmbedTemplateOptions } from '../types'
 
 export const getUserAvatar = (author: User) => {
@@ -17,12 +17,14 @@ export const embedTemplate = (options: EmbedTemplateOptions) => {
     embed.addFields(...f)
   })
 
-  embed
-    .setFooter({
-      text: `${new Date().getFullYear()} © He4rt Developers`,
-      iconURL: 'https://i.imgur.com/14yqEKn.png',
-    })
-    .setTimestamp()
+  if (options.footer === undefined || options.footer) {
+    embed
+      .setFooter({
+        text: `${new Date().getFullYear()} © He4rt Developers`,
+        iconURL: HE4RT_ICON_1_URL,
+      })
+      .setTimestamp()
+  }
 
   return embed
 }

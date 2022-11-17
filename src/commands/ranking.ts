@@ -1,8 +1,10 @@
 import { SlashCommandBuilder, RestOrArray, APIEmbedField } from 'discord.js'
-import { Command, RankingGET, RankingMember } from '../types'
+import { Command, RankingGET } from '../types'
 import { RANKING } from '../defines/commands.json'
+import { COLORS } from '../defines/values.json'
 import { ofetch } from 'ofetch'
 import { embedTemplate } from './utils'
+import { HexColorString } from 'discord.js'
 
 export const useRanking = (): Command => {
   const data = new SlashCommandBuilder()
@@ -42,6 +44,7 @@ export const useRanking = (): Command => {
 
           const embed = embedTemplate({
             title: `🏆 » Ranking - Página ${page}`,
+            color: COLORS.WARNING as HexColorString,
             fields: [fields],
           })
 
