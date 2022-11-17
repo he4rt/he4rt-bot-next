@@ -216,7 +216,7 @@ export const useIntroduce = (): Command => {
         embeds: [embed],
       })
 
-      member.roles.add(PRESENTED_ROLE.id)
+      await member.roles.add(PRESENTED_ROLE.id)
 
       await dm.send(INTRODUCE.SETS.FINISH)
     },
