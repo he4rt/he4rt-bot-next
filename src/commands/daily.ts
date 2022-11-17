@@ -16,7 +16,7 @@ export const useDaily = (): Command => {
       ofetch<DailyPOST>(`${process.env.API_URL}/users/daily`, {
         parseResponse: JSON_PARSE,
         method: 'post',
-        headers: { Authorization: `he4rt-${process.env.HE4RT_TOKEN as string}` },
+        headers: { Authorization: process.env.HE4RT_TOKEN as string },
         body: {
           discord_id: member.id,
           donator: isPrivileged(member),
@@ -29,7 +29,6 @@ export const useDaily = (): Command => {
           })
         })
         .catch(async (e) => {
-          console.log(e)
           await interaction.reply({
             content: 'Você já recebeu seu bônus diário! Tente novamente outro dia.',
             ephemeral: true,
