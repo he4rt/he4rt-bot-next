@@ -1,5 +1,5 @@
 import { GuildMember, SlashCommandBuilder } from 'discord.js'
-import { Command, DailyGET } from '../types'
+import { Command, DailyPOST } from '../types'
 import { DAILY } from '../defines/commands.json'
 import { ofetch } from 'ofetch'
 import JSON_PARSE from 'destr'
@@ -13,7 +13,7 @@ export const useDaily = (): Command => {
     async (interaction, client) => {
       const member = interaction.member as GuildMember
 
-      ofetch<DailyGET>(`${process.env.API_URL}/users/daily`, {
+      ofetch<DailyPOST>(`${process.env.API_URL}/users/daily`, {
         parseResponse: JSON_PARSE,
         method: 'post',
         headers: { Authorization: `he4rt-${process.env.HE4RT_TOKEN as string}` },

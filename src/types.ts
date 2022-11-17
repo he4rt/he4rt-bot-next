@@ -9,7 +9,6 @@ import {
   SlashCommandBuilder,
   User,
 } from 'discord.js'
-import { $Fetch } from 'ofetch'
 
 export type Maybe<T> = T | undefined | null
 
@@ -30,7 +29,7 @@ export interface RankingGET extends Record<any, any> {
   data: RankingMember[]
 }
 
-export interface DailyGET extends Record<any, any> {
+export interface DailyPOST extends Record<any, any> {
   data: {
     points: number
   }
