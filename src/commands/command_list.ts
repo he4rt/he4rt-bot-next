@@ -7,12 +7,12 @@ export const useCommandsList = (): Command => {
     .setName(COMMANDS.COMMAND_LIST.TITLE)
     .setDescription(COMMANDS.COMMAND_LIST.DESCRIPTION)
     .setDMPermission(false)
-    
+
   return [
     data,
     async (interaction, client) => {
       const content = Object.values(COMMANDS).reduce((acc, { TITLE, DESCRIPTION }) => {
-        return acc += `**/${TITLE}** - ${DESCRIPTION}\n`
+        return (acc += `**/${TITLE}** - ${DESCRIPTION}\n`)
       }, COMMANDS.COMMAND_LIST.SUBTITLE)
 
       await interaction.reply({

@@ -31,7 +31,7 @@ export const useAnnounce = (): Command => {
         .setTimestamp()
       if (option_image?.value) embed.setImage(option_image.value as string)
 
-      const channel = client.channels.cache.get(IDS.ADVERTS_CHANNEL) as TextBasedChannel || interaction.channel;
+      const channel = (client.channels.cache.get(IDS.ADVERTS_CHANNEL) as TextBasedChannel) || interaction.channel
 
       await channel?.send({ content: '@everyone', embeds: [embed] })
 
