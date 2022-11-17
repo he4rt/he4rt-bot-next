@@ -28,7 +28,7 @@ export const useRanking = (): Command => {
 
           members.forEach((member, index) => {
             fields.push({
-              name: `${(index + 1) * page}° | ${(member.nickname as string) || 'Conta Excluída'}`,
+              name: `${index + 1 + (page - 1) * 10}° | ${(member.nickname as string) || 'Conta Excluída'}`,
               value: `Level: ${member.level} - Exp: ${member.current_exp}`,
               inline: false,
             })
