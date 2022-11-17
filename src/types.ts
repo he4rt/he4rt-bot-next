@@ -9,6 +9,7 @@ import {
   SlashCommandBuilder,
   User,
 } from 'discord.js'
+import { $Fetch } from 'ofetch'
 
 export type Maybe<T> = T | undefined | null
 
@@ -29,6 +30,12 @@ export interface RankingGET extends Record<any, any> {
   data: RankingMember[]
 }
 
+export interface DailyGET extends Record<any, any> {
+  data: {
+    points: number
+  }
+}
+
 export interface RankingMember {
   nickname?: string
   level: number
@@ -38,7 +45,7 @@ export interface RankingMember {
   levelup_exp: Record<any, any>
 }
 
-export type CommandCallback = (interaction: CommandInteraction, client: Client) => Promise<void>
+export type CommandCallback = (interaction: CommandInteraction, client: He4rtClient) => Promise<void>
 export type CommandSet = SlashCommandBuilder | Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>
 
 export type Command = [CommandSet, CommandCallback]

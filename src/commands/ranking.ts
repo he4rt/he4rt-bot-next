@@ -19,7 +19,7 @@ export const useRanking = (): Command => {
     async (interaction, client) => {
       const page = Number(interaction.options.get('page')?.value) || 1
 
-      ofetch<RankingGET, 'json'>(`${process.env.API_URL}/ranking/general?page=${page}`, {
+      ofetch<RankingGET>(`${process.env.API_URL}/ranking/general?page=${page}`, {
         parseResponse: JSON_PARSE,
         method: 'GET',
       })
@@ -53,9 +53,7 @@ export const useRanking = (): Command => {
 
           await interaction.reply({ content: 'Sucesso!', ephemeral: true })
         })
-        .catch(async (e) => {
-          console.log(e)
-
+        .catch(async () => {
           await interaction.reply({
             content: 'Um erro inesperado ocorreu. Tente novamente mais tarde!',
             ephemeral: true,

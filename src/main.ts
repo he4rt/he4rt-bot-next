@@ -1,6 +1,7 @@
 import { Client, Collection, GatewayIntentBits, REST } from 'discord.js'
 import { Context, He4rtClient } from './types'
 import { registerCommands } from './commands'
+import { ofetch } from 'ofetch'
 
 export const runner = async (): Promise<Context> => {
   const client = new Client({

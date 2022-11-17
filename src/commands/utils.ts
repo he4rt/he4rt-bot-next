@@ -1,9 +1,14 @@
-import { EmbedBuilder, HexColorString, User } from 'discord.js'
+import { EmbedBuilder, GuildMember, HexColorString, User } from 'discord.js'
 import { COLORS, HE4RT_ICON_1_URL } from '../defines/values.json'
+import { DONATOR_ROLE, NITRO_BOOSTER_ROLE } from '../defines/ids.json'
 import { EmbedTemplateOptions } from '../types'
 
 export const getUserAvatar = (author: User) => {
   return `https://cdn.discordapp.com/avatars/${author.id}/${author.avatar}.png?size=256`
+}
+
+export const isPrivileged = (member: GuildMember) => {
+  return member.roles.cache.some((v) => v.id === DONATOR_ROLE.id || v.id === NITRO_BOOSTER_ROLE.id)
 }
 
 export const embedTemplate = (options: EmbedTemplateOptions) => {

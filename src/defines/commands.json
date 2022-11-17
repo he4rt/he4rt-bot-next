@@ -33,8 +33,16 @@
     "TITLE": "ban",
     "DESCRIPTION": "ADM: Escolha um usuário para ser banido do servidor."
   },
+  "EXAMPLE": {
+    "TITLE": "exemplo",
+    "DESCRIPTION": "Template para a criação de outros comandos."
+  },
   "RANKING": {
     "TITLE": "ranking",
     "DESCRIPTION": "Veja os usuários mais ativos do servidor!"
+  },
+  "DAILY": {
+    "TITLE": "daily",
+    "DESCRIPTION": "Pegue aqui sua recompensa diária por interagir no servidor!"
   }
 }
