@@ -9,27 +9,27 @@ export const useAnnounce = (): Command => {
     .setDescription(COMMANDS.ANNOUNCE.DESCRIPTION)
     .setDMPermission(false)
     .addStringOption((option) =>
-      option.setName('texto').setDescription('Texto que irá aparecer no anúncio').setRequired(true)
+      option.setName('text').setDescription('Texto que irá aparecer no anúncio').setRequired(true)
     )
-    .addStringOption((option) => option.setName('imagem').setDescription('Possível imagem no anúncio'))
+    .addStringOption((option) => option.setName('image').setDescription('Possível imagem no anúncio'))
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
 
   return [
     data,
     async (interaction, client) => {
-      const option_message = interaction.options.get('texto')
-      const option_image = interaction.options.get('imagem')
+      const text = interaction.options.get('text')
+      const image = interaction.options.get('image')
 
       const embed = new EmbedBuilder()
         .setTitle('``🔔`` **Heart Informa:**')
-        .setDescription(option_message!.value as string)
+        .setDescription(text!.value as string)
         .setColor('#8146DC')
         .setFooter({
           text: `${new Date().getFullYear()} © He4rt Developers`,
           iconURL: 'https://i.imgur.com/14yqEKn.png',
         })
         .setTimestamp()
-      if (option_image?.value) embed.setImage(option_image.value as string)
+      if (image?.value) embed.setImage(image.value as string)
 
       const channel = (client.channels.cache.get(ADVERTS_CHANNEL.id) as TextBasedChannel) || interaction.channel
 
