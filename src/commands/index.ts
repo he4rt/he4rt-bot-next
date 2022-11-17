@@ -1,7 +1,7 @@
 import { Events, Routes } from 'discord.js'
 import { Context } from '../types'
 import { useAnnounce } from './announce'
-import { useCommandsList } from './command_list'
+import { useCommandsList } from './commands_list'
 import { useIntroduce } from './introduce'
 
 export const registerCommands = async ({ client, rest }: Context) => {
