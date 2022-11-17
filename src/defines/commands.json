@@ -32,5 +32,9 @@
   "BAN": {
     "TITLE": "ban",
     "DESCRIPTION": "ADM: Escolha um usuário para ser banido do servidor."
+  },
+  "RANKING": {
+    "TITLE": "ranking",
+    "DESCRIPTION": "Veja os usuários mais ativos do servidor!"
   }
 }

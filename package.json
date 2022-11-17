@@ -1,16 +1,17 @@
 {
-  "name": "he4rt-discord-bot-next",
-  "author": "He4rt Developers",
+	"name": "he4rt-discord-bot-next",
+	"author": "He4rt Developers",
 	"main": "dist/index.js",
 	"scripts": {
-    "production": "pnpm run build:prod && node .",
+		"production": "pnpm run build:prod && node .",
 		"dev": "pnpm run build:dev && node .",
 		"format": "prettier --write .",
 		"build:dev": "tsup src/index.ts --sourcemap",
-    "build:prod": "tsup src/index.ts"
+		"build:prod": "tsup src/index.ts"
 	},
 	"dependencies": {
-		"discord.js": "^14.6.0"
+		"discord.js": "^14.6.0",
+		"ofetch": "^1.0.0"
 	},
 	"devDependencies": {
 		"dotenv": "^16.0.3",

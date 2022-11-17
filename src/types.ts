@@ -24,6 +24,19 @@ export interface EmbedTemplateOptions {
   }
 }
 
+export interface RankingGET extends Record<any, any> {
+  data: RankingMember[]
+}
+
+export interface RankingMember {
+  nickname?: string
+  level: number
+  current_exp: number
+  discord_id: string
+  messages_count: number
+  levelup_exp: Record<any, any>
+}
+
 export type CommandCallback = (interaction: CommandInteraction, client: Client) => Promise<void>
 export type CommandSet = SlashCommandBuilder | Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>
 

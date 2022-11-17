@@ -4,14 +4,15 @@
 
 - ✅ Structure
 - ✅ Commands Register
-- ❓ API
+- ✅ API
 - ✖️ Deploy
 - ✅ /comandos 
 - ✅ /anunciar (ADM)
 - ❓ /anunciar-twitter (ADM)
 - ✅ /apresentar 
 - ✅ /ban (ADM)
-- ✅ /cor (Apoiadores) 
+- ✅ /cor (Apoiadores)
+- ✅ /ranking
 - ❓ /perfil 
 
 ## Requirements
