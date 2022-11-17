@@ -1,7 +1,7 @@
 import { CommandInteractionOption, GuildMember, HexColorString, SlashCommandBuilder } from 'discord.js'
 import { Command } from '../types'
 import { COLOR } from '../defines/commands.json'
-import { DONATOR_ROLE, DONATORS_CHANNEL } from '../defines/ids.json'
+import { DONATOR_ROLE, NITRO_BOOSTER_ROLE, DONATORS_CHANNEL } from '../defines/ids.json'
 
 export const useColor = (): Command => {
   const data = new SlashCommandBuilder()
@@ -21,7 +21,7 @@ export const useColor = (): Command => {
       const hex = interaction.options.get('hex') as CommandInteractionOption
       const color = hex.value as HexColorString
 
-      if (!member.roles.cache.some((v) => v.id === DONATOR_ROLE.id)) {
+      if (!member.roles.cache.some((v) => v.id === DONATOR_ROLE.id || v.id === NITRO_BOOSTER_ROLE.id)) {
         await interaction.reply({ content: 'Você não possui permissão para utilizar este comando!', ephemeral: true })
 
         return

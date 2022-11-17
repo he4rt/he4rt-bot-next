@@ -44,5 +44,10 @@
     "id": "1042817315248541753",
     "name": "Apoiadores",
     "emoji": "💳"
+  },
+  "NITRO_BOOSTER_ROLE": {
+    "id": "1042817315248541752",
+    "name": "Nitro Booster",
+    "emoji": "⚡"
   }
 }
