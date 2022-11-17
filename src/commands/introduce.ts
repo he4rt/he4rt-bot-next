@@ -17,7 +17,7 @@ import {
 } from '../defines/ids.json'
 import { INTRODUCE } from '../defines/commands.json'
 import { TIMEOUT_COMMAND, TIMEOUT_COMMAND_STRING, COLORS } from '../defines/values.json'
-import { getUserAvatar } from './utils'
+import { embedTemplate, getUserAvatar } from './utils'
 
 const nextTextMessage = async (dm: DMChannel, interaction: CommandInteraction): Promise<string> => {
   try {
@@ -41,7 +41,9 @@ const nextMultipleAndRecursiveRolesSelection = async (
   interaction: CommandInteraction
 ) => {
   await dm.send(text)
-  await dm.send(roles.reduce((acc, val, index) => (acc += index + 1 + ` - ${val.emoji} ${val.name}` + '\n'), '\n'))
+  await dm.send(
+    roles.reduce((acc, val, index) => (acc += `**${index + 1}**` + ` -   ${val.emoji} ${val.name}` + '\n'), '\n')
+  )
   await dm.send(INTRODUCE.SETS.CONTINUE_MESSAGE)
 
   const value = Number(await nextTextMessage(dm, interaction))
@@ -61,7 +63,7 @@ const nextRoleSelection = async (
   interaction: CommandInteraction
 ) => {
   await dm.send(text)
-  await dm.send(roles.reduce((acc, val, index) => (acc += index + 1 + ` - ${val.emoji} ${val.name}` + '\n'), '\n'))
+  await dm.send(roles.reduce((acc, val, index) => (acc += index + 1 + ` -   ${val.emoji} ${val.name}` + '\n'), '\n'))
 
   const value = Number(await nextTextMessage(dm, interaction))
 
@@ -78,7 +80,9 @@ const nextHe4rtDelasRole = async (
   const roles: any[] = [HE4RT_DELAS_ROLE]
 
   await dm.send(INTRODUCE.SETS.USER.DELAS)
-  await dm.send(roles.reduce((acc, val, index) => (acc += index + 1 + ` - ${val.emoji} ${val.name}` + '\n'), '\n'))
+  await dm.send(
+    roles.reduce((acc, val, index) => (acc += `**${index + 1}**` + ` -   ${val.emoji} ${val.name}` + '\n'), '\n')
+  )
   await dm.send(INTRODUCE.SETS.CONTINUE_MESSAGE)
 
   const value = Number(await nextTextMessage(dm, interaction))
@@ -176,37 +180,39 @@ export const useIntroduce = (): Command => {
 
       const isHe4rtDelasMember = await nextHe4rtDelasRole(dm, member, interaction)
 
-      const embed = new EmbedBuilder().setTitle(`**Apresentação** » ${author.username}`)
-      if (author?.avatar) embed.setThumbnail(getUserAvatar(author))
-      // if(isHe4rtDelasMember) embed.setDescription('**He4rt Delas**!')
-      embed
-        .setColor(isHe4rtDelasMember ? (COLORS.HE4RT_DELAS as HexColorString) : (COLORS.HE4RT as HexColorString))
-        .addFields(
+      const fields = [
+        [
           { name: '**Nome:**', value: name, inline: true },
           { name: '**Nickname:**', value: nick, inline: true },
-          { name: '**Sobre:**', value: about, inline: true }
-        )
-        .addFields({ name: '**GIT:**', value: git, inline: true })
-        .addFields({
-          name: '**Linguagens:**',
-          value: validDisplayDevRoles(member),
-          inline: true,
-        })
-        .addFields({
-          name: '**Nível de Inglês:**',
-          value: validDisplayEngRoles(member),
-          inline: true,
-        })
-        .setFooter({
-          text: `${new Date().getFullYear()} © He4rt Developers`,
-          iconURL: 'https://i.imgur.com/14yqEKn.png',
-        })
-        .setTimestamp()
+          { name: '**Sobre:**', value: about, inline: true },
+        ],
+        [
+          { name: '**GIT:**', value: git, inline: true },
+          {
+            name: '**Linguagens:**',
+            value: validDisplayDevRoles(member),
+          },
+          {
+            name: '**Nível de Inglês:**',
+            value: validDisplayEngRoles(member),
+            inline: true,
+          },
+        ],
+      ]
+      const embed = embedTemplate({
+        title: `**Apresentação** » ${author.username}`,
+        target: {
+          user: author,
+          icon: true,
+        },
+        color: isHe4rtDelasMember ? (COLORS.HE4RT_DELAS as HexColorString) : (COLORS.HE4RT as HexColorString),
+        fields,
+      })
 
       const channel = (client.channels.cache.get(PRESENTATIONS_CHANNEL.id) as TextBasedChannel) || interaction.channel
 
       await channel?.send({
-        content: `Seja Bem-Vind${isHe4rtDelasMember ? '(a/e)' : 'o'} a He4rt Developers, ${interaction.user.username}!`,
+        content: `👋 <@${interaction.user.id}>!`,
         embeds: [embed],
       })
 
