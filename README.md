@@ -10,6 +10,7 @@
 - ✅ /anunciar (ADM)
 - ❓ /anunciar-twitter (ADM)
 - ✅ /apresentar 
+- ✅ /ban (ADM)
 - ✅ /cor (Apoiadores) 
 - ❓ /perfil 
 

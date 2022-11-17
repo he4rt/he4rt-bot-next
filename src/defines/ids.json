@@ -11,6 +11,10 @@
     "id": "1042817316158718023",
     "title": "💳︱apoiadores"
   },
+  "PUNISHMENTS_CHANNEL": {
+    "id": "1042817315781218330",
+    "title": "📌│punishments-and-mods"
+  },
   "VALID_PRESENTATION_DEV_ROLES": [
     { "id": "1042817315227582488", "name": "GameDev", "emoji": "🎮" },
     { "id": "1042817315227582487", "name": "JavaScript", "emoji": "📜" },

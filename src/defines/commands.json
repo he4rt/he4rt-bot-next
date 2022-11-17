@@ -23,10 +23,14 @@
   },
   "ANNOUNCE": {
     "TITLE": "anunciar",
-    "DESCRIPTION": "Anuncie no discord automaticamente com everyone."
+    "DESCRIPTION": "ADM: Anuncie no discord automaticamente com o uso do everyone."
   },
   "COLOR": {
     "TITLE": "cor",
-    "DESCRIPTION": "Como um apoiador, você pode ter uma tag colorida customizada!"
+    "DESCRIPTION": "APOIADORES: Como um apoiador, você pode ter uma tag colorida customizada!"
+  },
+  "BAN": {
+    "TITLE": "ban",
+    "DESCRIPTION": "ADM: Escolha um usuário para ser banido do servidor."
   }
 }

@@ -17,6 +17,7 @@ import {
 } from '../defines/ids.json'
 import { INTRODUCE } from '../defines/commands.json'
 import { TIMEOUT_COMMAND, TIMEOUT_COMMAND_STRING, COLORS } from '../defines/values.json'
+import { getUserAvatar } from './utils'
 
 const nextTextMessage = async (dm: DMChannel, interaction: CommandInteraction): Promise<string> => {
   try {
@@ -176,8 +177,7 @@ export const useIntroduce = (): Command => {
       const isHe4rtDelasMember = await nextHe4rtDelasRole(dm, member, interaction)
 
       const embed = new EmbedBuilder().setTitle(`**Apresentação** » ${author.username}`)
-      if (author?.avatar)
-        embed.setThumbnail(`https://cdn.discordapp.com/avatars/${author.id}/${author.avatar}.png?size=256`)
+      if (author?.avatar) embed.setThumbnail(getUserAvatar(author))
       // if(isHe4rtDelasMember) embed.setDescription('**He4rt Delas**!')
       embed
         .setColor(isHe4rtDelasMember ? (COLORS.HE4RT_DELAS as HexColorString) : (COLORS.HE4RT as HexColorString))

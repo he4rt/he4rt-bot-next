@@ -1,6 +1,7 @@
 import { Events, Routes } from 'discord.js'
 import { Command, Context, He4rtClient } from '../types'
 import { useAnnounce } from './announce'
+import { useBan } from './ban'
 import { useColor } from './color'
 import { useCommandsList } from './commands_list'
 import { useIntroduce } from './introduce'
@@ -12,7 +13,7 @@ const registerHooks = (client: He4rtClient, commands: Command[]) => {
 }
 
 export const registerCommands = async ({ client, rest }: Context) => {
-  registerHooks(client, [useCommandsList(), useIntroduce(), useAnnounce(), useColor()])
+  registerHooks(client, [useCommandsList(), useIntroduce(), useAnnounce(), useColor(), useBan()])
 
   client.on(Events.InteractionCreate, async (interaction) => {
     if (!interaction.isChatInputCommand()) return
