@@ -1,0 +1,15 @@
+{
+  "COMMAND_LIST": {
+    "TITLE": "comandos",
+    "DESCRIPTION": "Tenha acesso a lista de comandos do bot.",
+    "SUBTITLE": "Lista de Comandos abaixo:\n\n"
+  },
+  "INTRODUCE": {
+    "TITLE": "apresentar",
+    "DESCRIPTION": "Se apresente para os membros de nossa comunidade e ganhe cargos!"
+  },
+  "ANNOUNCE": {
+    "TITLE": "anunciar",
+    "DESCRIPTION": "Anuncie no discord automaticamente com everyone."
+  }
+}

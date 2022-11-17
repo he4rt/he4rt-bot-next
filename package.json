@@ -1,0 +1,20 @@
+{
+  "name": "he4rt-discord-bot-next",
+  "author": "He4rt Developers",
+	"main": "dist/index.js",
+	"scripts": {
+    "production": "pnpm run build:prod && node .",
+		"dev": "pnpm run build:dev && node .",
+		"format": "prettier --write .",
+		"build:dev": "tsup src/index.ts --sourcemap",
+    "build:prod": "tsup src/index.ts"
+	},
+	"dependencies": {
+		"discord.js": "^14.6.0"
+	},
+	"devDependencies": {
+		"dotenv": "^16.0.3",
+		"prettier": "^2.7.1",
+		"tsup": "^6.5.0"
+	}
+}
