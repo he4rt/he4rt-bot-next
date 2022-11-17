@@ -5,6 +5,7 @@ import { COLORS } from '../defines/values.json'
 import { ofetch } from 'ofetch'
 import { embedTemplate } from './utils'
 import { HexColorString } from 'discord.js'
+import JSON_PARSE from 'destr'
 
 export const useRanking = (): Command => {
   const data = new SlashCommandBuilder()
@@ -19,7 +20,7 @@ export const useRanking = (): Command => {
       const page = Number(interaction.options.get('page')?.value) || 1
 
       ofetch<RankingGET, 'json'>(`${process.env.API_URL}/ranking/general?page=${page}`, {
-        parseResponse: JSON.parse,
+        parseResponse: JSON_PARSE,
         method: 'GET',
       })
         .then(async ({ data: members }) => {

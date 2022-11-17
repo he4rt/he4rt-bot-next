@@ -10,6 +10,7 @@
 		"build:prod": "tsup src/index.ts"
 	},
 	"dependencies": {
+		"destr": "^1.2.1",
 		"discord.js": "^14.6.0",
 		"ofetch": "^1.0.0"
 	},
