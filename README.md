@@ -7,9 +7,10 @@
 - ❓ API
 - ✖️ Deploy
 - ✅ /comandos 
-- ✅ /anunciar 
-- ❓ /anunciar-twitter
+- ✅ /anunciar (ADM)
+- ❓ /anunciar-twitter (ADM)
 - ✅ /apresentar 
+- ✅ /cor (Apoiadores) 
 - ❓ /perfil 
 
 ## Requirements

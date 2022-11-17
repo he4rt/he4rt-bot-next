@@ -24,5 +24,9 @@
   "ANNOUNCE": {
     "TITLE": "anunciar",
     "DESCRIPTION": "Anuncie no discord automaticamente com everyone."
+  },
+  "COLOR": {
+    "TITLE": "cor",
+    "DESCRIPTION": "Como um apoiador, você pode ter uma tag colorida customizada!"
   }
 }
