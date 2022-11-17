@@ -3,18 +3,18 @@
 ## Objectives
 
 - ✅ Structure
-- ➖ Commands Register
+- ✅ Commands Register
 - ❓ API
 - ✖️ Deploy
 - ✅ /comandos 
 - ✅ /anunciar 
 - ❓ /anunciar-twitter
-- ➖ /apresentar 
+- ✅ /apresentar 
 - ❓ /perfil 
 
 ## Requirements
 
-- [Node 18](https://nodejs.org/en/)
+- [Node 14](https://nodejs.org/en/)
 - [PNPM](https://pnpm.io/pt/)
 
 ## Run

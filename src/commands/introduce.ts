@@ -1,17 +1,127 @@
-import { SlashCommandBuilder } from 'discord.js'
+import {
+  CommandInteraction,
+  DMChannel,
+  EmbedBuilder,
+  GuildMember,
+  HexColorString,
+  SlashCommandBuilder,
+  TextBasedChannel,
+} from 'discord.js'
 import { Command } from '../types'
-import COMMANDS from '../defines/commands.json'
+import {
+  PRESENTATIONS_CHANNEL,
+  PRESENTED_ROLE,
+  HE4RT_DELAS_ROLE,
+  VALID_PRESENTATION_DEV_ROLES,
+  VALID_PRESENTATION_ENG_ROLES,
+} from '../defines/ids.json'
+import { INTRODUCE } from '../defines/commands.json'
+import { TIMEOUT_COMMAND, COLORS } from '../defines/values.json'
+
+const nextTextMessage = async (dm: DMChannel, interaction: CommandInteraction): Promise<string> => {
+  try {
+    const result = await dm.awaitMessages({
+      filter: (m) => m.author.id === interaction.user.id,
+      time: TIMEOUT_COMMAND,
+      max: 1,
+    })
+
+    return result.first()!.content
+  } catch (e) {
+    return '__ERROR__'
+    // TODO: Reset roles and emit message error
+  }
+}
+
+const nextMultipleAndRecursiveRolesSelection = async (
+  roles: any[],
+  text: string,
+  dm: DMChannel,
+  member: GuildMember,
+  interaction: CommandInteraction
+) => {
+  await dm.send(text)
+  await dm.send(roles.reduce((acc, val, index) => (acc += index + 1 + ` - ${val.emoji} ${val.name}` + '\n'), '\n'))
+  await dm.send(INTRODUCE.SETS.CONTINUE_MESSAGE)
+
+  const value = Number(await nextTextMessage(dm, interaction))
+
+  if (!isNaN(value) && value && value !== 0) {
+    member.roles.add(roles[value - 1].id)
+
+    await nextMultipleAndRecursiveRolesSelection(roles, text, dm, member, interaction)
+  } else if (value === 0) return
+}
+
+const nextRoleSelection = async (
+  roles: any[],
+  text: string,
+  dm: DMChannel,
+  member: GuildMember,
+  interaction: CommandInteraction
+) => {
+  await dm.send(text)
+  await dm.send(roles.reduce((acc, val, index) => (acc += index + 1 + ` - ${val.emoji} ${val.name}` + '\n'), '\n'))
+
+  const value = Number(await nextTextMessage(dm, interaction))
+
+  if (!isNaN(value) && value && value !== 0) {
+    member.roles.add(roles[value - 1].id)
+  }
+}
+
+const nextHe4rtDelasRole = async (
+  dm: DMChannel,
+  member: GuildMember,
+  interaction: CommandInteraction
+): Promise<boolean> => {
+  const roles: any[] = [HE4RT_DELAS_ROLE]
+
+  await dm.send(INTRODUCE.SETS.USER.DELAS)
+  await dm.send(roles.reduce((acc, val, index) => (acc += index + 1 + ` - ${val.emoji} ${val.name}` + '\n'), '\n'))
+  await dm.send(INTRODUCE.SETS.CONTINUE_MESSAGE)
+
+  const value = Number(await nextTextMessage(dm, interaction))
+
+  if (!isNaN(value) && value && value !== 0) {
+    member.roles.add(roles[value - 1].id)
+
+    return true
+  }
+
+  return false
+}
+
+const validDisplayDevRoles = (member: GuildMember) => {
+  return (
+    member?.roles?.cache
+      ?.filter((role) => VALID_PRESENTATION_DEV_ROLES.some((v) => v.id === role.id))
+      .map((role) => `<@&${role.id}>`)
+      .join(', ') || '`Nenhuma`'
+  )
+}
+
+const validDisplayEngRoles = (member: GuildMember) => {
+  return (
+    member?.roles?.cache
+      ?.filter((role) => VALID_PRESENTATION_ENG_ROLES.some((v) => v.id === role.id))
+      .map((role) => `<@&${role.id}>`)
+      .join(', ') || '`Nenhuma`'
+  )
+}
 
 export const useIntroduce = (): Command => {
   const data = new SlashCommandBuilder()
-    .setName(COMMANDS.INTRODUCE.TITLE)
-    .setDescription(COMMANDS.INTRODUCE.DESCRIPTION)
+    .setName(INTRODUCE.TITLE)
+    .setDescription(INTRODUCE.DESCRIPTION)
     .setDMPermission(true)
 
   return [
     data,
     async (interaction, client) => {
-      const dm = await client.users?.createDM(interaction.user)
+      const author = interaction.user
+      const member = interaction.member as GuildMember
+      const dm = await client.users?.createDM(author)
 
       if (!dm) {
         await interaction.reply({ content: 'Não foi possível enviar mensagem pelo privado!', ephemeral: true })
@@ -19,17 +129,85 @@ export const useIntroduce = (): Command => {
         return
       }
 
-      if (interaction.guild?.roles.cache.some((role) => role.name === '🎓 Apresentou')) {
+      if (interaction.channel?.id !== PRESENTATIONS_CHANNEL.id) {
+        await interaction.reply({
+          content: `Só é permitido usar este comando no canal ${PRESENTATIONS_CHANNEL.title}!`,
+          ephemeral: true,
+        })
+
+        return
+      }
+
+      if (member?.roles?.cache.some((role) => role.id === PRESENTED_ROLE.id)) {
         await interaction.reply({ content: 'Você já se apresentou!', ephemeral: true })
 
         return
       }
 
-      await dm.send(
-        '``❗`` Este é o nosso sistema de apresentação.\n\nResponda as perguntas com sinceridade total por sua pessoa.\nPara cancelar o envio, apenas ignore.\n\n``❗`` Para continuar digite ``!CONTINUAR`` aqui neste chat.'
+      await interaction.reply({ content: 'Enviado na DM!', ephemeral: true })
+
+      await dm.send(INTRODUCE.SETS.CONTINUE)
+      const name = await nextTextMessage(dm, interaction)
+
+      await dm.send(INTRODUCE.SETS.USER.NICK)
+      const nick = await nextTextMessage(dm, interaction)
+
+      await dm.send(INTRODUCE.SETS.USER.ABOUT)
+      const about = await nextTextMessage(dm, interaction)
+
+      await dm.send(INTRODUCE.SETS.USER.GIT)
+      const git = await nextTextMessage(dm, interaction)
+
+      await nextMultipleAndRecursiveRolesSelection(
+        VALID_PRESENTATION_DEV_ROLES,
+        INTRODUCE.SETS.USER.LANGUAGES,
+        dm,
+        member,
+        interaction
       )
 
-      await interaction.reply({ content: 'Enviado na DM!', ephemeral: true })
+      await nextRoleSelection(VALID_PRESENTATION_ENG_ROLES, INTRODUCE.SETS.USER.ENGLISH, dm, member, interaction)
+
+      const isHe4rtDelasMember = await nextHe4rtDelasRole(dm, member, interaction)
+
+      const embed = new EmbedBuilder().setTitle(`**Apresentação** » ${author.username}`)
+      if (author?.avatar)
+        embed.setThumbnail(`https://cdn.discordapp.com/avatars/${author.id}/${author.avatar}.png?size=256`)
+      // if(isHe4rtDelasMember) embed.setDescription('**He4rt Delas**!')
+      embed
+        .setColor(isHe4rtDelasMember ? (COLORS.HE4RT_DELAS as HexColorString) : (COLORS.HE4RT as HexColorString))
+        .addFields(
+          { name: '**Nome:**', value: name, inline: true },
+          { name: '**Nickname:**', value: nick, inline: true },
+          { name: '**Sobre:**', value: about, inline: true }
+        )
+        .addFields({ name: '**GIT:**', value: git, inline: true })
+        .addFields({
+          name: '**Linguagens:**',
+          value: validDisplayDevRoles(member),
+          inline: true,
+        })
+        .addFields({
+          name: '**Nível de Inglês:**',
+          value: validDisplayEngRoles(member),
+          inline: true,
+        })
+        .setFooter({
+          text: `${new Date().getFullYear()} © He4rt Developers`,
+          iconURL: 'https://i.imgur.com/14yqEKn.png',
+        })
+        .setTimestamp()
+
+      const channel = (client.channels.cache.get(PRESENTATIONS_CHANNEL.id) as TextBasedChannel) || interaction.channel
+
+      await channel?.send({
+        content: `Seja Bem-Vind${isHe4rtDelasMember ? '(a/e)' : 'o'} a He4rt Developers, ${interaction.user.username}!`,
+        embeds: [embed],
+      })
+
+      member.roles.add(PRESENTED_ROLE.id)
+
+      await dm.send(INTRODUCE.SETS.FINISH)
     },
   ]
 }

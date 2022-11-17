@@ -1,3 +1,39 @@
 {
-  "ADVERTS_CHANNEL": "755094121848242337"
+  "ADVERTS_CHANNEL": {
+    "id": "1042821299224985640",
+    "title": "📢︱anúncios"
+  },
+  "PRESENTATIONS_CHANNEL": {
+    "id": "1042817316754309184",
+    "title": "📖︱apresentações"
+  },
+  "VALID_PRESENTATION_DEV_ROLES": [
+    { "id": "1042817315227582488", "name": "GameDev", "emoji": "🎮" },
+    { "id": "1042817315227582487", "name": "JavaScript", "emoji": "📜" },
+    { "id": "1042817315227582486", "name": "Elixir", "emoji": "💧" },
+    { "id": "1042817315227582485", "name": "PHP", "emoji": "🐘" },
+    { "id": "1042817315227582484", "name": "Python", "emoji": "🐍" },
+    { "id": "1042817315206594640", "name": "Perl", "emoji": "🐪" },
+    { "id": "1042817315206594639", "name": "Java", "emoji": "☕" },
+    { "id": "1042817315206594638", "name": "Ruby", "emoji": "💎" },
+    { "id": "1042817315206594637", "name": "C, C++, C#", "emoji": "🇨" },
+    { "id": "1042817315206594636", "name": "UX/UI", "emoji": "🎨" },
+    { "id": "1042824308604551188", "name": "Rust", "emoji": "r" },
+    { "id": "1042824387805597757", "name": "Designer", "emoji": "🎨" }
+  ],
+  "VALID_PRESENTATION_ENG_ROLES": [
+    { "id": "1042817315185627258", "name": "Advanced English", "emoji": "🗽" },
+    { "id": "1042817315185627257", "name": "Intermediate English", "emoji": "🗽" },
+    { "id": "1042817315185627256", "name": "Basic English", "emoji": "🗽" }
+  ],
+  "HE4RT_DELAS_ROLE": {
+    "id": "1042817315173056629",
+    "name": "He4rt Delas",
+    "emoji": "💗"
+  },
+  "PRESENTED_ROLE": {
+    "id": "1042817315173056628",
+    "name": "Apresentou",
+    "emoji": "🎓"
+  }
 }

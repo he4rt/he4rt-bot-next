@@ -1,5 +1,7 @@
 import { Client, Collection, CommandInteraction, REST, SlashCommandBuilder } from 'discord.js'
 
+export type Maybe<T> = T | undefined | null
+
 export type CommandCallback = (interaction: CommandInteraction, client: Client) => Promise<void>
 export type CommandSet = SlashCommandBuilder | Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>
 

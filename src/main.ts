@@ -4,7 +4,7 @@ import { registerCommands } from './commands'
 
 export const runner = async (): Promise<Context> => {
   const client = new Client({
-    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers],
+    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.DirectMessages],
   }) as He4rtClient
   client.commands = new Collection()
 

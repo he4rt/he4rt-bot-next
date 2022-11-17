@@ -5,8 +5,8 @@ import { useCommandsList } from './commands_list'
 import { useIntroduce } from './introduce'
 
 const registerHooks = (client: He4rtClient, commands: Command[]) => {
-  commands.forEach((command) => {
-    client.commands.set(command[0], command[1])
+  commands.forEach(([data, cb]) => {
+    client.commands.set(data, cb)
   })
 }
 
@@ -23,6 +23,6 @@ export const registerCommands = async ({ client, rest }: Context) => {
 
   await rest.put(
     Routes.applicationGuildCommands(process.env.DISCORD_CLIENT_ID as string, process.env.DISCORD_GUILD_ID as string),
-    { body: client.commands.keys() }
+    { body: [...client.commands.keys()] }
   )
 }
