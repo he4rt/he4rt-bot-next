@@ -55,7 +55,7 @@ export const useColor = (): Command => {
             position: member.roles.highest.position + 1,
           })
           .then(async (role) => {
-            member.roles.add(role)
+            await member.roles.add(role)
 
             await interaction.reply({ content: 'Cargo criado com sucesso!', ephemeral: true })
           })
