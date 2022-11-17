@@ -16,7 +16,7 @@ import {
   VALID_PRESENTATION_ENG_ROLES,
 } from '../defines/ids.json'
 import { INTRODUCE } from '../defines/commands.json'
-import { TIMEOUT_COMMAND, COLORS } from '../defines/values.json'
+import { TIMEOUT_COMMAND, TIMEOUT_COMMAND_STRING, COLORS } from '../defines/values.json'
 
 const nextTextMessage = async (dm: DMChannel, interaction: CommandInteraction): Promise<string> => {
   try {
@@ -28,8 +28,7 @@ const nextTextMessage = async (dm: DMChannel, interaction: CommandInteraction): 
 
     return result.first()!.content
   } catch (e) {
-    return '__ERROR__'
-    // TODO: Reset roles and emit message error
+    return TIMEOUT_COMMAND_STRING
   }
 }
 
@@ -157,6 +156,12 @@ export const useIntroduce = (): Command => {
 
       await dm.send(INTRODUCE.SETS.USER.GIT)
       const git = await nextTextMessage(dm, interaction)
+
+      if ([name, nick, about, git].some((v) => v === TIMEOUT_COMMAND_STRING)) {
+        await dm.send('\n**Algum dos seus dados inseridos não é válido. Tente novamente, por favor!**\n')
+
+        return
+      }
 
       await nextMultipleAndRecursiveRolesSelection(
         VALID_PRESENTATION_DEV_ROLES,
