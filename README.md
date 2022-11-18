@@ -9,7 +9,7 @@ He4rt Discord Bot
 </h1>
 <p align="center">
   <a href="https://discord.gg/he4rt"><img src="https://img.shields.io/github/package-json/v/he4rt/he4rt-bot-next?color=782BF1&style=for-the-badge"></a>
-  <a href="https://discord.gg/he4rt"><img src="https://img.shields.io/github/license/he4rt/he4rt-bot-next?color=%23A655FF&style=for-the-badge"></a>
+  <a href="https://discord.gg/he4rt"><img src="https://img.shields.io/github/license/he4rt/he4rt-bot-next?color=A655FF&style=for-the-badge"></a>
 <p>
 
 ## Commands
