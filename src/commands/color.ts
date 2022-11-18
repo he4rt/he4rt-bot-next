@@ -44,6 +44,7 @@ export const useColor = (): Command => {
       }
 
       const colorRole = member.roles.cache.find((x) => /.+#\d{4}/i.test(x.name))
+      const priority = member.roles.highest.position + 1
 
       if (!colorRole) {
         interaction?.guild?.roles
@@ -53,7 +54,7 @@ export const useColor = (): Command => {
             permissions: [],
             hoist: false,
             mentionable: false,
-            position: member.roles.highest.position + 1,
+            position: priority,
           })
           .then(async (role) => {
             await member.roles.add(role)
@@ -64,9 +65,10 @@ export const useColor = (): Command => {
         return
       }
 
-      await colorRole.setColor(color).then(async () => {
-        await interaction.reply({ content: 'Cor mudada com sucesso!', ephemeral: true })
-      })
+      await colorRole.setColor(color)
+      await colorRole.setPosition(priority)
+
+      await interaction.reply({ content: 'Cor alterada com sucesso!', ephemeral: true })
     },
   ]
 }
