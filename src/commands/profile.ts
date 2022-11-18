@@ -1,7 +1,8 @@
-import { GuildMember, SlashCommandBuilder } from 'discord.js'
+import { GuildMember, HexColorString, SlashCommandBuilder } from 'discord.js'
 import { Command, ProfileGET } from '@/types'
 import { PROFILE } from '@/defines/commands.json'
-import { embedTemplate, validDisplayDevRoles, validDisplayEngRoles } from './utils'
+import { COLORS } from '@/defines/values.json'
+import { embedTemplate, isHe4rtDelasMember, validDisplayDevRoles, validDisplayEngRoles } from './utils'
 import { ofetch } from 'ofetch'
 import JSON_PARSE from 'destr'
 
@@ -58,8 +59,12 @@ export const useProfile = (): Command => {
               },
             ],
           ]
+
           const embed = embedTemplate({
             title: 'Perfil',
+            color: isHe4rtDelasMember(member)
+              ? (COLORS.HE4RT_DELAS as HexColorString)
+              : (COLORS.HE4RT as HexColorString),
             author: interaction.user,
             fields,
           })
