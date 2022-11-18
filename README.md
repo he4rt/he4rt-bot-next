@@ -31,7 +31,3 @@ pnpm production
 ## Documentation
 
 No código 🏄
-
-## Differences
-
-- 
