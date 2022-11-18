@@ -1,7 +1,0 @@
-- subir sapoha
-- entender pq `ofetch.create` quebra ao instanciar o fetch para parar de passar os args em todas as requisições `client.fetch('.../user/...')`
-- melhorar o gamification
-- melhorar as mensagens do /apresentar
-- testar as permissões em comandos de adm
-- testar o embed de levelup em casos específicos
-- ver se dá para usar testes no discord.js sem precisar mockar igual um loco
