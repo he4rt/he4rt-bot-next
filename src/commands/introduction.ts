@@ -116,15 +116,6 @@ export const useIntroduction = (): Command => {
         return
       }
 
-      if (interaction.channel?.id !== PRESENTATIONS_CHANNEL.id) {
-        await interaction.reply({
-          content: `Só é permitido usar este comando no canal ${PRESENTATIONS_CHANNEL.title}!`,
-          ephemeral: true,
-        })
-
-        return
-      }
-
       if (member?.roles?.cache.some((role) => role.id === PRESENTED_ROLE.id)) {
         await interaction.reply({ content: 'Você já se apresentou!', ephemeral: true })
 
