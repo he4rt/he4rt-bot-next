@@ -35,6 +35,10 @@ export interface DailyPOST extends Record<any, any> {
   }
 }
 
+export interface IntroducePUT extends Record<any, any> {}
+
+export interface IntroducePOST extends Record<any, any> {}
+
 export interface ProfileGET extends Record<string, any> {
   id: number
   discord_id: string
@@ -47,7 +51,7 @@ export interface ProfileGET extends Record<string, any> {
   level: number
   current_exp: number
   money: string
-  daily: string
+  daily: string | null
   created_at: string | null
   updated_at: string | null
   levelup_exp: {

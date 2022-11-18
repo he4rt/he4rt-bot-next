@@ -6,7 +6,7 @@ import {
   SlashCommandBuilder,
   TextBasedChannel,
 } from 'discord.js'
-import { Command } from '../types'
+import { Command, IntroducePOST, IntroducePUT } from '../types'
 import {
   PRESENTATIONS_CHANNEL,
   PRESENTED_ROLE,
@@ -18,6 +18,7 @@ import { INTRODUCE } from '../defines/commands.json'
 import { TIMEOUT_COMMAND, TIMEOUT_COMMAND_STRING, COLORS } from '../defines/values.json'
 import { validDisplayDevRoles, validDisplayEngRoles } from './utils'
 import { embedTemplate } from './utils'
+import { ofetch } from 'ofetch'
 
 const nextTextMessage = async (dm: DMChannel, interaction: CommandInteraction): Promise<string> => {
   try {
@@ -136,7 +137,7 @@ export const useIntroduce = (): Command => {
       const name = await nextTextMessage(dm, interaction)
 
       await dm.send(INTRODUCE.SETS.USER.NICK)
-      const nick = await nextTextMessage(dm, interaction)
+      const nickname = await nextTextMessage(dm, interaction)
 
       await dm.send(INTRODUCE.SETS.USER.ABOUT)
       const about = await nextTextMessage(dm, interaction)
@@ -144,11 +145,43 @@ export const useIntroduce = (): Command => {
       await dm.send(INTRODUCE.SETS.USER.GIT)
       const git = await nextTextMessage(dm, interaction)
 
-      if ([name, nick, about, git].some((v) => v === TIMEOUT_COMMAND_STRING)) {
+      if ([name, nickname, about, git].some((v) => v === TIMEOUT_COMMAND_STRING)) {
         await dm.send('\n**Algum dos seus dados inseridos não é válido. Tente novamente, por favor!**\n')
 
         return
       }
+
+      ofetch<IntroducePUT>(`${process.env.API_URL}/users/${member.id}`, {
+        headers: { Authorization: process.env.HE4RT_TOKEN as string },
+        method: 'PUT',
+        body: {
+          name,
+          nickname,
+          git,
+          about,
+        },
+      }).catch(() => {
+        ofetch<IntroducePOST>(`${process.env.API_URL}/users/`, {
+          headers: { Authorization: process.env.HE4RT_TOKEN as string },
+          method: 'POST',
+          body: {
+            discord_id: member.id,
+          },
+        })
+          .then(() => {
+            ofetch<IntroducePUT>(`${process.env.API_URL}/users/${member.id}`, {
+              headers: { Authorization: process.env.HE4RT_TOKEN as string },
+              method: 'PUT',
+              body: {
+                name,
+                nickname,
+                git,
+                about,
+              },
+            }).catch(() => {})
+          })
+          .catch(() => {})
+      })
 
       await nextMultipleAndRecursiveRolesSelection(
         VALID_PRESENTATION_DEV_ROLES,
@@ -165,7 +198,7 @@ export const useIntroduce = (): Command => {
       const fields = [
         [
           { name: '**Nome:**', value: name, inline: true },
-          { name: '**Nickname:**', value: nick, inline: true },
+          { name: '**Nickname:**', value: nickname, inline: true },
           { name: '**Sobre:**', value: about, inline: true },
         ],
         [
