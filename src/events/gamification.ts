@@ -22,7 +22,7 @@ export const XPCounterAndPossibleLevelUp = (client: He4rtClient, message: Messag
   if (message.channel.type === ChannelType.DM || invalidChannels.some((v) => v.id === message.channel.id)) return
 
   ofetch<GamificationPOST>(`${process.env.API_URL}/bot/gamification/levelup`, {
-    headers: { Authorization: process.env.HE4RT_TOKEN as string },
+    headers: { Authorization: process.env.HE4RT_TOKEN },
     method: 'POST',
     body: {
       discord_id: member.id,

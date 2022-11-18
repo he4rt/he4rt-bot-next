@@ -17,10 +17,9 @@ const registerHooks = (client: He4rtClient, commands: Command[]) => {
 export const registerCommands = async ({ client, rest }: Context) => {
   registerHooks(client, [useIntroduce(), useAnnounce(), useColor(), useBan(), useRanking(), useDaily(), useProfile()])
 
-  await rest.put(
-    Routes.applicationGuildCommands(process.env.DISCORD_CLIENT_ID as string, process.env.DISCORD_GUILD_ID as string),
-    { body: [...client.commands.keys()] }
-  )
+  await rest.put(Routes.applicationGuildCommands(process.env.DISCORD_CLIENT_ID, process.env.DISCORD_GUILD_ID), {
+    body: [...client.commands.keys()],
+  })
 }
 
 export const commandsListener = async (client: He4rtClient, interaction: CommandInteraction) => {

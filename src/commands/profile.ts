@@ -18,7 +18,7 @@ export const useProfile = (): Command => {
 
       ofetch<ProfileGET>(`${process.env.API_URL}/users/${member.id}`, {
         parseResponse: JSON_PARSE,
-        headers: { Authorization: process.env.HE4RT_TOKEN as string },
+        headers: { Authorization: process.env.HE4RT_TOKEN },
         method: 'GET',
       })
         .then(async (user) => {

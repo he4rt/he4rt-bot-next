@@ -155,7 +155,7 @@ export const useIntroduce = (): Command => {
       }
 
       ofetch<IntroducePUT>(`${process.env.API_URL}/users/${member.id}`, {
-        headers: { Authorization: process.env.HE4RT_TOKEN as string },
+        headers: { Authorization: process.env.HE4RT_TOKEN },
         method: 'PUT',
         body: {
           name,
@@ -165,7 +165,7 @@ export const useIntroduce = (): Command => {
         },
       }).catch(() => {
         ofetch<IntroducePOST>(`${process.env.API_URL}/users/`, {
-          headers: { Authorization: process.env.HE4RT_TOKEN as string },
+          headers: { Authorization: process.env.HE4RT_TOKEN },
           method: 'POST',
           body: {
             discord_id: member.id,
@@ -173,7 +173,7 @@ export const useIntroduce = (): Command => {
         })
           .then(() => {
             ofetch<IntroducePUT>(`${process.env.API_URL}/users/${member.id}`, {
-              headers: { Authorization: process.env.HE4RT_TOKEN as string },
+              headers: { Authorization: process.env.HE4RT_TOKEN },
               method: 'PUT',
               body: {
                 name,
