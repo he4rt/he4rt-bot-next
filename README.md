@@ -17,6 +17,16 @@
 - Todas as definições estão na pasta `src/defines` (com exceção das strings de localização) ao invés de usar o `.env`;
 - Os listeners são subdivididos pelo seu emissor (a versão antiga tratava somente em eventos de mensagem).
 
+## Commands
+
+- `/anunciar` (ADM)
+- `/ban` (ADM)
+- `/cor` (PRIVILEGIADOS)
+- `/daily`
+- `/apresentar`
+- `/perfil`
+- `/ranking`
+
 ## Requirements
 
 - [Node 14](https://nodejs.org/en/)
