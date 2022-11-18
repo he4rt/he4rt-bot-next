@@ -4,7 +4,7 @@ import { useAnnounce } from './announce'
 import { useBan } from './ban'
 import { useColor } from './color'
 import { useDaily } from './daily'
-import { useIntroduce } from './introduce'
+import { useIntroduction } from './introduction'
 import { useProfile } from './profile'
 import { useRanking } from './ranking'
 
@@ -15,7 +15,15 @@ const registerHooks = (client: He4rtClient, commands: Command[]) => {
 }
 
 export const registerCommands = async ({ client, rest }: Context) => {
-  registerHooks(client, [useIntroduce(), useAnnounce(), useColor(), useBan(), useRanking(), useDaily(), useProfile()])
+  registerHooks(client, [
+    useIntroduction(),
+    useAnnounce(),
+    useColor(),
+    useBan(),
+    useRanking(),
+    useDaily(),
+    useProfile(),
+  ])
 
   await rest.put(Routes.applicationGuildCommands(process.env.DISCORD_CLIENT_ID, process.env.DISCORD_GUILD_ID), {
     body: [...client.commands.keys()],

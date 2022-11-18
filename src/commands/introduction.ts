@@ -97,7 +97,7 @@ const nextHe4rtDelasRole = async (
   return false
 }
 
-export const useIntroduce = (): Command => {
+export const useIntroduction = (): Command => {
   const data = new SlashCommandBuilder()
     .setName(INTRODUCE.TITLE)
     .setDescription(INTRODUCE.DESCRIPTION)
