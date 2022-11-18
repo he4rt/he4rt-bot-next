@@ -1,4 +1,4 @@
-import { ChannelType, GuildMember, HexColorString, Message, TextBasedChannel } from 'discord.js'
+import { ChannelType, GuildMember, Message, TextBasedChannel } from 'discord.js'
 import { ofetch } from 'ofetch'
 import { embedTemplate, isPrivileged } from '../commands/utils'
 import { GamificationPOST, He4rtClient } from '../types'
@@ -12,7 +12,6 @@ import {
   PRESENTATIONS_CHANNEL,
   COMMANDS_CHANNEL,
 } from '../defines/ids.json'
-import { COLORS } from '../defines/values.json'
 
 export const XPCounterAndPossibleLevelUp = (client: He4rtClient, message: Message) => {
   const member = message.member as GuildMember
@@ -20,6 +19,8 @@ export const XPCounterAndPossibleLevelUp = (client: He4rtClient, message: Messag
   const invalidChannels = [LEVELUP_CHANNEL, PRESENTATIONS_CHANNEL, COMMANDS_CHANNEL]
 
   if (message.channel.type === ChannelType.DM || invalidChannels.some((v) => v.id === message.channel.id)) return
+
+  if (client.user?.id === message.author.id) return
 
   ofetch<GamificationPOST>(`${process.env.API_URL}/bot/gamification/levelup`, {
     headers: { Authorization: process.env.HE4RT_TOKEN },
@@ -56,7 +57,6 @@ export const XPCounterAndPossibleLevelUp = (client: He4rtClient, message: Messag
 
       const embed = embedTemplate({
         title: `🆙 **${member.user.username}** subiu para o nível ${data.level}!`,
-        color: COLORS.HE4RT as HexColorString,
         target: {
           user: message.author,
           icon: true,
@@ -65,7 +65,7 @@ export const XPCounterAndPossibleLevelUp = (client: He4rtClient, message: Messag
 
       const channel = client.channels.cache.get(LEVELUP_CHANNEL.id) as TextBasedChannel
 
-      await channel?.send({ embeds: [embed] })
+      await channel?.send({ content: `<@${message.author.id}>`, embeds: [embed] })
     })
     .catch(() => {})
 }
