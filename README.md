@@ -13,7 +13,7 @@
 - ✅ /ban (ADM)
 - ✅ /cor (Apoiadores)
 - ✅ /ranking
-- ❓ /perfil 
+- ✅ /perfil 
 
 ## Requirements
 

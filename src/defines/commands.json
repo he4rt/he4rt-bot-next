@@ -44,5 +44,9 @@
   "DAILY": {
     "TITLE": "daily",
     "DESCRIPTION": "Pegue aqui sua recompensa diária por interagir no servidor!"
+  },
+  "PROFILE": {
+    "TITLE": "perfil",
+    "DESCRIPTION": "Veja seus dados."
   }
 }

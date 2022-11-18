@@ -21,6 +21,7 @@ export const useRanking = (): Command => {
 
       ofetch<RankingGET>(`${process.env.API_URL}/ranking/general?page=${page}`, {
         parseResponse: JSON_PARSE,
+        headers: { Authorization: process.env.HE4RT_TOKEN as string },
         method: 'GET',
       })
         .then(async ({ data: members }) => {

@@ -35,6 +35,29 @@ export interface DailyPOST extends Record<any, any> {
   }
 }
 
+export interface ProfileGET extends Record<string, any> {
+  id: number
+  discord_id: string
+  twitch_id: any
+  email: string | null
+  name: string
+  nickname: string
+  git: string
+  about: string
+  level: number
+  current_exp: number
+  money: string
+  daily: string
+  created_at: string | null
+  updated_at: string | null
+  levelup_exp: {
+    id: number
+    required: number
+    created_at: string | null
+    updated_at: string | null
+  }
+}
+
 export interface RankingMember {
   nickname?: string
   level: number

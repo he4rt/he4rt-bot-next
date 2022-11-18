@@ -1,7 +1,30 @@
 import { EmbedBuilder, GuildMember, HexColorString, User } from 'discord.js'
 import { COLORS, HE4RT_ICON_1_URL } from '../defines/values.json'
-import { DONATOR_ROLE, NITRO_BOOSTER_ROLE } from '../defines/ids.json'
+import {
+  DONATOR_ROLE,
+  NITRO_BOOSTER_ROLE,
+  VALID_PRESENTATION_DEV_ROLES,
+  VALID_PRESENTATION_ENG_ROLES,
+} from '../defines/ids.json'
 import { EmbedTemplateOptions } from '../types'
+
+export const validDisplayDevRoles = (member: GuildMember) => {
+  return (
+    member?.roles?.cache
+      ?.filter((role) => VALID_PRESENTATION_DEV_ROLES.some((v) => v.id === role.id))
+      .map((role) => `<@&${role.id}>`)
+      .join(', ') || '`Nenhuma`'
+  )
+}
+
+export const validDisplayEngRoles = (member: GuildMember) => {
+  return (
+    member?.roles?.cache
+      ?.filter((role) => VALID_PRESENTATION_ENG_ROLES.some((v) => v.id === role.id))
+      .map((role) => `<@&${role.id}>`)
+      .join(', ') || '`Nenhuma`'
+  )
+}
 
 export const getUserAvatar = (author: User) => {
   return `https://cdn.discordapp.com/avatars/${author.id}/${author.avatar}.png?size=256`

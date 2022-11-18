@@ -1,7 +1,6 @@
 import {
   CommandInteraction,
   DMChannel,
-  EmbedBuilder,
   GuildMember,
   HexColorString,
   SlashCommandBuilder,
@@ -17,7 +16,8 @@ import {
 } from '../defines/ids.json'
 import { INTRODUCE } from '../defines/commands.json'
 import { TIMEOUT_COMMAND, TIMEOUT_COMMAND_STRING, COLORS } from '../defines/values.json'
-import { embedTemplate, getUserAvatar } from './utils'
+import { validDisplayDevRoles, validDisplayEngRoles } from './utils'
+import { embedTemplate } from './utils'
 
 const nextTextMessage = async (dm: DMChannel, interaction: CommandInteraction): Promise<string> => {
   try {
@@ -94,24 +94,6 @@ const nextHe4rtDelasRole = async (
   }
 
   return false
-}
-
-const validDisplayDevRoles = (member: GuildMember) => {
-  return (
-    member?.roles?.cache
-      ?.filter((role) => VALID_PRESENTATION_DEV_ROLES.some((v) => v.id === role.id))
-      .map((role) => `<@&${role.id}>`)
-      .join(', ') || '`Nenhuma`'
-  )
-}
-
-const validDisplayEngRoles = (member: GuildMember) => {
-  return (
-    member?.roles?.cache
-      ?.filter((role) => VALID_PRESENTATION_ENG_ROLES.some((v) => v.id === role.id))
-      .map((role) => `<@&${role.id}>`)
-      .join(', ') || '`Nenhuma`'
-  )
 }
 
 export const useIntroduce = (): Command => {

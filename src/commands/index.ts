@@ -5,6 +5,7 @@ import { useBan } from './ban'
 import { useColor } from './color'
 import { useDaily } from './daily'
 import { useIntroduce } from './introduce'
+import { useProfile } from './profile'
 import { useRanking } from './ranking'
 
 const registerHooks = (client: He4rtClient, commands: Command[]) => {
@@ -14,7 +15,7 @@ const registerHooks = (client: He4rtClient, commands: Command[]) => {
 }
 
 export const registerCommands = async ({ client, rest }: Context) => {
-  registerHooks(client, [useIntroduce(), useAnnounce(), useColor(), useBan(), useRanking(), useDaily()])
+  registerHooks(client, [useIntroduce(), useAnnounce(), useColor(), useBan(), useRanking(), useDaily(), useProfile()])
 
   client.on(Events.InteractionCreate, async (interaction) => {
     if (!interaction.isChatInputCommand()) return
