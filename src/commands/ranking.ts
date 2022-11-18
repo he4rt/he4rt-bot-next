@@ -50,9 +50,7 @@ export const useRanking = (): Command => {
             fields: [fields],
           })
 
-          await interaction.channel?.send({ embeds: [embed] })
-
-          await interaction.reply({ content: 'Sucesso!', ephemeral: true })
+          await interaction.reply({ embeds: [embed], ephemeral: true })
         })
         .catch(async () => {
           await interaction.reply({

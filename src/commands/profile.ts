@@ -64,11 +64,10 @@ export const useProfile = (): Command => {
             fields,
           })
 
-          await interaction.channel?.send({
+          await interaction.reply({
             embeds: [embed],
+            ephemeral: true,
           })
-
-          await interaction.reply({ content: 'Sucesso!', ephemeral: true })
         })
         .catch(async () => {
           await interaction.reply({
