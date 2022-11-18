@@ -19,6 +19,7 @@ import { TIMEOUT_COMMAND, TIMEOUT_COMMAND_STRING, COLORS } from '@/defines/value
 import { validDisplayDevRoles, validDisplayEngRoles } from './utils'
 import { embedTemplate } from './utils'
 import { ofetch } from 'ofetch'
+import JSON_PARSE from 'destr'
 
 const nextTextMessage = async (dm: DMChannel, interaction: CommandInteraction): Promise<string> => {
   try {
@@ -146,6 +147,7 @@ export const useIntroduction = (): Command => {
       }
 
       ofetch<IntroducePUT>(`${process.env.API_URL}/users/${member.id}`, {
+        parseResponse: JSON_PARSE,
         headers: { Authorization: process.env.HE4RT_TOKEN },
         method: 'PUT',
         body: {
@@ -156,6 +158,7 @@ export const useIntroduction = (): Command => {
         },
       }).catch(() => {
         ofetch<IntroducePOST>(`${process.env.API_URL}/users/`, {
+          parseResponse: JSON_PARSE,
           headers: { Authorization: process.env.HE4RT_TOKEN },
           method: 'POST',
           body: {
@@ -164,6 +167,7 @@ export const useIntroduction = (): Command => {
         })
           .then(() => {
             ofetch<IntroducePUT>(`${process.env.API_URL}/users/${member.id}`, {
+              parseResponse: JSON_PARSE,
               headers: { Authorization: process.env.HE4RT_TOKEN },
               method: 'PUT',
               body: {
