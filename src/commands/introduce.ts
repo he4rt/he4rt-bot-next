@@ -145,7 +145,10 @@ export const useIntroduce = (): Command => {
       await dm.send(INTRODUCE.SETS.USER.GIT)
       const git = await nextTextMessage(dm, interaction)
 
-      if ([name, nickname, about, git].some((v) => v === TIMEOUT_COMMAND_STRING)) {
+      await dm.send(INTRODUCE.SETS.USER.LINKEDIN)
+      const linkedin = await nextTextMessage(dm, interaction)
+
+      if ([name, nickname, about, git, linkedin].some((v) => v === TIMEOUT_COMMAND_STRING)) {
         await dm.send('\n**Algum dos seus dados inseridos não é válido. Tente novamente, por favor!**\n')
 
         return
@@ -203,6 +206,7 @@ export const useIntroduce = (): Command => {
         ],
         [
           { name: '**GIT:**', value: git, inline: true },
+          { name: '**Linkedin:**', value: linkedin, inline: true },
           {
             name: '**Linguagens:**',
             value: validDisplayDevRoles(member),
