@@ -9,6 +9,7 @@
 - Agora os comandos podem ser utilizados em qualquer canal (comandos privilegiados ainda dependem de condições de canal específico, como o /cor);
 - A grande maioria dos comandos retornam mensagens visíveis somente para o usuário, com o intuito de não poluir os canais (e permitir a abordagem do item anterior);
 - Lista de comandos integrada com o `/` do próprio discord;
+- `Nitro Boosters` agora possuem acesso ao canal de apoiadores e seus benefícios (/cor, por exemplo), deixando a role `Apoiadores` somente para os membros do `apoia.se`
 - `/apresentar` somente por texto, descartando as reações;
 - `/apresentar` com recursos adicionais para o `He4rt Delas`;
 - Todas as definições estão na pasta `src/defines` (com exceção das strings de localização) ao invés de usar o `.env`;
