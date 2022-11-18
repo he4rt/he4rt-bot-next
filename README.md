@@ -2,7 +2,7 @@
 
 **Differences to the OLD Version:**
 
-- `JS` -> `TS 100% Type-Safe`
+- `JS` -> `TS 100% Type-Safe`;
 - `discord.js v9` -> `discord.js v14`;
 - Fluxo implementado em [OOD](https://en.wikipedia.org/wiki/Object-oriented_design) (com limitações);
 - *Purge* completo de lib's desnecessárias/depreciadas;
