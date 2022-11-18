@@ -6,16 +6,16 @@ import {
   SlashCommandBuilder,
   TextBasedChannel,
 } from 'discord.js'
-import { Command, IntroducePOST, IntroducePUT } from '../types'
+import { Command, IntroducePOST, IntroducePUT } from '@/types'
 import {
   PRESENTATIONS_CHANNEL,
   PRESENTED_ROLE,
   HE4RT_DELAS_ROLE,
   VALID_PRESENTATION_DEV_ROLES,
   VALID_PRESENTATION_ENG_ROLES,
-} from '../defines/ids.json'
-import { INTRODUCE } from '../defines/commands.json'
-import { TIMEOUT_COMMAND, TIMEOUT_COMMAND_STRING, COLORS } from '../defines/values.json'
+} from '@/defines/ids.json'
+import { INTRODUCE } from '@/defines/commands.json'
+import { TIMEOUT_COMMAND, TIMEOUT_COMMAND_STRING, COLORS } from '@/defines/values.json'
 import { validDisplayDevRoles, validDisplayEngRoles } from './utils'
 import { embedTemplate } from './utils'
 import { ofetch } from 'ofetch'

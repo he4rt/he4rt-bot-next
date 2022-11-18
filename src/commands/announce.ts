@@ -1,7 +1,7 @@
 import { PermissionFlagsBits, SlashCommandBuilder, TextBasedChannel } from 'discord.js'
-import { Command } from '../types'
-import { ANNOUNCE } from '../defines/commands.json'
-import { ADVERTS_CHANNEL } from '../defines/ids.json'
+import { Command } from '@/types'
+import { ANNOUNCE } from '@/defines/commands.json'
+import { ADVERTS_CHANNEL } from '@/defines/ids.json'
 import { embedTemplate } from './utils'
 
 export const useAnnounce = (): Command => {

@@ -1,7 +1,7 @@
 import { ChannelType, GuildMember, Message, TextBasedChannel } from 'discord.js'
 import { ofetch } from 'ofetch'
-import { embedTemplate, isPrivileged } from '../commands/utils'
-import { GamificationPOST, He4rtClient } from '../types'
+import { embedTemplate, isPrivileged } from '@/commands/utils'
+import { GamificationPOST, He4rtClient } from '@/types'
 import {
   BEGINNER_ROLE,
   INTERMEDIATE_ROLE,
@@ -11,7 +11,7 @@ import {
   LEVELUP_CHANNEL,
   PRESENTATIONS_CHANNEL,
   COMMANDS_CHANNEL,
-} from '../defines/ids.json'
+} from '@/defines/ids.json'
 
 export const XPCounterAndPossibleLevelUp = (client: He4rtClient, message: Message) => {
   const member = message.member as GuildMember

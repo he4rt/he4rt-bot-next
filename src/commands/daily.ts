@@ -1,6 +1,6 @@
 import { GuildMember, SlashCommandBuilder } from 'discord.js'
-import { Command, DailyPOST } from '../types'
-import { DAILY } from '../defines/commands.json'
+import { Command, DailyPOST } from '@/types'
+import { DAILY } from '@/defines/commands.json'
 import { ofetch } from 'ofetch'
 import JSON_PARSE from 'destr'
 import { isPrivileged } from './utils'

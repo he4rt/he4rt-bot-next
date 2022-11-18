@@ -1,5 +1,5 @@
-import { CommandInteraction, Events, Routes } from 'discord.js'
-import { Command, Context, He4rtClient } from '../types'
+import { CommandInteraction, Routes } from 'discord.js'
+import { Command, Context, He4rtClient } from '@/types'
 import { useAnnounce } from './announce'
 import { useBan } from './ban'
 import { useColor } from './color'

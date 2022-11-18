@@ -1,12 +1,12 @@
 import { EmbedBuilder, GuildMember, HexColorString, User } from 'discord.js'
-import { COLORS, HE4RT_ICON_1_URL } from '../defines/values.json'
+import { COLORS, HE4RT_ICON_1_URL } from '@/defines/values.json'
 import {
   DONATOR_ROLE,
   NITRO_BOOSTER_ROLE,
   VALID_PRESENTATION_DEV_ROLES,
   VALID_PRESENTATION_ENG_ROLES,
-} from '../defines/ids.json'
-import { EmbedTemplateOptions } from '../types'
+} from '@/defines/ids.json'
+import { EmbedTemplateOptions } from '@/types'
 
 export const validDisplayDevRoles = (member: GuildMember) => {
   return (

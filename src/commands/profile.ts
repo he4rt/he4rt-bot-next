@@ -1,6 +1,6 @@
 import { GuildMember, SlashCommandBuilder } from 'discord.js'
-import { Command, ProfileGET } from '../types'
-import { PROFILE } from '../defines/commands.json'
+import { Command, ProfileGET } from '@/types'
+import { PROFILE } from '@/defines/commands.json'
 import { embedTemplate, validDisplayDevRoles, validDisplayEngRoles } from './utils'
 import { ofetch } from 'ofetch'
 import JSON_PARSE from 'destr'

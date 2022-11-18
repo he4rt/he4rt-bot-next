@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from 'discord.js'
-import { Command } from '../types'
-import { EXAMPLE } from '../defines/commands.json'
+import { Command } from '@/types'
+import { EXAMPLE } from '@/defines/commands.json'
 
 export const useExample = (): Command => {
   const data = new SlashCommandBuilder()

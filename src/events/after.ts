@@ -1,5 +1,5 @@
 import { ActivityType } from 'discord.js'
-import { He4rtClient } from '../types'
+import { He4rtClient } from '@/types'
 
 export const setPresence = (client: He4rtClient) => {
   client?.user?.setPresence({

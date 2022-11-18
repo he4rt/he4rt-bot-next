@@ -1,7 +1,7 @@
 import { CommandInteractionOption, GuildMember, HexColorString, SlashCommandBuilder } from 'discord.js'
-import { Command } from '../types'
-import { COLOR } from '../defines/commands.json'
-import { DONATORS_CHANNEL } from '../defines/ids.json'
+import { Command } from '@/types'
+import { COLOR } from '@/defines/commands.json'
+import { DONATORS_CHANNEL } from '@/defines/ids.json'
 import { isPrivileged } from './utils'
 
 export const useColor = (): Command => {

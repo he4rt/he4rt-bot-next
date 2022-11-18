@@ -1,6 +1,6 @@
 import { Events } from 'discord.js'
-import { commandsListener } from '../commands'
-import { He4rtClient } from '../types'
+import { commandsListener } from '@/commands'
+import { He4rtClient } from '@/types'
 import { gamificationListener } from './gamification'
 
 export const beforeListeners = (client: He4rtClient) => {
