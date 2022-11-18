@@ -37,6 +37,7 @@ export const isPrivileged = (member: GuildMember) => {
 export const embedTemplate = (options: EmbedTemplateOptions) => {
   const embed = new EmbedBuilder().setColor(options.color || (COLORS.HE4RT as HexColorString)).setTitle(options.title)
 
+  if (options.description) embed.setDescription(options.description)
   if (options.target?.icon) embed.setThumbnail(getUserAvatar(options.target.user))
   if (options.url) embed.setURL(options.url)
   if (options.author?.avatar) embed.setAuthor({ name: options.author.username, iconURL: getUserAvatar(options.author) })
