@@ -63,28 +63,28 @@
     "emoji": "⚡"
   },
   "BEGINNER_ROLE": {
-    "id": "",
+    "id": "1042817315227582491",
     "name": "Beginner",
-    "emoji": "⚡"
+    "emoji": "🥉"
   },
   "INTERMEDIATE_ROLE": {
-    "id": "",
+    "id": "1042817315227582492",
     "name": "Intermediate",
-    "emoji": "⚡"
+    "emoji": "🥈"
   },
   "ADVANCED_ROLE": {
-    "id": "",
+    "id": "1042817315227582493",
     "name": "Advanced",
-    "emoji": "⚡"
+    "emoji": "🏅"
   },
   "SUPREME_ROLE": {
-    "id": "",
+    "id": "1042817315248541747",
     "name": "Supreme",
-    "emoji": "⚡"
+    "emoji": "🥇"
   },
   "HE4RT_ROLE": {
-    "id": "",
+    "id": "1042817315269509121",
     "name": "He4rt",
-    "emoji": "⚡"
+    "emoji": "💜"
   }
 }
