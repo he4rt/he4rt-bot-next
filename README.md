@@ -5,6 +5,7 @@
 - ✅ Structure
 - ✅ Commands Register
 - ✅ API
+- ✅ Gamification
 - ✖️ Deploy
 - ✅ /comandos 
 - ✅ /anunciar (ADM)

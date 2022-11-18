@@ -1,12 +1,15 @@
 import 'dotenv/config'
-import { setPresence } from './events/after'
+import { afterListeners } from './events/after'
+import { beforeListeners } from './events/before'
 import { runner } from './main'
 
 runner()
   .then(async ({ client }) => {
+    await beforeListeners(client)
+
     await client.login(process.env.DISCORD_TOKEN)
 
-    setPresence(client)
+    await afterListeners(client)
   })
   .catch(() => {})
   .finally(() => {})

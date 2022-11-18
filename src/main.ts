@@ -5,7 +5,13 @@ import { ofetch } from 'ofetch'
 
 export const runner = async (): Promise<Context> => {
   const client = new Client({
-    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.DirectMessages],
+    intents: [
+      GatewayIntentBits.Guilds,
+      GatewayIntentBits.GuildMembers,
+      GatewayIntentBits.GuildMessages,
+      GatewayIntentBits.DirectMessages,
+      GatewayIntentBits.MessageContent,
+    ],
   }) as He4rtClient
   client.commands = new Collection()
 

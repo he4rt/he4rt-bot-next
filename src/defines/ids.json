@@ -1,4 +1,8 @@
 {
+  "COMMANDS_CHANNEL": {
+    "id": "1042817315965763599",
+    "title": "🤖︱comandos"
+  },
   "ADVERTS_CHANNEL": {
     "id": "1042821299224985640",
     "title": "📢︱anúncios"
@@ -14,6 +18,10 @@
   "PUNISHMENTS_CHANNEL": {
     "id": "1042817315781218330",
     "title": "📌│punishments-and-mods"
+  },
+  "LEVELUP_CHANNEL": {
+    "id": "1042817318981472322",
+    "title": "📈│levelup"
   },
   "VALID_PRESENTATION_DEV_ROLES": [
     { "id": "1042817315227582488", "name": "GameDev", "emoji": "🎮" },
@@ -52,6 +60,31 @@
   "NITRO_BOOSTER_ROLE": {
     "id": "1042817315248541752",
     "name": "Nitro Booster",
+    "emoji": "⚡"
+  },
+  "BEGINNER_ROLE": {
+    "id": "",
+    "name": "Beginner",
+    "emoji": "⚡"
+  },
+  "INTERMEDIATE_ROLE": {
+    "id": "",
+    "name": "Intermediate",
+    "emoji": "⚡"
+  },
+  "ADVANCED_ROLE": {
+    "id": "",
+    "name": "Advanced",
+    "emoji": "⚡"
+  },
+  "SUPREME_ROLE": {
+    "id": "",
+    "name": "Supreme",
+    "emoji": "⚡"
+  },
+  "HE4RT_ROLE": {
+    "id": "",
+    "name": "He4rt",
     "emoji": "⚡"
   }
 }

@@ -13,3 +13,7 @@ export const setPresence = (client: He4rtClient) => {
     ],
   })
 }
+
+export const afterListeners = async (client: He4rtClient) => {
+  setPresence(client)
+}

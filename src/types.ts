@@ -7,6 +7,7 @@ import {
   REST,
   RestOrArray,
   SlashCommandBuilder,
+  TextBasedChannel,
   User,
 } from 'discord.js'
 
@@ -61,6 +62,8 @@ export interface ProfileGET extends Record<string, any> {
     updated_at: string | null
   }
 }
+
+export interface GamificationPOST extends Record<string, any> {}
 
 export interface RankingMember {
   nickname?: string
