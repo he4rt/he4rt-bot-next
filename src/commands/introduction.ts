@@ -146,41 +146,6 @@ export const useIntroduction = (): Command => {
         return
       }
 
-      ofetch<IntroducePUT>(`${process.env.API_URL}/users/${member.id}`, {
-        parseResponse: JSON_PARSE,
-        headers: { Authorization: process.env.HE4RT_TOKEN },
-        method: 'PUT',
-        body: {
-          name,
-          nickname,
-          git,
-          about,
-        },
-      }).catch(() => {
-        ofetch<IntroducePOST>(`${process.env.API_URL}/users/`, {
-          parseResponse: JSON_PARSE,
-          headers: { Authorization: process.env.HE4RT_TOKEN },
-          method: 'POST',
-          body: {
-            discord_id: member.id,
-          },
-        })
-          .then(() => {
-            ofetch<IntroducePUT>(`${process.env.API_URL}/users/${member.id}`, {
-              parseResponse: JSON_PARSE,
-              headers: { Authorization: process.env.HE4RT_TOKEN },
-              method: 'PUT',
-              body: {
-                name,
-                nickname,
-                git,
-                about,
-              },
-            }).catch(() => {})
-          })
-          .catch(() => {})
-      })
-
       await nextMultipleAndRecursiveRolesSelection(
         VALID_PRESENTATION_DEV_ROLES,
         INTRODUCE.SETS.USER.LANGUAGES,
@@ -231,6 +196,41 @@ export const useIntroduction = (): Command => {
       })
 
       await member.roles.add(PRESENTED_ROLE.id)
+
+      ofetch<IntroducePUT>(`${process.env.API_URL}/users/${member.id}`, {
+        parseResponse: JSON_PARSE,
+        headers: { Authorization: process.env.HE4RT_TOKEN },
+        method: 'PUT',
+        body: {
+          name,
+          nickname,
+          git,
+          about,
+        },
+      }).catch(() => {
+        ofetch<IntroducePOST>(`${process.env.API_URL}/users/`, {
+          parseResponse: JSON_PARSE,
+          headers: { Authorization: process.env.HE4RT_TOKEN },
+          method: 'POST',
+          body: {
+            discord_id: member.id,
+          },
+        })
+          .then(() => {
+            ofetch<IntroducePUT>(`${process.env.API_URL}/users/${member.id}`, {
+              parseResponse: JSON_PARSE,
+              headers: { Authorization: process.env.HE4RT_TOKEN },
+              method: 'PUT',
+              body: {
+                name,
+                nickname,
+                git,
+                about,
+              },
+            }).catch(() => {})
+          })
+          .catch(() => {})
+      })
 
       await dm.send(INTRODUCE.SETS.FINISH)
     },
