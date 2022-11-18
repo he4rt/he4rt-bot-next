@@ -12,12 +12,12 @@ export const useRanking = (): Command => {
     .setName(RANKING.TITLE)
     .setDescription(RANKING.DESCRIPTION)
     .setDMPermission(false)
-    .addStringOption((option) => option.setName('page').setDescription('Qual página deseja ver?').setRequired(true))
+    .addNumberOption((option) => option.setName('page').setDescription('Qual página deseja ver?').setRequired(true))
 
   return [
     data,
     async (interaction, client) => {
-      const page = Number(interaction.options.get('page')?.value) || 1
+      const page = (interaction.options.get('page')?.value as number) || 1
 
       ofetch<RankingGET>(`${process.env.API_URL}/ranking/general?page=${page}`, {
         parseResponse: JSON_PARSE,
