@@ -24,7 +24,7 @@ export const useDaily = (): Command => {
       })
         .then(async ({ data }) => {
           await interaction.reply({
-            content: `Você ganhou ${data.points} HCoins de bônus diário! Para ver seu saldo, use o comando **/coins**`,
+            content: `Você ganhou ${data.points} HCoins de bônus diário! Para ver seu saldo, use o comando **/perfil**`,
             ephemeral: true,
           })
         })
