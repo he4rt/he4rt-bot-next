@@ -25,10 +25,19 @@ export const useChat = (): Command => {
 
       if (!channel) return
 
+      const value = !stop.value as boolean
+
       channel.permissionOverwrites
-        .edit(guild.roles.cache.get(PRESENTED_ROLE.id), { SendMessages: !stop.value as boolean })
+        .edit(guild.id, { SendMessages: value })
         .then(async () => {
-          await reply(interaction).success()
+          channel.permissionOverwrites
+            .edit(PRESENTED_ROLE.id, { SendMessages: value })
+            .then(async () => {
+              await reply(interaction).success()
+            })
+            .catch(async () => {
+              await reply(interaction).errorPermission()
+            })
         })
         .catch(async () => {
           await reply(interaction).errorPermission()

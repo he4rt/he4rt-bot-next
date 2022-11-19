@@ -1,4 +1,4 @@
 {
   "CHANNEL_OPTION": "ADM|MOD: Deseja pausar ou continuar o chat em questão?",
-  "STOP_OPTION": "Deseja pausar ou continuar o chat em questão?"
+  "STOP_OPTION": "Deseja pausar(True) ou continuar(False) o chat em questão?"
 }
