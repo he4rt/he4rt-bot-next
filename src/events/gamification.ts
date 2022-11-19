@@ -1,6 +1,6 @@
 import { ChannelType, GuildMember, Message, TextBasedChannel } from 'discord.js'
 import { ofetch } from 'ofetch'
-import { embedTemplate, isPrivileged } from '@/commands/utils'
+import { embedTemplate, isPrivileged } from '@/utils'
 import { GamificationPOST, He4rtClient } from '@/types'
 import {
   BEGINNER_ROLE,
