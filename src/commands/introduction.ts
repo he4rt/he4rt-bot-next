@@ -118,12 +118,6 @@ export const useIntroduction = (): Command => {
         return
       }
 
-      if (member?.roles?.cache.some((role) => role.id === PRESENTED_ROLE.id)) {
-        await interaction.reply({ content: 'Você já se apresentou!', ephemeral: true })
-
-        return
-      }
-
       await interaction.reply({ content: 'Enviado na DM!', ephemeral: true })
 
       await dm.send(INTRODUCTION.CONTINUE)
