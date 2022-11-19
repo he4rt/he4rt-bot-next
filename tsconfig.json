@@ -4,6 +4,7 @@
     "module": "commonjs",
     "resolveJsonModule": true,
     "downlevelIteration": true,
+    "esModuleInterop": true,
     "paths": {
       "@/*": ["src/*"]
     }

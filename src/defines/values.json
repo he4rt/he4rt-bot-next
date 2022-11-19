@@ -1,5 +1,5 @@
 {
-  "TIMEOUT_COMMAND": 60000,
+  "TIMEOUT_COMMAND": 120000,
   "TIMEOUT_COMMAND_STRING": "__INVALID__RESPONSE__",
   "HE4RT_ICON_1_URL": "https://i.imgur.com/iWhfWMa.png",
   "COLORS": {

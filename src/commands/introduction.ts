@@ -16,6 +16,7 @@ import {
 } from '@/defines/ids.json'
 import { INTRODUCE } from '@/defines/commands.json'
 import { TIMEOUT_COMMAND, TIMEOUT_COMMAND_STRING, COLORS } from '@/defines/values.json'
+import INTRODUCTION from '@/defines/localisation/commands/introduction.json'
 import { validDisplayDevRoles, validDisplayEngRoles } from './utils'
 import { embedTemplate } from './utils'
 import { ofetch } from 'ofetch'
@@ -46,7 +47,7 @@ const nextMultipleAndRecursiveRolesSelection = async (
   await dm.send(
     roles.reduce((acc, val, index) => (acc += `**${index + 1}**` + ` -   ${val.emoji} ${val.name}` + '\n'), '\n')
   )
-  await dm.send(INTRODUCE.SETS.CONTINUE_MESSAGE)
+  await dm.send(INTRODUCTION.CONTINUE_MESSAGE)
 
   const value = Number(await nextTextMessage(dm, interaction))
 
@@ -81,11 +82,11 @@ const nextHe4rtDelasRole = async (
 ): Promise<boolean> => {
   const roles: any[] = [HE4RT_DELAS_ROLE]
 
-  await dm.send(INTRODUCE.SETS.USER.DELAS)
+  await dm.send(INTRODUCTION.USER.DELAS)
   await dm.send(
     roles.reduce((acc, val, index) => (acc += `**${index + 1}**` + ` -   ${val.emoji} ${val.name}` + '\n'), '\n')
   )
-  await dm.send(INTRODUCE.SETS.CONTINUE_MESSAGE)
+  await dm.send(INTRODUCTION.CONTINUE_MESSAGE)
 
   const value = Number(await nextTextMessage(dm, interaction))
 
@@ -125,19 +126,19 @@ export const useIntroduction = (): Command => {
 
       await interaction.reply({ content: 'Enviado na DM!', ephemeral: true })
 
-      await dm.send(INTRODUCE.SETS.CONTINUE)
+      await dm.send(INTRODUCTION.CONTINUE)
       const name = await nextTextMessage(dm, interaction)
 
-      await dm.send(INTRODUCE.SETS.USER.NICK)
+      await dm.send(INTRODUCTION.USER.NICK)
       const nickname = await nextTextMessage(dm, interaction)
 
-      await dm.send(INTRODUCE.SETS.USER.ABOUT)
+      await dm.send(INTRODUCTION.USER.ABOUT)
       const about = await nextTextMessage(dm, interaction)
 
-      await dm.send(INTRODUCE.SETS.USER.GIT)
+      await dm.send(INTRODUCTION.USER.GIT)
       const git = await nextTextMessage(dm, interaction)
 
-      await dm.send(INTRODUCE.SETS.USER.LINKEDIN)
+      await dm.send(INTRODUCTION.USER.LINKEDIN)
       const linkedin = await nextTextMessage(dm, interaction)
 
       if ([name, nickname, about, git, linkedin].some((v) => v === TIMEOUT_COMMAND_STRING)) {
@@ -148,13 +149,13 @@ export const useIntroduction = (): Command => {
 
       await nextMultipleAndRecursiveRolesSelection(
         VALID_PRESENTATION_DEV_ROLES,
-        INTRODUCE.SETS.USER.LANGUAGES,
+        INTRODUCTION.USER.LANGUAGES,
         dm,
         member,
         interaction
       )
 
-      await nextRoleSelection(VALID_PRESENTATION_ENG_ROLES, INTRODUCE.SETS.USER.ENGLISH, dm, member, interaction)
+      await nextRoleSelection(VALID_PRESENTATION_ENG_ROLES, INTRODUCTION.USER.ENGLISH, dm, member, interaction)
 
       const isHe4rtDelasMember = await nextHe4rtDelasRole(dm, member, interaction)
 
@@ -232,7 +233,7 @@ export const useIntroduction = (): Command => {
           .catch(() => {})
       })
 
-      await dm.send(INTRODUCE.SETS.FINISH)
+      await dm.send(INTRODUCTION.FINISH)
     },
   ]
 }

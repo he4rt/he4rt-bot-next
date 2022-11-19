@@ -1,26 +1,7 @@
 {
-  "COMMANDS_LIST": {
-    "TITLE": "comandos",
-    "DESCRIPTION": "Tenha acesso a lista de comandos do bot.",
-    "SUBTITLE": "Lista de Comandos abaixo:\n\n"
-  },
   "INTRODUCE": {
     "TITLE": "apresentar",
-    "DESCRIPTION": "Se apresente para os membros de nossa comunidade e ganhe cargos!",
-    "SETS": {
-      "CONTINUE": "``❗`` Este é o nosso sistema de apresentação.\n\nResponda as perguntas a seguir com sinceridade total por sua pessoa.\nEu aguardo por um minuto cada resposta, caso este tempo seja ultrapassado, os valores são ignorados.\nSe desejar omitir algum dado, não tem problema algum!\nPara cancelar o envio, apenas ignore.\n\n``❗`` Como primeira questão:\n\n> **Qual é seu nome?** (Exemplo: Daniel Reis)",
-      "CONTINUE_MESSAGE": "\n**0 **-   Continuar a Apresentação.\n",
-      "USER": {
-        "NICK": "> **Qual é seu nickname?** (Exemplo: DanielHe4rt)",
-        "ABOUT": "> **Diga um pouco sobre você:** (Exemplo: Me chamo Gustavo...)",
-        "GIT": "> **Qual é seu Git?** (Exemplo: https://github.com/DanielHe4rt)",
-        "LINKEDIN": "> **Qual é seu Linkedin?** (Exemplo: https://br.linkedin.com/in/danielheart)",
-        "LANGUAGES": "> **Linguagens?** (Digite o número designado para a linguagem que queira receber um cargo no servidor)\n\n",
-        "ENGLISH": "> **Nível de Inglês?**",
-        "DELAS": "**Você se identifica como parte do projeto @💗 He4rt Delas(ela/dela)? Clique em: 💗**\n\n ⚠️ (Espaço restrito para mulheres e pessoas não-binárias, caso reage sem se identificar ou desrespeite este espaço = banimento)\n\n"
-      },
-      "FINISH": "**Sua apresentação foi concluída com sucesso!**"
-    }
+    "DESCRIPTION": "Se apresente para os membros de nossa comunidade e ganhe cargos!"
   },
   "ANNOUNCE": {
     "TITLE": "anunciar",
