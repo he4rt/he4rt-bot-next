@@ -3,11 +3,12 @@
 	"version": "2.0.0",
 	"author": "He4rt Developers",
 	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"scripts": {
 		"dev": "concurrently pnpm:dev:*",
 		"dev:build": "tsup --sourcemap --watch",
 		"dev:run": "nodemon .",
-		"production": "tsup --minify && node .",
+		"production": "tsup --minify --dts && node .",
 		"format": "prettier --write ."
 	},
 	"dependencies": {
@@ -20,6 +21,7 @@
 		"dotenv": "^16.0.3",
 		"nodemon": "^2.0.20",
 		"prettier": "^2.7.1",
-		"tsup": "^6.5.0"
+		"tsup": "^6.5.0",
+		"typescript": "^4.9.3"
 	}
 }
