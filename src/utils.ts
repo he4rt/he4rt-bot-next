@@ -4,6 +4,7 @@ import {
   EmbedBuilder,
   GuildMember,
   HexColorString,
+  TextBasedChannel,
   User,
 } from 'discord.js'
 import { COLORS, HE4RT_ICON_1_URL } from '@/defines/values.json'
@@ -14,7 +15,7 @@ import {
   VALID_PRESENTATION_DEV_ROLES,
   VALID_PRESENTATION_ENG_ROLES,
 } from '@/defines/ids.json'
-import { CommandGetOption, EmbedTemplateOptions } from '@/types'
+import { CommandGetOption, EmbedTemplateOptions, GetChannelOptions } from '@/types'
 
 export const validDisplayDevRoles = (member: GuildMember) => {
   return (
@@ -68,6 +69,10 @@ export const embedTemplate = (options: EmbedTemplateOptions) => {
   }
 
   return embed
+}
+
+export const getChannel = ({ client, interaction, id }: GetChannelOptions) => {
+  return (client.channels.cache.get(id) as TextBasedChannel) || interaction.channel
 }
 
 export const getOption: CommandGetOption = (interaction: CommandInteraction, target: string) => {

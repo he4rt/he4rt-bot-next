@@ -32,6 +32,12 @@ export interface EmbedTemplateOptions {
   }
 }
 
+export interface GetChannelOptions {
+  id: string
+  client: He4rtClient
+  interaction: CommandInteraction
+}
+
 export interface RankingGET extends Record<any, any> {
   data: RankingMember[]
 }

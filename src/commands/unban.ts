@@ -2,7 +2,7 @@ import { PermissionFlagsBits, SlashCommandBuilder, TextBasedChannel } from 'disc
 import { Command } from '@/types'
 import { UNBAN } from '@/defines/commands.json'
 import { PUNISHMENTS_CHANNEL } from '@/defines/ids.json'
-import { embedTemplate } from '@/utils'
+import { embedTemplate, getChannel } from '@/utils'
 
 export const useUnban = (): Command => {
   const data = new SlashCommandBuilder()
@@ -30,7 +30,7 @@ export const useUnban = (): Command => {
       try {
         await interaction?.guild?.members.unban(user)
       } catch (e) {
-        await interaction.reply({ content: 'O usuário em questão não pode ser banido!', ephemeral: true })
+        await interaction.reply({ content: 'O usuário em questão não pode ser desbanido!', ephemeral: true })
 
         return
       }
@@ -51,7 +51,7 @@ export const useUnban = (): Command => {
         ],
       })
 
-      const channel = (client.channels.cache.get(PUNISHMENTS_CHANNEL.id) as TextBasedChannel) || interaction.channel
+      const channel = getChannel({ id: PUNISHMENTS_CHANNEL.id, client, interaction })
 
       await channel?.send({ content: `Usuário ${user.id} Desbanido!`, embeds: [embed] })
 
