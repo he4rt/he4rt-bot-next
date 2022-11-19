@@ -79,9 +79,16 @@ export const reply = (interaction: CommandInteraction) => {
     return await interaction.reply({ content: 'Comando executado com sucesso!', ephemeral: true })
   }
 
+  const error = async () => {
+    return await interaction.reply({
+      content: 'Algum erro inesperado ocorreu. Tente novamente mais tarde!',
+      ephemeral: true,
+    })
+  }
+
   const errorPermission = async () => {
     return await interaction.reply({ content: 'Você não tem permissão para realizar esta ação!', ephemeral: true })
   }
 
-  return { success, errorPermission }
+  return { success, error, errorPermission }
 }

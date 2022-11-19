@@ -17,6 +17,7 @@ He4rt Discord Bot
 - `/anunciar` (ADM)
 - `/ban` (ADM|MOD)
 - `/unban` (ADM|MOD)
+- `/timeout` (ADM|MOD)
 - `/chat` (ADM|MOD)
 - `/cor` (PRIVILEGIADOS)
 - `/daily`

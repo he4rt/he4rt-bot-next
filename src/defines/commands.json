@@ -38,5 +38,9 @@
   "CHAT": {
     "TITLE": "chat",
     "DESCRIPTION": "(ADM|MOD): Pause ou continue um chat específico."
+  },
+  "TIMEOUT": {
+    "TITLE": "timeout",
+    "DESCRIPTION": "(ADM|MOD): Desabilite um usuário por um certo tempo."
   }
 }
