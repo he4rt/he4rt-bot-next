@@ -16,6 +16,8 @@ import {
 export const XPCounterAndPossibleLevelUp = (client: He4rtClient, message: Message) => {
   const member = message.member as GuildMember
 
+  if (!member?.id) return
+
   const invalidChannels = [LEVELUP_CHANNEL, PRESENTATIONS_CHANNEL, COMMANDS_CHANNEL]
 
   if (message.channel.type === ChannelType.DM || invalidChannels.some((v) => v.id === message.channel.id)) return
@@ -27,7 +29,7 @@ export const XPCounterAndPossibleLevelUp = (client: He4rtClient, message: Messag
     method: 'POST',
     body: {
       discord_id: member.id,
-      message: '?',
+      message: message.content,
       donator: isPrivileged(member),
     },
   })
