@@ -15,7 +15,9 @@ He4rt Discord Bot
 ## Commands
 
 - `/anunciar` (ADM)
-- `/ban` (ADM)
+- `/ban` (ADM|MOD)
+- `/unban` (ADM|MOD)
+- `/chat` (ADM|MOD)
 - `/cor` (PRIVILEGIADOS)
 - `/daily`
 - `/apresentar`
