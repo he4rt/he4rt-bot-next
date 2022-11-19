@@ -1,7 +1,7 @@
 import { PermissionFlagsBits, SlashCommandBuilder, TextChannel } from 'discord.js'
 import { Command } from '@/types'
 import COMMANDS from '@/defines/commands.json'
-import { getOption, reply } from './utils'
+import { getOption, reply } from '@/utils'
 import CHAT from '@/defines/localisation/commands/chat.json'
 
 export const useChat = (): Command => {

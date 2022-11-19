@@ -2,7 +2,7 @@ import { PermissionFlagsBits, SlashCommandBuilder, TextBasedChannel } from 'disc
 import { Command } from '@/types'
 import { UNBAN } from '@/defines/commands.json'
 import { PUNISHMENTS_CHANNEL } from '@/defines/ids.json'
-import { embedTemplate } from './utils'
+import { embedTemplate } from '@/utils'
 
 export const useUnban = (): Command => {
   const data = new SlashCommandBuilder()

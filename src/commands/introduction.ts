@@ -17,8 +17,8 @@ import {
 import { INTRODUCE } from '@/defines/commands.json'
 import { TIMEOUT_COMMAND, TIMEOUT_COMMAND_STRING, COLORS } from '@/defines/values.json'
 import INTRODUCTION from '@/defines/localisation/commands/introduction.json'
-import { validDisplayDevRoles, validDisplayEngRoles } from './utils'
-import { embedTemplate } from './utils'
+import { validDisplayDevRoles, validDisplayEngRoles } from '@/utils'
+import { embedTemplate } from '@/utils'
 import { ofetch } from 'ofetch'
 import JSON_PARSE from 'destr'
 

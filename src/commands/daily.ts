@@ -3,7 +3,7 @@ import { Command, DailyPOST } from '@/types'
 import { DAILY } from '@/defines/commands.json'
 import { ofetch } from 'ofetch'
 import JSON_PARSE from 'destr'
-import { isPrivileged } from './utils'
+import { isPrivileged } from '@/utils'
 
 export const useDaily = (): Command => {
   const data = new SlashCommandBuilder().setName(DAILY.TITLE).setDescription(DAILY.DESCRIPTION).setDMPermission(false)

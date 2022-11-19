@@ -2,7 +2,7 @@ import { GuildMember, HexColorString, SlashCommandBuilder } from 'discord.js'
 import { Command, ProfileGET } from '@/types'
 import { PROFILE } from '@/defines/commands.json'
 import { COLORS } from '@/defines/values.json'
-import { embedTemplate, isHe4rtDelasMember, validDisplayDevRoles, validDisplayEngRoles } from './utils'
+import { embedTemplate, isHe4rtDelasMember, validDisplayDevRoles, validDisplayEngRoles } from '@/utils'
 import { ofetch } from 'ofetch'
 import JSON_PARSE from 'destr'
 

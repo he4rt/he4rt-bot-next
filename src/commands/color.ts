@@ -2,7 +2,7 @@ import { CommandInteractionOption, GuildMember, HexColorString, SlashCommandBuil
 import { Command } from '@/types'
 import { COLOR } from '@/defines/commands.json'
 import { DONATORS_CHANNEL } from '@/defines/ids.json'
-import { isPrivileged } from './utils'
+import { isPrivileged } from '@/utils'
 
 export const useColor = (): Command => {
   const data = new SlashCommandBuilder()

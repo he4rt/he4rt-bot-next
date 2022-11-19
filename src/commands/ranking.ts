@@ -3,7 +3,7 @@ import { Command, RankingGET } from '@/types'
 import { RANKING } from '@/defines/commands.json'
 import { COLORS } from '@/defines/values.json'
 import { ofetch } from 'ofetch'
-import { embedTemplate } from './utils'
+import { embedTemplate } from '@/utils'
 import { HexColorString } from 'discord.js'
 import JSON_PARSE from 'destr'
 
