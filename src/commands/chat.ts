@@ -1,6 +1,7 @@
 import { PermissionFlagsBits, SlashCommandBuilder, TextChannel } from 'discord.js'
 import { Command } from '@/types'
 import COMMANDS from '@/defines/commands.json'
+import { PRESENTED_ROLE } from '@/defines/ids.json'
 import { getOption, reply } from '@/utils'
 import CHAT from '@/defines/localisation/commands/chat.json'
 
@@ -25,7 +26,7 @@ export const useChat = (): Command => {
       if (!channel) return
 
       channel.permissionOverwrites
-        .edit(guild.id, { SendMessages: !stop.value as boolean })
+        .edit(guild.roles.cache.get(PRESENTED_ROLE.id), { SendMessages: !stop.value as boolean })
         .then(async () => {
           await reply(interaction).success()
         })
