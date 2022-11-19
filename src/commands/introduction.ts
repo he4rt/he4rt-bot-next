@@ -1,5 +1,5 @@
-import { CommandInteraction, DMChannel, GuildMember, HexColorString, SlashCommandBuilder } from 'discord.js'
-import { Command, IntroducePOST, IntroducePUT } from '@/types'
+import { CommandInteraction, DMChannel, GuildMember, HexColorString, italic, SlashCommandBuilder } from 'discord.js'
+import { Command, IntroducePOST, IntroducePUT, RoleDefine } from '@/types'
 import {
   PRESENTATIONS_CHANNEL,
   PRESENTED_ROLE,
@@ -10,7 +10,7 @@ import {
 import { INTRODUCE } from '@/defines/commands.json'
 import { TIMEOUT_COMMAND, TIMEOUT_COMMAND_STRING, COLORS } from '@/defines/values.json'
 import INTRODUCTION from '@/defines/localisation/commands/introduction.json'
-import { getChannel, validDisplayDevRoles, validDisplayEngRoles } from '@/utils'
+import { getChannel, isValidId, reply, validDisplayDevRoles, validDisplayEngRoles } from '@/utils'
 import { embedTemplate } from '@/utils'
 import { ofetch } from 'ofetch'
 import JSON_PARSE from 'destr'
@@ -29,7 +29,7 @@ const nextTextMessage = async (dm: DMChannel, interaction: CommandInteraction): 
   }
 }
 
-const nextMultipleAndRecursiveRolesSelection = async (
+const nextMultipleRoleSelection = async (
   roles: any[],
   text: string,
   dm: DMChannel,
@@ -44,11 +44,18 @@ const nextMultipleAndRecursiveRolesSelection = async (
 
   const value = Number(await nextTextMessage(dm, interaction))
 
-  if (!isNaN(value) && value && value !== 0) {
+  if (isValidId(value, roles)) {
     member.roles.add(roles[value - 1].id)
 
-    await nextMultipleAndRecursiveRolesSelection(roles, text, dm, member, interaction)
-  } else if (value === 0) return
+    await nextMultipleRoleSelection(roles, text, dm, member, interaction)
+
+    return
+  }
+
+  if (value === 0) return
+
+  await dm.send(INTRODUCTION.INVALID_NUMBER)
+  await nextMultipleRoleSelection(roles, text, dm, member, interaction)
 }
 
 const nextRoleSelection = async (
@@ -63,9 +70,14 @@ const nextRoleSelection = async (
 
   const value = Number(await nextTextMessage(dm, interaction))
 
-  if (!isNaN(value) && value && value !== 0) {
+  if (isValidId(value, roles)) {
     member.roles.add(roles[value - 1].id)
+
+    return
   }
+
+  await dm.send(INTRODUCTION.INVALID_NUMBER)
+  await nextRoleSelection(roles, text, dm, member, interaction)
 }
 
 const nextHe4rtDelasRole = async (
@@ -73,7 +85,7 @@ const nextHe4rtDelasRole = async (
   member: GuildMember,
   interaction: CommandInteraction
 ): Promise<boolean> => {
-  const roles: any[] = [HE4RT_DELAS_ROLE]
+  const roles: RoleDefine[] = [HE4RT_DELAS_ROLE]
 
   await dm.send(INTRODUCTION.USER.DELAS)
   await dm.send(
@@ -83,13 +95,44 @@ const nextHe4rtDelasRole = async (
 
   const value = Number(await nextTextMessage(dm, interaction))
 
-  if (!isNaN(value) && value && value !== 0) {
+  if (isValidId(value, roles)) {
     member.roles.add(roles[value - 1].id)
 
     return true
   }
 
   return false
+}
+
+const nextStringsData = async (dm: DMChannel, interaction: CommandInteraction) => {
+  await dm.send(INTRODUCTION.CONTINUE)
+  const name = await nextTextMessage(dm, interaction)
+
+  await dm.send(INTRODUCTION.USER.NICK)
+  const nickname = await nextTextMessage(dm, interaction)
+
+  await dm.send(INTRODUCTION.USER.ABOUT)
+  const about = await nextTextMessage(dm, interaction)
+
+  await dm.send(INTRODUCTION.USER.GIT)
+  const git = await nextTextMessage(dm, interaction)
+
+  await dm.send(INTRODUCTION.USER.LINKEDIN)
+  const linkedin = await nextTextMessage(dm, interaction)
+
+  if ([name, nickname, about, git, linkedin].some((v) => v === TIMEOUT_COMMAND_STRING || !v)) {
+    await dm.send(INTRODUCTION.INVALID_STRING_DATA)
+
+    await nextStringsData(dm, interaction)
+  }
+
+  return {
+    name,
+    nickname,
+    about,
+    git,
+    linkedin,
+  }
 }
 
 export const useIntroduction = (): Command => {
@@ -106,35 +149,16 @@ export const useIntroduction = (): Command => {
       const dm = await client.users?.createDM(author)
 
       if (!dm) {
-        await interaction.reply({ content: 'Não foi possível enviar mensagem pelo privado!', ephemeral: true })
+        await reply(interaction).errorInAccessDM()
 
         return
       }
 
-      await interaction.reply({ content: 'Enviado na DM!', ephemeral: true })
+      await reply(interaction).successInAccessDM()
 
-      await dm.send(INTRODUCTION.CONTINUE)
-      const name = await nextTextMessage(dm, interaction)
+      const { name, nickname, about, git, linkedin } = await nextStringsData(dm, interaction)
 
-      await dm.send(INTRODUCTION.USER.NICK)
-      const nickname = await nextTextMessage(dm, interaction)
-
-      await dm.send(INTRODUCTION.USER.ABOUT)
-      const about = await nextTextMessage(dm, interaction)
-
-      await dm.send(INTRODUCTION.USER.GIT)
-      const git = await nextTextMessage(dm, interaction)
-
-      await dm.send(INTRODUCTION.USER.LINKEDIN)
-      const linkedin = await nextTextMessage(dm, interaction)
-
-      if ([name, nickname, about, git, linkedin].some((v) => v === TIMEOUT_COMMAND_STRING)) {
-        await dm.send('\n**Algum dos seus dados inseridos não é válido. Tente novamente, por favor!**\n')
-
-        return
-      }
-
-      await nextMultipleAndRecursiveRolesSelection(
+      await nextMultipleRoleSelection(
         VALID_PRESENTATION_DEV_ROLES,
         INTRODUCTION.USER.LANGUAGES,
         dm,
@@ -172,7 +196,7 @@ export const useIntroduction = (): Command => {
           user: author,
           icon: true,
         },
-        color: isHe4rtDelasMember ? (COLORS.HE4RT_DELAS as HexColorString) : (COLORS.HE4RT as HexColorString),
+        delas: isHe4rtDelasMember,
         fields,
       })
 

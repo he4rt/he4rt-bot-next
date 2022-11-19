@@ -10,5 +10,7 @@
     "ENGLISH": "> **Nível de Inglês?**",
     "DELAS": "**Você se identifica como parte do projeto @💗 He4rt Delas(ela/dela)?**\n\n ⚠️ (Espaço restrito para mulheres e pessoas não-binárias, caso reage sem se identificar ou desrespeite este espaço = banimento)\n\n"
   },
-  "FINISH": "**Sua apresentação foi concluída com sucesso!**"
+  "FINISH": "**Sua apresentação foi concluída com sucesso!**",
+  "INVALID_STRING_DATA": "\n**Algum dos seus dados inseridos não é válido! Tente novamente, por favor!**\n",
+  "INVALID_NUMBER": "**Valor INVÁLIDO! Insira um novo valor.**"
 }

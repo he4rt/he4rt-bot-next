@@ -8,7 +8,7 @@ import {
   TextBasedChannel,
   User,
 } from 'discord.js'
-import { COLORS, HE4RT_ICON_1_URL } from '@/defines/values.json'
+import { COLORS, HE4RT_DELAS_ICON_1_URL, HE4RT_ICON_1_URL } from '@/defines/values.json'
 import {
   DONATOR_ROLE,
   NITRO_BOOSTER_ROLE,
@@ -16,6 +16,7 @@ import {
   VALID_PRESENTATION_DEV_ROLES,
   VALID_PRESENTATION_ENG_ROLES,
 } from '@/defines/ids.json'
+import { TIMEOUT_COMMAND_STRING } from '@/defines/values.json'
 import { CommandGetOption, EmbedTemplateOptions, GetChannelOptions } from '@/types'
 
 export const validDisplayDevRoles = (member: GuildMember) => {
@@ -58,8 +59,20 @@ export const isValidListenerMessage = (message: Message) => {
   )
 }
 
+export const isValidId = (id: number, arr: any[]) => {
+  return !isNaN(id) && id <= arr.length && id > 0
+}
+
+export const normalizeStringData = (str: string) => {
+  return str !== TIMEOUT_COMMAND_STRING ? str : '`Não Encontrado`'
+}
+
 export const embedTemplate = (options: EmbedTemplateOptions) => {
-  const embed = new EmbedBuilder().setColor(options.color || (COLORS.HE4RT as HexColorString)).setTitle(options.title)
+  const embed = new EmbedBuilder()
+    .setColor(
+      options.color || (options.delas ? (COLORS.HE4RT_DELAS as HexColorString) : (COLORS.HE4RT as HexColorString))
+    )
+    .setTitle(options.title)
 
   if (options.description) embed.setDescription(options.description)
   if (options.target?.icon) embed.setThumbnail(getUserAvatar(options.target.user))
@@ -74,7 +87,7 @@ export const embedTemplate = (options: EmbedTemplateOptions) => {
     embed
       .setFooter({
         text: `${new Date().getFullYear()} © He4rt Developers`,
-        iconURL: HE4RT_ICON_1_URL,
+        iconURL: options.delas ? HE4RT_DELAS_ICON_1_URL : HE4RT_ICON_1_URL,
       })
       .setTimestamp()
   }
@@ -95,6 +108,10 @@ export const reply = (interaction: CommandInteraction) => {
     return await interaction.reply({ content: 'Comando executado com sucesso!', ephemeral: true })
   }
 
+  const successInAccessDM = async () => {
+    await interaction.reply({ content: 'Enviado na DM!', ephemeral: true })
+  }
+
   const error = async () => {
     return await interaction.reply({
       content: 'Algum erro inesperado ocorreu. Tente novamente mais tarde!',
@@ -106,5 +123,9 @@ export const reply = (interaction: CommandInteraction) => {
     return await interaction.reply({ content: 'Você não tem permissão para realizar esta ação!', ephemeral: true })
   }
 
-  return { success, error, errorPermission }
+  const errorInAccessDM = async () => {
+    await interaction.reply({ content: 'Não foi possível enviar mensagem pelo privado!', ephemeral: true })
+  }
+
+  return { success, successInAccessDM, error, errorPermission, errorInAccessDM }
 }

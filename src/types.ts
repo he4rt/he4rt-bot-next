@@ -18,10 +18,17 @@ export type CommandGetOption<T extends CacheType = CacheType> = (
   target: string
 ) => CommandInteractionOption<T>
 
+export interface RoleDefine {
+  id: string
+  name: string
+  emoji: string
+}
+
 export interface EmbedTemplateOptions {
   title: string
   description?: string
   footer?: boolean
+  delas?: boolean
   author?: User
   color?: HexColorString
   url?: string

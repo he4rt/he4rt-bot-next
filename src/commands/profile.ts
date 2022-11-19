@@ -60,12 +60,13 @@ export const useProfile = (): Command => {
             ],
           ]
 
+          const delas = isHe4rtDelasMember(member)
+
           const embed = embedTemplate({
             title: 'Perfil',
-            color: isHe4rtDelasMember(member)
-              ? (COLORS.HE4RT_DELAS as HexColorString)
-              : (COLORS.HE4RT as HexColorString),
+            color: delas ? (COLORS.HE4RT_DELAS as HexColorString) : (COLORS.HE4RT as HexColorString),
             author: interaction.user,
+            delas,
             fields,
           })
 
