@@ -1,4 +1,11 @@
-import { EmbedBuilder, GuildMember, HexColorString, User } from 'discord.js'
+import {
+  CommandInteraction,
+  CommandInteractionOption,
+  EmbedBuilder,
+  GuildMember,
+  HexColorString,
+  User,
+} from 'discord.js'
 import { COLORS, HE4RT_ICON_1_URL } from '@/defines/values.json'
 import {
   DONATOR_ROLE,
@@ -7,7 +14,7 @@ import {
   VALID_PRESENTATION_DEV_ROLES,
   VALID_PRESENTATION_ENG_ROLES,
 } from '@/defines/ids.json'
-import { EmbedTemplateOptions } from '@/types'
+import { CommandGetOption, EmbedTemplateOptions } from '@/types'
 
 export const validDisplayDevRoles = (member: GuildMember) => {
   return (
@@ -61,4 +68,20 @@ export const embedTemplate = (options: EmbedTemplateOptions) => {
   }
 
   return embed
+}
+
+export const getOption: CommandGetOption = (interaction: CommandInteraction, target: string) => {
+  return interaction.options.get(target) as CommandInteractionOption
+}
+
+export const reply = (interaction: CommandInteraction) => {
+  const success = async () => {
+    return await interaction.reply({ content: 'Comando executado com sucesso!', ephemeral: true })
+  }
+
+  const errorPermission = async () => {
+    return await interaction.reply({ content: 'Você não tem permissão para realizar esta ação!', ephemeral: true })
+  }
+
+  return { success, errorPermission }
 }

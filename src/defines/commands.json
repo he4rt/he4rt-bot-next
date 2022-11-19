@@ -34,5 +34,9 @@
   "PROFILE": {
     "TITLE": "perfil",
     "DESCRIPTION": "Veja seus dados."
+  },
+  "CHAT": {
+    "TITLE": "chat",
+    "DESCRIPTION": "(ADM|MOD): Pause ou continue um chat específico."
   }
 }

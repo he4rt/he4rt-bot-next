@@ -1,17 +1,22 @@
 import {
   APIEmbedField,
+  CacheType,
   Client,
   Collection,
   CommandInteraction,
+  CommandInteractionOption,
   HexColorString,
   REST,
   RestOrArray,
   SlashCommandBuilder,
-  TextBasedChannel,
   User,
 } from 'discord.js'
 
 export type Maybe<T> = T | undefined | null
+export type CommandGetOption<T extends CacheType = CacheType> = (
+  interaction: CommandInteraction,
+  target: string
+) => CommandInteractionOption<T>
 
 export interface EmbedTemplateOptions {
   title: string
