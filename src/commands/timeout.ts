@@ -54,7 +54,7 @@ export const useTimeout = (): Command => {
         ],
       })
 
-      const channel = getChannel({ id: PUNISHMENTS_CHANNEL.id, client, interaction })
+      const channel = getChannel({ id: PUNISHMENTS_CHANNEL.id, client })
 
       await channel?.send({ content: `Usuário ${member.id} suprimido por 1 minuto!`, embeds: [embed] })
 

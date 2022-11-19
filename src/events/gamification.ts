@@ -1,6 +1,6 @@
 import { ChannelType, GuildMember, Message, TextBasedChannel } from 'discord.js'
 import { ofetch } from 'ofetch'
-import { embedTemplate, isPrivileged } from '@/utils'
+import { embedTemplate, getChannel, isPrivileged } from '@/utils'
 import { GamificationPOST, He4rtClient } from '@/types'
 import {
   BEGINNER_ROLE,
@@ -65,7 +65,7 @@ export const XPCounterAndPossibleLevelUp = (client: He4rtClient, message: Messag
         },
       })
 
-      const channel = client.channels.cache.get(LEVELUP_CHANNEL.id) as TextBasedChannel
+      const channel = getChannel({ id: LEVELUP_CHANNEL.id, client })
 
       await channel?.send({ content: `<@${message.author.id}>`, embeds: [embed] })
     })

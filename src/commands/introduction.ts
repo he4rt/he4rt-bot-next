@@ -1,11 +1,4 @@
-import {
-  CommandInteraction,
-  DMChannel,
-  GuildMember,
-  HexColorString,
-  SlashCommandBuilder,
-  TextBasedChannel,
-} from 'discord.js'
+import { CommandInteraction, DMChannel, GuildMember, HexColorString, SlashCommandBuilder } from 'discord.js'
 import { Command, IntroducePOST, IntroducePUT } from '@/types'
 import {
   PRESENTATIONS_CHANNEL,
@@ -17,7 +10,7 @@ import {
 import { INTRODUCE } from '@/defines/commands.json'
 import { TIMEOUT_COMMAND, TIMEOUT_COMMAND_STRING, COLORS } from '@/defines/values.json'
 import INTRODUCTION from '@/defines/localisation/commands/introduction.json'
-import { validDisplayDevRoles, validDisplayEngRoles } from '@/utils'
+import { getChannel, validDisplayDevRoles, validDisplayEngRoles } from '@/utils'
 import { embedTemplate } from '@/utils'
 import { ofetch } from 'ofetch'
 import JSON_PARSE from 'destr'
@@ -183,7 +176,7 @@ export const useIntroduction = (): Command => {
         fields,
       })
 
-      const channel = (client.channels.cache.get(PRESENTATIONS_CHANNEL.id) as TextBasedChannel) || interaction.channel
+      const channel = getChannel({ id: PRESENTATIONS_CHANNEL.id, client })
 
       await channel?.send({
         content: `👋 <@${interaction.user.id}>!`,

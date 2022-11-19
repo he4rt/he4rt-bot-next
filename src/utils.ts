@@ -4,6 +4,7 @@ import {
   EmbedBuilder,
   GuildMember,
   HexColorString,
+  Message,
   TextBasedChannel,
   User,
 } from 'discord.js'
@@ -47,6 +48,16 @@ export const isHe4rtDelasMember = (member: GuildMember) => {
   return member.roles.cache.some((v) => v.id === HE4RT_DELAS_ROLE.id)
 }
 
+export const isBot = (author: User): boolean => {
+  return !!author?.bot
+}
+
+export const isValidListenerMessage = (message: Message) => {
+  return (
+    !isBot(message.author) && message.content && message.member && message.inGuild && message?.id && message?.author?.id
+  )
+}
+
 export const embedTemplate = (options: EmbedTemplateOptions) => {
   const embed = new EmbedBuilder().setColor(options.color || (COLORS.HE4RT as HexColorString)).setTitle(options.title)
 
@@ -71,8 +82,8 @@ export const embedTemplate = (options: EmbedTemplateOptions) => {
   return embed
 }
 
-export const getChannel = ({ client, interaction, id }: GetChannelOptions) => {
-  return (client.channels.cache.get(id) as TextBasedChannel) || interaction.channel
+export const getChannel = ({ client, id }: GetChannelOptions) => {
+  return client.channels.cache.get(id) as TextBasedChannel
 }
 
 export const getOption: CommandGetOption = (interaction: CommandInteraction, target: string) => {

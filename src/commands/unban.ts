@@ -1,4 +1,4 @@
-import { PermissionFlagsBits, SlashCommandBuilder, TextBasedChannel } from 'discord.js'
+import { PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@/types'
 import { UNBAN } from '@/defines/commands.json'
 import { PUNISHMENTS_CHANNEL } from '@/defines/ids.json'
@@ -51,7 +51,7 @@ export const useUnban = (): Command => {
         ],
       })
 
-      const channel = getChannel({ id: PUNISHMENTS_CHANNEL.id, client, interaction })
+      const channel = getChannel({ id: PUNISHMENTS_CHANNEL.id, client })
 
       await channel?.send({ content: `Usuário ${user.id} Desbanido!`, embeds: [embed] })
 

@@ -1,8 +1,8 @@
-import { PermissionFlagsBits, SlashCommandBuilder, TextBasedChannel } from 'discord.js'
+import { PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@/types'
 import { ANNOUNCE } from '@/defines/commands.json'
 import { ADVERTS_CHANNEL } from '@/defines/ids.json'
-import { embedTemplate } from '@/utils'
+import { embedTemplate, getChannel } from '@/utils'
 
 export const useAnnounce = (): Command => {
   const data = new SlashCommandBuilder()
@@ -27,7 +27,7 @@ export const useAnnounce = (): Command => {
       })
       if (image?.value) embed.setImage(image.value as string)
 
-      const channel = (client.channels.cache.get(ADVERTS_CHANNEL.id) as TextBasedChannel) || interaction.channel
+      const channel = getChannel({ id: ADVERTS_CHANNEL.id, client })
 
       await channel?.send({ content: '@everyone', embeds: [embed] })
 
