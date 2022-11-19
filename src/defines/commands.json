@@ -34,6 +34,10 @@
     "TITLE": "ban",
     "DESCRIPTION": "ADM: Escolha um usuário para ser banido do servidor."
   },
+  "UNBAN": {
+    "TITLE": "unban",
+    "DESCRIPTION": "ADM: Escolha um usuário para ser desbanido do servidor."
+  },
   "EXAMPLE": {
     "TITLE": "exemplo",
     "DESCRIPTION": "Template para a criação de outros comandos."

@@ -7,6 +7,7 @@ import { useDaily } from './daily'
 import { useIntroduction } from './introduction'
 import { useProfile } from './profile'
 import { useRanking } from './ranking'
+import { useUnban } from './unban'
 
 const registerHooks = (client: He4rtClient, commands: Command[]) => {
   commands.forEach(([data, cb]) => {
@@ -20,6 +21,7 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useAnnounce(),
     useColor(),
     useBan(),
+    useUnban(),
     useRanking(),
     useDaily(),
     useProfile(),
