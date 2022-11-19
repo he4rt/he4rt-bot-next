@@ -9,6 +9,7 @@ specifiers:
   ofetch: ^1.0.0
   prettier: ^2.7.1
   tsup: ^6.5.0
+  typescript: ^4.9.3
 
 dependencies:
   destr: 1.2.1
@@ -20,7 +21,8 @@ devDependencies:
   dotenv: 16.0.3
   nodemon: 2.0.20
   prettier: 2.7.1
-  tsup: 6.5.0
+  tsup: 6.5.0_typescript@4.9.3
+  typescript: 4.9.3
 
 packages:
 
@@ -1207,7 +1209,7 @@ packages:
   /tslib/2.4.1:
     resolution: {integrity: sha512-tGyy4dAjRIEwI7BzsB0lynWgOpfqjUdq91XXAlIWD2OwKBH7oCl/GZG/HT4BOHrTlPMOASlMQ7veyTqpmRcrNA==}
 
-  /tsup/6.5.0:
+  /tsup/6.5.0_typescript@4.9.3:
     resolution: {integrity: sha512-36u82r7rYqRHFkD15R20Cd4ercPkbYmuvRkz3Q1LCm5BsiFNUgpo36zbjVhCOgvjyxNBWNKHsaD5Rl8SykfzNA==}
     engines: {node: '>=14'}
     hasBin: true
@@ -1237,9 +1239,16 @@ packages:
       source-map: 0.8.0-beta.0
       sucrase: 3.29.0
       tree-kill: 1.2.2
+      typescript: 4.9.3
     transitivePeerDependencies:
       - supports-color
       - ts-node
+    dev: true
+
+  /typescript/4.9.3:
+    resolution: {integrity: sha512-CIfGzTelbKNEnLpLdGFgdyKhG23CKdKgQPOBc+OUNrkJ2vr+KSzsSV5kq5iWhEQbok+quxgGzrAtGWCyU7tHnA==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
     dev: true
 
   /ufo/1.0.0:
