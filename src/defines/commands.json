@@ -12,11 +12,11 @@
     "DESCRIPTION": "APOIADORES: Como um apoiador, você pode ter uma tag colorida customizada!"
   },
   "BAN": {
-    "TITLE": "ban",
+    "TITLE": "banir",
     "DESCRIPTION": "ADM: Escolha um usuário para ser banido do servidor."
   },
   "UNBAN": {
-    "TITLE": "unban",
+    "TITLE": "desbanir",
     "DESCRIPTION": "ADM: Escolha um usuário para ser desbanido do servidor."
   },
   "EXAMPLE": {
@@ -24,11 +24,11 @@
     "DESCRIPTION": "Template para a criação de outros comandos."
   },
   "RANKING": {
-    "TITLE": "ranking",
+    "TITLE": "nivel",
     "DESCRIPTION": "Veja os usuários mais ativos do servidor!"
   },
   "DAILY": {
-    "TITLE": "daily",
+    "TITLE": "bonus",
     "DESCRIPTION": "Pegue aqui sua recompensa diária por interagir no servidor!"
   },
   "PROFILE": {
@@ -40,11 +40,11 @@
     "DESCRIPTION": "(ADM|MOD): Pause ou continue um chat específico."
   },
   "TIMEOUT": {
-    "TITLE": "timeout",
+    "TITLE": "suprimir",
     "DESCRIPTION": "(ADM|MOD): Desabilite um usuário por um certo tempo."
   },
   "SAY": {
-    "TITLE": "say",
-    "DESCRIPTION": "Faça o bot mandar uma mensagem no canal em questão."
+    "TITLE": "falar",
+    "DESCRIPTION": "Faça o bot mandar uma mensagem em um canal específico."
   }
 }
