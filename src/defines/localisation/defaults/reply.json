@@ -1,3 +1,11 @@
 {
-  "CANNOT_BE_BANNED": "O usuário em questão não pode ser banido ou desbanido!"
+  "SUCCESS_COMMAND_DEFAULT": "Comando executado com sucesso!",
+  "SUCCESS_DM_SEND": "Enviado na DM!",
+  "ERROR_DEFAULT": "Algum erro inesperado ocorreu. Tente novamente mais tarde!",
+  "ERROR_MISS_PERMISSION": "Você não tem permissão para realizar esta ação!",
+  "ERROR_ACCESS_DM": "Não foi possível enviar mensagem pelo privado!",
+  "ERROR_INVALID_ARGUMENT": "Algum argumento inserido é inválido!",
+  "ERROR_CHANNEL_PERMISSION": "Só é permitido usar este comando no canal ",
+  "ERROR_CANNOT_BE_BANNED": "O usuário em questão não pode ser banido ou desbanido!",
+  "ERROR_PAGINATION": "Este número de página não existe."
 }

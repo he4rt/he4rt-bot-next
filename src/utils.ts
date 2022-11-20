@@ -8,7 +8,7 @@ import {
   TextBasedChannel,
   User,
 } from 'discord.js'
-import { COLORS, HE4RT_DELAS_ICON_1_URL, HE4RT_ICON_1_URL } from '@/defines/values.json'
+import { CLIENT_NAME, COLORS, HE4RT_DELAS_ICON_1_URL, HE4RT_ICON_1_URL } from '@/defines/values.json'
 import {
   DONATOR_ROLE,
   NITRO_BOOSTER_ROLE,
@@ -16,7 +16,18 @@ import {
   VALID_PRESENTATION_DEV_ROLES,
   VALID_PRESENTATION_ENG_ROLES,
 } from '@/defines/ids.json'
-import { CANNOT_BE_BANNED } from '@/defines/localisation/defaults/reply.json'
+import {
+  SUCCESS_COMMAND_DEFAULT,
+  SUCCESS_DM_SEND,
+  ERROR_DEFAULT,
+  ERROR_MISS_PERMISSION,
+  ERROR_ACCESS_DM,
+  ERROR_INVALID_ARGUMENT,
+  ERROR_CHANNEL_PERMISSION,
+  ERROR_CANNOT_BE_BANNED,
+  ERROR_PAGINATION,
+} from '@/defines/localisation/defaults/reply.json'
+import { NOT_FOUND, LANGUAGE_NONE } from '@/defines/localisation/defaults/display.json'
 import { TIMEOUT_COMMAND_STRING, DEFINE_STRING_REPLACED } from '@/defines/values.json'
 import { CommandGetOption, EmbedTemplateOptions, GetChannelOptions } from '@/types'
 
@@ -25,7 +36,7 @@ export const validDisplayDevRoles = (member: GuildMember) => {
     member?.roles?.cache
       ?.filter((role) => VALID_PRESENTATION_DEV_ROLES.some((v) => v.id === role.id))
       .map((role) => `<@&${role.id}>`)
-      .join(', ') || '`Nenhuma`'
+      .join(', ') || LANGUAGE_NONE
   )
 }
 
@@ -34,7 +45,7 @@ export const validDisplayEngRoles = (member: GuildMember) => {
     member?.roles?.cache
       ?.filter((role) => VALID_PRESENTATION_ENG_ROLES.some((v) => v.id === role.id))
       .map((role) => `<@&${role.id}>`)
-      .join(', ') || '`Nenhuma`'
+      .join(', ') || LANGUAGE_NONE
   )
 }
 
@@ -65,7 +76,7 @@ export const isValidId = (id: number, arr: any[]) => {
 }
 
 export const normalizeStringData = (str: string) => {
-  return str !== TIMEOUT_COMMAND_STRING ? str : '`Não Encontrado`'
+  return str !== TIMEOUT_COMMAND_STRING ? str : NOT_FOUND
 }
 
 export const embedTemplate = (options: EmbedTemplateOptions) => {
@@ -87,7 +98,7 @@ export const embedTemplate = (options: EmbedTemplateOptions) => {
   if (options.footer === undefined || options.footer) {
     embed
       .setFooter({
-        text: `${new Date().getFullYear()} © He4rt Developers`,
+        text: `${new Date().getFullYear()} © ${CLIENT_NAME}`,
         iconURL: options.delas ? HE4RT_DELAS_ICON_1_URL : HE4RT_ICON_1_URL,
       })
       .setTimestamp()
@@ -110,42 +121,42 @@ export const replaceDefineString = (str: string, target: string) => {
 
 export const reply = (interaction: CommandInteraction) => {
   const success = async () => {
-    return await interaction.reply({ content: 'Comando executado com sucesso!', ephemeral: true })
+    return await interaction.reply({ content: SUCCESS_COMMAND_DEFAULT, ephemeral: true })
   }
 
   const successInAccessDM = async () => {
-    await interaction.reply({ content: 'Enviado na DM!', ephemeral: true })
+    await interaction.reply({ content: SUCCESS_DM_SEND, ephemeral: true })
   }
 
   const error = async () => {
     return await interaction.reply({
-      content: 'Algum erro inesperado ocorreu. Tente novamente mais tarde!',
+      content: ERROR_DEFAULT,
       ephemeral: true,
     })
   }
 
   const errorPermission = async () => {
-    return await interaction.reply({ content: 'Você não tem permissão para realizar esta ação!', ephemeral: true })
+    return await interaction.reply({ content: ERROR_MISS_PERMISSION, ephemeral: true })
   }
 
   const errorInAccessDM = async () => {
-    await interaction.reply({ content: 'Não foi possível enviar mensagem pelo privado!', ephemeral: true })
+    await interaction.reply({ content: ERROR_ACCESS_DM, ephemeral: true })
   }
 
   const errorInMissingArgument = async () => {
-    await interaction.reply({ content: 'Algum argumento inserido é inválido!', ephemeral: true })
+    await interaction.reply({ content: ERROR_INVALID_ARGUMENT, ephemeral: true })
   }
 
   const errorUserCannotBeBaned = async () => {
-    await interaction.reply({ content: CANNOT_BE_BANNED, ephemeral: true })
+    await interaction.reply({ content: ERROR_CANNOT_BE_BANNED, ephemeral: true })
   }
 
   const errorSpecificChannel = async (str: string) => {
-    await interaction.reply({ content: `Só é permitido usar este comando no canal ${str}!` })
+    await interaction.reply({ content: `${ERROR_CHANNEL_PERMISSION}${str}!` })
   }
 
   const errorPaginationFail = async () => {
-    await interaction.reply({ content: `Este número de página não existe.` })
+    await interaction.reply({ content: ERROR_PAGINATION })
   }
 
   return {
