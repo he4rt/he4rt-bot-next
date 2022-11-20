@@ -127,5 +127,9 @@ export const reply = (interaction: CommandInteraction) => {
     await interaction.reply({ content: 'Não foi possível enviar mensagem pelo privado!', ephemeral: true })
   }
 
-  return { success, successInAccessDM, error, errorPermission, errorInAccessDM }
+  const errorInMissingArgument = async () => {
+    await interaction.reply({ content: 'Algum argumento inserido é inválido!', ephemeral: true })
+  }
+
+  return { success, successInAccessDM, error, errorPermission, errorInAccessDM, errorInMissingArgument }
 }

@@ -10,6 +10,7 @@ import { useRanking } from './ranking'
 import { useUnban } from './unban'
 import { useChat } from './chat'
 import { useTimeout } from './timeout'
+import { useSay } from './say'
 
 const registerHooks = (client: He4rtClient, commands: Command[]) => {
   commands.forEach(([data, cb]) => {
@@ -29,6 +30,7 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useProfile(),
     useChat(),
     useTimeout(),
+    useSay(),
   ])
 
   await rest.put(Routes.applicationGuildCommands(process.env.DISCORD_CLIENT_ID, process.env.DISCORD_GUILD_ID), {

@@ -42,5 +42,9 @@
   "TIMEOUT": {
     "TITLE": "timeout",
     "DESCRIPTION": "(ADM|MOD): Desabilite um usuário por um certo tempo."
+  },
+  "SAY": {
+    "TITLE": "say",
+    "DESCRIPTION": "Faça o bot mandar uma mensagem no canal em questão."
   }
 }
