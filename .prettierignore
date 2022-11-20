@@ -1,7 +1,11 @@
 node_modules
 dist
+.github
 
 pnpm-lock.yaml
 package.json
+generi.json
 
 README.md
+CHANGELOG.md
+LICENSE

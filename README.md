@@ -66,3 +66,7 @@ pnpm version:(patch|minor|major)
 - `/apresentar` com recursos adicionais para o `He4rt Delas`;
 - Todas as definições estão na pasta `src/defines` (com exceção das strings de localização) ao invés de usar o `.env`;
 - Os listeners são subdivididos pelo seu emissor (a versão antiga tratava somente em eventos de mensagem).
+
+## 👥 Contribuidores
+
+Obrigado a todos os contribuidores acima e aos contribuidores [da primeira versão](https://github.com/he4rt/He4rt-Bot/blob/master/README.md#-contribuidores)!
