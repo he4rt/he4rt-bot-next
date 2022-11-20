@@ -2,6 +2,10 @@
 
 Changelog was created by [Generi](https://github.com/Novout/generi). Any questions, consult the documentation.
 
+### v2.1.6
+
+* **fix(events):** try in embed exists [c529209]
+
 ### v2.1.5
 
 * **chore(cor):** new approach [9702108]
