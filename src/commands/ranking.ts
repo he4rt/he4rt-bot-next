@@ -1,8 +1,8 @@
-import { SlashCommandBuilder, RestOrArray, APIEmbedField } from 'discord.js'
+import { SlashCommandBuilder, RestOrArray, APIEmbedField, GuildMember } from 'discord.js'
 import { Command, RankingGET } from '@/types'
 import { RANKING } from '@/defines/commands.json'
 import { COLORS } from '@/defines/values.json'
-import { embedTemplate, reply } from '@/utils'
+import { embedTemplate, isPresentedMember, reply } from '@/utils'
 import { HexColorString } from 'discord.js'
 
 export const useRanking = (): Command => {
@@ -15,7 +15,14 @@ export const useRanking = (): Command => {
   return [
     data,
     async (interaction, client) => {
+      const member = interaction.member as GuildMember
       const page = (interaction.options.get('page')?.value as number) || 1
+
+      if (!isPresentedMember(member)) {
+        await reply(interaction).errorMemberIsNotPresented()
+
+        return
+      }
 
       client.api.ranking.general
         .get<RankingGET>({

@@ -1,7 +1,7 @@
 import { GuildMember, SlashCommandBuilder } from 'discord.js'
 import { Command, DailyPOST } from '@/types'
 import { DAILY } from '@/defines/commands.json'
-import { isPrivileged, replaceDefineString } from '@/utils'
+import { isPresentedMember, isPrivileged, replaceDefineString, reply } from '@/utils'
 import { HCOINS_ERROR, HCOINS_SUCCESS } from '@/defines/localisation/commands/daily.json'
 
 export const useDaily = (): Command => {
@@ -11,6 +11,12 @@ export const useDaily = (): Command => {
     data,
     async (interaction, client) => {
       const member = interaction.member as GuildMember
+
+      if (!isPresentedMember(member)) {
+        await reply(interaction).errorMemberIsNotPresented()
+
+        return
+      }
 
       client.api.users
         .daily()

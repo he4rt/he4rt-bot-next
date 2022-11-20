@@ -10,6 +10,7 @@ import {
 } from 'discord.js'
 import { CLIENT_NAME, COLORS, HE4RT_DELAS_ICON_1_URL, HE4RT_ICON_1_URL } from '@/defines/values.json'
 import {
+  PRESENTED_ROLE,
   DONATOR_ROLE,
   NITRO_BOOSTER_ROLE,
   HE4RT_DELAS_ROLE,
@@ -21,6 +22,7 @@ import {
   SUCCESS_DM_SEND,
   ERROR_DEFAULT,
   ERROR_MISS_PERMISSION,
+  ERROR_MEMBER_IS_NOT_PRESENTED,
   ERROR_ACCESS_DM,
   ERROR_INVALID_ARGUMENT,
   ERROR_CHANNEL_PERMISSION,
@@ -51,6 +53,10 @@ export const validDisplayEngRoles = (member: GuildMember) => {
 
 export const getUserAvatar = (author: User) => {
   return `https://cdn.discordapp.com/avatars/${author.id}/${author.avatar}.png?size=256`
+}
+
+export const isPresentedMember = (member: GuildMember) => {
+  return member.roles.cache.some((v) => v.id === PRESENTED_ROLE.id)
 }
 
 export const isPrivileged = (member: GuildMember) => {
@@ -139,6 +145,10 @@ export const reply = (interaction: CommandInteraction) => {
     return await interaction.reply({ content: ERROR_MISS_PERMISSION, ephemeral: true })
   }
 
+  const errorMemberIsNotPresented = async () => {
+    return await interaction.reply({ content: ERROR_MEMBER_IS_NOT_PRESENTED, ephemeral: true })
+  }
+
   const errorInAccessDM = async () => {
     await interaction.reply({ content: ERROR_ACCESS_DM, ephemeral: true })
   }
@@ -164,6 +174,7 @@ export const reply = (interaction: CommandInteraction) => {
     successInAccessDM,
     error,
     errorPermission,
+    errorMemberIsNotPresented,
     errorInAccessDM,
     errorInMissingArgument,
     errorUserCannotBeBaned,

@@ -3,6 +3,7 @@
   "SUCCESS_DM_SEND": "Enviado na DM!",
   "ERROR_DEFAULT": "Algum erro inesperado ocorreu. Tente novamente mais tarde!",
   "ERROR_MISS_PERMISSION": "Você não tem permissão para realizar esta ação!",
+  "ERROR_MEMBER_IS_NOT_PRESENTED": "Você não se apresentou! Use o comando `/apresentar` antes de executar este comando!",
   "ERROR_ACCESS_DM": "Não foi possível enviar mensagem pelo privado!",
   "ERROR_INVALID_ARGUMENT": "Algum argumento inserido é inválido!",
   "ERROR_CHANNEL_PERMISSION": "Só é permitido usar este comando no canal ",

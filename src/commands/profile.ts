@@ -2,7 +2,14 @@ import { GuildMember, HexColorString, SlashCommandBuilder } from 'discord.js'
 import { Command, ProfileGET } from '@/types'
 import { PROFILE } from '@/defines/commands.json'
 import { COLORS } from '@/defines/values.json'
-import { embedTemplate, isHe4rtDelasMember, reply, validDisplayDevRoles, validDisplayEngRoles } from '@/utils'
+import {
+  embedTemplate,
+  isHe4rtDelasMember,
+  isPresentedMember,
+  reply,
+  validDisplayDevRoles,
+  validDisplayEngRoles,
+} from '@/utils'
 
 export const useProfile = (): Command => {
   const data = new SlashCommandBuilder()
@@ -14,6 +21,12 @@ export const useProfile = (): Command => {
     data,
     async (interaction, client) => {
       const member = interaction.member as GuildMember
+
+      if (!isPresentedMember(member)) {
+        await reply(interaction).errorMemberIsNotPresented()
+
+        return
+      }
 
       await client.api
         .users(member.id)
