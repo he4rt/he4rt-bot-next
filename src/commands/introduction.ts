@@ -10,7 +10,7 @@ import {
 import INTRODUCTION from '@/defines/localisation/commands/introduction.json'
 import { INTRODUCE } from '@/defines/commands.json'
 import { TIMEOUT_COMMAND, TIMEOUT_COMMAND_STRING } from '@/defines/values.json'
-import { getChannel, isValidId, reply, validDisplayDevRoles, validDisplayEngRoles } from '@/utils'
+import { getChannel, isValidId, reply, sendInDM, validDisplayDevRoles, validDisplayEngRoles } from '@/utils'
 import { embedTemplate } from '@/utils'
 
 const nextTextMessage = async (dm: DMChannel, interaction: CommandInteraction): Promise<string> => {
@@ -103,7 +103,7 @@ const nextHe4rtDelasRole = async (
 }
 
 const nextStringsData = async (dm: DMChannel, interaction: CommandInteraction) => {
-  await dm.send(INTRODUCTION.CONTINUE)
+  await sendInDM(dm, interaction, INTRODUCTION.CONTINUE)
   const name = await nextTextMessage(dm, interaction)
 
   await dm.send(INTRODUCTION.USER.NICK)
@@ -144,86 +144,88 @@ export const useIntroduction = (): Command => {
     async (interaction, client) => {
       const author = interaction.user
       const member = interaction.member as GuildMember
-      const dm = await client.users?.createDM(author)
 
-      if (!dm) {
-        await reply(interaction).errorInAccessDM()
+      client.users
+        ?.createDM(author)
+        .then(async (dm) => {
+          await reply(interaction).successInAccessDM()
 
-        return
-      }
+          const body = await nextStringsData(dm, interaction)
 
-      await reply(interaction).successInAccessDM()
+          await nextMultipleRoleSelection(
+            VALID_PRESENTATION_DEV_ROLES,
+            INTRODUCTION.USER.LANGUAGES,
+            dm,
+            member,
+            interaction
+          )
 
-      const body = await nextStringsData(dm, interaction)
+          await nextRoleSelection(VALID_PRESENTATION_ENG_ROLES, INTRODUCTION.USER.ENGLISH, dm, member, interaction)
 
-      await nextMultipleRoleSelection(
-        VALID_PRESENTATION_DEV_ROLES,
-        INTRODUCTION.USER.LANGUAGES,
-        dm,
-        member,
-        interaction
-      )
+          const isHe4rtDelasMember = await nextHe4rtDelasRole(dm, member, interaction)
 
-      await nextRoleSelection(VALID_PRESENTATION_ENG_ROLES, INTRODUCTION.USER.ENGLISH, dm, member, interaction)
-
-      const isHe4rtDelasMember = await nextHe4rtDelasRole(dm, member, interaction)
-
-      const embed = embedTemplate({
-        title: `${INTRODUCTION.EMBED.TITLE}${author.username}`,
-        target: {
-          user: author,
-          icon: true,
-        },
-        delas: isHe4rtDelasMember,
-        fields: [
-          [
-            { name: INTRODUCTION.EMBED.NAME, value: body.name, inline: true },
-            { name: INTRODUCTION.EMBED.NICKNAME, value: body.nickname, inline: true },
-            { name: INTRODUCTION.EMBED.ABOUT, value: body.about, inline: true },
-          ],
-          [
-            { name: INTRODUCTION.EMBED.GIT, value: body.git, inline: true },
-            { name: INTRODUCTION.EMBED.LINKEDIN, value: body.linkedin, inline: true },
-            {
-              name: INTRODUCTION.EMBED.LANGUAGES,
-              value: validDisplayDevRoles(member),
+          const embed = embedTemplate({
+            title: `${INTRODUCTION.EMBED.TITLE}${author.username}`,
+            target: {
+              user: author,
+              icon: true,
             },
-            {
-              name: INTRODUCTION.EMBED.ENGLISH,
-              value: validDisplayEngRoles(member),
-              inline: true,
-            },
-          ],
-        ],
-      })
+            delas: isHe4rtDelasMember,
+            fields: [
+              [
+                { name: INTRODUCTION.EMBED.NAME, value: body.name, inline: true },
+                { name: INTRODUCTION.EMBED.NICKNAME, value: body.nickname, inline: true },
+                { name: INTRODUCTION.EMBED.ABOUT, value: body.about, inline: true },
+              ],
+              [
+                { name: INTRODUCTION.EMBED.GIT, value: body.git, inline: true },
+                { name: INTRODUCTION.EMBED.LINKEDIN, value: body.linkedin, inline: true },
+                {
+                  name: INTRODUCTION.EMBED.LANGUAGES,
+                  value: validDisplayDevRoles(member),
+                },
+                {
+                  name: INTRODUCTION.EMBED.ENGLISH,
+                  value: validDisplayEngRoles(member),
+                  inline: true,
+                },
+              ],
+            ],
+          })
 
-      const channel = getChannel({ id: PRESENTATIONS_CHANNEL.id, client })
+          const channel = getChannel({ id: PRESENTATIONS_CHANNEL.id, client })
 
-      await channel?.send({
-        content: `👋 <@${interaction.user.id}>!`,
-        embeds: [embed],
-      })
+          await channel?.send({
+            content: `👋 <@${interaction.user.id}>!`,
+            embeds: [embed],
+          })
 
-      await member.roles.add(PRESENTED_ROLE.id)
+          await member.roles.add(PRESENTED_ROLE.id)
 
-      client.api
-        .users(member.id)
-        .put<IntroducePUT>(body)
-        .then(() => {
           client.api
             .users(member.id)
-            .post<IntroducePOST>()
+            .put<IntroducePUT>(body)
             .then(() => {
               client.api
                 .users(member.id)
-                .put<IntroducePUT>(body)
+                .post<IntroducePOST>()
+                .then(() => {
+                  client.api
+                    .users(member.id)
+                    .put<IntroducePUT>(body)
+                    .catch(() => {})
+                })
                 .catch(() => {})
             })
             .catch(() => {})
-        })
-        .catch(() => {})
 
-      await dm.send(INTRODUCTION.FINISH)
+          await dm.send(INTRODUCTION.FINISH)
+        })
+        .catch(async () => {
+          await reply(interaction).errorInAccessDM()
+
+          return
+        })
     },
   ]
 }

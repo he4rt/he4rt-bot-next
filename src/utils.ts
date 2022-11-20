@@ -1,6 +1,8 @@
 import {
+  Channel,
   CommandInteraction,
   CommandInteractionOption,
+  DMChannel,
   EmbedBuilder,
   GuildMember,
   HexColorString,
@@ -73,7 +75,7 @@ export const isBot = (author: User): boolean => {
 }
 
 export const isAdministrator = (member: GuildMember) => {
-  return member.permissions.has(PermissionFlagsBits.Administrator), true
+  return member.permissions.has(PermissionFlagsBits.Administrator, true)
 }
 
 export const isValidListenerMessage = (message: Message) => {
@@ -128,6 +130,12 @@ export const getOption: CommandGetOption = (interaction: CommandInteraction, tar
 
 export const replaceDefineString = (str: string, target: string) => {
   return str.replaceAll(DEFINE_STRING_REPLACED, target)
+}
+
+export const sendInDM = async (dm: DMChannel, interaction: CommandInteraction, str: string) => {
+  await dm.send(str).catch(async () => {
+    await reply(interaction).errorInAccessDM()
+  })
 }
 
 export const reply = (interaction: CommandInteraction) => {
