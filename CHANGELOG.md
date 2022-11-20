@@ -2,6 +2,12 @@
 
 Changelog was created by [Generi](https://github.com/Novout/generi). Any questions, consult the documentation.
 
+### v2.1.4
+
+* **fix(apresentar):** message in user dm closed [b298356]
+* **feat(events):** suppress embed in busy channels [05b555d]
+* **fix:** typo [f2370e1]
+
 ### v2.1.3
 
 * **chore(command):** renamed nivel to ranqueamento [16cd5db]
