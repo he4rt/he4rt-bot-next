@@ -1,8 +1,8 @@
 {
   "silent": false,
-  "commits": "none",
+  "commits": "conventional-commits",
   "tag": true,
   "version": true,
-  "push": false,
+  "push": true,
   "publish": false
 }
