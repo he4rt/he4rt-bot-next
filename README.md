@@ -69,4 +69,23 @@ pnpm version:(patch|minor|major)
 
 ## 👥 Contribuidores
 
+<table>
+<tr>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/Novout>
+            <img src=https://avatars.githubusercontent.com/u/41403842?v=4 width="100;"  alt=Giovane Cardoso/>
+            <br />
+            <sub style="font-size:14px"><b>Giovane Cardoso</b></sub>
+        </a>
+    </td>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/kjkGustavo>
+            <img src=https://avatars.githubusercontent.com/u/47262260?v=4 width="100;"  alt=Gustavo/>
+            <br />
+            <sub style="font-size:14px"><b>Gustavo</b></sub>
+        </a>
+    </td>
+</tr>
+</table>
+
 Obrigado a todos os contribuidores acima e aos contribuidores [da primeira versão](https://github.com/he4rt/He4rt-Bot/blob/master/README.md#-contribuidores)!
