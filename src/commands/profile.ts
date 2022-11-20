@@ -2,6 +2,8 @@ import { GuildMember, HexColorString, SlashCommandBuilder } from 'discord.js'
 import { Command, ProfileGET } from '@/types'
 import { PROFILE } from '@/defines/commands.json'
 import { COLORS } from '@/defines/values.json'
+import EMBED from '@/defines/localisation/commands/profile.json'
+import { LANGUAGE_NONE_ONE, NOT_FOUND } from '@/defines/localisation/defaults/display.json'
 import {
   embedTemplate,
   isHe4rtDelasMember,
@@ -34,35 +36,36 @@ export const useProfile = (): Command => {
         .then(async (user) => {
           const fields = [
             [
-              { name: '**Nome:**', value: user.name, inline: true },
-              { name: '**Nickname:**', value: user.nickname || 'Nenhum', inline: true },
+              { name: EMBED.EMBED_NAME, value: user.name, inline: true },
+              { name: EMBED.EMBED_NICKNAME, value: user.nickname || LANGUAGE_NONE_ONE, inline: true },
             ],
             [
-              { name: '**Sobre:**', value: user.about, inline: true },
-              { name: '**GIT:**', value: user.git, inline: true },
+              { name: EMBED.EMBED_ABOUT, value: user.about, inline: true },
+              { name: EMBED.EMBED_GIT, value: user.git, inline: true },
+              { name: EMBED.EMBED_LINKEDIN, value: user?.linkedin || NOT_FOUND, inline: true },
             ],
             [
-              { name: '**Nível:**', value: `${user.level}`, inline: true },
+              { name: EMBED.EMBED_LEVEL, value: `${user.level}`, inline: true },
               {
-                name: '**EXP Atual:**',
+                name: EMBED.EMBED_XP,
                 inline: true,
                 value: `${user.current_exp}`,
               },
             ],
             [
               {
-                name: `**HCoins:**`,
+                name: EMBED.EMBED_COINS,
                 value: user.money,
                 inline: true,
               },
             ],
             [
               {
-                name: '**Linguagens:**',
+                name: EMBED.EMBED_LANGUAGES,
                 value: validDisplayDevRoles(member),
               },
               {
-                name: '**Nível de Inglês:**',
+                name: EMBED.EMBED_ENGLISH,
                 value: validDisplayEngRoles(member),
                 inline: true,
               },
@@ -72,7 +75,7 @@ export const useProfile = (): Command => {
           const delas = isHe4rtDelasMember(member)
 
           const embed = embedTemplate({
-            title: 'Perfil',
+            title: EMBED.EMBED_PROFILE,
             color: delas ? (COLORS.HE4RT_DELAS as HexColorString) : (COLORS.HE4RT as HexColorString),
             author: interaction.user,
             delas,

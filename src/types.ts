@@ -68,6 +68,7 @@ export interface ProfileGET extends RESTJson {
   name: string
   nickname: string
   git: string
+  linkedin?: string
   about: string
   level: number
   current_exp: number
