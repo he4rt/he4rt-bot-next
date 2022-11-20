@@ -214,6 +214,7 @@ export const useIntroduction = (): Command => {
           nickname,
           git,
           about,
+          linkedin,
         })
         .then(() => {
           client.api
@@ -227,6 +228,7 @@ export const useIntroduction = (): Command => {
                   nickname,
                   git,
                   about,
+                  linkedin,
                 })
                 .catch(() => {})
             })
