@@ -1,5 +1,5 @@
 {
-  "REASON_OPTION": "``🚔`` » Punição",
-  "EMBED_TITLE": "``🔔`` **Heart Informa:**",
-  "EMBED_CONTENT": "@everyone"
+  "MEMBER_OPTION": "Usuário a ser banido.",
+  "REASON_OPTION": "Texto que irá aparecer no anúncio.",
+  "EMBED_TITLE": "``🚔`` » Punição"
 }

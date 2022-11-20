@@ -1,6 +1,7 @@
 import { SlashCommandBuilder, RestOrArray, APIEmbedField, GuildMember } from 'discord.js'
 import { Command, RankingGET } from '@/types'
 import { RANKING } from '@/defines/commands.json'
+import { PAGE_OPTION, NULL_ACCOUNT, EMBED_TITLE } from '@/defines/localisation/commands/ranking.json'
 import { COLORS } from '@/defines/values.json'
 import { embedTemplate, isPresentedMember, reply } from '@/utils'
 import { HexColorString } from 'discord.js'
@@ -10,7 +11,7 @@ export const useRanking = (): Command => {
     .setName(RANKING.TITLE)
     .setDescription(RANKING.DESCRIPTION)
     .setDMPermission(false)
-    .addNumberOption((option) => option.setName('page').setDescription('Qual página deseja ver?').setRequired(true))
+    .addNumberOption((option) => option.setName('page').setDescription(PAGE_OPTION).setRequired(true))
 
   return [
     data,
@@ -33,7 +34,7 @@ export const useRanking = (): Command => {
 
           members.forEach((member, index) => {
             fields.push({
-              name: `${index + 1 + (page - 1) * 10}° | ${(member.nickname as string) || 'Conta Excluída'}`,
+              name: `${index + 1 + (page - 1) * 10}° | ${(member.nickname as string) || NULL_ACCOUNT}`,
               value: `Level: ${member.level} - Exp: ${member.current_exp}`,
               inline: false,
             })
@@ -46,7 +47,7 @@ export const useRanking = (): Command => {
           }
 
           const embed = embedTemplate({
-            title: `🏆 » Ranking - Página ${page}`,
+            title: `${EMBED_TITLE}${page}`,
             color: COLORS.WARNING as HexColorString,
             fields: [fields],
           })

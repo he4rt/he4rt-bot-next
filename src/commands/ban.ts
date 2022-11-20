@@ -1,11 +1,13 @@
 import { PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@/types'
 import { BAN } from '@/defines/commands.json'
+import { MEMBER_OPTION, REASON_OPTION, EMBED_TITLE } from '@/defines/localisation/commands/ban.json'
 import {
   EMBED_FIELD_PUNISHED,
   EMBED_FIELD_TYPE,
   EMBED_FIELD_REASON,
   EMBED_FIELD_REASON_VALUE,
+  EMBED_FIELD_TYPE_BAN,
 } from '@/defines/localisation/commands/shared.json'
 import { PUNISHMENTS_CHANNEL } from '@/defines/ids.json'
 import { embedTemplate, getChannel, reply } from '@/utils'
@@ -15,10 +17,8 @@ export const useBan = (): Command => {
     .setName(BAN.TITLE)
     .setDescription(BAN.DESCRIPTION)
     .setDMPermission(false)
-    .addUserOption((option) => option.setName('member').setDescription('Usuário a ser banido.').setRequired(true))
-    .addStringOption((option) =>
-      option.setName('reason').setDescription('Texto que irá aparecer no anúncio').setRequired(true)
-    )
+    .addUserOption((option) => option.setName('member').setDescription(MEMBER_OPTION).setRequired(true))
+    .addStringOption((option) => option.setName('reason').setDescription(REASON_OPTION).setRequired(true))
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator | PermissionFlagsBits.BanMembers)
 
   return [
@@ -42,7 +42,7 @@ export const useBan = (): Command => {
       }
 
       const embed = embedTemplate({
-        title: '``🚔`` » Punição',
+        title: EMBED_TITLE,
         target: {
           user,
           icon: true,
@@ -51,7 +51,7 @@ export const useBan = (): Command => {
         fields: [
           [
             { name: EMBED_FIELD_PUNISHED, value: `**${user!.username}**` },
-            { name: EMBED_FIELD_TYPE, value: 'Banimento' },
+            { name: EMBED_FIELD_TYPE, value: EMBED_FIELD_TYPE_BAN },
             { name: EMBED_FIELD_REASON, value: (reason.value as string) || EMBED_FIELD_REASON_VALUE },
           ],
         ],
