@@ -2,6 +2,16 @@
 
 Changelog was created by [Generi](https://github.com/Novout/generi). Any questions, consult the documentation.
 
+### v2.1.3
+
+* **chore(command):** renamed nivel to ranqueamento [16cd5db]
+* **fix(commands):** presented member requisition in personal commands [0e25e61]
+* **chore(utils):** defines set [bf0cecb]
+* **chore:** typos [70e1c8c]
+* **chore(apresentar):** recursive case and localisation defines in embed [679c8d2]
+* **style:** typo [dcf06ed]
+* **feat(presence):** multiple messages [84cc730]
+
 ### v2.1.2
 
 * **chore:** readme [21efb6d]
