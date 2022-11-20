@@ -5,7 +5,5 @@
   "EMBED_FIELD_TYPE": "``📄`` **Tipo:**",
   "EMBED_FIELD_TYPE_BAN": "Banimento",
   "EMBED_FIELD_REASON": "``📣`` **Motivo:**",
-  "EMBED_FIELD_REASON_VALUE": "Não Inferido.",
-  "ROLE_CREATED": "Cargo criado com sucesso!",
-  "COLOR_CHANGED": "Cor alterada com sucesso!"
+  "EMBED_FIELD_REASON_VALUE": "Não Inferido."
 }

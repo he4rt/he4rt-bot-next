@@ -2,9 +2,8 @@ import { CommandInteractionOption, GuildMember, HexColorString, SlashCommandBuil
 import { Command } from '@/types'
 import { COLOR } from '@/defines/commands.json'
 import { DONATORS_CHANNEL } from '@/defines/ids.json'
-import { HEX_ERROR, HEX_OPTION } from '@/defines/localisation/commands/color.json'
-import { ROLE_CREATED, COLOR_CHANGED } from '@/defines/localisation/commands/shared.json'
-import { isPrivileged, reply } from '@/utils'
+import { HEX_ERROR, HEX_OPTION, HEX_SUCCESS } from '@/defines/localisation/commands/color.json'
+import { getCustomColorRole, isPrivileged, reply } from '@/utils'
 
 export const useColor = (): Command => {
   const data = new SlashCommandBuilder()
@@ -40,8 +39,9 @@ export const useColor = (): Command => {
         return
       }
 
-      const colorRole = member.roles.cache.find((x) => /.+#\d{4}/i.test(x.name))
+      const colorRole = getCustomColorRole(member)
       const priority = member.roles.highest.position + 1
+      const content = `<@${member.id}>${HEX_SUCCESS}(${color})`
 
       if (!colorRole) {
         interaction?.guild?.roles
@@ -56,7 +56,7 @@ export const useColor = (): Command => {
           .then(async (role) => {
             await member.roles.add(role)
 
-            await interaction.reply({ content: ROLE_CREATED, ephemeral: true })
+            await interaction.reply({ content, ephemeral: false })
           })
 
         return
@@ -65,7 +65,7 @@ export const useColor = (): Command => {
       await colorRole.setColor(color)
       await colorRole.setPosition(priority)
 
-      await interaction.reply({ content: COLOR_CHANGED, ephemeral: true })
+      await interaction.reply({ content, ephemeral: false })
     },
   ]
 }
