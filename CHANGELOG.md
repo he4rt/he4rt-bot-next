@@ -2,6 +2,17 @@
 
 Changelog was created by [Generi](https://github.com/Novout/generi). Any questions, consult the documentation.
 
+### v2.1.5
+
+* **chore(cor):** new approach [9702108]
+* **feat(events):** remove custom color of underprivileged members [45f4e4a]
+* **chore:** ban and unban embed set [77c7021]
+* **chore(events):** channel events in a specific file [d461b12]
+* **chore(commands):** localisation strings [c91c049]
+* **chore(perfil):** linkedin field and defines [005b677]
+* **chore(apresentar):** five minutes timeout instead two [89cd2ba]
+* **fix:** typo [81e1771]
+
 ### v2.1.4
 
 * **fix(apresentar):** message in user dm closed [b298356]
