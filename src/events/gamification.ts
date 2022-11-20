@@ -1,5 +1,4 @@
-import { ChannelType, GuildMember, Message, TextBasedChannel } from 'discord.js'
-import { ofetch } from 'ofetch'
+import { ChannelType, GuildMember, Message } from 'discord.js'
 import { embedTemplate, getChannel, isPrivileged } from '@/utils'
 import { GamificationPOST, He4rtClient } from '@/types'
 import {
@@ -24,15 +23,13 @@ export const XPCounterAndPossibleLevelUp = (client: He4rtClient, message: Messag
 
   if (client.user?.id === message.author.id) return
 
-  ofetch<GamificationPOST>(`${process.env.API_URL}/bot/gamification/levelup`, {
-    headers: { Authorization: process.env.HE4RT_TOKEN },
-    method: 'POST',
-    body: {
+  client.api.bot.gamification
+    .levelup()
+    .post<GamificationPOST>({
       discord_id: member.id,
       message: message.content,
       donator: isPrivileged(member),
-    },
-  })
+    })
     .then(async (data) => {
       if (!data.is_levelup) return
 

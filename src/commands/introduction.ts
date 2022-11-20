@@ -1,4 +1,4 @@
-import { CommandInteraction, DMChannel, GuildMember, HexColorString, italic, SlashCommandBuilder } from 'discord.js'
+import { CommandInteraction, DMChannel, GuildMember, SlashCommandBuilder } from 'discord.js'
 import { Command, IntroducePOST, IntroducePUT, RoleDefine } from '@/types'
 import {
   PRESENTATIONS_CHANNEL,
@@ -7,13 +7,11 @@ import {
   VALID_PRESENTATION_DEV_ROLES,
   VALID_PRESENTATION_ENG_ROLES,
 } from '@/defines/ids.json'
-import { INTRODUCE } from '@/defines/commands.json'
-import { TIMEOUT_COMMAND, TIMEOUT_COMMAND_STRING, COLORS } from '@/defines/values.json'
 import INTRODUCTION from '@/defines/localisation/commands/introduction.json'
+import { INTRODUCE } from '@/defines/commands.json'
+import { TIMEOUT_COMMAND, TIMEOUT_COMMAND_STRING } from '@/defines/values.json'
 import { getChannel, isValidId, reply, validDisplayDevRoles, validDisplayEngRoles } from '@/utils'
 import { embedTemplate } from '@/utils'
-import { ofetch } from 'ofetch'
-import JSON_PARSE from 'destr'
 
 const nextTextMessage = async (dm: DMChannel, interaction: CommandInteraction): Promise<string> => {
   try {
@@ -209,40 +207,32 @@ export const useIntroduction = (): Command => {
 
       await member.roles.add(PRESENTED_ROLE.id)
 
-      ofetch<IntroducePUT>(`${process.env.API_URL}/users/${member.id}`, {
-        parseResponse: JSON_PARSE,
-        headers: { Authorization: process.env.HE4RT_TOKEN },
-        method: 'PUT',
-        body: {
+      client.api
+        .users(member.id)
+        .put<IntroducePUT>({
           name,
           nickname,
           git,
           about,
-        },
-      }).catch(() => {
-        ofetch<IntroducePOST>(`${process.env.API_URL}/users/`, {
-          parseResponse: JSON_PARSE,
-          headers: { Authorization: process.env.HE4RT_TOKEN },
-          method: 'POST',
-          body: {
-            discord_id: member.id,
-          },
         })
-          .then(() => {
-            ofetch<IntroducePUT>(`${process.env.API_URL}/users/${member.id}`, {
-              parseResponse: JSON_PARSE,
-              headers: { Authorization: process.env.HE4RT_TOKEN },
-              method: 'PUT',
-              body: {
-                name,
-                nickname,
-                git,
-                about,
-              },
-            }).catch(() => {})
-          })
-          .catch(() => {})
-      })
+        .then(() => {
+          client.api
+            .users(member.id)
+            .post<IntroducePOST>()
+            .then(() => {
+              client.api
+                .users(member.id)
+                .put<IntroducePUT>({
+                  name,
+                  nickname,
+                  git,
+                  about,
+                })
+                .catch(() => {})
+            })
+            .catch(() => {})
+        })
+        .catch(() => {})
 
       await dm.send(INTRODUCTION.FINISH)
     },

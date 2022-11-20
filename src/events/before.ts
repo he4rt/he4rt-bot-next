@@ -11,7 +11,7 @@ export const beforeListeners = (client: He4rtClient) => {
     gamificationListener(client, message)
   })
 
-  client.on(Events.InteractionCreate, async (interaction) => {
-    if (interaction.isChatInputCommand()) await commandsListener(client, interaction)
+  client.on(Events.InteractionCreate, (interaction) => {
+    if (interaction.isChatInputCommand()) commandsListener(client, interaction)
   })
 }

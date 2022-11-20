@@ -6,15 +6,15 @@ specifiers:
   discord.js: ^14.6.0
   dotenv: ^16.0.3
   nodemon: ^2.0.20
-  ofetch: ^1.0.0
   prettier: ^2.7.1
   tsup: ^6.5.0
   typescript: ^4.9.3
+  uncreate: ^0.9.2
 
 dependencies:
   destr: 1.2.1
   discord.js: 14.6.0
-  ofetch: 1.0.0
+  uncreate: 0.9.2
 
 devDependencies:
   concurrently: 7.5.0
@@ -832,8 +832,8 @@ packages:
       thenify-all: 1.6.0
     dev: true
 
-  /node-fetch-native/1.0.1:
-    resolution: {integrity: sha512-VzW+TAk2wE4X9maiKMlT+GsPU4OMmR1U9CrHSmd3DFLn2IcZ9VJ6M6BBugGfYUnPCLSYxXdZy17M0BEJyhUTwg==}
+  /node-fetch-native/0.1.8:
+    resolution: {integrity: sha512-ZNaury9r0NxaT2oL65GvdGDy+5PlSaHTovT6JV5tOW07k1TQmgC0olZETa4C9KZg0+6zBr99ctTYa3Utqj9P/Q==}
     dev: false
 
   /nodemon/2.0.20:
@@ -877,12 +877,13 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /ofetch/1.0.0:
-    resolution: {integrity: sha512-d40aof8czZFSQKJa4+F7Ch3UC5D631cK1TTUoK+iNEut9NoiCL+u0vykl/puYVUS2df4tIQl5upQcolIcEzQjQ==}
+  /ohmyfetch/0.4.21:
+    resolution: {integrity: sha512-VG7f/JRvqvBOYvL0tHyEIEG7XHWm7OqIfAs6/HqwWwDfjiJ1g0huIpe5sFEmyb+7hpFa1EGNH2aERWR72tlClw==}
     dependencies:
       destr: 1.2.1
-      node-fetch-native: 1.0.1
-      ufo: 1.0.0
+      node-fetch-native: 0.1.8
+      ufo: 0.8.6
+      undici: 5.12.0
     dev: false
 
   /once/1.4.0:
@@ -1251,8 +1252,15 @@ packages:
     hasBin: true
     dev: true
 
-  /ufo/1.0.0:
-    resolution: {integrity: sha512-DRty0ZBNlJ2R59y4mEupJRKLbkLQsc4qtxjpQv78AwEDuBkaUogMc2LkeqW3HddFlw6NwnXYfdThEZOiNgkmmQ==}
+  /ufo/0.8.6:
+    resolution: {integrity: sha512-fk6CmUgwKCfX79EzcDQQpSCMxrHstvbLswFChHS0Vump+kFkw7nJBfTZoC1j0bOGoY9I7R3n2DGek5ajbcYnOw==}
+    dev: false
+
+  /uncreate/0.9.2:
+    resolution: {integrity: sha512-sfL4dr6Jji0hwkRKB3vdvlTPCd7/C0AHrbxaiNAsZp3+Re7SkV2Iz6IXOAYga92yDp/epzU8ZSOYre7sbKRVww==}
+    dependencies:
+      ohmyfetch: 0.4.21
+      ufo: 0.8.6
     dev: false
 
   /undefsafe/2.0.5:

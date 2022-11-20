@@ -1,8 +1,6 @@
 import { GuildMember, SlashCommandBuilder } from 'discord.js'
 import { Command, DailyPOST } from '@/types'
 import { DAILY } from '@/defines/commands.json'
-import { ofetch } from 'ofetch'
-import JSON_PARSE from 'destr'
 import { isPrivileged } from '@/utils'
 
 export const useDaily = (): Command => {
@@ -13,22 +11,19 @@ export const useDaily = (): Command => {
     async (interaction, client) => {
       const member = interaction.member as GuildMember
 
-      ofetch<DailyPOST>(`${process.env.API_URL}/users/daily`, {
-        parseResponse: JSON_PARSE,
-        method: 'post',
-        headers: { Authorization: process.env.HE4RT_TOKEN },
-        body: {
-          discord_id: member.id,
+      client.api.users
+        .daily()
+        .post<DailyPOST>({
           donator: isPrivileged(member),
-        },
-      })
+          discord_id: member.id,
+        })
         .then(async ({ data }) => {
           await interaction.reply({
-            content: `Você ganhou ${data.points} HCoins de bônus diário! Para ver seu saldo, use o comando **/perfil**`,
+            content: `Você ganhou **${data.points}** HCoins de bônus diário! Para ver seu saldo, use o comando **/perfil**.`,
             ephemeral: true,
           })
         })
-        .catch(async (e) => {
+        .catch(async () => {
           await interaction.reply({
             content: 'Você já recebeu seu bônus diário! Tente novamente outro dia.',
             ephemeral: true,

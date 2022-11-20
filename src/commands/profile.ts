@@ -2,9 +2,7 @@ import { GuildMember, HexColorString, SlashCommandBuilder } from 'discord.js'
 import { Command, ProfileGET } from '@/types'
 import { PROFILE } from '@/defines/commands.json'
 import { COLORS } from '@/defines/values.json'
-import { embedTemplate, isHe4rtDelasMember, validDisplayDevRoles, validDisplayEngRoles } from '@/utils'
-import { ofetch } from 'ofetch'
-import JSON_PARSE from 'destr'
+import { embedTemplate, isHe4rtDelasMember, reply, validDisplayDevRoles, validDisplayEngRoles } from '@/utils'
 
 export const useProfile = (): Command => {
   const data = new SlashCommandBuilder()
@@ -17,11 +15,9 @@ export const useProfile = (): Command => {
     async (interaction, client) => {
       const member = interaction.member as GuildMember
 
-      ofetch<ProfileGET>(`${process.env.API_URL}/users/${member.id}`, {
-        parseResponse: JSON_PARSE,
-        headers: { Authorization: process.env.HE4RT_TOKEN },
-        method: 'GET',
-      })
+      await client.api
+        .users(member.id)
+        .get<ProfileGET>()
         .then(async (user) => {
           const fields = [
             [
@@ -76,10 +72,7 @@ export const useProfile = (): Command => {
           })
         })
         .catch(async () => {
-          await interaction.reply({
-            content: 'Um erro inesperado ocorreu. Tente novamente mais tarde!',
-            ephemeral: true,
-          })
+          await reply(interaction).error()
         })
     },
   ]

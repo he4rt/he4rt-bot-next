@@ -2,10 +2,8 @@ import { SlashCommandBuilder, RestOrArray, APIEmbedField } from 'discord.js'
 import { Command, RankingGET } from '@/types'
 import { RANKING } from '@/defines/commands.json'
 import { COLORS } from '@/defines/values.json'
-import { ofetch } from 'ofetch'
-import { embedTemplate } from '@/utils'
+import { embedTemplate, reply } from '@/utils'
 import { HexColorString } from 'discord.js'
-import JSON_PARSE from 'destr'
 
 export const useRanking = (): Command => {
   const data = new SlashCommandBuilder()
@@ -19,11 +17,10 @@ export const useRanking = (): Command => {
     async (interaction, client) => {
       const page = (interaction.options.get('page')?.value as number) || 1
 
-      ofetch<RankingGET>(`${process.env.API_URL}/ranking/general?page=${page}`, {
-        parseResponse: JSON_PARSE,
-        headers: { Authorization: process.env.HE4RT_TOKEN },
-        method: 'GET',
-      })
+      client.api.ranking.general
+        .get<RankingGET>({
+          page,
+        })
         .then(async ({ data: members }) => {
           const fields: RestOrArray<APIEmbedField> = []
 
@@ -53,10 +50,7 @@ export const useRanking = (): Command => {
           await interaction.reply({ embeds: [embed], ephemeral: true })
         })
         .catch(async () => {
-          await interaction.reply({
-            content: 'Um erro inesperado ocorreu. Tente novamente mais tarde!',
-            ephemeral: true,
-          })
+          await reply(interaction).error()
         })
     },
   ]

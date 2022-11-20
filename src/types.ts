@@ -11,8 +11,10 @@ import {
   SlashCommandBuilder,
   User,
 } from 'discord.js'
+import { ClientBuilder } from 'uncreate'
 
 export type Maybe<T> = T | undefined | null
+export type RESTJson<T extends string | number | symbol = string, K = any> = Record<T, K>
 export type CommandGetOption<T extends CacheType = CacheType> = (
   interaction: CommandInteraction,
   target: string
@@ -44,21 +46,21 @@ export interface GetChannelOptions {
   client: He4rtClient
 }
 
-export interface RankingGET extends Record<any, any> {
+export interface RankingGET extends RESTJson {
   data: RankingMember[]
 }
 
-export interface DailyPOST extends Record<any, any> {
+export interface DailyPOST extends RESTJson {
   data: {
     points: number
   }
 }
 
-export interface IntroducePUT extends Record<any, any> {}
+export interface IntroducePUT extends RESTJson {}
 
-export interface IntroducePOST extends Record<any, any> {}
+export interface IntroducePOST extends RESTJson {}
 
-export interface ProfileGET extends Record<string, any> {
+export interface ProfileGET extends RESTJson {
   id: number
   discord_id: string
   twitch_id: any
@@ -81,7 +83,7 @@ export interface ProfileGET extends Record<string, any> {
   }
 }
 
-export interface GamificationPOST extends Record<string, any> {}
+export interface GamificationPOST extends RESTJson {}
 
 export interface RankingMember {
   nickname?: string
@@ -99,6 +101,7 @@ export type Command = [CommandSet, CommandCallback]
 
 export type He4rtClient = Client<boolean> & {
   commands: Collection<CommandSet, CommandCallback>
+  api: ClientBuilder
 }
 
 export interface Context {

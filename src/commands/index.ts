@@ -36,8 +36,8 @@ export const registerCommands = async ({ client, rest }: Context) => {
   })
 }
 
-export const commandsListener = async (client: He4rtClient, interaction: CommandInteraction) => {
+export const commandsListener = (client: He4rtClient, interaction: CommandInteraction) => {
   for (const [key, cb] of client.commands) {
-    if (key.name === interaction.commandName) cb && (await cb(interaction, client))
+    if (key.name === interaction.commandName) cb && cb(interaction, client)
   }
 }
