@@ -47,7 +47,7 @@ export const useTimeout = (): Command => {
         author: interaction.user,
         fields: [
           [
-            { name: '``👤`` **Usuário desbanido:**', value: `**${member!.user}**` },
+            { name: '``👤`` **Usuário:**', value: `**<@${member.user.id}>**` },
             { name: '``📄`` **Tipo:**', value: 'Supressão' },
             { name: '``📣`` **Motivo:**', value: (reason.value as string) || 'Não Inferido.' },
           ],
