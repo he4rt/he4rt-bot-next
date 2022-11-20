@@ -3,13 +3,13 @@ import { commandsListener } from '@/commands'
 import { He4rtClient } from '@/types'
 import { gamificationListener } from './gamification'
 import { isBot, isValidListenerMessage } from '@/utils'
-import { deleteUserInServerLeave } from './guild'
+import { deletePossibleUserInServerLeave } from './guild'
 
 export const beforeListeners = (client: He4rtClient) => {
   client.on(Events.GuildMemberRemove, (member) => {
     if (isBot(member.user)) return
 
-    deleteUserInServerLeave(client, member.user.id)
+    deletePossibleUserInServerLeave(client, member.user.id)
   })
 
   client.on(Events.MessageCreate, (message) => {
