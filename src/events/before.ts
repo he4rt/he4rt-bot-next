@@ -3,7 +3,8 @@ import { commandsListener } from '@/commands'
 import { He4rtClient } from '@/types'
 import { gamificationListener } from './gamification'
 import { isBot, isValidListenerMessage } from '@/utils'
-import { deletePossibleUserInServerLeave, suppressEmbedMessagesInBusyChannels } from './guild'
+import { deletePossibleUserInServerLeave } from './guild'
+import { suppressEmbedMessagesInBusyChannels } from './channel'
 
 export const beforeListeners = (client: He4rtClient) => {
   client.on(Events.GuildMemberRemove, (member) => {
@@ -16,6 +17,7 @@ export const beforeListeners = (client: He4rtClient) => {
     if (!isValidListenerMessage(message)) return
 
     gamificationListener(client, message)
+
     suppressEmbedMessagesInBusyChannels(message)
   })
 
