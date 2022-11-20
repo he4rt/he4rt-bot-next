@@ -15,16 +15,16 @@ He4rt Discord Bot
 ## Commands
 
 - `/anunciar` (ADM)
-- `/ban` (ADM|MOD)
-- `/unban` (ADM|MOD)
-- `/timeout` (ADM|MOD)
+- `/banir` (ADM|MOD)
+- `/desbanir` (ADM|MOD)
+- `/suprimir` (ADM|MOD)
 - `/chat` (ADM|MOD)
-- `/say` (ADM|MOD)
+- `/falar` (ADM|MOD)
 - `/cor` (PRIVILEGIADOS)
-- `/daily`
+- `/bonus`
 - `/apresentar`
 - `/perfil`
-- `/ranking`
+- `/nivel`
 
 ## Development
 
