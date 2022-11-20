@@ -24,7 +24,7 @@
     "DESCRIPTION": "Template para a criação de outros comandos."
   },
   "RANKING": {
-    "TITLE": "nivel",
+    "TITLE": "ranqueamento",
     "DESCRIPTION": "Veja os usuários mais ativos do servidor!"
   },
   "DAILY": {

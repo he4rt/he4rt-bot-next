@@ -24,7 +24,7 @@ He4rt Discord Bot
 - `/bonus`
 - `/apresentar`
 - `/perfil`
-- `/nivel`
+- `/ranqueamento`
 
 ## Development
 
