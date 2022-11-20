@@ -1,0 +1,8 @@
+{
+  "silent": false,
+  "commits": "none",
+  "tag": true,
+  "version": true,
+  "push": false,
+  "publish": false
+}
