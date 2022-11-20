@@ -121,7 +121,7 @@ const nextStringsData = async (dm: DMChannel, interaction: CommandInteraction) =
   if ([name, nickname, about, git, linkedin].some((v) => v === TIMEOUT_COMMAND_STRING || !v)) {
     await dm.send(INTRODUCTION.INVALID_STRING_DATA)
 
-    await nextStringsData(dm, interaction)
+    return await nextStringsData(dm, interaction)
   }
 
   return {
@@ -154,7 +154,7 @@ export const useIntroduction = (): Command => {
 
       await reply(interaction).successInAccessDM()
 
-      const { name, nickname, about, git, linkedin } = await nextStringsData(dm, interaction)
+      const body = await nextStringsData(dm, interaction)
 
       await nextMultipleRoleSelection(
         VALID_PRESENTATION_DEV_ROLES,
@@ -168,34 +168,33 @@ export const useIntroduction = (): Command => {
 
       const isHe4rtDelasMember = await nextHe4rtDelasRole(dm, member, interaction)
 
-      const fields = [
-        [
-          { name: '**Nome:**', value: name, inline: true },
-          { name: '**Nickname:**', value: nickname, inline: true },
-          { name: '**Sobre:**', value: about, inline: true },
-        ],
-        [
-          { name: '**GIT:**', value: git, inline: true },
-          { name: '**Linkedin:**', value: linkedin, inline: true },
-          {
-            name: '**Linguagens:**',
-            value: validDisplayDevRoles(member),
-          },
-          {
-            name: '**Nível de Inglês:**',
-            value: validDisplayEngRoles(member),
-            inline: true,
-          },
-        ],
-      ]
       const embed = embedTemplate({
-        title: `**Apresentação** » ${author.username}`,
+        title: `${INTRODUCTION.EMBED.TITLE}${author.username}`,
         target: {
           user: author,
           icon: true,
         },
         delas: isHe4rtDelasMember,
-        fields,
+        fields: [
+          [
+            { name: INTRODUCTION.EMBED.NAME, value: body.name, inline: true },
+            { name: INTRODUCTION.EMBED.NICKNAME, value: body.nickname, inline: true },
+            { name: INTRODUCTION.EMBED.ABOUT, value: body.about, inline: true },
+          ],
+          [
+            { name: INTRODUCTION.EMBED.GIT, value: body.git, inline: true },
+            { name: INTRODUCTION.EMBED.LINKEDIN, value: body.linkedin, inline: true },
+            {
+              name: INTRODUCTION.EMBED.LANGUAGES,
+              value: validDisplayDevRoles(member),
+            },
+            {
+              name: INTRODUCTION.EMBED.ENGLISH,
+              value: validDisplayEngRoles(member),
+              inline: true,
+            },
+          ],
+        ],
       })
 
       const channel = getChannel({ id: PRESENTATIONS_CHANNEL.id, client })
@@ -207,13 +206,6 @@ export const useIntroduction = (): Command => {
 
       await member.roles.add(PRESENTED_ROLE.id)
 
-      const body = {
-        name,
-        nickname,
-        git,
-        about,
-        linkedin,
-      }
       client.api
         .users(member.id)
         .put<IntroducePUT>(body)
