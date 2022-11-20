@@ -7,6 +7,7 @@ import {
   GuildMember,
   HexColorString,
   Message,
+  PartialGuildMember,
   PermissionFlagsBits,
   TextBasedChannel,
   User,
@@ -59,15 +60,15 @@ export const getUserAvatar = (author: User) => {
 }
 
 export const isPresentedMember = (member: GuildMember) => {
-  return member.roles.cache.some((v) => v.id === PRESENTED_ROLE.id)
+  return member.roles.cache.some(({ id }) => id === PRESENTED_ROLE.id)
 }
 
 export const isPrivileged = (member: GuildMember) => {
-  return member.roles.cache.some((v) => v.id === DONATOR_ROLE.id || v.id === NITRO_BOOSTER_ROLE.id)
+  return member.roles.cache.some(({ id }) => id === DONATOR_ROLE.id || id === NITRO_BOOSTER_ROLE.id)
 }
 
 export const isHe4rtDelasMember = (member: GuildMember) => {
-  return member.roles.cache.some((v) => v.id === HE4RT_DELAS_ROLE.id)
+  return member.roles.cache.some(({ id }) => id === HE4RT_DELAS_ROLE.id)
 }
 
 export const isBot = (author: User): boolean => {
@@ -86,6 +87,10 @@ export const isValidListenerMessage = (message: Message) => {
 
 export const isValidId = (id: number, arr: any[]) => {
   return !isNaN(id) && id <= arr.length && id > 0
+}
+
+export const hasRole = (member: GuildMember, target: string) => {
+  return member.roles.cache.some(({ id }) => id === target)
 }
 
 export const normalizeStringData = (str: string) => {
@@ -126,6 +131,10 @@ export const getChannel = ({ client, id }: GetChannelOptions) => {
 
 export const getOption: CommandGetOption = (interaction: CommandInteraction, target: string) => {
   return interaction.options.get(target) as CommandInteractionOption
+}
+
+export const getCustomColorRole = ({ roles }: GuildMember | PartialGuildMember) => {
+  return roles.cache.find((x) => /.+#\d{4}/i.test(x.name)) || false
 }
 
 export const replaceDefineString = (str: string, target: string) => {
