@@ -8,7 +8,7 @@ export const suppressEmbedMessagesInBusyChannels = async (message: Message) => {
 
   if (validChannels.some((v) => v.id !== message.channel.id)) return
 
-  if (isAdministrator(member) || message.embeds.length > 0) return
+  if (isAdministrator(member) || message.embeds.length === 0) return
 
   await message.suppressEmbeds(true).catch(() => {})
 }
