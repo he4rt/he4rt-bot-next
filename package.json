@@ -9,7 +9,7 @@
     "dev:build": "tsup --sourcemap --watch",
     "dev:run": "nodemon .",
     "production": "tsup --minify --dts && node .",
-    "format": "prettier --write .",
+    "format": "prettier --write src/**/*{.ts,.json}",
     "version:init": "generi init",
     "version:patch": "generi log patch",
     "version:minor": "generi log minor",
