@@ -5,6 +5,7 @@ import {
   GuildMember,
   HexColorString,
   Message,
+  PermissionFlagsBits,
   TextBasedChannel,
   User,
 } from 'discord.js'
@@ -69,6 +70,10 @@ export const isHe4rtDelasMember = (member: GuildMember) => {
 
 export const isBot = (author: User): boolean => {
   return !!author?.bot
+}
+
+export const isAdministrator = (member: GuildMember) => {
+  return member.permissions.has(PermissionFlagsBits.Administrator), true
 }
 
 export const isValidListenerMessage = (message: Message) => {
