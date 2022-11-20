@@ -2,9 +2,14 @@
 
 Changelog was created by [Generi](https://github.com/Novout/generi). Any questions, consult the documentation.
 
+### v2.1.2
+
+* **chore:** readme [21efb6d]
+
 ### v2.1.1
 
 * **chore(commands)!:** ids typo [1b089aa]
+* **docs:** update contributors [e624c0e]
 * **ci:** typo [ea09bbd]
 * **ci:** typo [b4f02f0]
 
