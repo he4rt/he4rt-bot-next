@@ -1,8 +1,14 @@
 import { PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@/types'
 import { BAN } from '@/defines/commands.json'
+import {
+  EMBED_FIELD_PUNISHED,
+  EMBED_FIELD_TYPE,
+  EMBED_FIELD_REASON,
+  EMBED_FIELD_REASON_VALUE,
+} from '@/defines/localisation/commands/shared.json'
 import { PUNISHMENTS_CHANNEL } from '@/defines/ids.json'
-import { embedTemplate, getChannel } from '@/utils'
+import { embedTemplate, getChannel, reply } from '@/utils'
 
 export const useBan = (): Command => {
   const data = new SlashCommandBuilder()
@@ -30,7 +36,7 @@ export const useBan = (): Command => {
       try {
         await interaction?.guild?.members.ban(user)
       } catch (e) {
-        await interaction.reply({ content: 'O usuário em questão não pode ser banido!', ephemeral: true })
+        await reply(interaction).errorUserCannotBeBaned()
 
         return
       }
@@ -44,9 +50,9 @@ export const useBan = (): Command => {
         author,
         fields: [
           [
-            { name: '``👤`` **Usuário punido:**', value: `**${user!.username}**` },
-            { name: '``📄`` **Tipo:**', value: 'Banimento' },
-            { name: '``📣`` **Motivo:**', value: (reason.value as string) || 'Não Inferido.' },
+            { name: EMBED_FIELD_PUNISHED, value: `**${user!.username}**` },
+            { name: EMBED_FIELD_TYPE, value: 'Banimento' },
+            { name: EMBED_FIELD_REASON, value: (reason.value as string) || EMBED_FIELD_REASON_VALUE },
           ],
         ],
       })
@@ -55,7 +61,7 @@ export const useBan = (): Command => {
 
       await channel?.send({ content: `Usuário ${user.id} Banido!`, embeds: [embed] })
 
-      await interaction.reply({ content: 'Sucesso!', ephemeral: true })
+      await reply(interaction).success()
     },
   ]
 }

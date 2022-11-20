@@ -3,6 +3,12 @@ import { Command } from '@/types'
 import COMMANDS from '@/defines/commands.json'
 import { PUNISHMENTS_CHANNEL } from '@/defines/ids.json'
 import TIMEOUT from '@/defines/localisation/commands/timeout.json'
+import {
+  EMBED_FIELD_USER,
+  EMBED_FIELD_TYPE,
+  EMBED_FIELD_REASON,
+  EMBED_FIELD_REASON_VALUE,
+} from '@/defines/localisation/commands/shared.json'
 import { embedTemplate, getChannel, getOption, reply } from '@/utils'
 
 export const useTimeout = (): Command => {
@@ -47,9 +53,9 @@ export const useTimeout = (): Command => {
         author: interaction.user,
         fields: [
           [
-            { name: '``👤`` **Usuário:**', value: `**<@${member.user.id}>**` },
-            { name: '``📄`` **Tipo:**', value: 'Supressão' },
-            { name: '``📣`` **Motivo:**', value: (reason.value as string) || 'Não Inferido.' },
+            { name: EMBED_FIELD_USER, value: `**<@${member.user.id}>**` },
+            { name: EMBED_FIELD_TYPE, value: 'Supressão' },
+            { name: EMBED_FIELD_REASON, value: (reason.value as string) || EMBED_FIELD_REASON_VALUE },
           ],
         ],
       })

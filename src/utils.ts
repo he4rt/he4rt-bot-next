@@ -16,7 +16,8 @@ import {
   VALID_PRESENTATION_DEV_ROLES,
   VALID_PRESENTATION_ENG_ROLES,
 } from '@/defines/ids.json'
-import { TIMEOUT_COMMAND_STRING } from '@/defines/values.json'
+import { CANNOT_BE_BANNED } from '@/defines/localisation/defaults/reply.json'
+import { TIMEOUT_COMMAND_STRING, DEFINE_STRING_REPLACED } from '@/defines/values.json'
 import { CommandGetOption, EmbedTemplateOptions, GetChannelOptions } from '@/types'
 
 export const validDisplayDevRoles = (member: GuildMember) => {
@@ -103,6 +104,10 @@ export const getOption: CommandGetOption = (interaction: CommandInteraction, tar
   return interaction.options.get(target) as CommandInteractionOption
 }
 
+export const replaceDefineString = (str: string, target: string) => {
+  return str.replaceAll(DEFINE_STRING_REPLACED, target)
+}
+
 export const reply = (interaction: CommandInteraction) => {
   const success = async () => {
     return await interaction.reply({ content: 'Comando executado com sucesso!', ephemeral: true })
@@ -131,5 +136,27 @@ export const reply = (interaction: CommandInteraction) => {
     await interaction.reply({ content: 'Algum argumento inserido é inválido!', ephemeral: true })
   }
 
-  return { success, successInAccessDM, error, errorPermission, errorInAccessDM, errorInMissingArgument }
+  const errorUserCannotBeBaned = async () => {
+    await interaction.reply({ content: CANNOT_BE_BANNED, ephemeral: true })
+  }
+
+  const errorSpecificChannel = async (str: string) => {
+    await interaction.reply({ content: `Só é permitido usar este comando no canal ${str}!` })
+  }
+
+  const errorPaginationFail = async () => {
+    await interaction.reply({ content: `Este número de página não existe.` })
+  }
+
+  return {
+    success,
+    successInAccessDM,
+    error,
+    errorPermission,
+    errorInAccessDM,
+    errorInMissingArgument,
+    errorUserCannotBeBaned,
+    errorSpecificChannel,
+    errorPaginationFail,
+  }
 }

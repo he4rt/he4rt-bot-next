@@ -1,7 +1,8 @@
 import { GuildMember, SlashCommandBuilder } from 'discord.js'
 import { Command, DailyPOST } from '@/types'
 import { DAILY } from '@/defines/commands.json'
-import { isPrivileged } from '@/utils'
+import { isPrivileged, replaceDefineString } from '@/utils'
+import { HCOINS_ERROR, HCOINS_SUCCESS } from '@/defines/localisation/commands/daily.json'
 
 export const useDaily = (): Command => {
   const data = new SlashCommandBuilder().setName(DAILY.TITLE).setDescription(DAILY.DESCRIPTION).setDMPermission(false)
@@ -19,13 +20,13 @@ export const useDaily = (): Command => {
         })
         .then(async ({ data }) => {
           await interaction.reply({
-            content: `Você ganhou **${data.points}** HCoins de bônus diário! Para ver seu saldo, use o comando **/perfil**.`,
+            content: replaceDefineString(HCOINS_SUCCESS, String(data.points)),
             ephemeral: true,
           })
         })
         .catch(async () => {
           await interaction.reply({
-            content: 'Você já recebeu seu bônus diário! Tente novamente outro dia.',
+            content: HCOINS_ERROR,
             ephemeral: true,
           })
         })

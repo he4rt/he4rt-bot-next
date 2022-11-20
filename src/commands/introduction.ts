@@ -207,15 +207,16 @@ export const useIntroduction = (): Command => {
 
       await member.roles.add(PRESENTED_ROLE.id)
 
+      const body = {
+        name,
+        nickname,
+        git,
+        about,
+        linkedin,
+      }
       client.api
         .users(member.id)
-        .put<IntroducePUT>({
-          name,
-          nickname,
-          git,
-          about,
-          linkedin,
-        })
+        .put<IntroducePUT>(body)
         .then(() => {
           client.api
             .users(member.id)
@@ -223,13 +224,7 @@ export const useIntroduction = (): Command => {
             .then(() => {
               client.api
                 .users(member.id)
-                .put<IntroducePUT>({
-                  name,
-                  nickname,
-                  git,
-                  about,
-                  linkedin,
-                })
+                .put<IntroducePUT>(body)
                 .catch(() => {})
             })
             .catch(() => {})

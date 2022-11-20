@@ -2,16 +2,16 @@ import { CommandInteractionOption, GuildMember, HexColorString, SlashCommandBuil
 import { Command } from '@/types'
 import { COLOR } from '@/defines/commands.json'
 import { DONATORS_CHANNEL } from '@/defines/ids.json'
-import { isPrivileged } from '@/utils'
+import { HEX_ERROR, HEX_OPTION } from '@/defines/localisation/commands/color.json'
+import { ROLE_CREATED, COLOR_CHANGED } from '@/defines/localisation/commands/shared.json'
+import { isPrivileged, reply } from '@/utils'
 
 export const useColor = (): Command => {
   const data = new SlashCommandBuilder()
     .setName(COLOR.TITLE)
     .setDescription(COLOR.DESCRIPTION)
     .setDMPermission(false)
-    .addStringOption((option) =>
-      option.setName('hex').setDescription('Coloração Desejada em HEX. Formato de Exemplo: #FFFFFF').setRequired(true)
-    )
+    .addStringOption((option) => option.setName('hex').setDescription(HEX_OPTION).setRequired(true))
 
   return [
     data,
@@ -23,22 +23,19 @@ export const useColor = (): Command => {
       const color = hex.value as HexColorString
 
       if (!isPrivileged(member)) {
-        await interaction.reply({ content: 'Você não possui permissão para utilizar este comando!', ephemeral: true })
+        await reply(interaction).errorPermission()
 
         return
       }
 
       if (interaction.channel?.id !== DONATORS_CHANNEL.id) {
-        await interaction.reply({
-          content: `Só é permitido usar este comando no canal ${DONATORS_CHANNEL.title}!`,
-          ephemeral: true,
-        })
+        await reply(interaction).errorSpecificChannel(DONATORS_CHANNEL.title)
 
         return
       }
 
       if (!color.match(/^#[0-9A-F]{6}$/i)) {
-        await interaction.reply({ content: 'Digite uma cor válida no formato hexadecimal (#FFFFFF)!', ephemeral: true })
+        await interaction.reply({ content: HEX_ERROR, ephemeral: true })
 
         return
       }
@@ -59,7 +56,7 @@ export const useColor = (): Command => {
           .then(async (role) => {
             await member.roles.add(role)
 
-            await interaction.reply({ content: 'Cargo criado com sucesso!', ephemeral: true })
+            await interaction.reply({ content: ROLE_CREATED, ephemeral: true })
           })
 
         return
@@ -68,7 +65,7 @@ export const useColor = (): Command => {
       await colorRole.setColor(color)
       await colorRole.setPosition(priority)
 
-      await interaction.reply({ content: 'Cor alterada com sucesso!', ephemeral: true })
+      await interaction.reply({ content: COLOR_CHANGED, ephemeral: true })
     },
   ]
 }

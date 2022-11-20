@@ -1,88 +1,89 @@
 {
   "COMMANDS_CHANNEL": {
-    "id": "542840741588762637",
+    "id": "1042817315965763599",
     "title": "🤖︱comandos"
   },
   "ADVERTS_CHANNEL": {
-    "id": "755094121848242337",
+    "id": "1042821299224985640",
     "title": "📢︱anúncios"
   },
   "PRESENTATIONS_CHANNEL": {
-    "id": "540993663468306433",
+    "id": "1042817316754309184",
     "title": "📖︱apresentações"
   },
   "DONATORS_CHANNEL": {
-    "id": "607043756482363403",
+    "id": "1042817316158718023",
     "title": "💳︱apoiadores"
   },
   "PUNISHMENTS_CHANNEL": {
-    "id": "549056142752481283",
+    "id": "1042817315781218330",
     "title": "📌│punishments-and-mods"
   },
   "LEVELUP_CHANNEL": {
-    "id": "552332704381927424",
+    "id": "1042817318981472322",
     "title": "📈│levelup"
   },
   "VALID_PRESENTATION_DEV_ROLES": [
-    { "id": "550411669084569602", "name": "GameDev", "emoji": "🎮" },
-    { "id": "540993488410378281", "name": "JavaScript", "emoji": "📜" },
-    { "id": "540994118634176512", "name": "PHP", "emoji": "🐘" },
-    { "id": "540994295541399552", "name": "Python", "emoji": "🐍" },
-    { "id": "540995072246939648", "name": "Perl", "emoji": "🐪" },
-    { "id": "540995379538165774", "name": "Java", "emoji": "☕" },
-    { "id": "540995627559944207", "name": "Ruby", "emoji": "💎" },
-    { "id": "541021498064896000", "name": "C, C++, C#", "emoji": "🇨" },
-    { "id": "546152565633449995", "name": "UX/UI", "emoji": "🎨" },
-    { "id": "1043325810347606056", "name": "Rust", "emoji": "r" },
-    { "id": "547606728179449895", "name": "Designer", "emoji": "🎨" }
+    { "id": "1042817315227582488", "name": "GameDev", "emoji": "🎮" },
+    { "id": "1042817315227582487", "name": "JavaScript", "emoji": "📜" },
+    { "id": "1042817315227582486", "name": "Elixir", "emoji": "💧" },
+    { "id": "1042817315227582485", "name": "PHP", "emoji": "🐘" },
+    { "id": "1042817315227582484", "name": "Python", "emoji": "🐍" },
+    { "id": "1042817315206594640", "name": "Perl", "emoji": "🐪" },
+    { "id": "1042817315206594639", "name": "Java", "emoji": "☕" },
+    { "id": "1042817315206594638", "name": "Ruby", "emoji": "💎" },
+    { "id": "1042817315206594637", "name": "C, C++, C#", "emoji": "🇨" },
+    { "id": "1042817315206594636", "name": "UX/UI", "emoji": "🎨" },
+    { "id": "1042824308604551188", "name": "Rust", "emoji": "r" },
+    { "id": "1042824387805597757", "name": "Designer", "emoji": "🎨" }
   ],
   "VALID_PRESENTATION_ENG_ROLES": [
-    { "id": "546148712833875985", "name": "Advanced English", "emoji": "🗽" },
-    { "id": "546148711416332298", "name": "Intermediate English", "emoji": "🗽" },
-    { "id": "546148708077666315", "name": "Basic English", "emoji": "🗽" }
+    { "id": "1042817315185627258", "name": "Advanced English", "emoji": "🗽" },
+    { "id": "1042817315185627257", "name": "Intermediate English", "emoji": "🗽" },
+    { "id": "1042817315185627256", "name": "Basic English", "emoji": "🗽" }
   ],
   "HE4RT_DELAS_ROLE": {
-    "id": "1018009963903328308",
+    "id": "1042817315173056629",
     "name": "He4rt Delas",
     "emoji": "💗"
   },
   "PRESENTED_ROLE": {
-    "id": "546150872397119491",
+    "id": "1042817315173056628",
     "name": "Apresentou",
     "emoji": "🎓"
   },
   "DONATOR_ROLE": {
-    "id": "606996933763923998",
+    "id": "1042817315248541753",
     "name": "Apoiadores",
     "emoji": "💳"
   },
   "NITRO_BOOSTER_ROLE": {
-    "id": "593925424875307038",
+    "id": "1042817315248541752",
     "name": "Nitro Booster",
     "emoji": "⚡"
   },
   "BEGINNER_ROLE": {
-    "id": "547569615421833247",
+    "id": "1042817315227582491",
     "name": "Beginner",
     "emoji": "🥉"
   },
   "INTERMEDIATE_ROLE": {
-    "id": "547569827259088944",
+    "id": "1042817315227582492",
     "name": "Intermediate",
     "emoji": "🥈"
   },
   "ADVANCED_ROLE": {
-    "id": "547569825229307916",
+    "id": "1042817315227582493",
     "name": "Advanced",
     "emoji": "🏅"
   },
   "SUPREME_ROLE": {
-    "id": "547569826324021248",
+    "id": "1042817315248541747",
     "name": "Supreme",
     "emoji": "🥇"
   },
   "HE4RT_ROLE": {
-    "id": "512389942354378772",
+    "id": "1042817315269509121",
     "name": "He4rt",
     "emoji": "💜"
   }

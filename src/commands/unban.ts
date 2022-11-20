@@ -2,7 +2,13 @@ import { PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@/types'
 import { UNBAN } from '@/defines/commands.json'
 import { PUNISHMENTS_CHANNEL } from '@/defines/ids.json'
-import { embedTemplate, getChannel } from '@/utils'
+import {
+  EMBED_FIELD_UNPUNISHED,
+  EMBED_FIELD_TYPE,
+  EMBED_FIELD_REASON,
+  EMBED_FIELD_REASON_VALUE,
+} from '@/defines/localisation/commands/shared.json'
+import { embedTemplate, getChannel, reply } from '@/utils'
 
 export const useUnban = (): Command => {
   const data = new SlashCommandBuilder()
@@ -30,7 +36,7 @@ export const useUnban = (): Command => {
       try {
         await interaction?.guild?.members.unban(user)
       } catch (e) {
-        await interaction.reply({ content: 'O usuário em questão não pode ser desbanido!', ephemeral: true })
+        await reply(interaction).errorUserCannotBeBaned()
 
         return
       }
@@ -44,9 +50,9 @@ export const useUnban = (): Command => {
         author,
         fields: [
           [
-            { name: '``👤`` **Usuário desbanido:**', value: `**${user!.username}**` },
-            { name: '``📄`` **Tipo:**', value: 'Banimento' },
-            { name: '``📣`` **Motivo:**', value: (reason.value as string) || 'Não Inferido.' },
+            { name: EMBED_FIELD_UNPUNISHED, value: `**${user!.username}**` },
+            { name: EMBED_FIELD_TYPE, value: 'Banimento' },
+            { name: EMBED_FIELD_REASON, value: (reason.value as string) || EMBED_FIELD_REASON_VALUE },
           ],
         ],
       })
@@ -55,7 +61,7 @@ export const useUnban = (): Command => {
 
       await channel?.send({ content: `Usuário ${user.id} Desbanido!`, embeds: [embed] })
 
-      await interaction.reply({ content: 'Sucesso!', ephemeral: true })
+      await reply(interaction).success()
     },
   ]
 }

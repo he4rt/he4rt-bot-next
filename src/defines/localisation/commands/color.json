@@ -1,0 +1,4 @@
+{
+  "HEX_OPTION": "Coloração Desejada em HEX. Formato de Exemplo: #FFFFFF",
+  "HEX_ERROR": "Digite uma cor válida no formato hexadecimal (#FFFFFF)!"
+}

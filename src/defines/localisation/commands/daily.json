@@ -1,0 +1,4 @@
+{
+  "HCOINS_ERROR": "Você já recebeu seu bônus diário! Tente novamente outro dia.",
+  "HCOINS_SUCCESS": "Você ganhou **__REPLACED__** HCoins de bônus diário! Para ver seu saldo, use o comando **/perfil**."
+}

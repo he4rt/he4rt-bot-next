@@ -1,6 +1,7 @@
 {
   "TIMEOUT_COMMAND": 120000,
   "TIMEOUT_COMMAND_STRING": "__INVALID__RESPONSE__",
+  "DEFINE_STRING_REPLACED": "__REPLACED__",
   "HE4RT_ICON_1_URL": "https://i.imgur.com/iWhfWMa.png",
   "HE4RT_DELAS_ICON_1_URL": "https://imgur.com/PDNU5Xq.png",
   "COLORS": {

@@ -64,7 +64,7 @@ pnpm version:(patch|minor|major)
 - Os usuários agora só são salvos na nuvem caso concluem o `/apresentar`, diferente de antes que o usuário precisava apenas entrar no servidor;
 - `/apresentar` somente por texto, descartando as reações;
 - `/apresentar` com recursos adicionais para o `He4rt Delas`;
-- Todas as definições estão na pasta `src/defines` (com exceção das strings de localização) ao invés de usar o `.env`;
+- Todas as definições estão na pasta `src/defines` ao invés de usar o `.env`;
 - Os listeners são subdivididos pelo seu emissor (a versão antiga tratava somente em eventos de mensagem).
 
 ## 👥 Contribuidores

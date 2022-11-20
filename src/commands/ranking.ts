@@ -33,10 +33,7 @@ export const useRanking = (): Command => {
           })
 
           if (fields.length === 0) {
-            await interaction.reply({
-              content: 'Este número de página não existe.',
-              ephemeral: true,
-            })
+            await reply(interaction).errorPaginationFail()
 
             return
           }
