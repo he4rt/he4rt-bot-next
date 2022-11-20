@@ -42,6 +42,12 @@ pnpm dev
 pnpm production
 ```
 
+### Deploy
+
+```bash
+// set git tag, generate changelog and push
+pnpm version:(patch|minor|major)
+```
 
 ## Differences to [v1](https://github.com/he4rt/He4rt-Bot)
 
