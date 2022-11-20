@@ -9,7 +9,11 @@
 		"dev:build": "tsup --sourcemap --watch",
 		"dev:run": "nodemon .",
 		"production": "tsup --minify --dts && node .",
-		"format": "prettier --write ."
+		"format": "prettier --write .",
+    "version:init": "generi init",
+    "version:patch": "generi log patch",
+    "version:minor": "generi log minor",
+    "version:major": "generi log major"
 	},
 	"dependencies": {
 		"destr": "^1.2.1",
