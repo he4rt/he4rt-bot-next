@@ -2,6 +2,12 @@
 
 Changelog was created by [Generi](https://github.com/Novout/generi). Any questions, consult the documentation.
 
+### v2.1.1
+
+* **chore(commands)!:** ids typo [1b089aa]
+* **ci:** typo [ea09bbd]
+* **ci:** typo [b4f02f0]
+
 ### v2.1.0
 
 * **chore:** localisation strings [9e4c9f1]
