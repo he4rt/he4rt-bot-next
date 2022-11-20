@@ -1,6 +1,8 @@
 import { PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@/types'
 import { UNBAN } from '@/defines/commands.json'
+import { MEMBER_OPTION, REASON_OPTION, EMBED_TITLE } from '@/defines/localisation/commands/unban.json'
+import { EMBED_FIELD_TYPE_BAN } from '@/defines/localisation/commands/shared.json'
 import { PUNISHMENTS_CHANNEL } from '@/defines/ids.json'
 import {
   EMBED_FIELD_UNPUNISHED,
@@ -15,10 +17,8 @@ export const useUnban = (): Command => {
     .setName(UNBAN.TITLE)
     .setDescription(UNBAN.DESCRIPTION)
     .setDMPermission(false)
-    .addUserOption((option) => option.setName('member').setDescription('Usuário a ser desbanido.').setRequired(true))
-    .addStringOption((option) =>
-      option.setName('reason').setDescription('Texto que irá aparecer no anúncio').setRequired(true)
-    )
+    .addUserOption((option) => option.setName('member').setDescription(MEMBER_OPTION).setRequired(true))
+    .addStringOption((option) => option.setName('reason').setDescription(REASON_OPTION).setRequired(true))
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator | PermissionFlagsBits.BanMembers)
 
   return [
@@ -42,7 +42,7 @@ export const useUnban = (): Command => {
       }
 
       const embed = embedTemplate({
-        title: '``🚔`` » Revogado',
+        title: EMBED_TITLE,
         target: {
           user,
           icon: true,
@@ -51,7 +51,7 @@ export const useUnban = (): Command => {
         fields: [
           [
             { name: EMBED_FIELD_UNPUNISHED, value: `**${user!.username}**` },
-            { name: EMBED_FIELD_TYPE, value: 'Banimento' },
+            { name: EMBED_FIELD_TYPE, value: EMBED_FIELD_TYPE_BAN },
             { name: EMBED_FIELD_REASON, value: (reason.value as string) || EMBED_FIELD_REASON_VALUE },
           ],
         ],
@@ -59,7 +59,7 @@ export const useUnban = (): Command => {
 
       const channel = getChannel({ id: PUNISHMENTS_CHANNEL.id, client })
 
-      await channel?.send({ content: `Usuário ${user.id} Desbanido!`, embeds: [embed] })
+      await channel?.send({ content: `Usuário **${user.id}** Desbanido!`, embeds: [embed] })
 
       await reply(interaction).success()
     },

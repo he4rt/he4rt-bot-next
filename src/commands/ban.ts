@@ -59,7 +59,7 @@ export const useBan = (): Command => {
 
       const channel = getChannel({ id: PUNISHMENTS_CHANNEL.id, client })
 
-      await channel?.send({ content: `Usuário ${user.id} Banido!`, embeds: [embed] })
+      await channel?.send({ content: `Usuário **${user.id}** Banido!`, embeds: [embed] })
 
       await reply(interaction).success()
     },
