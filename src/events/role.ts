@@ -25,7 +25,7 @@ export const removeCustomColorOfUnderprivilegedMembers = async (
             client.api
               .users(oldMember.id)
               .put<ProfilePUT>({
-                is_donator: false,
+                is_donator: 0,
               })
               .catch(() => {})
           })
