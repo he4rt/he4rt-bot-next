@@ -125,6 +125,8 @@ const validateAccess = async (dm: DMChannel, interaction: CommandInteraction): P
   if (!sendInDM) return false
 
   await reply(interaction).successInAccessDM()
+
+  return true
 }
 
 const nextStringsData = async (dm: DMChannel, interaction: CommandInteraction): Promise<ProfileGETBody> => {

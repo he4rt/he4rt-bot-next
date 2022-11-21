@@ -1,5 +1,5 @@
 {
-  "CONTINUE": "``❗`` Este é o nosso sistema de apresentação.\n\nResponda as perguntas a seguir com sinceridade total por sua pessoa.\nEu aguardo por cinco minutos em cada resposta, caso este tempo seja ultrapassado, os valores são ignorados.\nSe desejar omitir algum dado, não tem problema algum!\nPara cancelar o envio, apenas ignore.\n\n``❗`` Como primeira questão:\n\n",
+  "CONTINUE": "``❗`` Este é o nosso sistema de apresentação.\n\nResponda as perguntas a seguir com sinceridade total por sua pessoa.\nEu aguardo por cinco minutos em cada resposta, caso este tempo seja ultrapassado, os valores são ignorados.\nSe desejar omitir algum dado, não tem problema algum!\n\n``❗`` Como primeira questão:\n\n",
   "CONTINUE_MESSAGE": "\n**0 **-   Continuar a Apresentação.\n",
   "USER": {
     "NAME": "> **Qual é seu nome?** (Exemplo: Daniel Reis)",
