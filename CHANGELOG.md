@@ -2,6 +2,13 @@
 
 Changelog was created by [Generi](https://github.com/Novout/generi). Any questions, consult the documentation.
 
+### v2.1.10
+
+* **fix:** typos [b21b74b]
+* **fix(apresentar):** duplicate commands an dm access alert [1bc0c4a]
+* **fix(apresentar):** ignore presenting case [ba588dd]
+* **fix(events)!:** break embed cases [ae221c2]
+
 ### v2.1.9
 
 * **fix(events):** put donators users [8bcff3e]
