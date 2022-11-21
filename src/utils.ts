@@ -1,5 +1,4 @@
 import {
-  Channel,
   CommandInteraction,
   CommandInteractionOption,
   DMChannel,
@@ -15,6 +14,7 @@ import {
 } from 'discord.js'
 import { CLIENT_NAME, COLORS, HE4RT_DELAS_ICON_1_URL, HE4RT_ICON_1_URL } from '@/defines/values.json'
 import {
+  PRESENTING_ROLE,
   PRESENTED_ROLE,
   DONATOR_ROLE,
   NITRO_BOOSTER_ROLE,
@@ -33,6 +33,7 @@ import {
   ERROR_CHANNEL_PERMISSION,
   ERROR_CANNOT_BE_BANNED,
   ERROR_PAGINATION,
+  ERROR_PRESENTING,
 } from '@/defines/localisation/defaults/reply.json'
 import { NOT_FOUND, LANGUAGE_NONE } from '@/defines/localisation/defaults/display.json'
 import { TIMEOUT_COMMAND_STRING, DEFINE_STRING_REPLACED } from '@/defines/values.json'
@@ -58,6 +59,10 @@ export const validDisplayEngRoles = (member: GuildMember) => {
 
 export const isPresentedMember = (member: GuildMember) => {
   return member.roles.cache.some(({ id }) => id === PRESENTED_ROLE.id)
+}
+
+export const isPresentingMember = (member: GuildMember) => {
+  return member.roles.cache.some(({ id }) => id === PRESENTING_ROLE.id)
 }
 
 export const isPrivileged = (member: GuildMember) => {
@@ -196,6 +201,10 @@ export const reply = (interaction: CommandInteraction) => {
     await interaction.reply({ content: ERROR_PAGINATION })
   }
 
+  const errorPresentingFail = async () => {
+    await interaction.reply({ content: ERROR_PRESENTING })
+  }
+
   return {
     success,
     successInAccessDM,
@@ -207,5 +216,6 @@ export const reply = (interaction: CommandInteraction) => {
     errorUserCannotBeBaned,
     errorSpecificChannel,
     errorPaginationFail,
+    errorPresentingFail,
   }
 }

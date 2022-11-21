@@ -8,5 +8,6 @@
   "ERROR_INVALID_ARGUMENT": "Algum argumento inserido é inválido!",
   "ERROR_CHANNEL_PERMISSION": "Só é permitido usar este comando no canal ",
   "ERROR_CANNOT_BE_BANNED": "O usuário em questão não pode ser banido ou desbanido!",
-  "ERROR_PAGINATION": "Este número de página não existe."
+  "ERROR_PAGINATION": "Este número de página não existe.",
+  "ERROR_PRESENTING": "**Você já está se apresentando! Consulte sua DM.**"
 }

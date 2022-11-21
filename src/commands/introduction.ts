@@ -3,6 +3,7 @@ import { Command, IntroducePOST, IntroducePUT, RoleDefine } from '@/types'
 import {
   PRESENTATIONS_CHANNEL,
   PRESENTED_ROLE,
+  PRESENTING_ROLE,
   HE4RT_DELAS_ROLE,
   VALID_PRESENTATION_DEV_ROLES,
   VALID_PRESENTATION_ENG_ROLES,
@@ -10,8 +11,24 @@ import {
 import INTRODUCTION from '@/defines/localisation/commands/introduction.json'
 import { INTRODUCE } from '@/defines/commands.json'
 import { TIMEOUT_COMMAND, TIMEOUT_COMMAND_STRING } from '@/defines/values.json'
-import { getChannel, isValidId, reply, sendInDM, validDisplayDevRoles, validDisplayEngRoles } from '@/utils'
+import {
+  getChannel,
+  isPresentingMember,
+  isValidId,
+  reply,
+  sendInDM,
+  validDisplayDevRoles,
+  validDisplayEngRoles,
+} from '@/utils'
 import { embedTemplate } from '@/utils'
+
+const setPresentingFlag = (member: GuildMember) => {
+  member.roles.add(PRESENTING_ROLE.id)
+}
+
+const removePresentingFlag = (member: GuildMember) => {
+  member.roles.add(PRESENTING_ROLE.id)
+}
 
 const nextTextMessage = async (dm: DMChannel, interaction: CommandInteraction): Promise<string> => {
   try {
@@ -145,12 +162,20 @@ export const useIntroduction = (): Command => {
       const author = interaction.user
       const member = interaction.member as GuildMember
 
+      if (isPresentingMember(member)) {
+        await reply(interaction).errorPresentingFail()
+
+        return
+      }
+
       client.users
         ?.createDM(author)
         .then(async (dm) => {
           await reply(interaction).successInAccessDM()
 
           const body = await nextStringsData(dm, interaction)
+
+          setPresentingFlag(member)
 
           await nextMultipleRoleSelection(
             VALID_PRESENTATION_DEV_ROLES,
@@ -222,6 +247,8 @@ export const useIntroduction = (): Command => {
           await dm.send(INTRODUCTION.FINISH)
         })
         .catch(async () => {
+          removePresentingFlag(member)
+
           await reply(interaction).errorInAccessDM()
 
           return
