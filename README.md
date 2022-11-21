@@ -69,6 +69,13 @@ pnpm version:(patch|minor|major)
 - Todas as definições estão na pasta `src/defines` ao invés de usar o `.env`;
 - Os listeners estão subdivididos pelo seu emissor (a versão antiga tratava somente em eventos de mensagem).
 
+## TODO
+
+- [ ] `Node 14` -> `Node 18`
+- [ ] Guia de Desenvolvimento
+- [ ] Testes Unitários
+- [ ] Seção de Dúvidas
+
 ## Contributors
 
 <table>
