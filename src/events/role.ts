@@ -1,17 +1,36 @@
-import { getCustomColorRole, isPrivileged } from '@/utils'
+import { He4rtClient, ProfilePUT } from '@/types'
+import { getCustomColorRole, getGuild, isPrivileged } from '@/utils'
 import { GuildMember } from 'discord.js'
 
-export const removeCustomColorOfUnderprivilegedMembers = (oldMember: GuildMember, newMember: GuildMember) => {
-  const custom = getCustomColorRole(oldMember)
+export const removeCustomColorOfUnderprivilegedMembers = async (
+  client: He4rtClient,
+  oldMember: GuildMember,
+  newMember: GuildMember
+) => {
+  const guild = getGuild(client)
+  const role = getCustomColorRole(oldMember)
 
   const old = isPrivileged(oldMember)
   const active = isPrivileged(newMember)
 
-  if (!custom) return
+  if (!role) return
 
   if (old && !active) {
-    // TODO: users PUT to set donator case
-
-    newMember.roles.remove(custom)
+    newMember.roles
+      .remove(role)
+      .then(() => {
+        guild.roles
+          .delete(role)
+          .then(() => {
+            client.api
+              .users(oldMember.id)
+              .put<ProfilePUT>({
+                is_donator: false,
+              })
+              .catch(() => {})
+          })
+          .catch(() => {})
+      })
+      .catch(() => {})
   }
 }

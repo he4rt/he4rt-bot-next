@@ -84,6 +84,8 @@ export interface ProfileGET extends RESTJson {
   }
 }
 
+export interface ProfilePUT extends ProfileGET {}
+
 export interface MessagePOST extends RESTJson {}
 
 export interface RankingMember {

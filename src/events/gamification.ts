@@ -14,7 +14,7 @@ import {
   MEETING_CHANNEL,
 } from '@/defines/ids.json'
 
-export const XPCounterAndPossibleLevelUp = (client: He4rtClient, message: Message) => {
+export const XPListener = (client: He4rtClient, message: Message) => {
   const member = message.member as GuildMember
 
   if (!member?.id) return
@@ -73,8 +73,4 @@ export const XPCounterAndPossibleLevelUp = (client: He4rtClient, message: Messag
       await channel?.send({ content: `<@${message.author.id}>`, embeds: [embed] })
     })
     .catch(() => {})
-}
-
-export const gamificationListener = (client: He4rtClient, message: Message) => {
-  XPCounterAndPossibleLevelUp(client, message)
 }

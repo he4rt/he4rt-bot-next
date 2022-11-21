@@ -4,6 +4,7 @@ import {
   CommandInteractionOption,
   DMChannel,
   EmbedBuilder,
+  Guild,
   GuildMember,
   HexColorString,
   Message,
@@ -35,7 +36,7 @@ import {
 } from '@/defines/localisation/defaults/reply.json'
 import { NOT_FOUND, LANGUAGE_NONE } from '@/defines/localisation/defaults/display.json'
 import { TIMEOUT_COMMAND_STRING, DEFINE_STRING_REPLACED } from '@/defines/values.json'
-import { CommandGetOption, EmbedTemplateOptions, GetChannelOptions } from '@/types'
+import { CommandGetOption, EmbedTemplateOptions, GetChannelOptions, He4rtClient } from '@/types'
 
 export const validDisplayDevRoles = (member: GuildMember) => {
   return (
@@ -53,10 +54,6 @@ export const validDisplayEngRoles = (member: GuildMember) => {
       .map((role) => `<@&${role.id}>`)
       .join(', ') || LANGUAGE_NONE
   )
-}
-
-export const getUserAvatar = (author: User) => {
-  return `https://cdn.discordapp.com/avatars/${author.id}/${author.avatar}.png?size=256`
 }
 
 export const isPresentedMember = (member: GuildMember) => {
@@ -123,6 +120,14 @@ export const embedTemplate = (options: EmbedTemplateOptions) => {
   }
 
   return embed
+}
+
+export const getUserAvatar = (author: User) => {
+  return `https://cdn.discordapp.com/avatars/${author.id}/${author.avatar}.png?size=256`
+}
+
+export const getGuild = ({ guilds }: He4rtClient): Guild => {
+  return guilds.cache.get(process.env.DISCORD_GUILD_ID)
 }
 
 export const getChannel = ({ client, id }: GetChannelOptions) => {
