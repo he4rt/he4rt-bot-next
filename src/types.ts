@@ -84,7 +84,7 @@ export interface ProfileGET extends RESTJson {
   }
 }
 
-export interface GamificationPOST extends RESTJson {}
+export interface MessagePOST extends RESTJson {}
 
 export interface RankingMember {
   nickname?: string

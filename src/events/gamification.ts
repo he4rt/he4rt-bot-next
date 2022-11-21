@@ -1,6 +1,6 @@
 import { ChannelType, GuildMember, Message } from 'discord.js'
-import { embedTemplate, getChannel, isPrivileged } from '@/utils'
-import { GamificationPOST, He4rtClient } from '@/types'
+import { embedTemplate, getChannel } from '@/utils'
+import { He4rtClient, MessagePOST } from '@/types'
 import {
   BEGINNER_ROLE,
   INTERMEDIATE_ROLE,
@@ -10,6 +10,8 @@ import {
   LEVELUP_CHANNEL,
   PRESENTATIONS_CHANNEL,
   COMMANDS_CHANNEL,
+  MEETING_DELAS_CHANNEL,
+  MEETING_CHANNEL,
 } from '@/defines/ids.json'
 
 export const XPCounterAndPossibleLevelUp = (client: He4rtClient, message: Message) => {
@@ -17,18 +19,22 @@ export const XPCounterAndPossibleLevelUp = (client: He4rtClient, message: Messag
 
   if (!member?.id) return
 
-  const invalidChannels = [LEVELUP_CHANNEL, PRESENTATIONS_CHANNEL, COMMANDS_CHANNEL]
+  const invalidChannels = [
+    LEVELUP_CHANNEL,
+    PRESENTATIONS_CHANNEL,
+    COMMANDS_CHANNEL,
+    MEETING_CHANNEL,
+    MEETING_DELAS_CHANNEL,
+  ]
 
   if (message.channel.type === ChannelType.DM || invalidChannels.some((v) => v.id === message.channel.id)) return
 
   if (client.user?.id === message.author.id) return
 
-  client.api.bot.gamification
-    .levelup()
-    .post<GamificationPOST>({
-      discord_id: member.id,
+  client.api
+    .users(member.id)
+    .message.post<MessagePOST>({
       message: message.content,
-      donator: isPrivileged(member),
     })
     .then(async (data) => {
       if (!data.is_levelup) return
