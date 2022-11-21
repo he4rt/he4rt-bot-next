@@ -71,3 +71,4 @@ jobs:
           script: | 
             echo -e "DISCORD_TOKEN=$APP_DISCORD_TOKEN\nDISCORD_CLIENT_ID=$APP_DISCORD_CLIENT_ID\nDISCORD_GUILD_ID=$APP_DISCORD_GUILD_ID\nHE4RT_TOKEN=$APP_HE4RT_TOKEN\nAPI_URL=$APP_API_URL" > /home/he4rt/he4rt-bot-next/.env
             bash ./restart-service.sh
+            
