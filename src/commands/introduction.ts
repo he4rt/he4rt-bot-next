@@ -259,6 +259,7 @@ export const useIntroduction = (): Command => {
 
           await dm.send(INTRODUCTION.FINISH)
         })
+        .catch(() => {})
         .finally(async () => {
           await removePresentingFlag(member)
         })
