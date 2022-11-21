@@ -2,6 +2,10 @@
 
 Changelog was created by [Generi](https://github.com/Novout/generi). Any questions, consult the documentation.
 
+### v2.1.9
+
+* **fix(events):** put donators users [8bcff3e]
+
 ### v2.1.8
 
 * **chore:** readme [1fd28c0]
