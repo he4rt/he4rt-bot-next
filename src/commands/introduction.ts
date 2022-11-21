@@ -1,5 +1,5 @@
 import { CommandInteraction, DMChannel, GuildMember, SlashCommandBuilder } from 'discord.js'
-import { Command, IntroducePOST, IntroducePUT, RoleDefine } from '@/types'
+import { Command, IntroducePOST, IntroducePUT, ProfileGETBody, RoleDefine } from '@/types'
 import {
   PRESENTATIONS_CHANNEL,
   PRESENTED_ROLE,
@@ -22,12 +22,12 @@ import {
 } from '@/utils'
 import { embedTemplate } from '@/utils'
 
-const setPresentingFlag = (member: GuildMember) => {
-  member.roles.add(PRESENTING_ROLE.id)
+const setPresentingFlag = async (member: GuildMember) => {
+  await member.roles.add(PRESENTING_ROLE.id)
 }
 
-const removePresentingFlag = (member: GuildMember) => {
-  member.roles.add(PRESENTING_ROLE.id)
+const removePresentingFlag = async (member: GuildMember) => {
+  await member.roles.remove(PRESENTING_ROLE.id)
 }
 
 const nextTextMessage = async (dm: DMChannel, interaction: CommandInteraction): Promise<string> => {
@@ -119,8 +119,16 @@ const nextHe4rtDelasRole = async (
   return false
 }
 
-const nextStringsData = async (dm: DMChannel, interaction: CommandInteraction) => {
+const validateAccess = async (dm: DMChannel, interaction: CommandInteraction): Promise<boolean> => {
   await sendInDM(dm, interaction, INTRODUCTION.CONTINUE)
+
+  if (!sendInDM) return false
+
+  await reply(interaction).successInAccessDM()
+}
+
+const nextStringsData = async (dm: DMChannel, interaction: CommandInteraction): Promise<ProfileGETBody> => {
+  await dm.send(INTRODUCTION.USER.NAME)
   const name = await nextTextMessage(dm, interaction)
 
   await dm.send(INTRODUCTION.USER.NICK)
@@ -171,11 +179,13 @@ export const useIntroduction = (): Command => {
       client.users
         ?.createDM(author)
         .then(async (dm) => {
-          await reply(interaction).successInAccessDM()
+          const valid = await validateAccess(dm, interaction)
+
+          if (!valid) return
+
+          await setPresentingFlag(member)
 
           const body = await nextStringsData(dm, interaction)
-
-          setPresentingFlag(member)
 
           await nextMultipleRoleSelection(
             VALID_PRESENTATION_DEV_ROLES,
@@ -226,6 +236,7 @@ export const useIntroduction = (): Command => {
           })
 
           await member.roles.add(PRESENTED_ROLE.id)
+          await removePresentingFlag(member)
 
           client.api
             .users(member.id)
@@ -246,12 +257,8 @@ export const useIntroduction = (): Command => {
 
           await dm.send(INTRODUCTION.FINISH)
         })
-        .catch(async () => {
-          removePresentingFlag(member)
-
-          await reply(interaction).errorInAccessDM()
-
-          return
+        .finally(async () => {
+          await removePresentingFlag(member)
         })
     },
   ]

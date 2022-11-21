@@ -60,16 +60,19 @@ export interface IntroducePUT extends RESTJson {}
 
 export interface IntroducePOST extends RESTJson {}
 
-export interface ProfileGET extends RESTJson {
+export interface ProfileGETBody {
+  name: string
+  nickname: string
+  about: string
+  git: string
+  linkedin: string | null
+}
+
+export interface ProfileGET extends RESTJson, ProfileGETBody {
   id: number
   discord_id: string
   twitch_id: any
   email: string | null
-  name: string
-  nickname: string
-  git: string
-  linkedin?: string
-  about: string
   level: number
   current_exp: number
   money: string

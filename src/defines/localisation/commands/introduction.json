@@ -1,7 +1,8 @@
 {
-  "CONTINUE": "``❗`` Este é o nosso sistema de apresentação.\n\nResponda as perguntas a seguir com sinceridade total por sua pessoa.\nEu aguardo por cinco minutos em cada resposta, caso este tempo seja ultrapassado, os valores são ignorados.\nSe desejar omitir algum dado, não tem problema algum!\nPara cancelar o envio, apenas ignore.\n\n``❗`` Como primeira questão:\n\n> **Qual é seu nome?** (Exemplo: Daniel Reis)",
+  "CONTINUE": "``❗`` Este é o nosso sistema de apresentação.\n\nResponda as perguntas a seguir com sinceridade total por sua pessoa.\nEu aguardo por cinco minutos em cada resposta, caso este tempo seja ultrapassado, os valores são ignorados.\nSe desejar omitir algum dado, não tem problema algum!\nPara cancelar o envio, apenas ignore.\n\n``❗`` Como primeira questão:\n\n",
   "CONTINUE_MESSAGE": "\n**0 **-   Continuar a Apresentação.\n",
   "USER": {
+    "NAME": "> **Qual é seu nome?** (Exemplo: Daniel Reis)",
     "NICK": "> **Qual é seu nickname?** (Exemplo: DanielHe4rt)",
     "ABOUT": "> **Diga um pouco sobre você:** (Exemplo: Me chamo Gustavo...)",
     "GIT": "> **Qual é seu Git?** (Exemplo: https://github.com/DanielHe4rt)",

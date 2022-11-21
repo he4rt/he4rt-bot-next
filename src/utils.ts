@@ -154,16 +154,20 @@ export const replaceDefineString = (str: string, target: string) => {
 export const sendInDM = async (dm: DMChannel, interaction: CommandInteraction, str: string) => {
   await dm.send(str).catch(async () => {
     await reply(interaction).errorInAccessDM()
+
+    return false
   })
+
+  return true
 }
 
 export const reply = (interaction: CommandInteraction) => {
   const success = async () => {
-    return await interaction.reply({ content: SUCCESS_COMMAND_DEFAULT, ephemeral: true })
+    return await interaction.reply({ content: SUCCESS_COMMAND_DEFAULT, ephemeral: true }).catch(() => {})
   }
 
   const successInAccessDM = async () => {
-    await interaction.reply({ content: SUCCESS_DM_SEND, ephemeral: true })
+    await interaction.reply({ content: SUCCESS_DM_SEND, ephemeral: true }).catch(() => {})
   }
 
   const error = async () => {
