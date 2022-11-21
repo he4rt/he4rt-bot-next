@@ -57,6 +57,12 @@ jobs:
 
       - name: Restart service
         uses: appleboy/ssh-action@master
+        env:
+          APP_DISCORD_TOKEN: ${{ secrets.APP_DISCORD_TOKEN }}
+          APP_DISCORD_CLIENT_ID: ${{ secrets.APP_DISCORD_CLIENT_ID }}
+          APP_DISCORD_GUILD_ID: ${{ secrets.APP_DISCORD_GUILD_ID }}
+          APP_HE4RT_TOKEN: ${{ secrets.APP_HE4RT_TOKEN }}
+          APP_API_URL: ${{ secrets.APP_API_URL }}
         with:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
