@@ -2,6 +2,10 @@
 
 Changelog was created by [Generi](https://github.com/Novout/generi). Any questions, consult the documentation.
 
+### v2.1.11
+
+* **fix:** typo [129da8b]
+
 ### v2.1.10
 
 * **fix:** typos [b21b74b]
