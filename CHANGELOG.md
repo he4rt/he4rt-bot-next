@@ -2,6 +2,25 @@
 
 Changelog was created by [Generi](https://github.com/Novout/generi). Any questions, consult the documentation.
 
+### v2.1.7
+
+* **fix(events):** correct channels setters [a398a8e]
+* **ci:** try [5a4947a]
+* **ci:** bash restart service [d1735d9]
+* **chore(command):** renamed suprimir to silenciar [d7b1062]
+* **ci:** restart service screen [fa011d7]
+* **ci:** tring restart [911e71b]
+* **ci:** trying restart script [4b65fc5]
+* **ci:** restart client [3a584b1]
+* **ci:** typo env new line [8f3f186]
+* **ci:** trying env 🙏 [6a46f5e]
+* **ci:** typo env path [e31af75]
+* **ci:** trying [a55e78e]
+* **ci:** typo env [0b1b15d]
+* **ci:** env [b4d4cfc]
+* **ci:** typo [21f9d9b]
+* **ci:** deploy [577c906]
+
 ### v2.1.6
 
 * **fix(events):** try in embed exists [c529209]
