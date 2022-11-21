@@ -1,7 +1,7 @@
 {
-  "EMBED_FIELD_USER": "``👤`` **Usuário:**'",
-  "EMBED_FIELD_PUNISHED": "``👤`` **Usuário punido:**'",
-  "EMBED_FIELD_UNPUNISHED": "``👤`` **Usuário desbanido:**'",
+  "EMBED_FIELD_USER": "``👤`` **Usuário:**",
+  "EMBED_FIELD_PUNISHED": "``👤`` **Usuário punido:**",
+  "EMBED_FIELD_UNPUNISHED": "``👤`` **Usuário desbanido:**",
   "EMBED_FIELD_TYPE": "``📄`` **Tipo:**",
   "EMBED_FIELD_TYPE_BAN": "Banimento",
   "EMBED_FIELD_REASON": "``📣`` **Motivo:**",
