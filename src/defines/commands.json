@@ -40,7 +40,7 @@
     "DESCRIPTION": "(ADM|MOD): Pause ou continue um chat específico."
   },
   "TIMEOUT": {
-    "TITLE": "suprimir",
+    "TITLE": "silenciar",
     "DESCRIPTION": "(ADM|MOD): Desabilite um usuário por um certo tempo."
   },
   "SAY": {

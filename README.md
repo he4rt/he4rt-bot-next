@@ -17,7 +17,7 @@ He4rt Discord Bot
 - `/anunciar` (ADM)
 - `/banir` (ADM|MOD)
 - `/desbanir` (ADM|MOD)
-- `/suprimir` (ADM|MOD)
+- `/silenciar` (ADM|MOD)
 - `/chat` (ADM|MOD)
 - `/falar` (ADM|MOD)
 - `/cor` (PRIVILEGIADOS)
