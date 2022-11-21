@@ -1,6 +1,12 @@
-# Changelog (20/11/2022)
+# Changelog (21/11/2022)
 
 Changelog was created by [Generi](https://github.com/Novout/generi). Any questions, consult the documentation.
+
+### v2.1.8
+
+* **chore:** readme [1fd28c0]
+* **refactor(events)!:** base tracking [9170123]
+* **chore:** typo [8c60c45]
 
 ### v2.1.7
 
