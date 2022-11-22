@@ -11,13 +11,13 @@ export const useRanking = (): Command => {
     .setName(RANKING.TITLE)
     .setDescription(RANKING.DESCRIPTION)
     .setDMPermission(false)
-    .addNumberOption((option) => option.setName('page').setDescription(PAGE_OPTION).setRequired(true))
+    .addNumberOption((option) => option.setName('pagina').setDescription(PAGE_OPTION).setRequired(true))
 
   return [
     data,
     async (interaction, client) => {
       const member = interaction.member as GuildMember
-      const page = (interaction.options.get('page')?.value as number) || 1
+      const page = (interaction.options.get('pagina')?.value as number) || 1
 
       if (!isPresentedMember(member)) {
         await reply(interaction).errorMemberIsNotPresented()

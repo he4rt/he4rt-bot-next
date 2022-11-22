@@ -9,15 +9,15 @@ export const useSay = (): Command => {
     .setName(SAY.TITLE)
     .setDescription(SAY.DESCRIPTION)
     .setDMPermission(false)
-    .addChannelOption((option) => option.setName('channel').setDescription(CHANNEL_OPTION).setRequired(true))
-    .addStringOption((option) => option.setName('message').setDescription(MESSAGE_OPTION).setRequired(true))
+    .addChannelOption((option) => option.setName('canal').setDescription(CHANNEL_OPTION).setRequired(true))
+    .addStringOption((option) => option.setName('mensagem').setDescription(MESSAGE_OPTION).setRequired(true))
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
 
   return [
     data,
     async (interaction, client) => {
-      const target = getOption(interaction, 'channel')
-      const { value } = getOption(interaction, 'message')
+      const target = getOption(interaction, 'canal')
+      const { value } = getOption(interaction, 'mensagem')
 
       if (!value || !target) {
         await reply(interaction).errorInMissingArgument()

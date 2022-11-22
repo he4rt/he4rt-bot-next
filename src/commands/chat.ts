@@ -10,15 +10,15 @@ export const useChat = (): Command => {
     .setName(COMMANDS.CHAT.TITLE)
     .setDescription(COMMANDS.CHAT.DESCRIPTION)
     .setDMPermission(false)
-    .addChannelOption((option) => option.setName('channel').setDescription(CHAT.CHANNEL_OPTION).setRequired(true))
-    .addBooleanOption((option) => option.setName('stop').setDescription(CHAT.STOP_OPTION).setRequired(true))
+    .addChannelOption((option) => option.setName('canal').setDescription(CHAT.CHANNEL_OPTION).setRequired(true))
+    .addBooleanOption((option) => option.setName('parar').setDescription(CHAT.STOP_OPTION).setRequired(true))
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
 
   return [
     data,
     async (interaction, client) => {
-      const target = getOption(interaction, 'channel')
-      const stop = getOption(interaction, 'stop')
+      const target = getOption(interaction, 'canal')
+      const stop = getOption(interaction, 'parar')
 
       const channel = target.channel as TextChannel
       const guild = interaction.guild

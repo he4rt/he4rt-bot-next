@@ -16,15 +16,15 @@ export const useTimeout = (): Command => {
     .setName(COMMANDS.TIMEOUT.TITLE)
     .setDescription(COMMANDS.TIMEOUT.DESCRIPTION)
     .setDMPermission(false)
-    .addUserOption((option) => option.setName('member').setDescription(TIMEOUT.MEMBER_OPTION).setRequired(true))
-    .addStringOption((option) => option.setName('reason').setDescription(TIMEOUT.REASON_OPTION).setRequired(true))
+    .addUserOption((option) => option.setName('membro').setDescription(TIMEOUT.MEMBER_OPTION).setRequired(true))
+    .addStringOption((option) => option.setName('razao').setDescription(TIMEOUT.REASON_OPTION).setRequired(true))
     .setDefaultMemberPermissions(PermissionFlagsBits.MuteMembers)
 
   return [
     data,
     async (interaction, client) => {
-      const member = interaction.options.getMember('member') as GuildMember
-      const reason = getOption(interaction, 'reason')
+      const member = interaction.options.getMember('membro') as GuildMember
+      const reason = getOption(interaction, 'razao')
       // const time = getOption(interaction, 'time')
 
       if (!member || !reason) {

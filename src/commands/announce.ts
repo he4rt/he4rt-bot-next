@@ -10,15 +10,15 @@ export const useAnnounce = (): Command => {
     .setName(ANNOUNCE.TITLE)
     .setDescription(ANNOUNCE.DESCRIPTION)
     .setDMPermission(false)
-    .addStringOption((option) => option.setName('text').setDescription(TEXT_OPTION).setRequired(true))
-    .addStringOption((option) => option.setName('image').setDescription(IMAGE_OPTION))
+    .addStringOption((option) => option.setName('texto').setDescription(TEXT_OPTION).setRequired(true))
+    .addStringOption((option) => option.setName('imagem').setDescription(IMAGE_OPTION))
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
 
   return [
     data,
     async (interaction, client) => {
-      const text = interaction.options.get('text')
-      const image = interaction.options.get('image')
+      const text = interaction.options.get('texto')
+      const image = interaction.options.get('imagem')
 
       const embed = embedTemplate({
         title: EMBED_TITLE,

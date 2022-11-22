@@ -17,8 +17,8 @@ export const useBan = (): Command => {
     .setName(BAN.TITLE)
     .setDescription(BAN.DESCRIPTION)
     .setDMPermission(false)
-    .addUserOption((option) => option.setName('member').setDescription(MEMBER_OPTION).setRequired(true))
-    .addStringOption((option) => option.setName('reason').setDescription(REASON_OPTION).setRequired(true))
+    .addUserOption((option) => option.setName('membro').setDescription(MEMBER_OPTION).setRequired(true))
+    .addStringOption((option) => option.setName('razao').setDescription(REASON_OPTION).setRequired(true))
     .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
 
   return [
@@ -26,8 +26,8 @@ export const useBan = (): Command => {
     async (interaction, client) => {
       const author = interaction.user
 
-      const user = interaction.options.getUser('member')
-      const reason = interaction.options.get('reason')
+      const user = interaction.options.getUser('membro')
+      const reason = interaction.options.get('razao')
 
       if (!user || !reason) {
         return
