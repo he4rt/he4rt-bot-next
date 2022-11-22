@@ -11,7 +11,7 @@ export const useSay = (): Command => {
     .setDMPermission(false)
     .addChannelOption((option) => option.setName('channel').setDescription(CHANNEL_OPTION).setRequired(true))
     .addStringOption((option) => option.setName('message').setDescription(MESSAGE_OPTION).setRequired(true))
-    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator | PermissionFlagsBits.ManageGuild)
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
 
   return [
     data,

@@ -12,7 +12,7 @@ export const useChat = (): Command => {
     .setDMPermission(false)
     .addChannelOption((option) => option.setName('channel').setDescription(CHAT.CHANNEL_OPTION).setRequired(true))
     .addBooleanOption((option) => option.setName('stop').setDescription(CHAT.STOP_OPTION).setRequired(true))
-    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator | PermissionFlagsBits.ManageChannels)
+    .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
 
   return [
     data,

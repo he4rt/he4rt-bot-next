@@ -19,7 +19,7 @@ export const useUnban = (): Command => {
     .setDMPermission(false)
     .addUserOption((option) => option.setName('member').setDescription(MEMBER_OPTION).setRequired(true))
     .addStringOption((option) => option.setName('reason').setDescription(REASON_OPTION).setRequired(true))
-    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator | PermissionFlagsBits.BanMembers)
+    .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
 
   return [
     data,

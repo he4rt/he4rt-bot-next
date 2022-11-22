@@ -18,7 +18,7 @@ export const useTimeout = (): Command => {
     .setDMPermission(false)
     .addUserOption((option) => option.setName('member').setDescription(TIMEOUT.MEMBER_OPTION).setRequired(true))
     .addStringOption((option) => option.setName('reason').setDescription(TIMEOUT.REASON_OPTION).setRequired(true))
-    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator | PermissionFlagsBits.MuteMembers)
+    .setDefaultMemberPermissions(PermissionFlagsBits.MuteMembers)
 
   return [
     data,

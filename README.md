@@ -15,11 +15,11 @@ He4rt Discord Bot
 ## Commands
 
 - `/anunciar` (ADM)
+- `/falar` (ADM)
 - `/banir` (ADM|MOD)
 - `/desbanir` (ADM|MOD)
 - `/silenciar` (ADM|MOD)
 - `/chat` (ADM|MOD)
-- `/falar` (ADM|MOD)
 - `/cor` (PRIVILEGIADOS)
 - `/bonus`
 - `/apresentar`
