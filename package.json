@@ -23,7 +23,7 @@
   "devDependencies": {
     "concurrently": "^7.5.0",
     "dotenv": "^16.0.3",
-    "generi": "^0.3.0",
+    "generi": "^0.4.0",
     "nodemon": "^2.0.20",
     "prettier": "^2.7.1",
     "tsup": "^6.5.0",

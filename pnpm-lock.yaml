@@ -5,7 +5,7 @@ specifiers:
   destr: ^1.2.1
   discord.js: ^14.6.0
   dotenv: ^16.0.3
-  generi: ^0.3.0
+  generi: ^0.4.0
   nodemon: ^2.0.20
   prettier: ^2.7.1
   tsup: ^6.5.0
@@ -20,7 +20,7 @@ dependencies:
 devDependencies:
   concurrently: 7.5.0
   dotenv: 16.0.3
-  generi: 0.3.0
+  generi: 0.4.0
   nodemon: 2.0.20
   prettier: 2.7.1
   tsup: 6.5.0_typescript@4.9.3
@@ -651,8 +651,8 @@ packages:
     dev: true
     optional: true
 
-  /generi/0.3.0:
-    resolution: {integrity: sha512-RzdbrLvDzTwKdFlk9XmDqOzdOmGj1+gqQSyeDWYY2NjehvRHax9RaRoTWbqsjgJ0UVPoh6dMi7W6SRA5HDb+XQ==}
+  /generi/0.4.0:
+    resolution: {integrity: sha512-qs+qzZYuDghqBgnPBMOQtgMEwoq3YeWTxNLGZjoxCO/c/7uKJIY5oA/HV1U8dAgotrn+snSc57JhQ7JkLyUPDw==}
     hasBin: true
     dependencies:
       consola: 2.15.3
