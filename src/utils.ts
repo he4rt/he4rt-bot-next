@@ -198,15 +198,15 @@ export const reply = (interaction: CommandInteraction) => {
   }
 
   const errorSpecificChannel = async (str: string) => {
-    await interaction.reply({ content: `${ERROR_CHANNEL_PERMISSION}${str}!` })
+    await interaction.reply({ content: `${ERROR_CHANNEL_PERMISSION}${str}!`, ephemeral: true })
   }
 
   const errorPaginationFail = async () => {
-    await interaction.reply({ content: ERROR_PAGINATION })
+    await interaction.reply({ content: ERROR_PAGINATION, ephemeral: true })
   }
 
   const errorPresentingFail = async () => {
-    await interaction.reply({ content: ERROR_PRESENTING })
+    await interaction.reply({ content: ERROR_PRESENTING, ephemeral: true })
   }
 
   return {
