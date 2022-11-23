@@ -223,3 +223,11 @@ export const reply = (interaction: CommandInteraction) => {
     errorPresentingFail,
   }
 }
+
+export const isImageHTTPUrl = (url: string) => {
+  return url.match(/^https?:\/\/.*\/.*\.(png|gif|webp|jpeg|jpg)\??.*$/gim)
+}
+
+export const isValidProxyContent = (str: string) => {
+  return ['https://cdn.discordapp.com', 'https://tenor.com', 'https://forms.gle'].some((v) => str.trim().startsWith(v))
+}
