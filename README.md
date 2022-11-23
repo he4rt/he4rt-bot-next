@@ -32,7 +32,7 @@ He4rt Discord Bot
 
 - [GIT](https://git-scm.com/)
 - [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
-- [Node 14](https://nodejs.org/en/)
+- [Node 16](https://nodejs.org/en/)
 - [PNPM](https://pnpm.io/pt/)
 
 ### Run
@@ -71,7 +71,6 @@ pnpm version:(patch|minor|major)
 
 ## TODO
 
-- [ ] `Node 14` -> `Node 18`
 - [ ] Guia de Desenvolvimento
 - [ ] Testes Unitários
 - [ ] Seção de Dúvidas
