@@ -228,6 +228,10 @@ export const isImageHTTPUrl = (url: string) => {
   return url.match(/^https?:\/\/.*\/.*\.(png|gif|webp|jpeg|jpg)\??.*$/gim)
 }
 
+export const isHex = (str: string) => {
+  return str.match(/^#[0-9A-F]{6}$/i)
+}
+
 export const isValidProxyContent = (str: string) => {
   return ['https://cdn.discordapp.com', 'https://tenor.com', 'https://forms.gle'].some((v) => str.trim().startsWith(v))
 }

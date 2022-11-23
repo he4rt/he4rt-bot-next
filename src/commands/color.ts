@@ -3,7 +3,7 @@ import { Command } from '@/types'
 import { COLOR } from '@/defines/commands.json'
 import { DONATORS_CHANNEL } from '@/defines/ids.json'
 import { HEX_ERROR, HEX_OPTION, HEX_SUCCESS } from '@/defines/localisation/commands/color.json'
-import { getCustomColorRole, isPrivileged, reply } from '@/utils'
+import { getCustomColorRole, isHex, isPrivileged, reply } from '@/utils'
 
 export const useColor = (): Command => {
   const data = new SlashCommandBuilder()
@@ -33,7 +33,7 @@ export const useColor = (): Command => {
         return
       }
 
-      if (!color.match(/^#[0-9A-F]{6}$/i)) {
+      if (!isHex(color)) {
         await interaction.reply({ content: HEX_ERROR, ephemeral: true })
 
         return
