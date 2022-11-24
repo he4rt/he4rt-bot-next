@@ -1,0 +1,107 @@
+{
+  "MEETING_DELAS_CHANNEL": {
+    "id": "1045470251632042064",
+    "title": "✅︱reunião-das-minas"
+  },
+  "MEETING_CHANNEL": {
+    "id": "1045470226407506071",
+    "title": "✅︱reunião"
+  },
+  "CHAT_CHANNEL": {
+    "id": "1042817315965763597",
+    "title": "💬︱bate-papo"
+  },
+  "COMMANDS_CHANNEL": {
+    "id": "1042817315965763599",
+    "title": "🤖︱comandos"
+  },
+  "ADVERTS_CHANNEL": {
+    "id": "1042821299224985640",
+    "title": "📢︱anúncios"
+  },
+  "PRESENTATIONS_CHANNEL": {
+    "id": "1042817316754309184",
+    "title": "📖︱apresentações"
+  },
+  "DONATORS_CHANNEL": {
+    "id": "1042817316158718023",
+    "title": "💳︱apoiadores"
+  },
+  "PUNISHMENTS_CHANNEL": {
+    "id": "1042817315781218330",
+    "title": "📌│punishments-and-mods"
+  },
+  "LEVELUP_CHANNEL": {
+    "id": "1042817318981472322",
+    "title": "📈│levelup"
+  },
+  "VALID_PRESENTATION_DEV_ROLES": [
+    { "id": "1042817315227582488", "name": "GameDev", "emoji": "🎮" },
+    { "id": "1042817315227582487", "name": "JavaScript", "emoji": "📜" },
+    { "id": "1042817315227582486", "name": "Elixir", "emoji": "💧" },
+    { "id": "1042817315227582485", "name": "PHP", "emoji": "🐘" },
+    { "id": "1042817315227582484", "name": "Python", "emoji": "🐍" },
+    { "id": "1042817315206594640", "name": "Perl", "emoji": "🐪" },
+    { "id": "1042817315206594639", "name": "Java", "emoji": "☕" },
+    { "id": "1042817315206594638", "name": "Ruby", "emoji": "💎" },
+    { "id": "1042817315206594637", "name": "C, C++, C#", "emoji": "🇨" },
+    { "id": "1042817315206594636", "name": "UX/UI", "emoji": "🎨" },
+    { "id": "1042824308604551188", "name": "Rust", "emoji": "r" },
+    { "id": "1042824387805597757", "name": "Designer", "emoji": "🎨" }
+  ],
+  "VALID_PRESENTATION_ENG_ROLES": [
+    { "id": "1042817315185627258", "name": "Advanced English", "emoji": "🗽" },
+    { "id": "1042817315185627257", "name": "Intermediate English", "emoji": "🗽" },
+    { "id": "1042817315185627256", "name": "Basic English", "emoji": "🗽" }
+  ],
+  "HE4RT_DELAS_ROLE": {
+    "id": "1042817315173056629",
+    "name": "He4rt Delas",
+    "emoji": "💗"
+  },
+  "PRESENTING_ROLE": {
+    "id": "1042817315156262917",
+    "name": "Apresentando",
+    "emoji": "🎓"
+  },
+  "PRESENTED_ROLE": {
+    "id": "1042817315173056628",
+    "name": "Apresentou",
+    "emoji": "🎓"
+  },
+  "DONATOR_ROLE": {
+    "id": "1042817315248541753",
+    "name": "Apoiadores",
+    "emoji": "💳"
+  },
+  "NITRO_BOOSTER_ROLE": {
+    "id": "1042817315248541752",
+    "name": "Nitro Booster",
+    "emoji": "⚡"
+  },
+  "BEGINNER_ROLE": {
+    "id": "1042817315227582491",
+    "name": "Beginner",
+    "emoji": "🥉"
+  },
+  "INTERMEDIATE_ROLE": {
+    "id": "1042817315227582492",
+    "name": "Intermediate",
+    "emoji": "🥈"
+  },
+  "ADVANCED_ROLE": {
+    "id": "1042817315227582493",
+    "name": "Advanced",
+    "emoji": "🏅"
+  },
+  "SUPREME_ROLE": {
+    "id": "1042817315248541747",
+    "name": "Supreme",
+    "emoji": "🥇"
+  },
+  "HE4RT_ROLE": {
+    "id": "1042817315269509121",
+    "name": "He4rt",
+    "emoji": "💜"
+  }
+}

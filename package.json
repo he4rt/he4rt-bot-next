@@ -6,9 +6,10 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "dev": "concurrently pnpm:dev:*",
-    "dev:build": "tsup --sourcemap --watch",
+    "dev:build": "tsup --config tsup.development.config.ts --env.NODE_ENV development",
     "dev:run": "nodemon .",
-    "production": "tsup --minify --dts && node .",
+    "production:build": "tsup --config tsup.production.config.ts --env.NODE_ENV production",
+    "production": "pnpm run production:build && node .",
     "format": "prettier --write src/**/*{.ts,.json}",
     "version:init": "generi init",
     "version:patch": "generi log patch",
@@ -23,6 +24,7 @@
   "devDependencies": {
     "concurrently": "^7.5.0",
     "dotenv": "^16.0.3",
+    "esbuild-plugin-replace": "^1.3.0",
     "generi": "^0.4.0",
     "nodemon": "^2.0.20",
     "prettier": "^2.7.1",
