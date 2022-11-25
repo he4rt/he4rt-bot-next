@@ -50,5 +50,9 @@
   "CODE": {
     "TITLE": "codigo",
     "DESCRIPTION": "Mostrará como formatar um bloco de código no discord."
+  },
+  "CLEAR": {
+    "TITLE": "limpar",
+    "DESCRIPTION": "(ADM|MOD): Limpe as mensagens do chat em questão pelo valor dado."
   }
 }
