@@ -26,32 +26,6 @@ He4rt Discord Bot
 - `/perfil`
 - `/ranqueamento`
 
-## Development
-
-### Requirements
-
-- [GIT](https://git-scm.com/)
-- [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
-- [Node 16](https://nodejs.org/en/)
-- [PNPM](https://pnpm.io/pt/)
-
-### Run
-
-```bash
-pnpm install
-
-pnpm dev
-// OR
-pnpm production
-```
-
-### Deploy
-
-```bash
-// set version, set git tag, generate changelog and push
-pnpm version:(patch|minor|major)
-```
-
 ## Differences to [v1](https://github.com/he4rt/He4rt-Bot)
 
 - `JS` -> `TS 100% Type-Safe`;
@@ -69,11 +43,9 @@ pnpm version:(patch|minor|major)
 - Todas as definições estão na pasta `src/defines` ao invés de usar o `.env`;
 - Os listeners estão subdivididos pelo seu emissor (a versão antiga tratava somente em eventos de mensagem).
 
-## TODO
+## Development
 
-- [ ] Guia de Desenvolvimento
-- [ ] Testes Unitários
-- [ ] Seção de Dúvidas
+Caso deseje contribuir ao projeto, leia antes o [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) e o [CONTRIBUITING.md](./CONTRIBUITING.md)
 
 ## Contributors
 
