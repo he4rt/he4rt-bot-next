@@ -20,18 +20,21 @@ He4rt Discord Bot
 - `/desbanir` (ADM|MOD)
 - `/silenciar` (ADM|MOD)
 - `/chat` (ADM|MOD)
+- `/limpar` (ADM|MOD)
 - `/cor` (PRIVILEGIADOS)
+- `/apoiase`
 - `/bonus`
 - `/apresentar`
 - `/perfil`
 - `/ranqueamento`
+- `/codigo`
 
 ## Differences to [v1](https://github.com/he4rt/He4rt-Bot)
 
 - `JS` -> `TS 100% Type-Safe`;
 - `discord.js v9` -> `discord.js v14`;
 - Fluxo de código [Orientado a Dados (OOD)](https://en.wikipedia.org/wiki/Object-oriented_design);
-- *Purge* completo de lib's desnecessárias/depreciadas;
+- _Purge_ completo de lib's desnecessárias/depreciadas;
 - Agora os comandos podem ser utilizados em qualquer canal (comandos privilegiados ainda dependem de condições de canal específico, como o /cor);
 - A grande maioria dos comandos retornam mensagens visíveis somente para o usuário com o intuito de não poluir os canais (e permitir a abordagem do item anterior);
 - Lista de comandos integrada com o `/` do próprio discord;
