@@ -46,5 +46,9 @@
   "SAY": {
     "TITLE": "falar",
     "DESCRIPTION": "Faça o bot mandar uma mensagem em um canal específico."
+  },
+  "CODE": {
+    "TITLE": "codigo",
+    "DESCRIPTION": "Mostrará como formatar um bloco de código no discord."
   }
 }
