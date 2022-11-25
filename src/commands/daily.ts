@@ -18,7 +18,7 @@ export const useDaily = (): Command => {
         return
       }
 
-      client.api.users
+      client.api.he4rt.users
         .daily()
         .post<DailyPOST>({
           donator: isPrivileged(member),

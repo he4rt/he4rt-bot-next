@@ -240,15 +240,15 @@ export const useIntroduction = (): Command => {
           await member.roles.add(PRESENTED_ROLE.id)
           await removePresentingFlag(member)
 
-          client.api
+          client.api.he4rt
             .users(member.id)
             .put<IntroducePUT>(body)
             .then(() => {
-              client.api
+              client.api.he4rt
                 .users(member.id)
                 .post<IntroducePOST>()
                 .then(() => {
-                  client.api
+                  client.api.he4rt
                     .users(member.id)
                     .put<IntroducePUT>(body)
                     .catch(() => {})

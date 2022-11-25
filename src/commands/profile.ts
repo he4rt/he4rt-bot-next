@@ -30,7 +30,7 @@ export const useProfile = (): Command => {
         return
       }
 
-      await client.api
+      await client.api.he4rt
         .users(member.id)
         .get<ProfileGET>()
         .then(async (user) => {

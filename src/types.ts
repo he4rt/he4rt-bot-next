@@ -20,6 +20,18 @@ export type CommandGetOption<T extends CacheType = CacheType> = (
   target: string
 ) => CommandInteractionOption<T>
 
+export type CommandCallback = (interaction: CommandInteraction, client: He4rtClient) => Promise<void>
+export type CommandSet = SlashCommandBuilder | Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>
+export type Command = [CommandSet, CommandCallback]
+
+export type He4rtClient = Client<boolean> & {
+  commands: Collection<CommandSet, CommandCallback>
+  api: {
+    he4rt: ClientBuilder
+    apoiase: ClientBuilder
+  }
+}
+
 export interface RoleDefine {
   id: string
   name: string
@@ -98,16 +110,6 @@ export interface RankingMember {
   discord_id: string
   messages_count: number
   levelup_exp: Record<any, any>
-}
-
-export type CommandCallback = (interaction: CommandInteraction, client: He4rtClient) => Promise<void>
-export type CommandSet = SlashCommandBuilder | Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>
-
-export type Command = [CommandSet, CommandCallback]
-
-export type He4rtClient = Client<boolean> & {
-  commands: Collection<CommandSet, CommandCallback>
-  api: ClientBuilder
 }
 
 export interface Context {

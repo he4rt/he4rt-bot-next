@@ -25,7 +25,7 @@ export const useRanking = (): Command => {
         return
       }
 
-      client.api.ranking.general
+      client.api.he4rt.ranking.general
         .get<RankingGET>({
           page,
         })

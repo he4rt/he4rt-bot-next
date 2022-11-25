@@ -22,7 +22,7 @@ export const removeCustomColorOfUnderprivilegedMembers = async (
         guild.roles
           .delete(role)
           .then(() => {
-            client.api
+            client.api.he4rt
               .users(oldMember.id)
               .put<ProfilePUT>({
                 is_donator: 0,
