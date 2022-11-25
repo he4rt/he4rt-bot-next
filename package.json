@@ -19,11 +19,13 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "cron": "^2.1.0",
     "destr": "^1.2.1",
     "discord.js": "^14.6.0",
     "uncreate": "^0.9.2"
   },
   "devDependencies": {
+    "@types/cron": "^2.0.0",
     "@vitest/coverage-c8": "^0.25.3",
     "@vitest/ui": "^0.25.3",
     "concurrently": "^7.5.0",

@@ -67,7 +67,15 @@ export const isPresentingMember = (member: GuildMember) => {
 }
 
 export const isPrivilegedMember = (member: GuildMember) => {
-  return member.roles.cache.some(({ id }) => id === DONATOR_ROLE.id || id === NITRO_BOOSTER_ROLE.id)
+  return isApoiaseMember(member) || isNitroBoosterMember(member)
+}
+
+export const isApoiaseMember = (member: GuildMember) => {
+  return member.roles.cache.some(({ id }) => id === DONATOR_ROLE.id)
+}
+
+export const isNitroBoosterMember = (member: GuildMember) => {
+  return member.roles.cache.some(({ id }) => id === NITRO_BOOSTER_ROLE.id)
 }
 
 export const isHe4rtDelasMember = (member: GuildMember) => {

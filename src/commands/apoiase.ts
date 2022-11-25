@@ -52,6 +52,7 @@ export const useApoiase = (): Command => {
             client.api.he4rt
               .users(member.id)
               .put<UserPUT>({
+                email: value,
                 is_donator: 1,
               })
               .catch(() => {})

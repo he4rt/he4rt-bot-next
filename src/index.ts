@@ -1,15 +1,17 @@
 import 'dotenv/config'
-import { afterListeners } from './events/after'
-import { beforeListeners } from './events/before'
+import { afterEvents } from './events/after'
+import { cronEvents } from './events/cron'
+import { discordEvents } from './events/discord'
 import { runner } from './main'
 
 runner()
   .then(async ({ client }) => {
-    await beforeListeners(client)
+    await discordEvents(client)
+    await cronEvents(client)
 
     await client.login(process.env.DISCORD_TOKEN)
 
-    await afterListeners(client)
+    await afterEvents(client)
   })
   .catch(() => {})
   .finally(() => {})

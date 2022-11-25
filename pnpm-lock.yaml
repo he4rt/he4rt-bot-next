@@ -1,9 +1,11 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@types/cron': ^2.0.0
   '@vitest/coverage-c8': ^0.25.3
   '@vitest/ui': ^0.25.3
   concurrently: ^7.5.0
+  cron: ^2.1.0
   destr: ^1.2.1
   discord.js: ^14.6.0
   dotenv: ^16.0.3
@@ -20,11 +22,13 @@ specifiers:
   vitest: ^0.25.3
 
 dependencies:
+  cron: 2.1.0
   destr: 1.2.1
   discord.js: 14.6.0
   uncreate: 0.9.2
 
 devDependencies:
+  '@types/cron': 2.0.0
   '@vitest/coverage-c8': 0.25.3_@vitest+ui@0.25.3
   '@vitest/ui': 0.25.3
   concurrently: 7.5.0
@@ -198,9 +202,22 @@ packages:
       { integrity: sha512-KnRanxnpfpjUTqTCXslZSEdLfXExwgNxYPdiO2WGUj8+HDjFi8R3k5RVKPeSCzLjCcshCAtVO2QBbVuAV4kTnw== }
     dev: true
 
+  /@types/cron/2.0.0:
+    resolution:
+      { integrity: sha512-xZM08fqvwIXgghtPVkSPKNgC+JoMQ2OHazEvyTKnNf7aWu1aB6/4lBbQFrb03Td2cUGG7ITzMv3mFYnMu6xRaQ== }
+    dependencies:
+      '@types/luxon': 3.1.0
+      '@types/node': 18.11.9
+    dev: true
+
   /@types/istanbul-lib-coverage/2.0.4:
     resolution:
       { integrity: sha512-z/QT1XN4K4KYuslS23k62yDIDLwLFkzxOuMplDtObz0+y7VqJCaO2o+SPwHCvLFZh7xazvvoor2tA/hPz9ee7g== }
+    dev: true
+
+  /@types/luxon/3.1.0:
+    resolution:
+      { integrity: sha512-gCd/HcCgjqSxfMrgtqxCgYk/22NBQfypwFUG7ZAyG/4pqs51WLTcUzVp1hqTbieDYeHS3WoVEh2Yv/2l+7B0Vg== }
     dev: true
 
   /@types/minimatch/3.0.5:
@@ -592,6 +609,13 @@ packages:
     resolution:
       { integrity: sha512-ASFBup0Mz1uyiIjANan1jzLQami9z1PoYSZCiiYW2FczPbenXc45FZdBZLzOT+r6+iciuEModtmCti+hjaAk0A== }
     dev: true
+
+  /cron/2.1.0:
+    resolution:
+      { integrity: sha512-Hq7u3P8y7UWYvsZbSKHHJDVG0VO9O7tp2qljxzTScelcTODBfCme8AIhnZsFwmQ9NchZ3hr2uNr+s3DSms7q6w== }
+    dependencies:
+      luxon: 1.28.0
+    dev: false
 
   /cross-spawn/7.0.3:
     resolution:
@@ -1468,6 +1492,10 @@ packages:
     dependencies:
       get-func-name: 2.0.0
     dev: true
+
+  /luxon/1.28.0:
+    resolution:
+      { integrity: sha512-TfTiyvZhwBYM/7QdAVDh+7dBTBA29v4ik0Ce9zda3Mnf8on1S5KJI8P2jKFZ8+5C0jhmr0KwJEO/Wdpm0VeWJQ== }
 
   /magic-string/0.25.9:
     resolution:

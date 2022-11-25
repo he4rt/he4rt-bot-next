@@ -7,7 +7,7 @@ import { deletePossibleUserInServerLeave } from './guild'
 import { suppressEmbedMessagesInBusyChannels } from './channel'
 import { removeCustomColorOfUnderprivilegedMembers } from './role'
 
-export const beforeListeners = (client: He4rtClient) => {
+export const discordEvents = (client: He4rtClient) => {
   client.on(Events.GuildMemberRemove, (member) => {
     if (isBot(member.user)) return
 
