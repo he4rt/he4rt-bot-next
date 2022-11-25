@@ -23,7 +23,7 @@ export const verifyApoiaseMembers = async (client: He4rtClient) => {
                 client.api.apoiase.backers
                   .charges(email)
                   .get<ApoiaseGET>()
-                  .then(async ({ isBacker, isPaidThisMonth, thisMonthPaidValue }) => {
+                  .then(({ isBacker, isPaidThisMonth, thisMonthPaidValue }) => {
                     if (
                       isBacker &&
                       isPaidThisMonth &&
@@ -32,25 +32,26 @@ export const verifyApoiaseMembers = async (client: He4rtClient) => {
                     ) {
                       return
                     }
-
-                    await client.api.he4rt
+                    client.api.he4rt
                       .users(member.id)
                       .put<UserPUT>({
                         is_donator: 0,
                       })
+                      .then(async () => {
+                        await member.roles.remove(DONATOR_ROLE.id).catch(() => {})
+                      })
                       .catch(() => {})
-
-                    await member.roles.remove(DONATOR_ROLE.id).catch(() => {})
                   })
-                  .catch(async () => {
-                    await client.api.he4rt
+                  .catch(() => {
+                    client.api.he4rt
                       .users(member.id)
                       .put<UserPUT>({
                         is_donator: 0,
                       })
+                      .then(async () => {
+                        await member.roles.remove(DONATOR_ROLE.id).catch(() => {})
+                      })
                       .catch(() => {})
-
-                    await member.roles.remove(DONATOR_ROLE.id).catch(() => {})
                   })
               })
               .catch(() => {})

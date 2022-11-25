@@ -1,7 +1,7 @@
 import { Client, Collection, GatewayIntentBits, REST } from 'discord.js'
 import { Context, He4rtClient } from './types'
 import { registerCommands } from './commands'
-import { HE4RT, APOIASE } from './api'
+import { HE4RT, APOIASE } from './http'
 
 export const runner = async (): Promise<Context> => {
   const client = new Client({
