@@ -7,6 +7,9 @@ export default defineConfig({
   clean: true,
   sourcemap: true,
   watch: true,
+  env: {
+    'NODE_ENV': 'development'
+  },
   esbuildPlugins: [
     replace({
       'ids.json': 'ids_development.json'
