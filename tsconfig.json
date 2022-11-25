@@ -7,8 +7,8 @@
     "downlevelIteration": true,
     "esModuleInterop": true,
     "paths": {
-      "@/*": ["src/*"],
-      "-/*": ["src/defines/localisation"]
+      "-/*": ["src/defines/localisation/*"],
+      "@/*": ["src/*"]
     }
   },
   "include": ["src/**/*.ts"]

@@ -34,8 +34,8 @@ import {
   ERROR_CANNOT_BE_BANNED,
   ERROR_PAGINATION,
   ERROR_PRESENTING,
-} from '@/defines/localisation/defaults/reply.json'
-import { NOT_FOUND, LANGUAGE_NONE } from '@/defines/localisation/defaults/display.json'
+} from '-/defaults/reply.json'
+import { NOT_FOUND, LANGUAGE_NONE } from '-/defaults/display.json'
 import { TIMEOUT_COMMAND_STRING, DEFINE_STRING_REPLACED } from '@/defines/values.json'
 import { CommandGetOption, EmbedTemplateOptions, GetChannelOptions, He4rtClient } from '@/types'
 

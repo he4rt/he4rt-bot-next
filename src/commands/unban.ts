@@ -1,8 +1,8 @@
 import { PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@/types'
 import { UNBAN } from '@/defines/commands.json'
-import { MEMBER_OPTION, REASON_OPTION, EMBED_TITLE } from '@/defines/localisation/commands/unban.json'
-import { EMBED_FIELD_TYPE_BAN } from '@/defines/localisation/commands/shared.json'
+import { MEMBER_OPTION, REASON_OPTION, EMBED_TITLE } from '-/commands/unban.json'
+import { EMBED_FIELD_TYPE_BAN } from '-/commands/shared.json'
 import { PUNISHMENTS_CHANNEL } from '@/defines/ids.json'
 import {
   EMBED_FIELD_UNPUNISHED,

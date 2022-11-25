@@ -2,13 +2,13 @@ import { GuildMember, PermissionFlagsBits, SlashCommandBuilder } from 'discord.j
 import { Command } from '@/types'
 import COMMANDS from '@/defines/commands.json'
 import { PUNISHMENTS_CHANNEL } from '@/defines/ids.json'
-import TIMEOUT from '@/defines/localisation/commands/timeout.json'
+import TIMEOUT from '-/commands/timeout.json'
 import {
   EMBED_FIELD_USER,
   EMBED_FIELD_TYPE,
   EMBED_FIELD_REASON,
   EMBED_FIELD_REASON_VALUE,
-} from '@/defines/localisation/commands/shared.json'
+} from '-/commands/shared.json'
 import { embedTemplate, getChannel, getOption, reply } from '@/utils'
 
 export const useTimeout = (): Command => {

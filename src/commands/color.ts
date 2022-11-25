@@ -2,7 +2,7 @@ import { CommandInteractionOption, GuildMember, HexColorString, SlashCommandBuil
 import { Command } from '@/types'
 import { COLOR } from '@/defines/commands.json'
 import { DONATORS_CHANNEL } from '@/defines/ids.json'
-import { HEX_ERROR, HEX_OPTION, HEX_SUCCESS } from '@/defines/localisation/commands/color.json'
+import { HEX_ERROR, HEX_OPTION, HEX_SUCCESS } from '-/commands/color.json'
 import { getCustomColorRole, isHex, isPrivileged, reply } from '@/utils'
 
 export const useColor = (): Command => {

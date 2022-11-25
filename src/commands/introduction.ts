@@ -8,7 +8,7 @@ import {
   VALID_PRESENTATION_DEV_ROLES,
   VALID_PRESENTATION_ENG_ROLES,
 } from '@/defines/ids.json'
-import INTRODUCTION from '@/defines/localisation/commands/introduction.json'
+import INTRODUCTION from '-/commands/introduction.json'
 import { INTRODUCE } from '@/defines/commands.json'
 import { TIMEOUT_COMMAND, TIMEOUT_COMMAND_STRING } from '@/defines/values.json'
 import {
