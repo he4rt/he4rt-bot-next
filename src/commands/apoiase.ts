@@ -3,8 +3,8 @@ import { ApoiaseGET, Command, UserPUT } from '@/types'
 import { APOIASE } from '@/defines/commands.json'
 import { APOIASE_CUSTOM_COLOR_MINIMAL_VALUE } from '@/defines/values.json'
 import { DONATOR_ROLE } from '@/defines/ids.json'
-import { EMAIL_OPTION, INVALID_ACCOUNT, SUCCESS_ACCOUNT } from '-/commands/apoiase.json'
-import { getOption, isPresentedMember, reply } from '@/utils'
+import { EMAIL_OPTION, APOIASE_MEMBER, INVALID_ACCOUNT, SUCCESS_ACCOUNT } from '-/commands/apoiase.json'
+import { getOption, isApoiaseMember, isPresentedMember, reply } from '@/utils'
 
 export const useApoiase = (): Command => {
   const data = new SlashCommandBuilder()
@@ -33,6 +33,15 @@ export const useApoiase = (): Command => {
         )
       ) {
         await reply(interaction).errorInvalidEmail()
+
+        return
+      }
+
+      if (isApoiaseMember(member)) {
+        await interaction.reply({
+          content: APOIASE_MEMBER,
+          ephemeral: true,
+        })
 
         return
       }

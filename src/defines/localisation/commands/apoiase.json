@@ -1,5 +1,6 @@
 {
-  "EMAIL_OPTION": "Insira o seu email do apoia.se",
+  "EMAIL_OPTION": "Insira o seu email do apoia.se.",
+  "APOIASE_MEMBER": "Você já é um membro ativo no apoia.se!",
   "INVALID_ACCOUNT": "Não foi possível validar. Só é contabilizado valores iguais ou superiores à cinco reais, apoios ativos e que estejam com todas as mensalidades pagas!",
-  "SUCCESS_ACCOUNT": "Obrigado por apoiar nosso projeto! Agora você tem acesso a comandos exclusivos no servidor, como o comando `/cor` entre outros privilégios!\n**Fique atento com as mensalidades, elas são emitidas no começo de cada mês. Caso as faturas não sejam pagas até o dia 10 de cada mês, o seu cargo de apoiador será removido!**\n\nAgradecemos de coração por acreditar em nossa iniciativa 💜"
+  "SUCCESS_ACCOUNT": "Obrigado por apoiar nosso projeto!\nAgora você tem acesso a comandos exclusivos no servidor, como o comando `/cor`, o chat `💳︱apoiadores`, 2x XP, 2x He4rt Coints, entre outros privilégios!\n**Fique atento com as mensalidades, elas são emitidas no começo de cada mês. Caso as faturas não sejam pagas até o dia 10 de cada mês, o seu cargo de apoiador será removido!**\n\nAgradecemos (de coração) por acreditar em nossa iniciativa 💜"
 }
