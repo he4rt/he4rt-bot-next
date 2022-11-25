@@ -25,6 +25,8 @@
     "uncreate": "^0.9.2"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.3.0",
+    "@commitlint/config-conventional": "^17.3.0",
     "@types/cron": "^2.0.0",
     "@vitest/coverage-c8": "^0.25.3",
     "@vitest/ui": "^0.25.3",
