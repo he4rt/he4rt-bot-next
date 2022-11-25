@@ -20,7 +20,7 @@ export const useClear = (): Command => {
       interaction.channel.messages
         .fetch({ limit: (limit.value as number) || 0 })
         .then(async (messages) => {
-          messages.reverse().forEach(async (message) => {
+          messages.forEach(async (message) => {
             await message.delete().catch(() => {})
           })
 
