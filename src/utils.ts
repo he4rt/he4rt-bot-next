@@ -26,6 +26,7 @@ import {
   SUCCESS_COMMAND_DEFAULT,
   SUCCESS_DM_SEND,
   ERROR_DEFAULT,
+  ERROR_INVALID_EMAIL,
   ERROR_MISS_PERMISSION,
   ERROR_MEMBER_IS_NOT_PRESENTED,
   ERROR_ACCESS_DM,
@@ -177,6 +178,13 @@ export const reply = (interaction: CommandInteraction) => {
     })
   }
 
+  const errorInvalidEmail = async () => {
+    return await interaction.reply({
+      content: ERROR_INVALID_EMAIL,
+      ephemeral: true,
+    })
+  }
+
   const errorPermission = async () => {
     return await interaction.reply({ content: ERROR_MISS_PERMISSION, ephemeral: true })
   }
@@ -213,6 +221,7 @@ export const reply = (interaction: CommandInteraction) => {
     success,
     successInAccessDM,
     error,
+    errorInvalidEmail,
     errorPermission,
     errorMemberIsNotPresented,
     errorInAccessDM,

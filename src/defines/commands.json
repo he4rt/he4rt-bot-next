@@ -54,5 +54,9 @@
   "CLEAR": {
     "TITLE": "limpar",
     "DESCRIPTION": "(ADM|MOD): Limpe as mensagens do chat em questão pelo valor dado."
+  },
+  "APOIASE": {
+    "TITLE": "apoiase",
+    "DESCRIPTION": "Apoie nosso projeto em https://apoia.se/heartdevs e receba bônus exclusivos no servidor!"
   }
 }

@@ -103,6 +103,12 @@ export interface ProfilePUT extends ProfileGET {}
 
 export interface MessagePOST extends RESTJson {}
 
+export interface ApoiaseGET extends RESTJson {
+  isPaidThisMonth: boolean
+  isBacker: boolean
+  thisMonthPaidValue?: number
+}
+
 export interface RankingMember {
   nickname?: string
   level: number

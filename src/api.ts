@@ -12,8 +12,11 @@ export const HE4RT = createClient({
 export const APOIASE = createClient({
   parseResponse: JSON_PARSE,
   baseURL: process.env.APOIASE_URL,
+  retry: 3,
   headers: {
+    Accept: '*/*',
+    'Content-Type': 'application/json',
     'x-api-key': process.env.APOIASE_TOKEN,
-    Authorization: `Bearer ${process.env.APOIASE_SECRET}`,
+    authorization: `Bearer ${process.env.APOIASE_SECRET}`,
   },
 })
