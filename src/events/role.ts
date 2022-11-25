@@ -1,5 +1,5 @@
 import { He4rtClient, ProfilePUT } from '@/types'
-import { getCustomColorRole, getGuild, isPrivileged } from '@/utils'
+import { getCustomColorRole, getGuild, isPrivilegedMember } from '@/utils'
 import { GuildMember } from 'discord.js'
 
 export const removeCustomColorOfUnderprivilegedMembers = async (
@@ -10,8 +10,8 @@ export const removeCustomColorOfUnderprivilegedMembers = async (
   const guild = getGuild(client)
   const role = getCustomColorRole(oldMember)
 
-  const old = isPrivileged(oldMember)
-  const active = isPrivileged(newMember)
+  const old = isPrivilegedMember(oldMember)
+  const active = isPrivilegedMember(newMember)
 
   if (!role) return
 

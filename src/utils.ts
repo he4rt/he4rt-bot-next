@@ -66,7 +66,7 @@ export const isPresentingMember = (member: GuildMember) => {
   return member.roles.cache.some(({ id }) => id === PRESENTING_ROLE.id)
 }
 
-export const isPrivileged = (member: GuildMember) => {
+export const isPrivilegedMember = (member: GuildMember) => {
   return member.roles.cache.some(({ id }) => id === DONATOR_ROLE.id || id === NITRO_BOOSTER_ROLE.id)
 }
 
