@@ -1,0 +1,47 @@
+name: Tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: [ubuntu-latest, windows-latest]
+    
+    strategy:
+      matrix:
+        node-version: [16.x]
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - uses: pnpm/action-setup@v2
+        name: PNPM Setup
+        id: pnpm-install
+        with:
+          version: 7
+          run_install: false
+
+      - name: PNPM Store
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install
+        run: pnpm install
+
+      - name: Test
+        run: pnpm test
