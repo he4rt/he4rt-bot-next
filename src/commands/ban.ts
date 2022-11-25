@@ -56,8 +56,6 @@ export const useBan = (): Command => {
         })
         .catch(async () => {
           await reply(interaction).errorUserCannotBeBaned()
-
-          return
         })
     },
   ]

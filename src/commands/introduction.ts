@@ -179,7 +179,7 @@ export const useIntroduction = (): Command => {
       }
 
       client.users
-        ?.createDM(author)
+        .createDM(author)
         .then(async (dm) => {
           const valid = await validateAccess(dm, interaction)
 
