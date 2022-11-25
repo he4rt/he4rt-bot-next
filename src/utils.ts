@@ -252,3 +252,11 @@ export const isHex = (str: string) => {
 export const isValidProxyContent = (str: string) => {
   return ['https://cdn.discordapp.com', 'https://tenor.com', 'https://forms.gle'].some((v) => str.trim().startsWith(v))
 }
+
+export const js = () => {
+  const sleep = (ms: number) => {
+    return new Promise((resolve) => setTimeout(resolve, ms))
+  }
+
+  return { sleep }
+}
