@@ -9,6 +9,7 @@ specifiers:
   dotenv: ^16.0.3
   esbuild-plugin-replace: ^1.3.0
   generi: ^0.4.0
+  husky: ^8.0.0
   nodemon: ^2.0.20
   prettier: ^2.7.1
   tsup: ^6.5.0
@@ -28,6 +29,7 @@ devDependencies:
   dotenv: 16.0.3
   esbuild-plugin-replace: 1.3.0
   generi: 0.4.0
+  husky: 8.0.2
   nodemon: 2.0.20
   prettier: 2.7.1
   tsup: 6.5.0_typescript@4.9.3
@@ -908,6 +910,12 @@ packages:
   /human-signals/2.1.0:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
     engines: {node: '>=10.17.0'}
+    dev: true
+
+  /husky/8.0.2:
+    resolution: {integrity: sha512-Tkv80jtvbnkK3mYWxPZePGFpQ/tT3HNSs/sasF9P2YfkMezDl3ON37YN6jUUI4eTg5LcyVynlb6r4eyvOmspvg==}
+    engines: {node: '>=14'}
+    hasBin: true
     dev: true
 
   /ieee754/1.2.1:
