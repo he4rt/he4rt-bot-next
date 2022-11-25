@@ -18,6 +18,20 @@ export const useTimeout = (): Command => {
     .setDMPermission(false)
     .addUserOption((option) => option.setName('membro').setDescription(TIMEOUT.MEMBER_OPTION).setRequired(true))
     .addStringOption((option) => option.setName('razao').setDescription(TIMEOUT.REASON_OPTION).setRequired(true))
+    .addNumberOption((option) =>
+      option
+        .setName('tempo')
+        .setDescription(TIMEOUT.TIME_OPTION)
+        .setRequired(true)
+        .addChoices(
+          { name: '60 segundos', value: 60_000 },
+          { name: '5 minutos', value: 300_000 },
+          { name: '10 minutos', value: 600_000 },
+          { name: '1 hora', value: 3600_000 },
+          { name: '1 dia', value: 86400_000 },
+          { name: '1 semana', value: 604800_000 }
+        )
+    )
     .setDefaultMemberPermissions(PermissionFlagsBits.MuteMembers)
 
   return [
@@ -25,19 +39,18 @@ export const useTimeout = (): Command => {
     async (interaction, client) => {
       const member = interaction.options.getMember('membro') as GuildMember
       const reason = getOption(interaction, 'razao')
-      // const time = getOption(interaction, 'time')
+      const time = getOption(interaction, 'tempo')
 
-      if (!member || !reason) {
+      if (!member || !reason || !time) {
         await reply(interaction).error()
 
         return
       }
 
-      // TODO: dynamic time value
-      // const set = 60_000 * (time.value as number)
+      const timeout = time.value as number
 
       try {
-        await member.timeout(60_000)
+        await member.timeout(timeout)
       } catch (e) {
         await reply(interaction).errorPermission()
 
@@ -62,7 +75,17 @@ export const useTimeout = (): Command => {
 
       const channel = getChannel({ id: PUNISHMENTS_CHANNEL.id, client })
 
-      await channel?.send({ content: `Usuário ${member.id} suprimido por 1 minuto!`, embeds: [embed] })
+      const normalize =
+        {
+          60000: '60 segundos',
+          300000: '5 minutos',
+          600000: '10 minutos',
+          3600000: '1 hora',
+          86400000: '1 dia',
+          604800000: '1 semana',
+        }[timeout] || 'deu ruim'
+
+      await channel?.send({ content: `Usuário **${member.id}** suprimido por ${normalize}!`, embeds: [embed] })
 
       await reply(interaction).success()
     },
