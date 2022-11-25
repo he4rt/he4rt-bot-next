@@ -45,7 +45,7 @@ He4rt Discord Bot
 
 ## Development
 
-Caso deseje contribuir ao projeto, leia antes o [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) e o [CONTRIBUITING.md](./CONTRIBUITING.md)
+Caso deseje contribuir ao projeto, leia antes o [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) e o [CONTRIBUTING.md](./CONTRIBUTING.md)
 
 ## Contributors
 
