@@ -8,7 +8,7 @@ import { CronJob } from 'cron'
 export const verifyApoiaseMembers = async (client: He4rtClient) => {
   const guild = getGuild(client)
 
-  await new CronJob('00 12 10 * *', async () => {
+  await new CronJob('00 00 12 10 * *', async () => {
     guild.members
       .fetch()
       .then((members) => {
