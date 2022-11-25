@@ -1,10 +1,10 @@
 import { GuildMember, SlashCommandBuilder } from 'discord.js'
-import { ApoiaseGET, Command } from '@/types'
+import { ApoiaseGET, Command, UserPUT } from '@/types'
 import { APOIASE } from '@/defines/commands.json'
 import { APOIASE_CUSTOM_COLOR_MINIMAL_VALUE } from '@/defines/values.json'
 import { DONATOR_ROLE } from '@/defines/ids.json'
 import { EMAIL_OPTION, INVALID_ACCOUNT, SUCCESS_ACCOUNT } from '-/commands/apoiase.json'
-import { getOption, reply } from '@/utils'
+import { getOption, isPresentedMember, reply } from '@/utils'
 
 export const useApoiase = (): Command => {
   const data = new SlashCommandBuilder()
@@ -20,6 +20,12 @@ export const useApoiase = (): Command => {
       const email = getOption(interaction, 'email')
 
       const value = email.value as string
+
+      if (!isPresentedMember(member)) {
+        await reply(interaction).errorMemberIsNotPresented()
+
+        return
+      }
 
       if (
         !value.match(
@@ -41,9 +47,17 @@ export const useApoiase = (): Command => {
             thisMonthPaidValue &&
             thisMonthPaidValue >= APOIASE_CUSTOM_COLOR_MINIMAL_VALUE
           ) {
-            member.roles.add(DONATOR_ROLE.id)
+            await member.roles.add(DONATOR_ROLE.id)
 
-            await interaction.reply({ content: SUCCESS_ACCOUNT, ephemeral: true }).catch(() => {})
+            client.api.he4rt
+              .users(member.id)
+              .put<UserPUT>({
+                is_donator: 1,
+              })
+              .catch(() => {})
+              .finally(async () => {
+                await interaction.reply({ content: SUCCESS_ACCOUNT, ephemeral: true }).catch(() => {})
+              })
 
             return
           }

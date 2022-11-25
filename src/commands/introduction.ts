@@ -1,5 +1,5 @@
 import { CommandInteraction, DMChannel, GuildMember, SlashCommandBuilder } from 'discord.js'
-import { Command, IntroducePOST, IntroducePUT, ProfileGETBody, RoleDefine } from '@/types'
+import { Command, IntroducePOST, IntroducePUT, RoleDefine, UserGETBody } from '@/types'
 import {
   PRESENTATIONS_CHANNEL,
   PRESENTED_ROLE,
@@ -129,7 +129,7 @@ const validateAccess = async (dm: DMChannel, interaction: CommandInteraction): P
   return true
 }
 
-const nextStringsData = async (dm: DMChannel, interaction: CommandInteraction): Promise<ProfileGETBody> => {
+const nextStringsData = async (dm: DMChannel, interaction: CommandInteraction): Promise<UserGETBody> => {
   await dm.send(INTRODUCTION.USER.NAME)
   const name = await nextTextMessage(dm, interaction)
 

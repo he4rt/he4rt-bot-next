@@ -72,7 +72,7 @@ export interface IntroducePUT extends RESTJson {}
 
 export interface IntroducePOST extends RESTJson {}
 
-export interface ProfileGETBody {
+export interface UserGETBody {
   name: string
   nickname: string
   about: string
@@ -80,7 +80,7 @@ export interface ProfileGETBody {
   linkedin: string | null
 }
 
-export interface ProfileGET extends RESTJson, ProfileGETBody {
+export interface UserGET extends RESTJson, UserGETBody {
   id: number
   discord_id: string
   twitch_id: any
@@ -99,7 +99,7 @@ export interface ProfileGET extends RESTJson, ProfileGETBody {
   }
 }
 
-export interface ProfilePUT extends ProfileGET {}
+export interface UserPUT extends UserGET {}
 
 export interface MessagePOST extends RESTJson {}
 

@@ -1,4 +1,4 @@
-import { He4rtClient, ProfilePUT } from '@/types'
+import { He4rtClient, UserPUT } from '@/types'
 import { getCustomColorRole, getGuild, isPrivilegedMember } from '@/utils'
 import { GuildMember } from 'discord.js'
 
@@ -24,7 +24,7 @@ export const removeCustomColorOfUnderprivilegedMembers = async (
           .then(() => {
             client.api.he4rt
               .users(oldMember.id)
-              .put<ProfilePUT>({
+              .put<UserPUT>({
                 is_donator: 0,
               })
               .catch(() => {})
