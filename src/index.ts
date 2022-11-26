@@ -12,6 +12,8 @@ runner()
     await client.login(process.env.DISCORD_TOKEN)
 
     await afterEvents(client)
+
+    await client.ticker.start()
   })
   .catch(() => {})
   .finally(() => {})

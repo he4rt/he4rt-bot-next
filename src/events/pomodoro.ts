@@ -19,7 +19,7 @@ export const setPomodoroListener = async (client: He4rtClient) => {
   let isMutated = false
   let isTalking = true
 
-  setInterval(() => {
+  client.ticker.add(() => {
     if (isMutated) mutated--
     if (isTalking) talking--
 
@@ -57,5 +57,5 @@ export const setPomodoroListener = async (client: He4rtClient) => {
     if (talkingTimer === 60) {
       if ([...channel.members].length > 0) channel.send(TALKING_LESS_THAN_ONE_MINUTE)
     }
-  }, 1000)
+  })
 }

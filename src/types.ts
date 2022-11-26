@@ -12,6 +12,7 @@ import {
   User,
 } from 'discord.js'
 import { ClientBuilder } from 'uncreate'
+import { Ticker } from './client/ticker'
 
 export type Maybe<T> = T | undefined | null
 export type RESTJson<T extends string | number | symbol = string, K = any> = Record<T, K>
@@ -24,8 +25,11 @@ export type CommandCallback = (interaction: CommandInteraction, client: He4rtCli
 export type CommandSet = SlashCommandBuilder | Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>
 export type Command = [CommandSet, CommandCallback]
 
+export type TickerCallback = () => void | Promise<void>
+
 export type He4rtClient = Client<boolean> & {
   commands: Collection<CommandSet, CommandCallback>
+  ticker: Ticker
   api: {
     he4rt: ClientBuilder
     apoiase: ClientBuilder
