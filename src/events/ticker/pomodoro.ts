@@ -1,6 +1,6 @@
 import { He4rtClient } from '@/types'
 import { getGuild, js } from '@/utils'
-import { POMODORO_CHANNEL } from '@/defines/ids.json'
+import { POMODORO_CHANNEL, PRESENTED_ROLE } from '@/defines/ids.json'
 import { POMODORO_MUTATED_IN_MINUTES, POMODORO_TALKING_IN_MINUTES } from '@/defines/values.json'
 import { TALKING_LESS_THAN_ONE_MINUTE } from '-/events/pomodoro.json'
 import { VoiceChannel } from 'discord.js'
@@ -30,11 +30,18 @@ export const setPomodoroListener = async (client: He4rtClient) => {
       isMutated = false
       isTalking = true
 
-      // TODO: overwrite PRESENTED_ROLE permission, but actually discord rate limits not permitted this approach.
+      // TODO: overwrite EVERYONE permission, but actually discord rate limits not permitted this approach.
       channel.permissionOverwrites
-        .edit(guild.id, { MuteMembers: false })
-        .then(() => {
-          channel.setName(`🟢 Coworking | ${js().getTime()}`)
+        .edit(PRESENTED_ROLE.id, { MuteMembers: false })
+        .then(async () => {
+          /*
+          const members = [...channel.members]
+
+          for (const [_, member] of members) {
+            await member.voice.setMute(false).catch(() => {})
+          }
+          */
+          await channel.setName(`🟢 Coworking | ${js().getTime()}`).catch(() => {})
         })
         .catch(() => {})
     }
@@ -47,9 +54,9 @@ export const setPomodoroListener = async (client: He4rtClient) => {
       isTalking = false
 
       channel.permissionOverwrites
-        .edit(guild.id, { MuteMembers: true })
-        .then(() => {
-          channel.setName(`🔴 Coworking | ${js().getTime()}`)
+        .edit(PRESENTED_ROLE.id, { MuteMembers: true })
+        .then(async () => {
+          await channel.setName(`🔴 Coworking | ${js().getTime()}`).catch(() => {})
         })
         .catch(() => {})
     }
