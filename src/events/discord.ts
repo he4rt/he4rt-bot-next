@@ -4,7 +4,7 @@ import { He4rtClient } from '@/types'
 import { XPListener } from './gamification'
 import { isBot, isValidListenerMessage } from '@/utils'
 import { deletePossibleUserInServerLeave } from './guild'
-import { suppressEmbedMessagesInBusyChannels } from './channel'
+import { sendGoodMessagesInChatChannel, suppressEmbedMessagesInBusyChannels } from './channel'
 import { removeCustomColorOfUnderprivilegedMembers } from './role'
 
 export const discordEvents = (client: He4rtClient) => {
@@ -25,6 +25,7 @@ export const discordEvents = (client: He4rtClient) => {
 
     XPListener(client, message)
     suppressEmbedMessagesInBusyChannels(message)
+    sendGoodMessagesInChatChannel(message)
   })
 
   client.on(Events.InteractionCreate, (interaction) => {

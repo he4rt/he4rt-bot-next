@@ -17,3 +17,19 @@ export const suppressEmbedMessagesInBusyChannels = async (message: Message) => {
     await message.suppressEmbeds(true).catch(() => {})
   }
 }
+
+export const sendGoodMessagesInChatChannel = (message: Message) => {
+  if (CHAT_CHANNEL.id === message.channel.id) {
+    const content = message.content.toLowerCase().trim()
+
+    if (content.startsWith('bom dia')) {
+      message.reply({ content: `dia!` }).catch(() => {})
+    }
+    if (content.startsWith('boa tarde')) {
+      message.reply({ content: `tarde!` }).catch(() => {})
+    }
+    if (content.startsWith('boa noite')) {
+      message.reply({ content: `noite!` }).catch(() => {})
+    }
+  }
+}
