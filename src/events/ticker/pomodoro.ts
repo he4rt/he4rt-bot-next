@@ -51,7 +51,7 @@ export const setPomodoroListener = async (client: He4rtClient) => {
         .then(async () => {
           await channel.setName(`🟢 Coworking | ${js().getTime()}`).catch(() => {})
 
-          await channel.send(TALKING_SPEAKING_STARTED)
+          sendMessage(TALKING_SPEAKING_STARTED)
         })
         .catch(() => {})
     }
@@ -68,7 +68,7 @@ export const setPomodoroListener = async (client: He4rtClient) => {
         .then(async () => {
           await channel.setName(`🔴 Coworking | ${js().getTime()}`).catch(() => {})
 
-          await channel.send(TALKING_MUTATED_STARTED)
+          sendMessage(TALKING_MUTATED_STARTED)
         })
         .catch(() => {})
     }
