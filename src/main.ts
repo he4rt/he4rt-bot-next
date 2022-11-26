@@ -3,6 +3,7 @@ import { Context, He4rtClient } from './types'
 import { registerCommands } from './commands'
 import { HE4RT, APOIASE } from './http'
 import { Ticker } from './client/ticker'
+import { js } from './utils'
 
 export const runner = async (): Promise<Context> => {
   const client = new Client({
@@ -23,6 +24,8 @@ export const runner = async (): Promise<Context> => {
   }
 
   const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN)
+
+  console.log(js().getTime())
 
   await registerCommands({ client, rest })
 

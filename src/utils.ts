@@ -12,7 +12,7 @@ import {
   TextBasedChannel,
   User,
 } from 'discord.js'
-import { zonedTimeToUtc } from 'date-fns-tz'
+import { formatInTimeZone, zonedTimeToUtc } from 'date-fns-tz'
 import { CLIENT_NAME, CLIENT_TIMEZONE, COLORS, HE4RT_DELAS_ICON_1_URL, HE4RT_ICON_1_URL } from '@/defines/values.json'
 import {
   PRESENTING_ROLE,
@@ -265,10 +265,10 @@ export const js = () => {
     return new Promise((resolve) => setTimeout(resolve, ms))
   }
 
-  const getTime = () => {
-    const utc = zonedTimeToUtc(new Date(), CLIENT_TIMEZONE)
+  const getTime = (): string => {
+    const utc = formatInTimeZone(new Date(), CLIENT_TIMEZONE, 'HH:mm')
 
-    return `${utc.getHours()}:${utc.getMinutes()}`
+    return utc
   }
 
   return { sleep, getTime }
