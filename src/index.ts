@@ -1,7 +1,7 @@
 import 'dotenv/config'
-import { afterEvents } from './events/after'
 import { cronEvents } from './events/cron'
 import { discordEvents } from './events/discord'
+import { tickerEvents } from './events/ticker'
 import { runner } from './main'
 
 runner()
@@ -11,9 +11,7 @@ runner()
 
     await client.login(process.env.DISCORD_TOKEN)
 
-    await afterEvents(client)
-
-    await client.ticker.start()
+    await tickerEvents(client)
   })
   .catch(() => {})
   .finally(() => {})

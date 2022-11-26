@@ -1,6 +1,5 @@
-import { ActivityType } from 'discord.js'
 import { He4rtClient } from '@/types'
-import { setPomodoroListener } from './pomodoro'
+import { ActivityType } from 'discord.js'
 
 export const setPresence = (client: He4rtClient) => {
   const type = ActivityType.Watching as Exclude<ActivityType, ActivityType.Custom>
@@ -35,9 +34,4 @@ export const setPresence = (client: He4rtClient) => {
       },
     ],
   })
-}
-
-export const afterEvents = async (client: He4rtClient) => {
-  await setPresence(client)
-  await setPomodoroListener(client)
 }

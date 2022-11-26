@@ -4,10 +4,6 @@ import { APOIASE_CUSTOM_COLOR_MINIMAL_VALUE } from '@/defines/values.json'
 import { DONATOR_ROLE } from '@/defines/ids.json'
 import { CronJob } from 'cron'
 
-export const cronEvents = async (client: He4rtClient) => {
-  await verifyApoiaseMembers(client)
-}
-
 export const verifyApoiaseMembers = async (client: He4rtClient) => {
   const guild = getGuild(client)
 
