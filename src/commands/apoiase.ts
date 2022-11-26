@@ -17,9 +17,7 @@ export const useApoiase = (): Command => {
     data,
     async (interaction, client) => {
       const member = interaction.member as GuildMember
-      const email = getOption(interaction, 'email')
-
-      const value = email.value as string
+      const email = getOption(interaction, 'email').value as string
 
       if (!isPresentedMember(member)) {
         await reply(interaction).errorMemberIsNotPresented()
@@ -28,7 +26,7 @@ export const useApoiase = (): Command => {
       }
 
       if (
-        !value.match(
+        !email?.match(
           /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/
         )
       ) {
@@ -47,7 +45,7 @@ export const useApoiase = (): Command => {
       }
 
       client.api.apoiase.backers
-        .charges(value)
+        .charges(email)
         .get<ApoiaseGET>()
         .then(async ({ isBacker, isPaidThisMonth, thisMonthPaidValue }) => {
           if (
@@ -59,7 +57,7 @@ export const useApoiase = (): Command => {
             client.api.he4rt
               .users(member.id)
               .put<UserPUT>({
-                email: value,
+                email: email,
                 is_donator: 1,
               })
               .then(async () => {
@@ -71,7 +69,7 @@ export const useApoiase = (): Command => {
                 await report.send({
                   content: `**${member.id} - ${
                     member.user.username || 'Indefinido'
-                  }** com o email **${value}** ativou seu apoio do **apoia.se** no valor de **${thisMonthPaidValue}** reais mensais!`,
+                  }** com o email **${email}** ativou seu apoio do **apoia.se** no valor de **${thisMonthPaidValue}** reais mensais!`,
                 })
 
                 const message = await chat.send(
