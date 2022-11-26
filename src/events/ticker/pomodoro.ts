@@ -32,15 +32,8 @@ export const setPomodoroListener = async (client: He4rtClient) => {
 
       // TODO: overwrite EVERYONE permission, but actually discord rate limits not permitted this approach.
       channel.permissionOverwrites
-        .edit(PRESENTED_ROLE.id, { MuteMembers: false })
+        .edit(PRESENTED_ROLE.id, { Speak: true })
         .then(async () => {
-          /*
-          const members = [...channel.members]
-
-          for (const [_, member] of members) {
-            await member.voice.setMute(false).catch(() => {})
-          }
-          */
           await channel.setName(`🟢 Coworking | ${js().getTime()}`).catch(() => {})
         })
         .catch(() => {})
@@ -54,7 +47,7 @@ export const setPomodoroListener = async (client: He4rtClient) => {
       isTalking = false
 
       channel.permissionOverwrites
-        .edit(PRESENTED_ROLE.id, { MuteMembers: true })
+        .edit(PRESENTED_ROLE.id, { Speak: false })
         .then(async () => {
           await channel.setName(`🔴 Coworking | ${js().getTime()}`).catch(() => {})
         })
