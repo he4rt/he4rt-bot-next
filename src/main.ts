@@ -25,8 +25,6 @@ export const runner = async (): Promise<Context> => {
 
   const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN)
 
-  console.log(js().getTime())
-
   await registerCommands({ client, rest })
 
   return { client, rest }

@@ -2,7 +2,16 @@ import { He4rtClient } from '@/types'
 import { getGuild, js } from '@/utils'
 import { POMODORO_CHANNEL, PRESENTED_ROLE } from '@/defines/ids.json'
 import { POMODORO_MUTATED_IN_MINUTES, POMODORO_TALKING_IN_MINUTES } from '@/defines/values.json'
-import { TALKING_LESS_THAN_ONE_MINUTE } from '-/events/pomodoro.json'
+import {
+  TALKING_MUTATED_STARTED,
+  TALKING_MUTATED_FORTY_MINUTES,
+  TALKING_MUTATED_TWENTY_MINUTES,
+  TALKING_MUTATED_TEN_MINUTES,
+  TALKING_MUTATED_ONE_MINUTE,
+  TALKING_SPEAKING_STARTED,
+  TALKING_SPEAKING_FIVE_MINUTE,
+  TALKING_SPEAKING_ONE_MINUTE,
+} from '-/events/pomodoro.json'
 import { VoiceChannel } from 'discord.js'
 
 export const setPomodoroListener = async (client: He4rtClient) => {
@@ -13,11 +22,17 @@ export const setPomodoroListener = async (client: He4rtClient) => {
   const mutatedTimer = 60 * POMODORO_MUTATED_IN_MINUTES
   const talkingTimer = 60 * POMODORO_TALKING_IN_MINUTES
 
-  let mutated = mutatedTimer
-  let talking = talkingTimer
+  let mutated = 10
+  let talking = 10
 
   let isMutated = false
   let isTalking = true
+
+  const sendMessage = (str: string) => {
+    const members = [...channel.members]
+
+    if (members.length > 0) channel.send(str).catch(() => {})
+  }
 
   client.ticker.add(() => {
     if (isMutated) mutated--
@@ -35,6 +50,8 @@ export const setPomodoroListener = async (client: He4rtClient) => {
         .edit(PRESENTED_ROLE.id, { Speak: true })
         .then(async () => {
           await channel.setName(`🟢 Coworking | ${js().getTime()}`).catch(() => {})
+
+          await channel.send(TALKING_SPEAKING_STARTED)
         })
         .catch(() => {})
     }
@@ -50,14 +67,38 @@ export const setPomodoroListener = async (client: He4rtClient) => {
         .edit(PRESENTED_ROLE.id, { Speak: false })
         .then(async () => {
           await channel.setName(`🔴 Coworking | ${js().getTime()}`).catch(() => {})
+
+          await channel.send(TALKING_MUTATED_STARTED)
         })
         .catch(() => {})
     }
 
-    if (talkingTimer === 60) {
-      const members = [...channel.members]
+    const _MUTATED = (
+      {
+        2400: () => {
+          sendMessage(TALKING_MUTATED_FORTY_MINUTES)
+        },
+        1200: () => {
+          sendMessage(TALKING_MUTATED_TWENTY_MINUTES)
+        },
+        600: () => {
+          sendMessage(TALKING_MUTATED_TEN_MINUTES)
+        },
+        60: () => {
+          sendMessage(TALKING_MUTATED_ONE_MINUTE)
+        },
+      }[mutated] || (() => {})
+    )()
 
-      if (members.length > 0) channel.send(TALKING_LESS_THAN_ONE_MINUTE)
-    }
+    const _TALKING = (
+      {
+        300: () => {
+          sendMessage(TALKING_SPEAKING_FIVE_MINUTE)
+        },
+        60: () => {
+          sendMessage(TALKING_SPEAKING_ONE_MINUTE)
+        },
+      }[talking] || (() => {})
+    )()
   })
 }

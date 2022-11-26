@@ -7,7 +7,7 @@ export const setPresence = (client: He4rtClient) => {
 
   const randomTimer = 60 * DISCORD_PRESENCE_IN_MINUTES
 
-  let random = randomTimer
+  let random = 10
 
   client.ticker.add(() => {
     --random
