@@ -15,7 +15,7 @@ import { useCode } from './code'
 import { useClear } from './clear'
 import { useApoiase } from './apoiase'
 import { useVersion } from './version'
-import { useReputation } from './reputation'
+import { useAsk } from './ask'
 
 const registerHooks = (client: He4rtClient, commands: Command[]) => {
   commands.forEach(([data, cb]) => {
@@ -40,6 +40,7 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useClear(),
     useApoiase(),
     useVersion(),
+    useAsk(),
     // useReputation()
   ])
 

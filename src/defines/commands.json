@@ -66,5 +66,9 @@
   "REPUTATION": {
     "TITLE": "reputacao",
     "DESCRIPTION": "Alguém o ajudou em algo no servidor? Envie-o um agradecimento por isso!"
+  },
+  "ASK": {
+    "TITLE": "perguntar",
+    "DESCRIPTION": "Chame a atenção de um usuário para esclarecer suas dúvidas."
   }
 }
