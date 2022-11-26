@@ -1,5 +1,5 @@
 import { GuildMember, HexColorString, SlashCommandBuilder } from 'discord.js'
-import { Command, ProfileGET } from '@/types'
+import { Command, UserGET } from '@/types'
 import { PROFILE } from '@/defines/commands.json'
 import { COLORS } from '@/defines/values.json'
 import EMBED from '-/commands/profile.json'
@@ -18,21 +18,24 @@ export const useProfile = (): Command => {
     .setName(PROFILE.TITLE)
     .setDescription(PROFILE.DESCRIPTION)
     .setDMPermission(false)
+    .addUserOption((option) => option.setName('membro').setDescription(EMBED.MEMBER_OPTION))
 
   return [
     data,
     async (interaction, client) => {
-      const member = interaction.member as GuildMember
+      const member = interaction.options.getMember('membro')
 
-      if (!isPresentedMember(member)) {
+      const target = (member || interaction.member) as GuildMember
+
+      if (!isPresentedMember(target)) {
         await reply(interaction).errorMemberIsNotPresented()
 
         return
       }
 
       await client.api.he4rt
-        .users(member.id)
-        .get<ProfileGET>()
+        .users(target.id)
+        .get<UserGET>()
         .then(async (user) => {
           const fields = [
             [
@@ -62,17 +65,17 @@ export const useProfile = (): Command => {
             [
               {
                 name: EMBED.EMBED_LANGUAGES,
-                value: validDisplayDevRoles(member),
+                value: validDisplayDevRoles(target),
               },
               {
                 name: EMBED.EMBED_ENGLISH,
-                value: validDisplayEngRoles(member),
+                value: validDisplayEngRoles(target),
                 inline: true,
               },
             ],
           ]
 
-          const delas = isHe4rtDelasMember(member)
+          const delas = isHe4rtDelasMember(target)
 
           const embed = embedTemplate({
             title: EMBED.EMBED_PROFILE,
