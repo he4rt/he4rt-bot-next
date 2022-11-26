@@ -4,6 +4,8 @@ export class Ticker {
   private _list: TickerCallback[] = []
   private _interval: NodeJS.Timer
 
+  private __CALL__: number = 1000
+
   constructor() {}
 
   public add(cb: TickerCallback) {
@@ -21,8 +23,8 @@ export class Ticker {
       if (cbs) this._list.push(...cbs)
 
       this._interval = setInterval(() => {
-        this._list.forEach((cb) => cb && cb())
-      }, 1000)
+        this._list.forEach(async (cb) => cb && cb())
+      }, this.__CALL__)
 
       res()
     })

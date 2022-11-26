@@ -258,5 +258,9 @@ export const js = () => {
     return new Promise((resolve) => setTimeout(resolve, ms))
   }
 
-  return { sleep }
+  const getTime = () => {
+    return `${new Date().getHours()}:${new Date().getMinutes()}`
+  }
+
+  return { sleep, getTime }
 }

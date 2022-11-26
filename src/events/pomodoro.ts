@@ -1,5 +1,5 @@
 import { He4rtClient } from '@/types'
-import { getGuild } from '@/utils'
+import { getGuild, js } from '@/utils'
 import { POMODORO_CHANNEL } from '@/defines/ids.json'
 import { POMODORO_MUTATED_IN_MINUTES, POMODORO_TALKING_IN_MINUTES } from '@/defines/values.json'
 import { TALKING_LESS_THAN_ONE_MINUTE } from '-/events/pomodoro.json'
@@ -34,7 +34,7 @@ export const setPomodoroListener = async (client: He4rtClient) => {
       channel.permissionOverwrites
         .edit(guild.id, { MuteMembers: false })
         .then(() => {
-          channel.setName('🟢 Coworking')
+          channel.setName(`🟢 Coworking | ${js().getTime()}`)
         })
         .catch(() => {})
     }
@@ -49,13 +49,15 @@ export const setPomodoroListener = async (client: He4rtClient) => {
       channel.permissionOverwrites
         .edit(guild.id, { MuteMembers: true })
         .then(() => {
-          channel.setName('🔴 Coworking')
+          channel.setName(`🔴 Coworking | ${js().getTime()}`)
         })
         .catch(() => {})
     }
 
     if (talkingTimer === 60) {
-      if ([...channel.members].length > 0) channel.send(TALKING_LESS_THAN_ONE_MINUTE)
+      const members = [...channel.members]
+
+      if (members.length > 0) channel.send(TALKING_LESS_THAN_ONE_MINUTE)
     }
   })
 }
