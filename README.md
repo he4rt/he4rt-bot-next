@@ -16,16 +16,19 @@ He4rt Discord Bot
 
 - `/anunciar` (ADM)
 - `/falar` (ADM)
+- `/versao` (ADM)
 - `/banir` (ADM|MOD)
 - `/desbanir` (ADM|MOD)
 - `/silenciar` (ADM|MOD)
 - `/chat` (ADM|MOD)
 - `/limpar` (ADM|MOD)
 - `/cor` (PRIVILEGIADOS)
+- `/reputacao` (DESATIVADO)
 - `/apoiase`
 - `/bonus`
 - `/apresentar`
 - `/perfil`
+- `/perguntar`
 - `/ranqueamento`
 - `/codigo`
 
