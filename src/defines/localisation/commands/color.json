@@ -1,5 +1,6 @@
 {
   "HEX_OPTION": "Coloração Desejada em HEX. Formato de Exemplo: #FFFFFF",
   "HEX_ERROR": "Digite uma cor válida no formato hexadecimal (#FFFFFF)!",
+  "HEX_ERROR_IN_SPECIFIC_COLOR": "O discord não suporta esta cor! Por favor, escolha outra!",
   "HEX_SUCCESS": " escolheu uma cor! "
 }

@@ -20,6 +20,18 @@ export type CommandGetOption<T extends CacheType = CacheType> = (
   target: string
 ) => CommandInteractionOption<T>
 
+export type CommandCallback = (interaction: CommandInteraction, client: He4rtClient) => Promise<void>
+export type CommandSet = SlashCommandBuilder | Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>
+export type Command = [CommandSet, CommandCallback]
+
+export type He4rtClient = Client<boolean> & {
+  commands: Collection<CommandSet, CommandCallback>
+  api: {
+    he4rt: ClientBuilder
+    apoiase: ClientBuilder
+  }
+}
+
 export interface RoleDefine {
   id: string
   name: string
@@ -60,7 +72,7 @@ export interface IntroducePUT extends RESTJson {}
 
 export interface IntroducePOST extends RESTJson {}
 
-export interface ProfileGETBody {
+export interface UserGETBody {
   name: string
   nickname: string
   about: string
@@ -68,7 +80,7 @@ export interface ProfileGETBody {
   linkedin: string | null
 }
 
-export interface ProfileGET extends RESTJson, ProfileGETBody {
+export interface UserGET extends RESTJson, UserGETBody {
   id: number
   discord_id: string
   twitch_id: any
@@ -87,9 +99,15 @@ export interface ProfileGET extends RESTJson, ProfileGETBody {
   }
 }
 
-export interface ProfilePUT extends ProfileGET {}
+export interface UserPUT extends UserGET {}
 
 export interface MessagePOST extends RESTJson {}
+
+export interface ApoiaseGET extends RESTJson {
+  isPaidThisMonth: boolean
+  isBacker: boolean
+  thisMonthPaidValue?: number
+}
 
 export interface RankingMember {
   nickname?: string
@@ -98,16 +116,6 @@ export interface RankingMember {
   discord_id: string
   messages_count: number
   levelup_exp: Record<any, any>
-}
-
-export type CommandCallback = (interaction: CommandInteraction, client: He4rtClient) => Promise<void>
-export type CommandSet = SlashCommandBuilder | Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>
-
-export type Command = [CommandSet, CommandCallback]
-
-export type He4rtClient = Client<boolean> & {
-  commands: Collection<CommandSet, CommandCallback>
-  api: ClientBuilder
 }
 
 export interface Context {

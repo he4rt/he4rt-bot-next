@@ -2,12 +2,12 @@ import { Events, GuildMember } from 'discord.js'
 import { commandsListener } from '@/commands'
 import { He4rtClient } from '@/types'
 import { XPListener } from './gamification'
-import { isBot, isValidListenerMessage } from '@/utils'
+import { isBot, isValidXPMessage } from '@/utils'
 import { deletePossibleUserInServerLeave } from './guild'
-import { suppressEmbedMessagesInBusyChannels } from './channel'
+import { sendGoodMessagesInChatChannel, suppressEmbedMessagesInBusyChannels } from './channel'
 import { removeCustomColorOfUnderprivilegedMembers } from './role'
 
-export const beforeListeners = (client: He4rtClient) => {
+export const discordEvents = (client: He4rtClient) => {
   client.on(Events.GuildMemberRemove, (member) => {
     if (isBot(member.user)) return
 
@@ -21,10 +21,14 @@ export const beforeListeners = (client: He4rtClient) => {
   })
 
   client.on(Events.MessageCreate, (message) => {
-    if (!isValidListenerMessage(message)) return
+    if (isBot(message.author)) return
 
-    XPListener(client, message)
+    if (isValidXPMessage(message)) {
+      XPListener(client, message)
+    }
+
     suppressEmbedMessagesInBusyChannels(message)
+    sendGoodMessagesInChatChannel(message)
   })
 
   client.on(Events.InteractionCreate, (interaction) => {

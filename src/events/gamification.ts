@@ -31,7 +31,7 @@ export const XPListener = (client: He4rtClient, message: Message) => {
 
   if (client.user?.id === message.author.id) return
 
-  client.api
+  client.api.he4rt
     .users(member.id)
     .message.post<MessagePOST>({
       message: message.content,

@@ -26,6 +26,7 @@ import {
   SUCCESS_COMMAND_DEFAULT,
   SUCCESS_DM_SEND,
   ERROR_DEFAULT,
+  ERROR_INVALID_EMAIL,
   ERROR_MISS_PERMISSION,
   ERROR_MEMBER_IS_NOT_PRESENTED,
   ERROR_ACCESS_DM,
@@ -34,8 +35,8 @@ import {
   ERROR_CANNOT_BE_BANNED,
   ERROR_PAGINATION,
   ERROR_PRESENTING,
-} from '@/defines/localisation/defaults/reply.json'
-import { NOT_FOUND, LANGUAGE_NONE } from '@/defines/localisation/defaults/display.json'
+} from '-/defaults/reply.json'
+import { NOT_FOUND, LANGUAGE_NONE } from '-/defaults/display.json'
 import { TIMEOUT_COMMAND_STRING, DEFINE_STRING_REPLACED } from '@/defines/values.json'
 import { CommandGetOption, EmbedTemplateOptions, GetChannelOptions, He4rtClient } from '@/types'
 
@@ -65,8 +66,16 @@ export const isPresentingMember = (member: GuildMember) => {
   return member.roles.cache.some(({ id }) => id === PRESENTING_ROLE.id)
 }
 
-export const isPrivileged = (member: GuildMember) => {
-  return member.roles.cache.some(({ id }) => id === DONATOR_ROLE.id || id === NITRO_BOOSTER_ROLE.id)
+export const isPrivilegedMember = (member: GuildMember) => {
+  return isApoiaseMember(member) || isNitroBoosterMember(member)
+}
+
+export const isApoiaseMember = (member: GuildMember) => {
+  return member.roles.cache.some(({ id }) => id === DONATOR_ROLE.id)
+}
+
+export const isNitroBoosterMember = (member: GuildMember) => {
+  return member.roles.cache.some(({ id }) => id === NITRO_BOOSTER_ROLE.id)
 }
 
 export const isHe4rtDelasMember = (member: GuildMember) => {
@@ -81,7 +90,7 @@ export const isAdministrator = (member: GuildMember) => {
   return member.permissions.has(PermissionFlagsBits.Administrator, true)
 }
 
-export const isValidListenerMessage = (message: Message) => {
+export const isValidXPMessage = (message: Message) => {
   return (
     !isBot(message.author) && message.content && message.member && message.inGuild && message?.id && message?.author?.id
   )
@@ -177,6 +186,13 @@ export const reply = (interaction: CommandInteraction) => {
     })
   }
 
+  const errorInvalidEmail = async () => {
+    return await interaction.reply({
+      content: ERROR_INVALID_EMAIL,
+      ephemeral: true,
+    })
+  }
+
   const errorPermission = async () => {
     return await interaction.reply({ content: ERROR_MISS_PERMISSION, ephemeral: true })
   }
@@ -213,6 +229,7 @@ export const reply = (interaction: CommandInteraction) => {
     success,
     successInAccessDM,
     error,
+    errorInvalidEmail,
     errorPermission,
     errorMemberIsNotPresented,
     errorInAccessDM,
@@ -234,4 +251,12 @@ export const isHex = (str: string) => {
 
 export const isValidProxyContent = (str: string) => {
   return ['https://cdn.discordapp.com', 'https://tenor.com', 'https://forms.gle'].some((v) => str.trim().startsWith(v))
+}
+
+export const js = () => {
+  const sleep = (ms: number) => {
+    return new Promise((resolve) => setTimeout(resolve, ms))
+  }
+
+  return { sleep }
 }

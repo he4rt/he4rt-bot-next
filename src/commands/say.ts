@@ -1,7 +1,7 @@
 import { PermissionFlagsBits, SlashCommandBuilder, TextChannel } from 'discord.js'
 import { Command } from '@/types'
 import { SAY } from '@/defines/commands.json'
-import { MESSAGE_OPTION, CHANNEL_OPTION } from '@/defines/localisation/commands/say.json'
+import { MESSAGE_OPTION, CHANNEL_OPTION } from '-/commands/say.json'
 import { getOption, reply } from '@/utils'
 
 export const useSay = (): Command => {

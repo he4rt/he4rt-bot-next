@@ -2,8 +2,8 @@ import { GuildMember, HexColorString, SlashCommandBuilder } from 'discord.js'
 import { Command, ProfileGET } from '@/types'
 import { PROFILE } from '@/defines/commands.json'
 import { COLORS } from '@/defines/values.json'
-import EMBED from '@/defines/localisation/commands/profile.json'
-import { LANGUAGE_NONE_ONE, NOT_FOUND } from '@/defines/localisation/defaults/display.json'
+import EMBED from '-/commands/profile.json'
+import { LANGUAGE_NONE_ONE, NOT_FOUND } from '-/defaults/display.json'
 import {
   embedTemplate,
   isHe4rtDelasMember,
@@ -30,7 +30,7 @@ export const useProfile = (): Command => {
         return
       }
 
-      await client.api
+      await client.api.he4rt
         .users(member.id)
         .get<ProfileGET>()
         .then(async (user) => {

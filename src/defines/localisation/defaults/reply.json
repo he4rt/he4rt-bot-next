@@ -2,6 +2,7 @@
   "SUCCESS_COMMAND_DEFAULT": "Comando executado com sucesso!",
   "SUCCESS_DM_SEND": "Enviado na DM!",
   "ERROR_DEFAULT": "Algum erro inesperado ocorreu. Tente novamente mais tarde!",
+  "ERROR_INVALID_EMAIL": "Insira um email válido!",
   "ERROR_MISS_PERMISSION": "Você não tem permissão para realizar esta ação!",
   "ERROR_MEMBER_IS_NOT_PRESENTED": "Você não se apresentou! Use o comando `/apresentar` antes de executar este comando!",
   "ERROR_ACCESS_DM": "**Não foi possível enviar mensagem pelo privado!** Certifique-se que eu possa enviar mensagens para você! Clique na aba de configurações do servidor -> **Config. de privacidade** -> **Mensagens Diretas**",

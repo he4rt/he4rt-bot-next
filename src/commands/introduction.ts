@@ -1,5 +1,5 @@
 import { CommandInteraction, DMChannel, GuildMember, SlashCommandBuilder } from 'discord.js'
-import { Command, IntroducePOST, IntroducePUT, ProfileGETBody, RoleDefine } from '@/types'
+import { Command, IntroducePOST, IntroducePUT, RoleDefine, UserGETBody } from '@/types'
 import {
   PRESENTATIONS_CHANNEL,
   PRESENTED_ROLE,
@@ -8,7 +8,7 @@ import {
   VALID_PRESENTATION_DEV_ROLES,
   VALID_PRESENTATION_ENG_ROLES,
 } from '@/defines/ids.json'
-import INTRODUCTION from '@/defines/localisation/commands/introduction.json'
+import INTRODUCTION from '-/commands/introduction.json'
 import { INTRODUCE } from '@/defines/commands.json'
 import { TIMEOUT_COMMAND, TIMEOUT_COMMAND_STRING } from '@/defines/values.json'
 import {
@@ -129,7 +129,7 @@ const validateAccess = async (dm: DMChannel, interaction: CommandInteraction): P
   return true
 }
 
-const nextStringsData = async (dm: DMChannel, interaction: CommandInteraction): Promise<ProfileGETBody> => {
+const nextStringsData = async (dm: DMChannel, interaction: CommandInteraction): Promise<UserGETBody> => {
   await dm.send(INTRODUCTION.USER.NAME)
   const name = await nextTextMessage(dm, interaction)
 
@@ -179,7 +179,7 @@ export const useIntroduction = (): Command => {
       }
 
       client.users
-        ?.createDM(author)
+        .createDM(author)
         .then(async (dm) => {
           const valid = await validateAccess(dm, interaction)
 
@@ -240,15 +240,15 @@ export const useIntroduction = (): Command => {
           await member.roles.add(PRESENTED_ROLE.id)
           await removePresentingFlag(member)
 
-          client.api
+          client.api.he4rt
             .users(member.id)
             .put<IntroducePUT>(body)
             .then(() => {
-              client.api
+              client.api.he4rt
                 .users(member.id)
                 .post<IntroducePOST>()
                 .then(() => {
-                  client.api
+                  client.api.he4rt
                     .users(member.id)
                     .put<IntroducePUT>(body)
                     .catch(() => {})

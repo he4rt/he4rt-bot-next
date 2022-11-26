@@ -6,44 +6,11 @@ on:
       - main
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
-      - uses: pnpm/action-setup@v2
-        name: PNPM Setup
-        id: pnpm-install
-        with:
-          version: 7
-          run_install: false
-
-      - name: PNPM Store
-        id: pnpm-cache
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
-
-      - uses: actions/cache@v3
-        name: Cache
-        with:
-          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-      - name: Install
-        run: pnpm install
-
-      - name: Run
-        run: pnpm production
 
       - name: Deploy
         uses: easingthemes/ssh-deploy@main
@@ -62,13 +29,16 @@ jobs:
           APP_DISCORD_CLIENT_ID: ${{ secrets.APP_DISCORD_CLIENT_ID }}
           APP_DISCORD_GUILD_ID: ${{ secrets.APP_DISCORD_GUILD_ID }}
           APP_HE4RT_TOKEN: ${{ secrets.APP_HE4RT_TOKEN }}
-          APP_API_URL: ${{ secrets.APP_API_URL }}
+          APP_HE4RT_URL: ${{ secrets.APP_HE4RT_URL }}
+          APP_APOIASE_SECRET: ${{ secrets.APP_APOIASE_SECRET }}
+          APP_APOIASE_TOKEN: ${{ secrets.APP_APOIASE_TOKEN }}
+          APP_APOIASE_URL: ${{ secrets.APP_APOIASE_URL }}
         with:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          envs: APP_DISCORD_TOKEN,APP_DISCORD_CLIENT_ID,APP_DISCORD_GUILD_ID,APP_HE4RT_TOKEN,APP_API_URL,REMOTE_TARGET
+          envs: APP_DISCORD_TOKEN,APP_DISCORD_CLIENT_ID,APP_DISCORD_GUILD_ID,APP_HE4RT_TOKEN,APP_HE4RT_URL,APP_APOIASE_TOKEN,APP_APOIASE_URL,APP_APOIASE_SECRET,REMOTE_TARGET
           script: | 
-            echo -e "DISCORD_TOKEN=$APP_DISCORD_TOKEN\nDISCORD_CLIENT_ID=$APP_DISCORD_CLIENT_ID\nDISCORD_GUILD_ID=$APP_DISCORD_GUILD_ID\nHE4RT_TOKEN=$APP_HE4RT_TOKEN\nAPI_URL=$APP_API_URL" > /home/he4rt/he4rt-bot-next/.env
+            echo -e "DISCORD_TOKEN=$APP_DISCORD_TOKEN\nDISCORD_CLIENT_ID=$APP_DISCORD_CLIENT_ID\nDISCORD_GUILD_ID=$APP_DISCORD_GUILD_ID\nHE4RT_TOKEN=$APP_HE4RT_TOKEN\nHE4RT_URL=$APP_HE4RT_URL\nAPOIASE_URL=$APP_APOIASE_URL\nAPOIASE_TOKEN=$APP_APOIASE_TOKEN\nAPOIASE_SECRET=$APP_APOIASE_SECRET" > /home/he4rt/he4rt-bot-next/.env
             bash ./restart-service.sh
             

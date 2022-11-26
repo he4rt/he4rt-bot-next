@@ -20,60 +20,36 @@ He4rt Discord Bot
 - `/desbanir` (ADM|MOD)
 - `/silenciar` (ADM|MOD)
 - `/chat` (ADM|MOD)
+- `/limpar` (ADM|MOD)
 - `/cor` (PRIVILEGIADOS)
+- `/apoiase`
 - `/bonus`
 - `/apresentar`
 - `/perfil`
 - `/ranqueamento`
-
-## Development
-
-### Requirements
-
-- [GIT](https://git-scm.com/)
-- [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
-- [Node 16](https://nodejs.org/en/)
-- [PNPM](https://pnpm.io/pt/)
-
-### Run
-
-```bash
-pnpm install
-
-pnpm dev
-// OR
-pnpm production
-```
-
-### Deploy
-
-```bash
-// set version, set git tag, generate changelog and push
-pnpm version:(patch|minor|major)
-```
+- `/codigo`
 
 ## Differences to [v1](https://github.com/he4rt/He4rt-Bot)
 
 - `JS` -> `TS 100% Type-Safe`;
 - `discord.js v9` -> `discord.js v14`;
 - Fluxo de código [Orientado a Dados (OOD)](https://en.wikipedia.org/wiki/Object-oriented_design);
-- *Purge* completo de lib's desnecessárias/depreciadas;
+- Integração com o [apoia.se](https://apoia.se/heartdevs);
+- _Purge_ completo de lib's desnecessárias/depreciadas;
 - Agora os comandos podem ser utilizados em qualquer canal (comandos privilegiados ainda dependem de condições de canal específico, como o /cor);
 - A grande maioria dos comandos retornam mensagens visíveis somente para o usuário com o intuito de não poluir os canais (e permitir a abordagem do item anterior);
 - Lista de comandos integrada com o `/` do próprio discord;
 - Agora os comandos usam a implementação de argumentos do `discord.js`;
-- `Nitro Boosters` agora possuem acesso ao canal de apoiadores e seus benefícios (/cor, por exemplo), deixando a role `Apoiadores` somente para os membros do [apoia.se](https://apoia.se/heartdevs);
+- `Nitro Boosters` agora possuem acesso ao canal de apoiadores e seus benefícios (/cor, por exemplo), deixando a role `Apoiadores` somente para os membros apoiadores;
 - Os usuários agora só são salvos na nuvem caso concluem o `/apresentar`, diferente de antes que o usuário precisava apenas entrar no servidor;
 - `/apresentar` somente por texto, descartando as reações;
 - `/apresentar` com recursos adicionais para o `He4rt Delas`;
 - Todas as definições estão na pasta `src/defines` ao invés de usar o `.env`;
 - Os listeners estão subdivididos pelo seu emissor (a versão antiga tratava somente em eventos de mensagem).
 
-## TODO
+## Development
 
-- [ ] Guia de Desenvolvimento
-- [ ] Testes Unitários
-- [ ] Seção de Dúvidas
+Caso deseje contribuir ao projeto, leia antes o [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) e o [CONTRIBUTING.md](./CONTRIBUTING.md)
 
 ## Contributors
 

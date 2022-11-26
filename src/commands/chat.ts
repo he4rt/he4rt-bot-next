@@ -3,7 +3,7 @@ import { Command } from '@/types'
 import COMMANDS from '@/defines/commands.json'
 import { PRESENTED_ROLE } from '@/defines/ids.json'
 import { getOption, reply } from '@/utils'
-import CHAT from '@/defines/localisation/commands/chat.json'
+import CHAT from '-/commands/chat.json'
 
 export const useChat = (): Command => {
   const data = new SlashCommandBuilder()

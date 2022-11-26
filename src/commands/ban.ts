@@ -1,14 +1,14 @@
 import { PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@/types'
 import { BAN } from '@/defines/commands.json'
-import { MEMBER_OPTION, REASON_OPTION, EMBED_TITLE } from '@/defines/localisation/commands/ban.json'
+import { MEMBER_OPTION, REASON_OPTION, EMBED_TITLE } from '-/commands/ban.json'
 import {
   EMBED_FIELD_PUNISHED,
   EMBED_FIELD_TYPE,
   EMBED_FIELD_REASON,
   EMBED_FIELD_REASON_VALUE,
   EMBED_FIELD_TYPE_BAN,
-} from '@/defines/localisation/commands/shared.json'
+} from '-/commands/shared.json'
 import { PUNISHMENTS_CHANNEL } from '@/defines/ids.json'
 import { embedTemplate, getChannel, reply } from '@/utils'
 
@@ -56,8 +56,6 @@ export const useBan = (): Command => {
         })
         .catch(async () => {
           await reply(interaction).errorUserCannotBeBaned()
-
-          return
         })
     },
   ]

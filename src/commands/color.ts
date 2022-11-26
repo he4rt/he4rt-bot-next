@@ -2,8 +2,8 @@ import { CommandInteractionOption, GuildMember, HexColorString, SlashCommandBuil
 import { Command } from '@/types'
 import { COLOR } from '@/defines/commands.json'
 import { DONATORS_CHANNEL } from '@/defines/ids.json'
-import { HEX_ERROR, HEX_OPTION, HEX_SUCCESS } from '@/defines/localisation/commands/color.json'
-import { getCustomColorRole, isHex, isPrivileged, reply } from '@/utils'
+import { HEX_ERROR, HEX_OPTION, HEX_SUCCESS, HEX_ERROR_IN_SPECIFIC_COLOR } from '-/commands/color.json'
+import { getCustomColorRole, isHex, isPrivilegedMember, reply } from '@/utils'
 
 export const useColor = (): Command => {
   const data = new SlashCommandBuilder()
@@ -21,13 +21,13 @@ export const useColor = (): Command => {
       const hex = interaction.options.get('hex') as CommandInteractionOption
       const color = hex.value as HexColorString
 
-      if (!isPrivileged(member)) {
+      if (!isPrivilegedMember(member)) {
         await reply(interaction).errorPermission()
 
         return
       }
 
-      if (interaction.channel?.id !== DONATORS_CHANNEL.id) {
+      if (interaction.channel.id !== DONATORS_CHANNEL.id) {
         await reply(interaction).errorSpecificChannel(DONATORS_CHANNEL.title)
 
         return
@@ -35,6 +35,12 @@ export const useColor = (): Command => {
 
       if (!isHex(color)) {
         await interaction.reply({ content: HEX_ERROR, ephemeral: true })
+
+        return
+      }
+
+      if (color === '#000000') {
+        await interaction.reply({ content: HEX_ERROR_IN_SPECIFIC_COLOR, ephemeral: true })
 
         return
       }

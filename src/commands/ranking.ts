@@ -1,7 +1,7 @@
 import { SlashCommandBuilder, RestOrArray, APIEmbedField, GuildMember } from 'discord.js'
 import { Command, RankingGET } from '@/types'
 import { RANKING } from '@/defines/commands.json'
-import { PAGE_OPTION, NULL_ACCOUNT, EMBED_TITLE } from '@/defines/localisation/commands/ranking.json'
+import { PAGE_OPTION, NULL_ACCOUNT, EMBED_TITLE } from '-/commands/ranking.json'
 import { COLORS } from '@/defines/values.json'
 import { embedTemplate, isPresentedMember, reply } from '@/utils'
 import { HexColorString } from 'discord.js'
@@ -25,7 +25,7 @@ export const useRanking = (): Command => {
         return
       }
 
-      client.api.ranking.general
+      client.api.he4rt.ranking.general
         .get<RankingGET>({
           page,
         })
