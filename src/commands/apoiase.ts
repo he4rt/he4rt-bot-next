@@ -3,7 +3,7 @@ import { ApoiaseGET, Command, UserPUT } from '@/types'
 import { APOIASE } from '@/defines/commands.json'
 import { APOIASE_CUSTOM_COLOR_MINIMAL_VALUE } from '@/defines/values.json'
 import { DONATOR_ROLE, REPORT_CHANNEL, CHAT_CHANNEL } from '@/defines/ids.json'
-import { EMAIL_OPTION, APOIASE_MEMBER, INVALID_ACCOUNT, SUCCESS_ACCOUNT } from '-/commands/apoiase.json'
+import { EMAIL_OPTION, APOIASE_MEMBER, INVALID_ACCOUNT, SUCCESS_IN_CHAT } from '-/commands/apoiase.json'
 import { getChannel, getOption, isApoiaseMember, isPresentedMember, reply } from '@/utils'
 
 export const useApoiase = (): Command => {
@@ -72,16 +72,11 @@ export const useApoiase = (): Command => {
                   }** com o email **${email}** ativou seu apoio do **apoia.se** no valor de **${thisMonthPaidValue}** reais mensais!`,
                 })
 
-                const message = await chat.send(
-                  `<@${member.user.id}> acabou de apoiar a nossa comunidade no Apoia.se :he4rt: , caso queira contribuir financeiramente entre no nosso apoia.se https://apoia.se/heartdevs, e com apenas R$ 5 você já está apoiando nossa comunidade! 💜`
-                )
+                const message = await chat.send(`<@${member.user.id}>${SUCCESS_IN_CHAT}`)
 
                 await message.suppressEmbeds(true).catch(() => {})
               })
               .catch(() => {})
-              .finally(async () => {
-                await interaction.reply({ content: SUCCESS_ACCOUNT, ephemeral: true }).catch(() => {})
-              })
 
             return
           }
@@ -91,9 +86,11 @@ export const useApoiase = (): Command => {
             ephemeral: true,
           })
         })
-        .catch(async () => {
-          await reply(interaction).error()
-        })
+        .catch(() => {})
+
+      await reply(interaction)
+        .executing()
+        .catch(() => {})
     },
   ]
 }

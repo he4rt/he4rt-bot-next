@@ -26,6 +26,7 @@ import {
 import {
   SUCCESS_COMMAND_DEFAULT,
   SUCCESS_DM_SEND,
+  EXECUTING,
   ERROR_DEFAULT,
   ERROR_INVALID_EMAIL,
   ERROR_MISS_PERMISSION,
@@ -173,11 +174,15 @@ export const sendInDM = async (dm: DMChannel, interaction: CommandInteraction, s
 
 export const reply = (interaction: CommandInteraction) => {
   const success = async () => {
-    return await interaction.reply({ content: SUCCESS_COMMAND_DEFAULT, ephemeral: true }).catch(() => {})
+    await interaction.reply({ content: SUCCESS_COMMAND_DEFAULT, ephemeral: true }).catch(() => {})
   }
 
   const successInAccessDM = async () => {
     await interaction.reply({ content: SUCCESS_DM_SEND, ephemeral: true }).catch(() => {})
+  }
+
+  const executing = async () => {
+    await interaction.reply({ content: EXECUTING, ephemeral: true }).catch(() => {})
   }
 
   const error = async () => {
@@ -229,6 +234,7 @@ export const reply = (interaction: CommandInteraction) => {
   return {
     success,
     successInAccessDM,
+    executing,
     error,
     errorInvalidEmail,
     errorPermission,

@@ -1,6 +1,7 @@
 {
   "SUCCESS_COMMAND_DEFAULT": "Comando executado com sucesso!",
   "SUCCESS_DM_SEND": "Enviado na DM!",
+  "EXECUTING": "O seu comando está sendo executado, aguarde!",
   "ERROR_DEFAULT": "Algum erro inesperado ocorreu. Tente novamente mais tarde!",
   "ERROR_INVALID_EMAIL": "Insira um email válido!",
   "ERROR_MISS_PERMISSION": "Você não tem permissão para realizar esta ação!",
