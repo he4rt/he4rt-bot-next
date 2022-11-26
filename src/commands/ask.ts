@@ -1,7 +1,7 @@
 import { GuildMember, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@/types'
 import { ASK } from '@/defines/commands.json'
-import { MEMBER_OPTION, EMBED_TITLE } from '-/commands/ask.json'
+import { MEMBER_OPTION, EMBED_TITLE, EMBED_IMAGE_URL } from '-/commands/ask.json'
 import { embedTemplate, reply } from '@/utils'
 
 export const useAsk = (): Command => {
@@ -32,6 +32,7 @@ export const useAsk = (): Command => {
           icon: true,
         },
       })
+      embed.setImage(EMBED_IMAGE_URL)
 
       await interaction.channel.send({
         content: `<@${target.user.id}>`,
