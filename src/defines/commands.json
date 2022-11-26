@@ -62,5 +62,9 @@
   "VERSION": {
     "TITLE": "versao",
     "DESCRIPTION": "ADM: Verifique a versão atual do bot."
+  },
+  "REPUTATION": {
+    "TITLE": "reputacao",
+    "DESCRIPTION": "Alguém o ajudou em algo no servidor? Envie-o um agradecimento por isso!"
   }
 }

@@ -15,6 +15,7 @@ import { useCode } from './code'
 import { useClear } from './clear'
 import { useApoiase } from './apoiase'
 import { useVersion } from './version'
+import { useReputation } from './reputation'
 
 const registerHooks = (client: He4rtClient, commands: Command[]) => {
   commands.forEach(([data, cb]) => {
@@ -39,6 +40,7 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useClear(),
     useApoiase(),
     useVersion(),
+    // useReputation()
   ])
 
   await rest.put(Routes.applicationGuildCommands(process.env.DISCORD_CLIENT_ID, process.env.DISCORD_GUILD_ID), {
