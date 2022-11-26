@@ -12,7 +12,8 @@ import {
   TextBasedChannel,
   User,
 } from 'discord.js'
-import { CLIENT_NAME, COLORS, HE4RT_DELAS_ICON_1_URL, HE4RT_ICON_1_URL } from '@/defines/values.json'
+import { zonedTimeToUtc } from 'date-fns-tz'
+import { CLIENT_NAME, CLIENT_TIMEZONE, COLORS, HE4RT_DELAS_ICON_1_URL, HE4RT_ICON_1_URL } from '@/defines/values.json'
 import {
   PRESENTING_ROLE,
   PRESENTED_ROLE,
@@ -259,7 +260,9 @@ export const js = () => {
   }
 
   const getTime = () => {
-    return `${new Date().getHours()}:${new Date().getMinutes()}`
+    const utc = zonedTimeToUtc(new Date(), CLIENT_TIMEZONE)
+
+    return `${utc.getHours()}:${utc.getMinutes()}`
   }
 
   return { sleep, getTime }
