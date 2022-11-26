@@ -34,8 +34,10 @@ He4rt Discord Bot
 - `JS` -> `TS 100% Type-Safe`;
 - `discord.js v9` -> `discord.js v14`;
 - Fluxo de código [Orientado a Dados (OOD)](https://en.wikipedia.org/wiki/Object-oriented_design);
+- _Purge_ completo de bibliotecas desnecessárias/depreciadas;
+- Implementação de _CronJobs_ para eventos específicos;
+- Implementação de _Ticker_ para eventos sequenciais;
 - Integração com o [apoia.se](https://apoia.se/heartdevs);
-- _Purge_ completo de lib's desnecessárias/depreciadas;
 - Agora os comandos podem ser utilizados em qualquer canal (comandos privilegiados ainda dependem de condições de canal específico, como o /cor);
 - A grande maioria dos comandos retornam mensagens visíveis somente para o usuário com o intuito de não poluir os canais (e permitir a abordagem do item anterior);
 - Lista de comandos integrada com o `/` do próprio discord;
@@ -45,7 +47,7 @@ He4rt Discord Bot
 - `/apresentar` somente por texto, descartando as reações;
 - `/apresentar` com recursos adicionais para o `He4rt Delas`;
 - Todas as definições estão na pasta `src/defines` ao invés de usar o `.env`;
-- Os listeners estão subdivididos pelo seu emissor (a versão antiga tratava somente em eventos de mensagem).
+- Os eventos do discord estão subdivididos pelo seu emissor (a versão antiga tratava somente em eventos de mensagem).
 
 ## Development
 
