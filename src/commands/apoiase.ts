@@ -2,7 +2,7 @@ import { GuildMember, SlashCommandBuilder } from 'discord.js'
 import { ApoiaseGET, Command, UserPUT } from '@/types'
 import { APOIASE } from '@/defines/commands.json'
 import { APOIASE_CUSTOM_COLOR_MINIMAL_VALUE } from '@/defines/values.json'
-import { DONATOR_ROLE, REPORT_CHANNEL } from '@/defines/ids.json'
+import { DONATOR_ROLE, REPORT_CHANNEL, CHAT_CHANNEL } from '@/defines/ids.json'
 import { EMAIL_OPTION, APOIASE_MEMBER, INVALID_ACCOUNT, SUCCESS_ACCOUNT } from '-/commands/apoiase.json'
 import { getChannel, getOption, isApoiaseMember, isPresentedMember, reply } from '@/utils'
 
@@ -56,22 +56,29 @@ export const useApoiase = (): Command => {
             thisMonthPaidValue &&
             thisMonthPaidValue >= APOIASE_CUSTOM_COLOR_MINIMAL_VALUE
           ) {
-            await member.roles.add(DONATOR_ROLE.id)
-
             client.api.he4rt
               .users(member.id)
               .put<UserPUT>({
                 email: value,
                 is_donator: 1,
               })
-              .then(() => {
-                const channel = getChannel({ id: REPORT_CHANNEL.id, client })
+              .then(async () => {
+                await member.roles.add(DONATOR_ROLE.id)
 
-                channel.send({
+                const report = getChannel({ id: REPORT_CHANNEL.id, client })
+                const chat = getChannel({ id: CHAT_CHANNEL.id, client })
+
+                await report.send({
                   content: `**${member.id} - ${
                     member.user.username || 'Indefinido'
                   }** com o email **${value}** ativou seu apoio do **apoia.se** no valor de **${thisMonthPaidValue}** reais mensais!`,
                 })
+
+                const message = await chat.send(
+                  `<@${member.user.id}> acabou de apoiar a nossa comunidade no Apoia.se :he4rt: , caso queira contribuir financeiramente entre no nosso apoia.se https://apoia.se/heartdevs, e com apenas R$ 5 você já está apoiando nossa comunidade! 💜`
+                )
+
+                await message.suppressEmbeds(true).catch(() => {})
               })
               .catch(() => {})
               .finally(async () => {
