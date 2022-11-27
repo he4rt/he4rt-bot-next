@@ -158,6 +158,10 @@ export const getCustomColorRole = ({ roles }: GuildMember | PartialGuildMember) 
   return roles.cache.find((x) => /.+#\d{4}/i.test(x.name)) || false
 }
 
+export const getTaggedMembers = (ids: string[]): string => {
+  return ids.map((id) => `<@${id}>`).join(' ') || ''
+}
+
 export const replaceDefineString = (str: string, target: string) => {
   return str.replaceAll(DEFINE_STRING_REPLACED, target)
 }

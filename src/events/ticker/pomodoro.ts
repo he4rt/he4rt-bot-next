@@ -1,5 +1,5 @@
 import { He4rtClient } from '@/types'
-import { getGuild, js } from '@/utils'
+import { getGuild, getTaggedMembers, js } from '@/utils'
 import { POMODORO_CHANNEL } from '@/defines/ids.json'
 import { POMODORO_MUTATED_IN_MINUTES, POMODORO_TALKING_IN_MINUTES } from '@/defines/values.json'
 import {
@@ -28,10 +28,18 @@ export const setPomodoroListener = async (client: He4rtClient) => {
   let isMutated = false
   let isTalking = true
 
-  const sendMessage = (str: string) => {
+  const sendMessage = async (str: string) => {
     const members = [...channel.members]
 
-    if (members.length > 0) channel.send(str).catch(() => {})
+    if (members.length > 0) {
+      const messages = (await channel.messages.fetch()).filter((m) => m.author.bot)
+
+      for (const [_, message] of messages) {
+        await message.delete().catch(() => {})
+      }
+
+      await channel.send(str).catch(() => {})
+    }
   }
 
   client.ticker.add(() => {
@@ -55,7 +63,7 @@ export const setPomodoroListener = async (client: He4rtClient) => {
             await member.voice.setMute(false).catch(() => {})
           }
 
-          sendMessage(TALKING_SPEAKING_STARTED)
+          await sendMessage(`${getTaggedMembers(channel.members.map((m) => m.id))} ${TALKING_SPEAKING_STARTED}`)
         })
         .catch(() => {})
     }
@@ -76,7 +84,7 @@ export const setPomodoroListener = async (client: He4rtClient) => {
             await member.voice.setMute(true).catch(() => {})
           }
 
-          sendMessage(TALKING_MUTATED_STARTED)
+          await sendMessage(`${getTaggedMembers(channel.members.map((m) => m.id))} ${TALKING_MUTATED_STARTED}`)
         })
         .catch(() => {})
     }
@@ -97,7 +105,6 @@ export const setPomodoroListener = async (client: He4rtClient) => {
         },
       }[mutated] || (() => {})
     )())
-
     ;((
       {
         300: () => {
