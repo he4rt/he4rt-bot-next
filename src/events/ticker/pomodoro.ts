@@ -1,6 +1,6 @@
 import { He4rtClient } from '@/types'
 import { getGuild, js } from '@/utils'
-import { POMODORO_CHANNEL, PRESENTED_ROLE } from '@/defines/ids.json'
+import { POMODORO_CHANNEL } from '@/defines/ids.json'
 import { POMODORO_MUTATED_IN_MINUTES, POMODORO_TALKING_IN_MINUTES } from '@/defines/values.json'
 import {
   TALKING_MUTATED_STARTED,
@@ -47,9 +47,13 @@ export const setPomodoroListener = async (client: He4rtClient) => {
 
       // TODO: overwrite EVERYONE permission, but actually discord rate limits not permitted this approach.
       channel.permissionOverwrites
-        .edit(PRESENTED_ROLE.id, { Speak: true })
+        .edit(guild.id, { Speak: true })
         .then(async () => {
           await channel.setName(`🟢 Coworking | ${js().getTime()}`).catch(() => {})
+
+          for (const [_, member] of channel.members) {
+            await member.voice.setMute(false).catch(() => {})
+          }
 
           sendMessage(TALKING_SPEAKING_STARTED)
         })
@@ -64,16 +68,20 @@ export const setPomodoroListener = async (client: He4rtClient) => {
       isTalking = false
 
       channel.permissionOverwrites
-        .edit(PRESENTED_ROLE.id, { Speak: false })
+        .edit(guild.id, { Speak: false })
         .then(async () => {
           await channel.setName(`🔴 Coworking | ${js().getTime()}`).catch(() => {})
+
+          for (const [_, member] of channel.members) {
+            await member.voice.setMute(true).catch(() => {})
+          }
 
           sendMessage(TALKING_MUTATED_STARTED)
         })
         .catch(() => {})
     }
 
-    const _MUTATED = (
+    ;((
       {
         2400: () => {
           sendMessage(TALKING_MUTATED_FORTY_MINUTES)
@@ -88,9 +96,9 @@ export const setPomodoroListener = async (client: He4rtClient) => {
           sendMessage(TALKING_MUTATED_ONE_MINUTE)
         },
       }[mutated] || (() => {})
-    )()
+    )())
 
-    const _TALKING = (
+    ;((
       {
         300: () => {
           sendMessage(TALKING_SPEAKING_FIVE_MINUTE)
@@ -99,6 +107,6 @@ export const setPomodoroListener = async (client: He4rtClient) => {
           sendMessage(TALKING_SPEAKING_ONE_MINUTE)
         },
       }[talking] || (() => {})
-    )()
+    )())
   })
 }
