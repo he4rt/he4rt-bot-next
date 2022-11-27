@@ -8,9 +8,9 @@ import {
   TALKING_MUTATED_TWENTY_MINUTES,
   TALKING_MUTATED_TEN_MINUTES,
   TALKING_MUTATED_ONE_MINUTE,
-  TALKING_SPEAKING_STARTED,
-  TALKING_SPEAKING_FIVE_MINUTE,
-  TALKING_SPEAKING_ONE_MINUTE,
+  TALKING_TALKING_STARTED,
+  TALKING_TALKING_FIVE_MINUTES,
+  TALKING_TALKING_ONE_MINUTE,
 } from '-/events/pomodoro.json'
 import { VoiceChannel } from 'discord.js'
 
@@ -63,7 +63,7 @@ export const setPomodoroListener = async (client: He4rtClient) => {
             await member.voice.setMute(false).catch(() => {})
           }
 
-          await sendMessage(`${getTaggedMembers(channel.members.map((m) => m.id))} ${TALKING_SPEAKING_STARTED}`)
+          await sendMessage(`${getTaggedMembers(channel.members.map((m) => m.id))} ${TALKING_TALKING_STARTED}`)
         })
         .catch(() => {})
     }
@@ -108,10 +108,10 @@ export const setPomodoroListener = async (client: He4rtClient) => {
     ;((
       {
         300: () => {
-          sendMessage(TALKING_SPEAKING_FIVE_MINUTE)
+          sendMessage(TALKING_TALKING_FIVE_MINUTES)
         },
         60: () => {
-          sendMessage(TALKING_SPEAKING_ONE_MINUTE)
+          sendMessage(TALKING_TALKING_ONE_MINUTE)
         },
       }[talking] || (() => {})
     )())
