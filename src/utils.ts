@@ -41,6 +41,7 @@ import {
 import { NOT_FOUND, LANGUAGE_NONE } from '-/defaults/display.json'
 import { TIMEOUT_COMMAND_STRING, DEFINE_STRING_REPLACED } from '@/defines/values.json'
 import { CommandGetOption, EmbedTemplateOptions, GetChannelOptions, He4rtClient } from '@/types'
+import pkg from '../package.json'
 
 export const validDisplayDevRoles = (member: GuildMember) => {
   return (
@@ -162,6 +163,14 @@ export const getTaggedMembers = (ids: string[]): string => {
   return ids.map((id) => `<@${id}>`).join(' ') || ''
 }
 
+export const getTargetMember = (member: GuildMember): string => {
+  return `**${member.id} - ${member.user?.username || 'Indefinido'}**`
+}
+
+export const getBotVersion = (): string => {
+  return `v${pkg.version}`
+}
+
 export const replaceDefineString = (str: string, target: string) => {
   return str.replaceAll(DEFINE_STRING_REPLACED, target)
 }
@@ -269,11 +278,17 @@ export const js = () => {
     return new Promise((resolve) => setTimeout(resolve, ms))
   }
 
+  const getFullTime = (): string => {
+    const utc = formatInTimeZone(new Date(), CLIENT_TIMEZONE, 'yyyy-MM-dd HH:mm:ss')
+
+    return utc
+  }
+
   const getTime = (): string => {
     const utc = formatInTimeZone(new Date(), CLIENT_TIMEZONE, 'HH:mm')
 
     return utc
   }
 
-  return { sleep, getTime }
+  return { sleep, getFullTime, getTime }
 }

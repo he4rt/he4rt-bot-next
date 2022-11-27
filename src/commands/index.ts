@@ -51,6 +51,15 @@ export const registerCommands = async ({ client, rest }: Context) => {
 
 export const commandsListener = (client: He4rtClient, interaction: CommandInteraction) => {
   for (const [key, cb] of client.commands) {
-    if (key.name === interaction.commandName) cb && cb(interaction, client)
+    if (key.name === interaction.commandName) {
+      cb && cb(interaction, client)
+
+      client.logger.emit({
+        message: `**/${key.name}** foi acionado no canal  **${interaction.channel.name}**`,
+        type: 'command',
+        color: 'info',
+        user: interaction.user,
+      })
+    }
   }
 }

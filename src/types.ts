@@ -12,6 +12,7 @@ import {
   User,
 } from 'discord.js'
 import { ClientBuilder } from 'uncreate'
+import { Logger } from './client/logger'
 import { Ticker } from './client/ticker'
 
 export type Maybe<T> = T | undefined | null
@@ -30,10 +31,18 @@ export type TickerCallback = () => void | Promise<void>
 export type He4rtClient = Client<boolean> & {
   commands: Collection<CommandSet, CommandCallback>
   ticker: Ticker
+  logger: Logger
   api: {
     he4rt: ClientBuilder
     apoiase: ClientBuilder
   }
+}
+
+export interface LoggerEmitOptions {
+  message: string
+  type: 'bot' | 'http' | 'apoiase' | 'command' | 'event'
+  color: 'success' | 'info' | 'warning' | 'error'
+  user?: User
 }
 
 export interface RoleDefine {

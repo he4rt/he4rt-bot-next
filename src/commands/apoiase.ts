@@ -2,9 +2,9 @@ import { GuildMember, SlashCommandBuilder } from 'discord.js'
 import { ApoiaseGET, Command, UserPUT } from '@/types'
 import { APOIASE } from '@/defines/commands.json'
 import { APOIASE_CUSTOM_COLOR_MINIMAL_VALUE } from '@/defines/values.json'
-import { DONATOR_ROLE, REPORT_CHANNEL, CHAT_CHANNEL } from '@/defines/ids.json'
+import { DONATOR_ROLE, CHAT_CHANNEL } from '@/defines/ids.json'
 import { EMAIL_OPTION, APOIASE_MEMBER, INVALID_ACCOUNT, SUCCESS_IN_CHAT } from '-/commands/apoiase.json'
-import { getChannel, getOption, isApoiaseMember, isPresentedMember, reply } from '@/utils'
+import { getChannel, getOption, getTargetMember, isApoiaseMember, isPresentedMember, reply } from '@/utils'
 
 export const useApoiase = (): Command => {
   const data = new SlashCommandBuilder()
@@ -63,13 +63,14 @@ export const useApoiase = (): Command => {
               .then(async () => {
                 await member.roles.add(DONATOR_ROLE.id)
 
-                const report = getChannel({ id: REPORT_CHANNEL.id, client })
                 const chat = getChannel({ id: CHAT_CHANNEL.id, client })
 
-                await report.send({
-                  content: `**${member.id} - ${
-                    member.user.username || 'Indefinido'
-                  }** com o email **${email}** ativou seu apoio do **apoia.se** no valor de **${thisMonthPaidValue}** reais mensais!`,
+                client.logger.emit({
+                  type: 'apoiase',
+                  color: 'success',
+                  message: `${getTargetMember(
+                    member
+                  )} com o email **${email}** ativou seu apoio no valor de **${thisMonthPaidValue}** reais mensais!`,
                 })
 
                 const message = await chat.send(`<@${member.user.id}>${SUCCESS_IN_CHAT}`)
