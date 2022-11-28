@@ -71,6 +71,7 @@ export const useApoiase = (): Command => {
                   message: `${getTargetMember(
                     member
                   )} com o email **${email}** ativou seu apoio no valor de **${thisMonthPaidValue}** reais mensais!`,
+                  user: member.user,
                 })
 
                 const message = await chat.send(`<@${member.user.id}>${SUCCESS_IN_CHAT}`)

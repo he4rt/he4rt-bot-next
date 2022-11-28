@@ -164,7 +164,7 @@ export const getTaggedMembers = (ids: string[]): string => {
 }
 
 export const getTargetMember = (member: GuildMember): string => {
-  return `**${member.id} - ${member.user?.username || 'Indefinido'}**`
+  return `**${member.id || 0} - ${member.user?.username || 'Indefinido'}**`
 }
 
 export const getBotVersion = (): string => {

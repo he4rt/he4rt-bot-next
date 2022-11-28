@@ -54,6 +54,7 @@ export const verifyApoiaseMembers = async (client: He4rtClient) => {
                         message: `${getTargetMember(
                           member
                         )} teve o seu **apoio removido** por não atender aos requisitos!`,
+                        user: member.user,
                       })
                     })
                     .catch(() => {})

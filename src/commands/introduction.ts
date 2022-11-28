@@ -251,6 +251,7 @@ export const useIntroduction = (): Command => {
                 type: 'http',
                 color: 'info',
                 message: `${getTargetMember(member)} apresentou e teve a sua conta criada!`,
+                user: member.user,
               })
 
               client.api.he4rt
@@ -267,6 +268,7 @@ export const useIntroduction = (): Command => {
                     type: 'http',
                     color: 'info',
                     message: `${getTargetMember(member)} apresentou e teve a sua conta alterada!`,
+                    user: member.user,
                   })
                 })
                 .catch(() => {})
