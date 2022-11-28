@@ -29,39 +29,34 @@ export const useUnban = (): Command => {
       const user = interaction.options.getUser('membro')
       const reason = interaction.options.get('razao')
 
-      if (!user || !reason) {
-        return
-      }
+      interaction.guild.members
+        .unban(user)
+        .then(async () => {
+          const embed = embedTemplate({
+            title: EMBED_TITLE,
+            target: {
+              user,
+              icon: true,
+            },
+            author,
+            fields: [
+              [
+                { name: EMBED_FIELD_UNPUNISHED, value: `**${user!.username}**` },
+                { name: EMBED_FIELD_TYPE, value: EMBED_FIELD_TYPE_BAN },
+                { name: EMBED_FIELD_REASON, value: (reason.value as string) || EMBED_FIELD_REASON_VALUE },
+              ],
+            ],
+          })
 
-      try {
-        await interaction?.guild?.members.unban(user)
-      } catch (e) {
-        await reply(interaction).errorUserCannotBeBaned()
+          const channel = getChannel({ id: PUNISHMENTS_CHANNEL.id, client })
 
-        return
-      }
+          await channel?.send({ content: `Usuário **${user.id}** Desbanido!`, embeds: [embed] })
 
-      const embed = embedTemplate({
-        title: EMBED_TITLE,
-        target: {
-          user,
-          icon: true,
-        },
-        author,
-        fields: [
-          [
-            { name: EMBED_FIELD_UNPUNISHED, value: `**${user!.username}**` },
-            { name: EMBED_FIELD_TYPE, value: EMBED_FIELD_TYPE_BAN },
-            { name: EMBED_FIELD_REASON, value: (reason.value as string) || EMBED_FIELD_REASON_VALUE },
-          ],
-        ],
-      })
-
-      const channel = getChannel({ id: PUNISHMENTS_CHANNEL.id, client })
-
-      await channel?.send({ content: `Usuário **${user.id}** Desbanido!`, embeds: [embed] })
-
-      await reply(interaction).success()
+          await reply(interaction).success()
+        })
+        .catch(async () => {
+          await reply(interaction).errorUserCannotBeBaned()
+        })
     },
   ]
 }
