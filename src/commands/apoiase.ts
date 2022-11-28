@@ -2,9 +2,9 @@ import { GuildMember, SlashCommandBuilder } from 'discord.js'
 import { ApoiaseGET, Command, UserPUT } from '@/types'
 import { APOIASE } from '@/defines/commands.json'
 import { APOIASE_CUSTOM_COLOR_MINIMAL_VALUE } from '@/defines/values.json'
-import { DONATOR_ROLE, REPORT_CHANNEL } from '@/defines/ids.json'
-import { EMAIL_OPTION, APOIASE_MEMBER, INVALID_ACCOUNT, SUCCESS_ACCOUNT } from '-/commands/apoiase.json'
-import { getChannel, getOption, isApoiaseMember, isPresentedMember, reply } from '@/utils'
+import { DONATOR_ROLE, CHAT_CHANNEL } from '@/defines/ids.json'
+import { EMAIL_OPTION, APOIASE_MEMBER, INVALID_ACCOUNT, SUCCESS_IN_CHAT } from '-/commands/apoiase.json'
+import { getChannel, getOption, getTargetMember, isApoiaseMember, isPresentedMember, reply } from '@/utils'
 
 export const useApoiase = (): Command => {
   const data = new SlashCommandBuilder()
@@ -17,9 +17,7 @@ export const useApoiase = (): Command => {
     data,
     async (interaction, client) => {
       const member = interaction.member as GuildMember
-      const email = getOption(interaction, 'email')
-
-      const value = email.value as string
+      const email = getOption(interaction, 'email').value as string
 
       if (!isPresentedMember(member)) {
         await reply(interaction).errorMemberIsNotPresented()
@@ -28,7 +26,7 @@ export const useApoiase = (): Command => {
       }
 
       if (
-        !value.match(
+        !email?.match(
           /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/
         )
       ) {
@@ -47,7 +45,7 @@ export const useApoiase = (): Command => {
       }
 
       client.api.apoiase.backers
-        .charges(value)
+        .charges(email)
         .get<ApoiaseGET>()
         .then(async ({ isBacker, isPaidThisMonth, thisMonthPaidValue }) => {
           if (
@@ -56,27 +54,30 @@ export const useApoiase = (): Command => {
             thisMonthPaidValue &&
             thisMonthPaidValue >= APOIASE_CUSTOM_COLOR_MINIMAL_VALUE
           ) {
-            await member.roles.add(DONATOR_ROLE.id)
-
             client.api.he4rt
               .users(member.id)
               .put<UserPUT>({
-                email: value,
+                email: email,
                 is_donator: 1,
               })
-              .then(() => {
-                const channel = getChannel({ id: REPORT_CHANNEL.id, client })
+              .then(async () => {
+                await member.roles.add(DONATOR_ROLE.id)
 
-                channel.send({
-                  content: `**${member.id} - ${
-                    member.user.username || 'Indefinido'
-                  }** com o email **${value}** ativou seu apoio do **apoia.se** no valor de **${thisMonthPaidValue}** reais mensais!`,
+                const chat = getChannel({ id: CHAT_CHANNEL.id, client })
+
+                client.logger.emit({
+                  type: 'apoiase',
+                  color: 'success',
+                  message: `${getTargetMember(
+                    member
+                  )} com o email **${email}** ativou seu apoio no valor de **${thisMonthPaidValue}** reais mensais!`,
                 })
+
+                const message = await chat.send(`<@${member.user.id}>${SUCCESS_IN_CHAT}`)
+
+                await message.suppressEmbeds(true).catch(() => {})
               })
               .catch(() => {})
-              .finally(async () => {
-                await interaction.reply({ content: SUCCESS_ACCOUNT, ephemeral: true }).catch(() => {})
-              })
 
             return
           }
@@ -86,9 +87,11 @@ export const useApoiase = (): Command => {
             ephemeral: true,
           })
         })
-        .catch(async () => {
-          await reply(interaction).error()
-        })
+        .catch(() => {})
+
+      await reply(interaction)
+        .executing()
+        .catch(() => {})
     },
   ]
 }

@@ -14,6 +14,8 @@ import { useSay } from './say'
 import { useCode } from './code'
 import { useClear } from './clear'
 import { useApoiase } from './apoiase'
+import { useVersion } from './version'
+import { useAsk } from './ask'
 
 const registerHooks = (client: He4rtClient, commands: Command[]) => {
   commands.forEach(([data, cb]) => {
@@ -37,6 +39,9 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useCode(),
     useClear(),
     useApoiase(),
+    useVersion(),
+    useAsk(),
+    // useReputation()
   ])
 
   await rest.put(Routes.applicationGuildCommands(process.env.DISCORD_CLIENT_ID, process.env.DISCORD_GUILD_ID), {
@@ -46,6 +51,15 @@ export const registerCommands = async ({ client, rest }: Context) => {
 
 export const commandsListener = (client: He4rtClient, interaction: CommandInteraction) => {
   for (const [key, cb] of client.commands) {
-    if (key.name === interaction.commandName) cb && cb(interaction, client)
+    if (key.name === interaction.commandName) {
+      cb && cb(interaction, client)
+
+      client.logger.emit({
+        message: `**/${key.name}** foi acionado no canal  **${interaction.channel.name}**`,
+        type: 'command',
+        color: 'info',
+        user: interaction.user,
+      })
+    }
   }
 }

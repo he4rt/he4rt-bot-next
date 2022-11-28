@@ -12,7 +12,8 @@ import {
   TextBasedChannel,
   User,
 } from 'discord.js'
-import { CLIENT_NAME, COLORS, HE4RT_DELAS_ICON_1_URL, HE4RT_ICON_1_URL } from '@/defines/values.json'
+import { formatInTimeZone, zonedTimeToUtc } from 'date-fns-tz'
+import { CLIENT_NAME, CLIENT_TIMEZONE, COLORS, HE4RT_DELAS_ICON_1_URL, HE4RT_ICON_1_URL } from '@/defines/values.json'
 import {
   PRESENTING_ROLE,
   PRESENTED_ROLE,
@@ -25,6 +26,7 @@ import {
 import {
   SUCCESS_COMMAND_DEFAULT,
   SUCCESS_DM_SEND,
+  EXECUTING,
   ERROR_DEFAULT,
   ERROR_INVALID_EMAIL,
   ERROR_MISS_PERMISSION,
@@ -39,6 +41,7 @@ import {
 import { NOT_FOUND, LANGUAGE_NONE } from '-/defaults/display.json'
 import { TIMEOUT_COMMAND_STRING, DEFINE_STRING_REPLACED } from '@/defines/values.json'
 import { CommandGetOption, EmbedTemplateOptions, GetChannelOptions, He4rtClient } from '@/types'
+import pkg from '../package.json'
 
 export const validDisplayDevRoles = (member: GuildMember) => {
   return (
@@ -156,6 +159,18 @@ export const getCustomColorRole = ({ roles }: GuildMember | PartialGuildMember) 
   return roles.cache.find((x) => /.+#\d{4}/i.test(x.name)) || false
 }
 
+export const getTaggedMembers = (ids: string[]): string => {
+  return ids.map((id) => `<@${id}>`).join(' ') || ''
+}
+
+export const getTargetMember = (member: GuildMember): string => {
+  return `**${member.id} - ${member.user?.username || 'Indefinido'}**`
+}
+
+export const getBotVersion = (): string => {
+  return `v${pkg.version}`
+}
+
 export const replaceDefineString = (str: string, target: string) => {
   return str.replaceAll(DEFINE_STRING_REPLACED, target)
 }
@@ -172,11 +187,15 @@ export const sendInDM = async (dm: DMChannel, interaction: CommandInteraction, s
 
 export const reply = (interaction: CommandInteraction) => {
   const success = async () => {
-    return await interaction.reply({ content: SUCCESS_COMMAND_DEFAULT, ephemeral: true }).catch(() => {})
+    await interaction.reply({ content: SUCCESS_COMMAND_DEFAULT, ephemeral: true }).catch(() => {})
   }
 
   const successInAccessDM = async () => {
     await interaction.reply({ content: SUCCESS_DM_SEND, ephemeral: true }).catch(() => {})
+  }
+
+  const executing = async () => {
+    await interaction.reply({ content: EXECUTING, ephemeral: true }).catch(() => {})
   }
 
   const error = async () => {
@@ -228,6 +247,7 @@ export const reply = (interaction: CommandInteraction) => {
   return {
     success,
     successInAccessDM,
+    executing,
     error,
     errorInvalidEmail,
     errorPermission,
@@ -250,7 +270,7 @@ export const isHex = (str: string) => {
 }
 
 export const isValidProxyContent = (str: string) => {
-  return ['https://cdn.discordapp.com', 'https://tenor.com', 'https://forms.gle'].some((v) => str.trim().startsWith(v))
+  return ['https://tenor.com', 'https://forms.gle'].some((v) => str.trim().startsWith(v))
 }
 
 export const js = () => {
@@ -258,5 +278,17 @@ export const js = () => {
     return new Promise((resolve) => setTimeout(resolve, ms))
   }
 
-  return { sleep }
+  const getFullTime = (): string => {
+    const utc = formatInTimeZone(new Date(), CLIENT_TIMEZONE, 'yyyy-MM-dd HH:mm:ss')
+
+    return utc
+  }
+
+  const getTime = (): string => {
+    const utc = formatInTimeZone(new Date(), CLIENT_TIMEZONE, 'HH:mm')
+
+    return utc
+  }
+
+  return { sleep, getFullTime, getTime }
 }

@@ -1,0 +1,10 @@
+{
+  "TALKING_TALKING_STARTED": "Começou o descanso!",
+  "TALKING_TALKING_FIVE_MINUTES": "Falta cinco minutos para o fim do descanso!",
+  "TALKING_TALKING_ONE_MINUTE": "Falta um minuto para o fim do descanso!",
+  "TALKING_MUTATED_STARTED": "Começou o trabalho!",
+  "TALKING_MUTATED_FORTY_MINUTES": "Ainda falta quarenta minutos para o fim do trabalho!",
+  "TALKING_MUTATED_TWENTY_MINUTES": "Ainda falta vinte minutos para o fim do trabalho!",
+  "TALKING_MUTATED_TEN_MINUTES": "Ainda falta dez minutos para o fim do trabalho!",
+  "TALKING_MUTATED_ONE_MINUTE": "Falta apenas um minutos para o fim do trabalho!"
+}

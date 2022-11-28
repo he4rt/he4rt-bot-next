@@ -1,10 +1,13 @@
-import { Client, Collection, GatewayIntentBits, REST } from 'discord.js'
+import { Client, Collection, GatewayIntentBits, Options, REST } from 'discord.js'
 import { Context, He4rtClient } from './types'
 import { registerCommands } from './commands'
 import { HE4RT, APOIASE } from './http'
+import { Ticker } from './client/ticker'
+import { Logger } from './client/logger'
 
 export const runner = async (): Promise<Context> => {
   const client = new Client({
+    makeCache: Options.cacheWithLimits(Options.DefaultMakeCacheSettings),
     intents: [
       GatewayIntentBits.Guilds,
       GatewayIntentBits.GuildMembers,
@@ -14,6 +17,7 @@ export const runner = async (): Promise<Context> => {
     ],
   }) as He4rtClient
   client.commands = new Collection()
+  client.ticker = new Ticker()
   client.api = {
     he4rt: HE4RT,
     apoiase: APOIASE,

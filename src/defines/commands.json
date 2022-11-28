@@ -58,5 +58,17 @@
   "APOIASE": {
     "TITLE": "apoiase",
     "DESCRIPTION": "Apoie nosso projeto em https://apoia.se/heartdevs e receba bônus exclusivos no servidor!"
+  },
+  "VERSION": {
+    "TITLE": "versao",
+    "DESCRIPTION": "ADM: Verifique a versão atual do bot."
+  },
+  "REPUTATION": {
+    "TITLE": "reputacao",
+    "DESCRIPTION": "Alguém o ajudou em algo no servidor? Envie-o um agradecimento por isso!"
+  },
+  "ASK": {
+    "TITLE": "perguntar",
+    "DESCRIPTION": "Chame a atenção de um usuário para esclarecer suas dúvidas."
   }
 }

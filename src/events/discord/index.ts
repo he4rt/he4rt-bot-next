@@ -4,14 +4,18 @@ import { He4rtClient } from '@/types'
 import { XPListener } from './gamification'
 import { isBot, isValidXPMessage } from '@/utils'
 import { deletePossibleUserInServerLeave } from './guild'
-import { sendGoodMessagesInChatChannel, suppressEmbedMessagesInBusyChannels } from './channel'
+import {
+  reactMessagesInSuggestionChannel,
+  sendGoodMessagesInChatChannel,
+  suppressEmbedMessagesInBusyChannels,
+} from './channel'
 import { removeCustomColorOfUnderprivilegedMembers } from './role'
 
 export const discordEvents = (client: He4rtClient) => {
   client.on(Events.GuildMemberRemove, (member) => {
     if (isBot(member.user)) return
 
-    deletePossibleUserInServerLeave(client, member.user.id)
+    deletePossibleUserInServerLeave(client, member)
   })
 
   client.on(Events.GuildMemberUpdate, (oldMember, newMember) => {
@@ -29,6 +33,7 @@ export const discordEvents = (client: He4rtClient) => {
 
     suppressEmbedMessagesInBusyChannels(message)
     sendGoodMessagesInChatChannel(message)
+    reactMessagesInSuggestionChannel(message)
   })
 
   client.on(Events.InteractionCreate, (interaction) => {
