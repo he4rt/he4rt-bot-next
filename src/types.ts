@@ -27,6 +27,11 @@ export type CommandSet = SlashCommandBuilder | Omit<SlashCommandBuilder, 'addSub
 export type Command = [CommandSet, CommandCallback]
 
 export type TickerCallback = () => void | Promise<void>
+export type TickerItem = [TickerName, TickerCallback]
+export enum TickerName {
+  Pomodoro = 'COWORKING_POMODORO',
+  DiscordPresence = 'DISCORD_PRESENCE',
+}
 
 export type He4rtClient = Client<boolean> & {
   commands: Collection<CommandSet, CommandCallback>

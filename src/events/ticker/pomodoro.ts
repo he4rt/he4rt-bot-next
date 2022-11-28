@@ -1,4 +1,4 @@
-import { He4rtClient } from '@/types'
+import { He4rtClient, TickerName } from '@/types'
 import { getGuild, getTaggedMembers, js } from '@/utils'
 import { POMODORO_CHANNEL } from '@/defines/ids.json'
 import { POMODORO_MUTATED_IN_MINUTES, POMODORO_TALKING_IN_MINUTES } from '@/defines/values.json'
@@ -42,7 +42,7 @@ export const setPomodoroListener = async (client: He4rtClient) => {
     }
   }
 
-  client.ticker.add(() => {
+  client.ticker.add(TickerName.Pomodoro, () => {
     if (isMutated) mutated--
     if (isTalking) talking--
 
