@@ -1,5 +1,5 @@
 import { ApoiaseGET, He4rtClient, UserGET, UserPUT } from '@/types'
-import { getGuild, isApoiaseMember, isNitroBoosterMember, js } from '@/utils'
+import { getGuild, getTargetMember, isApoiaseMember, isNitroBoosterMember, js } from '@/utils'
 import { APOIASE_CUSTOM_COLOR_MINIMAL_VALUE } from '@/defines/values.json'
 import { DONATOR_ROLE } from '@/defines/ids.json'
 import { CronJob } from 'cron'
@@ -8,6 +8,12 @@ export const verifyApoiaseMembers = async (client: He4rtClient) => {
   const guild = getGuild(client)
 
   await new CronJob('00 00 12 10 * *', () => {
+    client.logger.emit({
+      type: 'event',
+      color: 'warning',
+      message: '`CronJob 00 00 12 10 * *` **da verificação mensal do apoia.se executado!**',
+    })
+
     guild.members
       .fetch()
       .then(async (members) => {
@@ -41,6 +47,14 @@ export const verifyApoiaseMembers = async (client: He4rtClient) => {
                     })
                     .then(async () => {
                       await member.roles.remove(DONATOR_ROLE.id).catch(() => {})
+
+                      client.logger.emit({
+                        type: 'apoiase',
+                        color: 'warning',
+                        message: `${getTargetMember(
+                          member
+                        )} teve o seu **apoio removido** por não atender aos requisitos!`,
+                      })
                     })
                     .catch(() => {})
                 })

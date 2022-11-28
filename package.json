@@ -1,12 +1,13 @@
 {
   "name": "he4rt-discord-bot-next",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "author": "He4rt Developers",
   "main": "dist/index.js",
   "scripts": {
     "dev": "concurrently pnpm:dev:*",
     "dev:build": "tsup --config tsup.development.config.ts",
     "dev:run": "nodemon .",
+    "once": "tsup --config tsup.production.config.ts && node .",
     "production:build": "tsup --config tsup.production.config.ts",
     "production": "pnpm run production:build && node .",
     "version:init": "generi init",

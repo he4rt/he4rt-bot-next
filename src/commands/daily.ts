@@ -1,7 +1,7 @@
 import { GuildMember, SlashCommandBuilder } from 'discord.js'
 import { Command, DailyPOST } from '@/types'
 import { DAILY } from '@/defines/commands.json'
-import { isPresentedMember, isPrivilegedMember, replaceDefineString, reply } from '@/utils'
+import { isPresentedMember, replaceDefineString, reply } from '@/utils'
 import { HCOINS_ERROR, HCOINS_SUCCESS } from '-/commands/daily.json'
 
 export const useDaily = (): Command => {
@@ -18,15 +18,12 @@ export const useDaily = (): Command => {
         return
       }
 
-      client.api.he4rt.users
-        .daily()
-        .post<DailyPOST>({
-          donator: isPrivilegedMember(member),
-          discord_id: member.id,
-        })
-        .then(async ({ data }) => {
+      client.api.he4rt
+        .users(member.id)
+        .daily.post<DailyPOST>()
+        .then(async ({ points }) => {
           await interaction.reply({
-            content: replaceDefineString(HCOINS_SUCCESS, String(data.points)),
+            content: replaceDefineString(HCOINS_SUCCESS, String(points)),
             ephemeral: true,
           })
         })

@@ -15,7 +15,7 @@ export const discordEvents = (client: He4rtClient) => {
   client.on(Events.GuildMemberRemove, (member) => {
     if (isBot(member.user)) return
 
-    deletePossibleUserInServerLeave(client, member.user.id)
+    deletePossibleUserInServerLeave(client, member)
   })
 
   client.on(Events.GuildMemberUpdate, (oldMember, newMember) => {

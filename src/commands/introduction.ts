@@ -13,6 +13,7 @@ import { INTRODUCE } from '@/defines/commands.json'
 import { TIMEOUT_COMMAND, TIMEOUT_COMMAND_STRING } from '@/defines/values.json'
 import {
   getChannel,
+  getTargetMember,
   isPresentingMember,
   isValidId,
   reply,
@@ -241,21 +242,35 @@ export const useIntroduction = (): Command => {
           await removePresentingFlag(member)
 
           client.api.he4rt
-            .users(member.id)
-            .put<IntroducePUT>(body)
+            .users()
+            .post<IntroducePOST>({
+              discord_id: member.id,
+            })
             .then(() => {
+              client.logger.emit({
+                type: 'http',
+                color: 'info',
+                message: `${getTargetMember(member)} apresentou e teve a sua conta criada!`,
+              })
+
               client.api.he4rt
                 .users(member.id)
-                .post<IntroducePOST>()
+                .put<IntroducePUT>(body)
+                .catch(() => {})
+            })
+            .catch(() => {
+              client.api.he4rt
+                .users(member.id)
+                .put<IntroducePUT>(body)
                 .then(() => {
-                  client.api.he4rt
-                    .users(member.id)
-                    .put<IntroducePUT>(body)
-                    .catch(() => {})
+                  client.logger.emit({
+                    type: 'http',
+                    color: 'info',
+                    message: `${getTargetMember(member)} apresentou e teve a sua conta alterada!`,
+                  })
                 })
                 .catch(() => {})
             })
-            .catch(() => {})
 
           await dm.send(INTRODUCTION.FINISH)
         })
