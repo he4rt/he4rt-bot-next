@@ -81,9 +81,8 @@ export interface RankingGET extends RESTJson {
 }
 
 export interface DailyPOST extends RESTJson {
-  data: {
-    points: number
-  }
+  points: number
+  date: string
 }
 
 export interface IntroducePUT extends RESTJson {}
