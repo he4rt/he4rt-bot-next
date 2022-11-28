@@ -12,6 +12,7 @@ export const runner = async (): Promise<Context> => {
       GatewayIntentBits.Guilds,
       GatewayIntentBits.GuildMembers,
       GatewayIntentBits.GuildMessages,
+      GatewayIntentBits.GuildVoiceStates,
       GatewayIntentBits.DirectMessages,
       GatewayIntentBits.MessageContent,
     ],
