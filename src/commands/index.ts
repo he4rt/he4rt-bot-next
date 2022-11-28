@@ -1,4 +1,4 @@
-import { CommandInteraction, Routes } from 'discord.js'
+import { CommandInteraction, GuildMember, Routes } from 'discord.js'
 import { Command, Context, He4rtClient } from '@/types'
 import { useAnnounce } from './announce'
 import { useBan } from './ban'
@@ -16,6 +16,7 @@ import { useClear } from './clear'
 import { useApoiase } from './apoiase'
 import { useVersion } from './version'
 import { useAsk } from './ask'
+import { getTargetMember } from '@/utils'
 
 const registerHooks = (client: He4rtClient, commands: Command[]) => {
   commands.forEach(([data, cb]) => {
@@ -55,10 +56,11 @@ export const commandsListener = (client: He4rtClient, interaction: CommandIntera
       cb && cb(interaction, client)
 
       client.logger.emit({
-        message: `**/${key.name}** foi acionado no canal  **${interaction.channel.name}**`,
+        message: `${getTargetMember(interaction.member as GuildMember)} acionou **/${key.name}** no canal **${
+          interaction.channel.name
+        }**`,
         type: 'command',
         color: 'info',
-        user: interaction.user,
       })
     }
   }
