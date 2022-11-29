@@ -5,11 +5,15 @@ import {
   Collection,
   CommandInteraction,
   CommandInteractionOption,
+  ForumChannel,
   HexColorString,
+  NewsChannel,
   REST,
   RestOrArray,
   SlashCommandBuilder,
+  TextChannel,
   User,
+  VoiceChannel,
 } from 'discord.js'
 import { ClientBuilder } from 'uncreate'
 import { Logger } from './client/logger'
@@ -21,6 +25,8 @@ export type CommandGetOption<T extends CacheType = CacheType> = (
   interaction: CommandInteraction,
   target: string
 ) => CommandInteractionOption<T>
+
+export type WebhookEvent = NewsChannel | TextChannel | VoiceChannel | ForumChannel
 
 export type CommandCallback = (interaction: CommandInteraction, client: He4rtClient) => Promise<void>
 export type CommandSet = SlashCommandBuilder | Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>

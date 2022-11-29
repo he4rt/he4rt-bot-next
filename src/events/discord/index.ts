@@ -12,7 +12,7 @@ import {
 } from './channel'
 import { removeCustomColorOfUnderprivilegedMembers } from './role'
 import { removeUserMuteInLeavePomodoro } from './voice'
-import { emitDefaultDiscordError } from './logger'
+import { emitDefaultDiscordError, emitWebhookUpdate } from './logger'
 
 export const discordEvents = (client: He4rtClient) => {
   client.on(Events.GuildMemberRemove, (member) => {
@@ -50,5 +50,9 @@ export const discordEvents = (client: He4rtClient) => {
 
   client.on(Events.Error, (error) => {
     emitDefaultDiscordError(client, error)
+  })
+
+  client.on(Events.WebhooksUpdate, (event) => {
+    emitWebhookUpdate(client, event)
   })
 }
