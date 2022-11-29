@@ -69,7 +69,3 @@ export class Logger {
     channel?.send({ embeds: [embed] })
   }
 }
-
-export const registerLogger = (client: He4rtClient) => {
-  client.logger = new Logger(client)
-}

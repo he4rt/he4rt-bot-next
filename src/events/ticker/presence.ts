@@ -1,6 +1,6 @@
 import { He4rtClient, TickerName } from '@/types'
 import { ActivityType } from 'discord.js'
-import { DISCORD_PRESENCE_IN_MINUTES } from '@/defines/values.json'
+import { DISCORD_PRESENCE_IN_MINUTES, TICKER_SETTER } from '@/defines/values.json'
 
 export const setPresence = (client: He4rtClient) => {
   const type = ActivityType.Watching as Exclude<ActivityType, ActivityType.Custom>
@@ -33,7 +33,7 @@ export const setPresence = (client: He4rtClient) => {
     },
   ]
   const randomTimer = 60 * DISCORD_PRESENCE_IN_MINUTES
-  let random = 10
+  let random = TICKER_SETTER
 
   client.ticker.add(TickerName.DiscordPresence, () => {
     --random

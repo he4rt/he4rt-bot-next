@@ -1,7 +1,7 @@
 import { He4rtClient, TickerName } from '@/types'
 import { getGuild, getTaggedMembers, js } from '@/utils'
 import { POMODORO_CHANNEL } from '@/defines/ids.json'
-import { POMODORO_MUTATED_IN_MINUTES, POMODORO_TALKING_IN_MINUTES } from '@/defines/values.json'
+import { POMODORO_MUTATED_IN_MINUTES, POMODORO_TALKING_IN_MINUTES, TICKER_SETTER } from '@/defines/values.json'
 import {
   TALKING_MUTATED_STARTED,
   TALKING_MUTATED_FORTY_MINUTES,
@@ -22,8 +22,8 @@ export const setPomodoroListener = async (client: He4rtClient) => {
   const mutatedTimer = 60 * POMODORO_MUTATED_IN_MINUTES
   const talkingTimer = 60 * POMODORO_TALKING_IN_MINUTES
 
-  let mutated = 10
-  let talking = 10
+  let mutated = TICKER_SETTER
+  let talking = TICKER_SETTER
 
   let isMutated = false
   let isTalking = true

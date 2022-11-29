@@ -1,5 +1,4 @@
 import 'dotenv/config'
-import { registerLogger } from './client/logger'
 import { cronEvents } from './events/cron'
 import { discordEvents } from './events/discord'
 import { tickerEvents } from './events/ticker'
@@ -9,8 +8,6 @@ import { getBotVersion } from './utils'
 runner()
   .then(async ({ client }) => {
     await client.login(process.env.DISCORD_TOKEN)
-
-    await registerLogger(client)
 
     await discordEvents(client)
     await cronEvents(client)

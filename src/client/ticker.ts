@@ -12,10 +12,8 @@ export class Ticker {
     this._list.push([name, cb])
   }
 
-  public remove(i: TickerItem) {
-    const index = this._list.indexOf(i)
-
-    if (index !== -1) this._list.splice(index, 1)
+  public remove(target: TickerName) {
+    this._list = this._list.filter(([name]) => name !== target)
   }
 
   public start(): Promise<void> {
@@ -31,5 +29,10 @@ export class Ticker {
   public clear() {
     clearInterval(this._interval)
     this._interval = null
+  }
+
+  public restart() {
+    this.clear()
+    this.start()
   }
 }
