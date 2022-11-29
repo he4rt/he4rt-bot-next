@@ -28,7 +28,7 @@ export const sendGoodMessagesInChatChannel = (message: Message) => {
   if (CHAT_CHANNEL.id === message.channel.id) {
     const content = message.content.toLowerCase().trim()
 
-    if (content.length > 20) return
+    if (content.length > 50) return
 
     if (content.startsWith('bom dia')) {
       message.reply({ content: `dia!` }).catch(() => {})
