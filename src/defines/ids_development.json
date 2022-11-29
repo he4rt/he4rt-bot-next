@@ -47,6 +47,10 @@
     "id": "1042817318981472322",
     "title": "📈│levelup"
   },
+  "LEARNING_DIARY_CHANNEL": {
+    "id": "104281799981472332",
+    "title": "🏆|aprendizado-diário"
+  },
   "VALID_PRESENTATION_DEV_ROLES": [
     { "id": "1042817315227582488", "name": "GameDev", "emoji": "🎮" },
     { "id": "1042817315227582487", "name": "JavaScript", "emoji": "📜" },
