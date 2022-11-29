@@ -45,7 +45,7 @@ export type He4rtClient = Client<boolean> & {
 
 export interface LoggerEmitOptions {
   message: string
-  type: 'bot' | 'http' | 'apoiase' | 'command' | 'event'
+  type: 'bot' | 'http' | 'apoiase' | 'command' | 'event' | 'role'
   color: 'success' | 'info' | 'warning' | 'error'
   user?: User
 }
@@ -88,6 +88,14 @@ export interface DailyPOST extends RESTJson {
 export interface IntroducePUT extends RESTJson {}
 
 export interface IntroducePOST extends RESTJson {}
+
+export interface BagdePOST {
+  name: string
+  description: string
+  image_url: string
+  redeem_code: string
+  active: number
+}
 
 export interface UserGETBody {
   name: string

@@ -40,6 +40,9 @@ export class Logger {
       case 'event':
         embed.setTitle('Evento')
         break
+      case 'role':
+        embed.setTitle('Cargo')
+        break
     }
 
     embed.setDescription(`${options.message}`)

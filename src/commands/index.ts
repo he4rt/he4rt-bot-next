@@ -17,6 +17,8 @@ import { useApoiase } from './apoiase'
 import { useVersion } from './version'
 import { useAsk } from './ask'
 import { getTargetMember } from '@/utils'
+import { useBadge } from './bagde'
+import { useBadgeCreate } from './bagde_create'
 
 const registerHooks = (client: He4rtClient, commands: Command[]) => {
   commands.forEach(([data, cb]) => {
@@ -42,6 +44,8 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useApoiase(),
     useVersion(),
     useAsk(),
+    useBadge(),
+    useBadgeCreate(),
     // useReputation()
   ])
 

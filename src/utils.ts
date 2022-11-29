@@ -290,5 +290,9 @@ export const js = () => {
     return utc
   }
 
-  return { sleep, getFullTime, getTime }
+  const randomHex = (): HexColorString => {
+    return `#${Math.floor(Math.random() * 16777215).toString(16)}`
+  }
+
+  return { sleep, getFullTime, getTime, randomHex }
 }
