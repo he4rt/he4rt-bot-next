@@ -6,10 +6,13 @@ import { isBot, isValidXPMessage } from '@/utils'
 import { deletePossibleUserInServerLeave } from './guild'
 import {
   reactMessagesInSuggestionChannel,
-  sendGoodMessagesInChatChannel,
+  sendGoodMessagesInBusyChannels,
   suppressEmbedMessagesInBusyChannels,
+  reactMessagesInLearningDiaryChannel,
 } from './channel'
 import { removeCustomColorOfUnderprivilegedMembers } from './role'
+import { removeUserMuteInLeavePomodoro } from './voice'
+import { emitDefaultDiscordError, emitWebhookUpdate } from './logger'
 
 export const discordEvents = (client: He4rtClient) => {
   client.on(Events.GuildMemberRemove, (member) => {
@@ -24,6 +27,10 @@ export const discordEvents = (client: He4rtClient) => {
     removeCustomColorOfUnderprivilegedMembers(client, oldMember as GuildMember, newMember)
   })
 
+  client.on(Events.VoiceStateUpdate, (oldVoice, newVoice) => {
+    removeUserMuteInLeavePomodoro(oldVoice, newVoice)
+  })
+
   client.on(Events.MessageCreate, (message) => {
     if (isBot(message.author)) return
 
@@ -32,11 +39,20 @@ export const discordEvents = (client: He4rtClient) => {
     }
 
     suppressEmbedMessagesInBusyChannels(message)
-    sendGoodMessagesInChatChannel(message)
+    sendGoodMessagesInBusyChannels(message)
     reactMessagesInSuggestionChannel(message)
+    reactMessagesInLearningDiaryChannel(message)
   })
 
   client.on(Events.InteractionCreate, (interaction) => {
     if (interaction.isChatInputCommand()) commandsListener(client, interaction)
+  })
+
+  client.on(Events.Error, (error) => {
+    emitDefaultDiscordError(client, error)
+  })
+
+  client.on(Events.WebhooksUpdate, (event) => {
+    emitWebhookUpdate(client, event)
   })
 }

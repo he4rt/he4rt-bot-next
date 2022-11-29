@@ -1,5 +1,11 @@
 import { Message } from 'discord.js'
-import { SUGGESTION_CHANNEL, CHAT_CHANNEL, MEETING_CHANNEL, MEETING_DELAS_CHANNEL } from '@/defines/ids.json'
+import {
+  SUGGESTION_CHANNEL,
+  CHAT_CHANNEL,
+  MEETING_CHANNEL,
+  MEETING_DELAS_CHANNEL,
+  LEARNING_DIARY_CHANNEL,
+} from '@/defines/ids.json'
 import { isAdministrator, isImageHTTPUrl, isValidProxyContent } from '@/utils'
 
 export const suppressEmbedMessagesInBusyChannels = async (message: Message) => {
@@ -18,11 +24,13 @@ export const suppressEmbedMessagesInBusyChannels = async (message: Message) => {
   }
 }
 
-export const sendGoodMessagesInChatChannel = (message: Message) => {
-  if (CHAT_CHANNEL.id === message.channel.id) {
+export const sendGoodMessagesInBusyChannels = (message: Message) => {
+  const validChannels = [CHAT_CHANNEL, MEETING_CHANNEL, MEETING_DELAS_CHANNEL]
+
+  if (validChannels.some((v) => v.id === message.channel.id)) {
     const content = message.content.toLowerCase().trim()
 
-    if (content.length > 20) return
+    if (content.length > 50 && message.channel.id === CHAT_CHANNEL.id) return
 
     if (content.startsWith('bom dia')) {
       message.reply({ content: `dia!` }).catch(() => {})
@@ -40,5 +48,11 @@ export const reactMessagesInSuggestionChannel = async (message: Message) => {
   if (SUGGESTION_CHANNEL.id === message.channel.id) {
     await message.react('✅')
     await message.react('❌')
+  }
+}
+
+export const reactMessagesInLearningDiaryChannel = async (message: Message) => {
+  if (LEARNING_DIARY_CHANNEL.id === message.channel.id) {
+    await message.react('💜')
   }
 }

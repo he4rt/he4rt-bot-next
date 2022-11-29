@@ -70,5 +70,13 @@
   "ASK": {
     "TITLE": "perguntar",
     "DESCRIPTION": "Chame a atenção de um usuário para esclarecer suas dúvidas."
+  },
+  "BADGE_CREATE": {
+    "TITLE": "distintivo-criar",
+    "DESCRIPTION": "ADM: Crie um distintivo único para os membros!"
+  },
+  "BADGE_SET": {
+    "TITLE": "distintivo",
+    "DESCRIPTION": "Pegue um distintivo de um evento que você participou?"
   }
 }

@@ -1,5 +1,5 @@
 import { He4rtClient, UserPUT } from '@/types'
-import { getCustomColorRole, getGuild, isPrivilegedMember } from '@/utils'
+import { getCustomColorRole, getGuild, getTargetMember, isPrivilegedMember } from '@/utils'
 import { GuildMember } from 'discord.js'
 
 export const removeCustomColorOfUnderprivilegedMembers = async (
@@ -26,6 +26,15 @@ export const removeCustomColorOfUnderprivilegedMembers = async (
               .users(oldMember.id)
               .put<UserPUT>({
                 is_donator: 0,
+              })
+              .then(() => {
+                client.logger.emit({
+                  message: `${getTargetMember(
+                    oldMember
+                  )} teve o seu **cargo customizado removido** por ter perdido o privilégio!`,
+                  type: 'role',
+                  color: 'info',
+                })
               })
               .catch(() => {})
           })

@@ -5,11 +5,15 @@ import {
   Collection,
   CommandInteraction,
   CommandInteractionOption,
+  ForumChannel,
   HexColorString,
+  NewsChannel,
   REST,
   RestOrArray,
   SlashCommandBuilder,
+  TextChannel,
   User,
+  VoiceChannel,
 } from 'discord.js'
 import { ClientBuilder } from 'uncreate'
 import { Logger } from './client/logger'
@@ -21,6 +25,8 @@ export type CommandGetOption<T extends CacheType = CacheType> = (
   interaction: CommandInteraction,
   target: string
 ) => CommandInteractionOption<T>
+
+export type WebhookEvent = NewsChannel | TextChannel | VoiceChannel | ForumChannel
 
 export type CommandCallback = (interaction: CommandInteraction, client: He4rtClient) => Promise<void>
 export type CommandSet = SlashCommandBuilder | Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>
@@ -45,7 +51,7 @@ export type He4rtClient = Client<boolean> & {
 
 export interface LoggerEmitOptions {
   message: string
-  type: 'bot' | 'http' | 'apoiase' | 'command' | 'event'
+  type: 'bot' | 'http' | 'apoiase' | 'command' | 'event' | 'role' | 'discord' | 'he4rt-api'
   color: 'success' | 'info' | 'warning' | 'error'
   user?: User
 }
@@ -89,6 +95,14 @@ export interface IntroducePUT extends RESTJson {}
 
 export interface IntroducePOST extends RESTJson {}
 
+export interface BadgePOST {
+  name: string
+  description: string
+  image_url: string
+  redeem_code: string
+  active: number
+}
+
 export interface UserGETBody {
   name: string
   nickname: string
@@ -97,7 +111,16 @@ export interface UserGETBody {
   linkedin: string | null
 }
 
-export interface UserGET extends RESTJson, UserGETBody {
+export interface UserLevelXP {
+  levelup_exp: {
+    id: number
+    required: number
+    created_at: string | null
+    updated_at: string | null
+  }
+}
+
+export interface UserGET extends RESTJson, UserGETBody, UserLevelXP {
   id: number
   discord_id: string
   twitch_id: any
@@ -108,12 +131,6 @@ export interface UserGET extends RESTJson, UserGETBody {
   daily: string | null
   created_at: string | null
   updated_at: string | null
-  levelup_exp: {
-    id: number
-    required: number
-    created_at: string | null
-    updated_at: string | null
-  }
 }
 
 export interface UserPUT extends UserGET {}
@@ -126,13 +143,12 @@ export interface ApoiaseGET extends RESTJson {
   thisMonthPaidValue?: number
 }
 
-export interface RankingMember {
+export interface RankingMember extends UserLevelXP {
   nickname?: string
   level: number
   current_exp: number
   discord_id: string
   messages_count: number
-  levelup_exp: Record<any, any>
 }
 
 export interface Context {

@@ -1,0 +1,5 @@
+{
+  "CODE_OPTION": "Código de resgate do distintivo.",
+  "REPLY_SUCCESS": "Distintivo resgatado com sucesso!",
+  "REPLY_ERROR": "**Não foi possível resgatar o distintivo! Verifique-se se ele pode ser resgatado ou se ele realmente existe!**"
+}

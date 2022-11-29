@@ -1,22 +1,18 @@
 import { He4rtClient, LoggerEmitOptions } from '@/types'
-import { getBotVersion, getChannel, getGuild, getUserAvatar } from '@/utils'
-import { EmbedBuilder, Guild, HexColorString, TextBasedChannel } from 'discord.js'
+import { getChannel, getUserAvatar } from '@/utils'
+import { EmbedBuilder, HexColorString } from 'discord.js'
 import { REPORT_CHANNEL } from '@/defines/ids.json'
 import { COLORS, CLIENT_NAME } from '@/defines/values.json'
 
 export class Logger {
   private _client: He4rtClient
-  private _guild: Guild
-  private _receiver: TextBasedChannel
 
   constructor(client: He4rtClient) {
     this._client = client
-    this._guild = getGuild(client)
-    this._receiver = getChannel({ id: REPORT_CHANNEL.id, client })
   }
 
   public emit(options: LoggerEmitOptions) {
-    if (!this._client || !this._guild || !this._receiver) return
+    if (!this._client) return
 
     const embed = new EmbedBuilder()
     embed.setAuthor({
@@ -44,6 +40,15 @@ export class Logger {
       case 'event':
         embed.setTitle('Evento')
         break
+      case 'role':
+        embed.setTitle('Cargo')
+        break
+      case 'discord':
+        embed.setTitle('Discord.js')
+        break
+      case 'he4rt-api':
+        embed.setTitle('He4rt API')
+        break
     }
 
     embed.setDescription(`${options.message}`)
@@ -65,16 +70,8 @@ export class Logger {
 
     embed.setTimestamp()
 
-    this._receiver?.send({ embeds: [embed] })
+    const channel = getChannel({ id: REPORT_CHANNEL.id, client: this._client })
+
+    channel?.send({ embeds: [embed] })
   }
-}
-
-export const registerLogger = (client: He4rtClient) => {
-  client.logger = new Logger(client)
-
-  client.logger.emit({
-    type: 'bot',
-    color: 'info',
-    message: `**BOT ON! ${getBotVersion()}**`,
-  })
 }

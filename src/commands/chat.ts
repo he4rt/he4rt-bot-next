@@ -25,7 +25,7 @@ export const useChat = (): Command => {
 
       if (!channel) return
 
-      const value = !stop.value as boolean
+      const value = stop.value as boolean
 
       channel.permissionOverwrites
         .edit(guild.id, { SendMessages: value })
