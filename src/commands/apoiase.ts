@@ -77,6 +77,8 @@ export const useApoiase = (): Command => {
                 const message = await chat.send(`<@${member.user.id}>${SUCCESS_IN_CHAT}`)
 
                 await message.suppressEmbeds(true).catch(() => {})
+
+                await message.react('💜').catch(() => {})
               })
               .catch(() => {})
 
