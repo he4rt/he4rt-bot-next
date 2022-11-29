@@ -51,6 +51,6 @@ export const reactMessagesInSuggestionChannel = async (message: Message) => {
 
 export const reactMessagesInLearningDiaryChannel = async (message: Message) => {
   if (LEARNING_DIARY_CHANNEL.id === message.channel.id) {
-    await message.react(':he4rt:')
+    await message.react('💜')
   }
 }
