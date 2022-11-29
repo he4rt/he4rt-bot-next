@@ -105,7 +105,16 @@ export interface UserGETBody {
   linkedin: string | null
 }
 
-export interface UserGET extends RESTJson, UserGETBody {
+export interface UserLevelXP {
+  levelup_exp: {
+    id: number
+    required: number
+    created_at: string | null
+    updated_at: string | null
+  }
+}
+
+export interface UserGET extends RESTJson, UserGETBody, UserLevelXP {
   id: number
   discord_id: string
   twitch_id: any
@@ -116,12 +125,6 @@ export interface UserGET extends RESTJson, UserGETBody {
   daily: string | null
   created_at: string | null
   updated_at: string | null
-  levelup_exp: {
-    id: number
-    required: number
-    created_at: string | null
-    updated_at: string | null
-  }
 }
 
 export interface UserPUT extends UserGET {}
@@ -134,13 +137,12 @@ export interface ApoiaseGET extends RESTJson {
   thisMonthPaidValue?: number
 }
 
-export interface RankingMember {
+export interface RankingMember extends UserLevelXP {
   nickname?: string
   level: number
   current_exp: number
   discord_id: string
   messages_count: number
-  levelup_exp: Record<any, any>
 }
 
 export interface Context {
