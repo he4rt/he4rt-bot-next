@@ -16,6 +16,7 @@ He4rt Discord Bot
 
 - `/anunciar` (ADM)
 - `/falar` (ADM)
+- `/distintivo-criar` (ADM)
 - `/versao` (ADM)
 - `/banir` (ADM|MOD)
 - `/desbanir` (ADM|MOD)
@@ -30,6 +31,7 @@ He4rt Discord Bot
 - `/perfil`
 - `/perguntar`
 - `/ranqueamento`
+- `/distintivo`
 - `/codigo`
 
 ## Differences to [v1](https://github.com/he4rt/He4rt-Bot)
@@ -38,6 +40,7 @@ He4rt Discord Bot
 - `discord.js v9` -> `discord.js v14`;
 - Fluxo de código [Orientado a Dados (OOD)](https://en.wikipedia.org/wiki/Object-oriented_design);
 - _Purge_ completo de bibliotecas desnecessárias/depreciadas;
+- Implementação de _Logger_ para o registro de todas as ações;
 - Implementação de _Jobs_ para eventos temporizados;
 - Implementação de _Ticker_ para eventos sequenciais;
 - Integração com o [apoia.se](https://apoia.se/heartdevs);
