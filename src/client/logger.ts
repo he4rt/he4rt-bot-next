@@ -66,7 +66,7 @@ export class Logger {
 
     const channel = getChannel({ id: REPORT_CHANNEL.id, client: this._client })
 
-    channel.send({ embeds: [embed] })
+    channel?.send({ embeds: [embed] })
   }
 }
 
