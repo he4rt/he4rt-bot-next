@@ -30,7 +30,7 @@ export const sendGoodMessagesInBusyChannels = (message: Message) => {
   if (validChannels.some((v) => v.id === message.channel.id)) {
     const content = message.content.toLowerCase().trim()
 
-    if (content.length > 50) return
+    if (content.length > 50 && message.channel.id === CHAT_CHANNEL.id) return
 
     if (content.startsWith('bom dia')) {
       message.reply({ content: `dia!` }).catch(() => {})
