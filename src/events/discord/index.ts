@@ -12,6 +12,7 @@ import {
 } from './channel'
 import { removeCustomColorOfUnderprivilegedMembers } from './role'
 import { removeUserMuteInLeavePomodoro } from './voice'
+import { emitDefaultDiscordError } from './logger'
 
 export const discordEvents = (client: He4rtClient) => {
   client.on(Events.GuildMemberRemove, (member) => {
@@ -45,5 +46,9 @@ export const discordEvents = (client: He4rtClient) => {
 
   client.on(Events.InteractionCreate, (interaction) => {
     if (interaction.isChatInputCommand()) commandsListener(client, interaction)
+  })
+
+  client.on(Events.Error, (error) => {
+    emitDefaultDiscordError(client, error)
   })
 }

@@ -43,6 +43,9 @@ export class Logger {
       case 'role':
         embed.setTitle('Cargo')
         break
+      case 'discord':
+        embed.setTitle('Discord.js')
+        break
     }
 
     embed.setDescription(`${options.message}`)

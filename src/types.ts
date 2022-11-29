@@ -45,7 +45,7 @@ export type He4rtClient = Client<boolean> & {
 
 export interface LoggerEmitOptions {
   message: string
-  type: 'bot' | 'http' | 'apoiase' | 'command' | 'event' | 'role'
+  type: 'bot' | 'http' | 'apoiase' | 'command' | 'event' | 'role' | 'discord'
   color: 'success' | 'info' | 'warning' | 'error'
   user?: User
 }
