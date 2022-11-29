@@ -46,6 +46,9 @@ export class Logger {
       case 'discord':
         embed.setTitle('Discord.js')
         break
+      case 'he4rt-api':
+        embed.setTitle('He4rt API')
+        break
     }
 
     embed.setDescription(`${options.message}`)

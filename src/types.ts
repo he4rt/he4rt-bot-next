@@ -45,7 +45,7 @@ export type He4rtClient = Client<boolean> & {
 
 export interface LoggerEmitOptions {
   message: string
-  type: 'bot' | 'http' | 'apoiase' | 'command' | 'event' | 'role' | 'discord'
+  type: 'bot' | 'http' | 'apoiase' | 'command' | 'event' | 'role' | 'discord' | 'he4rt-api'
   color: 'success' | 'info' | 'warning' | 'error'
   user?: User
 }
@@ -89,7 +89,7 @@ export interface IntroducePUT extends RESTJson {}
 
 export interface IntroducePOST extends RESTJson {}
 
-export interface BagdePOST {
+export interface BadgePOST {
   name: string
   description: string
   image_url: string
