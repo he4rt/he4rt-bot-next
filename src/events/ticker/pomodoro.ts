@@ -42,6 +42,26 @@ export const setPomodoroListener = async (client: He4rtClient) => {
     }
   }
 
+  const handleVoice = (speak: boolean) => {
+    // TODO: overwrite PRESENTED_ROLE permission, but actually discord rate limits not permitted this approach.
+    channel.permissionOverwrites
+      .edit(guild.id, { Speak: speak })
+      .then(async () => {
+        await channel.setName(`${speak ? '🟢 Coworking' : '🔴 Coworking'} | ${js().getTime()}`).catch(() => {})
+
+        for (const [_, member] of channel.members) {
+          await member.voice.setMute(!speak).catch(() => {})
+        }
+
+        await sendMessage(
+          `${getTaggedMembers(channel.members.map((m) => m.id))} ${
+            speak ? TALKING_TALKING_STARTED : TALKING_MUTATED_STARTED
+          }`
+        )
+      })
+      .catch(() => {})
+  }
+
   client.ticker.add(TickerName.Pomodoro, () => {
     if (isMutated) mutated--
     if (isTalking) talking--
@@ -53,19 +73,7 @@ export const setPomodoroListener = async (client: He4rtClient) => {
       isMutated = false
       isTalking = true
 
-      // TODO: overwrite EVERYONE permission, but actually discord rate limits not permitted this approach.
-      channel.permissionOverwrites
-        .edit(guild.id, { Speak: true })
-        .then(async () => {
-          await channel.setName(`🟢 Coworking | ${js().getTime()}`).catch(() => {})
-
-          for (const [_, member] of channel.members) {
-            await member.voice.setMute(false).catch(() => {})
-          }
-
-          await sendMessage(`${getTaggedMembers(channel.members.map((m) => m.id))} ${TALKING_TALKING_STARTED}`)
-        })
-        .catch(() => {})
+      handleVoice(true)
     }
 
     if (talking <= 0 && isTalking) {
@@ -75,18 +83,7 @@ export const setPomodoroListener = async (client: He4rtClient) => {
       isMutated = true
       isTalking = false
 
-      channel.permissionOverwrites
-        .edit(guild.id, { Speak: false })
-        .then(async () => {
-          await channel.setName(`🔴 Coworking | ${js().getTime()}`).catch(() => {})
-
-          for (const [_, member] of channel.members) {
-            await member.voice.setMute(true).catch(() => {})
-          }
-
-          await sendMessage(`${getTaggedMembers(channel.members.map((m) => m.id))} ${TALKING_MUTATED_STARTED}`)
-        })
-        .catch(() => {})
+      handleVoice(false)
     }
 
     ;((
