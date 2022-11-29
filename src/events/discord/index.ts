@@ -11,6 +11,7 @@ import {
   reactMessagesInLearningDiaryChannel,
 } from './channel'
 import { removeCustomColorOfUnderprivilegedMembers } from './role'
+import { removeUserMuteInLeavePomodoro } from './voice'
 
 export const discordEvents = (client: He4rtClient) => {
   client.on(Events.GuildMemberRemove, (member) => {
@@ -23,6 +24,10 @@ export const discordEvents = (client: He4rtClient) => {
     if (isBot(oldMember.user) || isBot(newMember.user) || !oldMember) return
 
     removeCustomColorOfUnderprivilegedMembers(client, oldMember as GuildMember, newMember)
+  })
+
+  client.on(Events.VoiceStateUpdate, (oldVoice, newVoice) => {
+    removeUserMuteInLeavePomodoro(oldVoice, newVoice)
   })
 
   client.on(Events.MessageCreate, (message) => {
