@@ -8,6 +8,7 @@ import {
   reactMessagesInSuggestionChannel,
   sendGoodMessagesInChatChannel,
   suppressEmbedMessagesInBusyChannels,
+  reactMessagesInLearningDiaryChannel,
 } from './channel'
 import { removeCustomColorOfUnderprivilegedMembers } from './role'
 
@@ -34,6 +35,7 @@ export const discordEvents = (client: He4rtClient) => {
     suppressEmbedMessagesInBusyChannels(message)
     sendGoodMessagesInChatChannel(message)
     reactMessagesInSuggestionChannel(message)
+    reactMessagesInLearningDiaryChannel(message)
   })
 
   client.on(Events.InteractionCreate, (interaction) => {
