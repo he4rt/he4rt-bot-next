@@ -1,5 +1,11 @@
 import { Message } from 'discord.js'
-import { SUGGESTION_CHANNEL, CHAT_CHANNEL, MEETING_CHANNEL, MEETING_DELAS_CHANNEL } from '@/defines/ids.json'
+import {
+  SUGGESTION_CHANNEL,
+  CHAT_CHANNEL,
+  MEETING_CHANNEL,
+  MEETING_DELAS_CHANNEL,
+  LEARNING_DIARY_CHANNEL,
+} from '@/defines/ids.json'
 import { isAdministrator, isImageHTTPUrl, isValidProxyContent } from '@/utils'
 
 export const suppressEmbedMessagesInBusyChannels = async (message: Message) => {
@@ -40,5 +46,11 @@ export const reactMessagesInSuggestionChannel = async (message: Message) => {
   if (SUGGESTION_CHANNEL.id === message.channel.id) {
     await message.react('✅')
     await message.react('❌')
+  }
+}
+
+export const reactMessagesInLearningDiaryChannel = async (message: Message) => {
+  if (LEARNING_DIARY_CHANNEL.id === message.channel.id) {
+    await message.react('💜')
   }
 }
