@@ -12,6 +12,8 @@ export const runner = async (): Promise<Context> => {
       GatewayIntentBits.GuildMembers,
       GatewayIntentBits.GuildMessages,
       GatewayIntentBits.GuildVoiceStates,
+      GatewayIntentBits.GuildWebhooks,
+      GatewayIntentBits.GuildIntegrations,
       GatewayIntentBits.DirectMessages,
       GatewayIntentBits.MessageContent,
     ],
