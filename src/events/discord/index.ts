@@ -6,7 +6,7 @@ import { isBot, isValidXPMessage } from '@/utils'
 import { deletePossibleUserInServerLeave } from './guild'
 import {
   reactMessagesInSuggestionChannel,
-  sendGoodMessagesInChatChannel,
+  sendGoodMessagesInBusyChannels,
   suppressEmbedMessagesInBusyChannels,
   reactMessagesInLearningDiaryChannel,
 } from './channel'
@@ -38,7 +38,7 @@ export const discordEvents = (client: He4rtClient) => {
     }
 
     suppressEmbedMessagesInBusyChannels(message)
-    sendGoodMessagesInChatChannel(message)
+    sendGoodMessagesInBusyChannels(message)
     reactMessagesInSuggestionChannel(message)
     reactMessagesInLearningDiaryChannel(message)
   })

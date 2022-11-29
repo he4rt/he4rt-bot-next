@@ -24,8 +24,10 @@ export const suppressEmbedMessagesInBusyChannels = async (message: Message) => {
   }
 }
 
-export const sendGoodMessagesInChatChannel = (message: Message) => {
-  if (CHAT_CHANNEL.id === message.channel.id) {
+export const sendGoodMessagesInBusyChannels = (message: Message) => {
+  const validChannels = [CHAT_CHANNEL, MEETING_CHANNEL, MEETING_DELAS_CHANNEL]
+
+  if (validChannels.some((v) => v.id === message.channel.id)) {
     const content = message.content.toLowerCase().trim()
 
     if (content.length > 50) return
