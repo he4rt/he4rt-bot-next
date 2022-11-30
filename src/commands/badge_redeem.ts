@@ -1,10 +1,10 @@
 import { GuildMember, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@/types'
 import { BADGE_SET } from '@/defines/commands.json'
-import { CODE_OPTION, REPLY_SUCCESS, REPLY_ERROR } from '-/commands/badge.json'
+import { CODE_OPTION, REPLY_SUCCESS, REPLY_ERROR } from '-/commands/badge_redeem.json'
 import { getOption, getTargetMember } from '@/utils'
 
-export const useBadge = (): Command => {
+export const useBadgeRedeem = (): Command => {
   const data = new SlashCommandBuilder()
     .setName(BADGE_SET.TITLE)
     .setDescription(BADGE_SET.DESCRIPTION)
