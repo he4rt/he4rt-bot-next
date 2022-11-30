@@ -78,6 +78,13 @@ Caso deseje contribuir ao projeto, leia o [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT
             <sub style="font-size:14px"><b>Gustavo</b></sub>
         </a>
     </td>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/fernanduandrade>
+            <img src=https://avatars.githubusercontent.com/u/58053397?v=4 width="100;"  alt=Fernando Andrade/>
+            <br />
+            <sub style="font-size:14px"><b>Fernando Andrade</b></sub>
+        </a>
+    </td>
 </tr>
 </table>
 
