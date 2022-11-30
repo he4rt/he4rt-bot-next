@@ -25,10 +25,12 @@ He4rt Discord Bot
 - `/limpar` (ADM|MOD)
 - `/cor` (PRIVILEGIADOS)
 - `/reputacao` (DESATIVADO)
+- `/logikoz` (ESPECIAL)
 - `/apoiase`
 - `/bonus`
 - `/apresentar`
 - `/perfil`
+- `/perfil-editar`
 - `/perguntar`
 - `/ranqueamento`
 - `/distintivo`
