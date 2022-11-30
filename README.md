@@ -40,7 +40,7 @@ He4rt Discord Bot
 
 - `JS` -> `TS 100% Type-Safe`;
 - `discord.js v9` -> `discord.js v14`;
-- Fluxo de código [Orientado a Dados (OOD)](https://en.wikipedia.org/wiki/Object-oriented_design);
+- Fluxo de código [Orientado a Dados (OOD)](https://en.wikipedia.org/wiki/Data-oriented_design);
 - _Purge_ completo de bibliotecas desnecessárias/depreciadas;
 - Implementação de _Logger_ para o registro de todas as ações;
 - Implementação de _Jobs_ para eventos temporizados;
