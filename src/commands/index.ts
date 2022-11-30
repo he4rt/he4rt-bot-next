@@ -20,6 +20,7 @@ import { getTargetMember } from '@/utils'
 import { useBadge } from './bagde'
 import { useBadgeCreate } from './bagde_create'
 import { useProfilePut } from './profile_put'
+import { useLogikoz } from './special/logikoz'
 
 const registerHooks = (client: He4rtClient, commands: Command[]) => {
   commands.forEach(([data, cb]) => {
@@ -48,6 +49,7 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useAsk(),
     useBadge(),
     useBadgeCreate(),
+    useLogikoz(),
     // useReputation()
   ])
 

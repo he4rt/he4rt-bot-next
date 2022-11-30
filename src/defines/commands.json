@@ -82,5 +82,9 @@
   "BADGE_SET": {
     "TITLE": "distintivo",
     "DESCRIPTION": "Pegue um distintivo de um evento que você participou?"
+  },
+  "SPECIAL_LOGIKOZ": {
+    "TITLE": "logikoz",
+    "DESCRIPTION": "ESPECIAL: Qual a melhor linguagem?"
   }
 }
