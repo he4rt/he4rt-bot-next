@@ -33,7 +33,11 @@
   },
   "PROFILE": {
     "TITLE": "perfil",
-    "DESCRIPTION": "Veja seus dados."
+    "DESCRIPTION": "Veja seu perfil."
+  },
+  "PROFILE_PUT": {
+    "TITLE": "perfil-editar",
+    "DESCRIPTION": "Edite seus dados."
   },
   "CHAT": {
     "TITLE": "chat",
@@ -78,5 +82,9 @@
   "BADGE_SET": {
     "TITLE": "distintivo",
     "DESCRIPTION": "Pegue um distintivo de um evento que você participou?"
+  },
+  "SPECIAL_LOGIKOZ": {
+    "TITLE": "logikoz",
+    "DESCRIPTION": "ESPECIAL: Qual a melhor linguagem?"
   }
 }

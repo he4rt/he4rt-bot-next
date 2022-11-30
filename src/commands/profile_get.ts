@@ -13,7 +13,7 @@ import {
   validDisplayEngRoles,
 } from '@/utils'
 
-export const useProfile = (): Command => {
+export const useProfileGet = (): Command => {
   const data = new SlashCommandBuilder()
     .setName(PROFILE.TITLE)
     .setDescription(PROFILE.DESCRIPTION)

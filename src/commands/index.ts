@@ -5,7 +5,7 @@ import { useBan } from './ban'
 import { useColor } from './color'
 import { useDaily } from './daily'
 import { useIntroduction } from './introduction'
-import { useProfile } from './profile'
+import { useProfileGet } from './profile_get'
 import { useRanking } from './ranking'
 import { useUnban } from './unban'
 import { useChat } from './chat'
@@ -17,8 +17,10 @@ import { useApoiase } from './apoiase'
 import { useVersion } from './version'
 import { useAsk } from './ask'
 import { getTargetMember } from '@/utils'
-import { useBadge } from './bagde'
-import { useBadgeCreate } from './bagde_create'
+import { useBadgePost } from './badge_post'
+import { useProfilePut } from './profile_put'
+import { useLogikoz } from './special/logikoz'
+import { useBadgeRedeem } from './badge_redeem'
 
 const registerHooks = (client: He4rtClient, commands: Command[]) => {
   commands.forEach(([data, cb]) => {
@@ -35,7 +37,8 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useUnban(),
     useRanking(),
     useDaily(),
-    useProfile(),
+    useProfileGet(),
+    useProfilePut(),
     useChat(),
     useTimeout(),
     useSay(),
@@ -44,8 +47,9 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useApoiase(),
     useVersion(),
     useAsk(),
-    useBadge(),
-    useBadgeCreate(),
+    useBadgePost(),
+    useBadgeRedeem(),
+    useLogikoz(),
     // useReputation()
   ])
 
