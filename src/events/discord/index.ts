@@ -10,7 +10,7 @@ import {
   suppressEmbedMessagesInBusyChannels,
   reactMessagesInLearningDiaryChannel,
 } from './channel'
-import { removeCustomColorOfUnderprivilegedMembers } from './role'
+import { setMemberIsADonatorOrNot } from './role'
 import { removeUserMuteInLeavePomodoro } from './voice'
 import { emitDefaultDiscordError, emitWebhookUpdate } from './logger'
 
@@ -24,7 +24,7 @@ export const discordEvents = (client: He4rtClient) => {
   client.on(Events.GuildMemberUpdate, (oldMember, newMember) => {
     if (isBot(oldMember.user) || isBot(newMember.user) || !oldMember) return
 
-    removeCustomColorOfUnderprivilegedMembers(client, oldMember as GuildMember, newMember)
+    setMemberIsADonatorOrNot(client, oldMember as GuildMember, newMember)
   })
 
   client.on(Events.VoiceStateUpdate, (oldVoice, newVoice) => {

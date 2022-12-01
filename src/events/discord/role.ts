@@ -1,44 +1,54 @@
 import { He4rtClient, UserPUT } from '@/types'
 import { getCustomColorRole, getGuild, getTargetMember, isPrivilegedMember } from '@/utils'
-import { GuildMember } from 'discord.js'
+import { GuildMember, Role } from 'discord.js'
 
-export const removeCustomColorOfUnderprivilegedMembers = async (
-  client: He4rtClient,
-  oldMember: GuildMember,
-  newMember: GuildMember
-) => {
+export const setMemberIsADonatorOrNot = async (client: He4rtClient, oldMember: GuildMember, newMember: GuildMember) => {
   const guild = getGuild(client)
-  const role = getCustomColorRole(oldMember)
 
   const old = isPrivilegedMember(oldMember)
   const active = isPrivilegedMember(newMember)
 
-  if (!role) return
-
-  if (old && !active) {
+  const deleteCustomTag = (role: Role) => {
     newMember.roles
       .remove(role)
       .then(() => {
-        guild.roles
-          .delete(role)
-          .then(() => {
-            client.api.he4rt
-              .users(oldMember.id)
-              .put<UserPUT>({
-                is_donator: 0,
-              })
-              .then(() => {
-                client.logger.emit({
-                  message: `${getTargetMember(
-                    oldMember
-                  )} teve o seu **cargo customizado removido** por ter perdido o privilégio!`,
-                  type: 'role',
-                  color: 'info',
-                })
-              })
-              .catch(() => {})
-          })
-          .catch(() => {})
+        guild.roles.delete(role).catch(() => {})
+      })
+      .catch(() => {})
+  }
+
+  if (old && !active) {
+    client.api.he4rt
+      .users(oldMember.id)
+      .put<UserPUT>({
+        is_donator: 0,
+      })
+      .then(() => {
+        client.logger.emit({
+          message: `${getTargetMember(oldMember)} perdeu seus privilégios!`,
+          type: 'role',
+          color: 'warning',
+        })
+
+        const role = getCustomColorRole(oldMember)
+
+        if (role) deleteCustomTag(role)
+      })
+      .catch(() => {})
+  }
+
+  if (!old && active) {
+    client.api.he4rt
+      .users(newMember.id)
+      .put<UserPUT>({
+        is_donator: 1,
+      })
+      .then(() => {
+        client.logger.emit({
+          message: `${getTargetMember(newMember)} ganhou privilégios!`,
+          type: 'role',
+          color: 'success',
+        })
       })
       .catch(() => {})
   }
