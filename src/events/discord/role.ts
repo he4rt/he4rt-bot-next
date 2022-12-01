@@ -26,7 +26,7 @@ export const setMemberIsADonatorOrNot = async (client: He4rtClient, oldMember: G
       .then(() => {
         client.logger.emit({
           message: `${getTargetMember(oldMember)} perdeu seus privilégios!`,
-          type: 'role',
+          type: 'http',
           color: 'warning',
         })
 
@@ -46,7 +46,7 @@ export const setMemberIsADonatorOrNot = async (client: He4rtClient, oldMember: G
       .then(() => {
         client.logger.emit({
           message: `${getTargetMember(newMember)} ganhou privilégios!`,
-          type: 'role',
+          type: 'http',
           color: 'success',
         })
       })
