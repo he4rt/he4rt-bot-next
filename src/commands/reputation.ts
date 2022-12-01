@@ -28,8 +28,7 @@ export const useReputation = (): Command => {
         .reputation.post({
           receive_id: target.id,
         })
-        .then(async (a) => {
-          console.log(a)
+        .then(async () => {
           await reply(interaction).success()
         })
         .catch(async () => {
