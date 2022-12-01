@@ -22,7 +22,7 @@ export const useProfilePut = (): Command => {
 
       const name = interaction.options.get('nome')
       const nickname = interaction.options.get('nick')
-      const about = interaction.options.get('about')
+      const about = interaction.options.get('sobre')
       const git = interaction.options.get('git')
       const linkedin = interaction.options.get('linkedin')
 
