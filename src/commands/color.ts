@@ -62,7 +62,12 @@ export const useColor = (): Command => {
           .then(async (role) => {
             await member.roles.add(role)
 
-            await interaction.reply({ content, ephemeral: false })
+            await interaction.channel.send({ content })
+
+            await reply(interaction).success()
+          })
+          .catch(async () => {
+            await reply(interaction).error()
           })
 
         return
@@ -71,7 +76,9 @@ export const useColor = (): Command => {
       await colorRole.setColor(color)
       await colorRole.setPosition(priority)
 
-      await interaction.reply({ content, ephemeral: false })
+      await interaction.channel.send({ content })
+
+      await reply(interaction).success()
     },
   ]
 }
