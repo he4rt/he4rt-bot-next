@@ -30,34 +30,33 @@ export const verifyApoiaseMembers = async (client: He4rtClient) => {
               client.api.apoiase.backers
                 .charges(email)
                 .get<ApoiaseGET>()
-                .then(({ isBacker, isPaidThisMonth, thisMonthPaidValue }) => {
+                .then(async ({ isBacker, isPaidThisMonth, thisMonthPaidValue }) => {
                   if (
                     isBacker &&
                     isPaidThisMonth &&
                     thisMonthPaidValue &&
                     thisMonthPaidValue >= APOIASE_CUSTOM_COLOR_MINIMAL_VALUE
                   ) {
+                    client.logger.emit({
+                      type: 'apoiase',
+                      color: 'success',
+                      message: `${getTargetMember(
+                        member
+                      )} teve o seu **apoio renovado** com o email **${email}** no valor de **${thisMonthPaidValue}** reais mensais!`,
+                      user: member.user,
+                    })
+
                     return
                   }
 
-                  client.api.he4rt
-                    .users(member.id)
-                    .put<UserPUT>({
-                      is_donator: 0,
-                    })
-                    .then(async () => {
-                      await member.roles.remove(DONATOR_ROLE.id).catch(() => {})
+                  await member.roles.remove(DONATOR_ROLE.id).catch(() => {})
 
-                      client.logger.emit({
-                        type: 'apoiase',
-                        color: 'warning',
-                        message: `${getTargetMember(
-                          member
-                        )} teve o seu **apoio removido** por não atender aos requisitos!`,
-                        user: member.user,
-                      })
-                    })
-                    .catch(() => {})
+                  client.logger.emit({
+                    type: 'apoiase',
+                    color: 'warning',
+                    message: `${getTargetMember(member)} teve o seu **apoio removido** por não atender aos requisitos!`,
+                    user: member.user,
+                  })
                 })
                 .catch(() => {})
             })
