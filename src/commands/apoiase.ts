@@ -80,7 +80,16 @@ export const useApoiase = (): Command => {
 
                 await message.react('💜').catch(() => {})
               })
-              .catch(() => {})
+              .catch(() => {
+                client.logger.emit({
+                  type: 'apoiase',
+                  color: 'error',
+                  message: `${getTargetMember(
+                    member
+                  )} com o email **${email}** não conseguiu vincular sua conta do discord com o apoia.se!`,
+                  user: member.user,
+                })
+              })
 
             return
           }
