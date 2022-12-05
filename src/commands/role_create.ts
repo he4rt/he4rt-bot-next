@@ -12,7 +12,7 @@ export const useRoleCreate = (): Command => {
     .setDMPermission(false)
     .addStringOption((option) => option.setName('nome').setDescription(NAME_OPTION).setRequired(true))
     .addStringOption((option) => option.setName('hex').setDescription(HEX_OPTION).setRequired(true))
-    .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
 
   return [
     data,

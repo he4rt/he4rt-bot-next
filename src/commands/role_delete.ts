@@ -10,7 +10,7 @@ export const useRoleDelete = (): Command => {
     .setDescription(ROLE_DELETE.DESCRIPTION)
     .setDMPermission(false)
     .addRoleOption((option) => option.setName('cargo').setDescription(ROLE_OPTION).setRequired(true))
-    .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
 
   return [
     data,
