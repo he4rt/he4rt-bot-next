@@ -17,6 +17,8 @@ He4rt Discord Bot
 - `/anunciar` (ADM)
 - `/falar` (ADM)
 - `/distintivo-criar` (ADM)
+- `/cargo-criar` (ADM)
+- `/cargo-deletar` (ADM)
 - `/versao` (ADM)
 - `/banir` (ADM|MOD)
 - `/desbanir` (ADM|MOD)
