@@ -86,5 +86,13 @@
   "SPECIAL_LOGIKOZ": {
     "TITLE": "logikoz",
     "DESCRIPTION": "ESPECIAL: Qual a melhor linguagem?"
+  },
+  "ROLE_DELETE": {
+    "TITLE": "cargo-deletar",
+    "DESCRIPTION": "ADM: Deletar um cargo específico."
+  },
+  "ROLE_CREATE": {
+    "TITLE": "cargo-criar",
+    "DESCRIPTION": "ADM: Criar um cargo específico."
   }
 }
