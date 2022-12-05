@@ -9,6 +9,7 @@ import {
   sendGoodMessagesInBusyChannels,
   suppressEmbedMessagesInBusyChannels,
   reactMessagesInLearningDiaryChannel,
+  reactAnnouncesInAdvertsChannel,
 } from './channel'
 import { setMemberIsADonatorOrNot } from './role'
 import { removeUserMuteInLeavePomodoro } from './voice'
@@ -32,6 +33,8 @@ export const discordEvents = (client: He4rtClient) => {
   })
 
   client.on(Events.MessageCreate, (message) => {
+    reactAnnouncesInAdvertsChannel(message)
+
     if (isBot(message.author)) return
 
     if (isValidXPMessage(message)) {

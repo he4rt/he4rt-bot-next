@@ -5,6 +5,7 @@ import {
   MEETING_CHANNEL,
   MEETING_DELAS_CHANNEL,
   LEARNING_DIARY_CHANNEL,
+  ADVERTS_CHANNEL,
 } from '@/defines/ids.json'
 import { isAdministrator, isImageHTTPUrl, isValidProxyContent } from '@/utils'
 
@@ -53,6 +54,13 @@ export const reactMessagesInSuggestionChannel = async (message: Message) => {
 
 export const reactMessagesInLearningDiaryChannel = async (message: Message) => {
   if (LEARNING_DIARY_CHANNEL.id === message.channel.id) {
+    await message.react('💜')
+  }
+}
+
+export const reactAnnouncesInAdvertsChannel = async (message: Message) => {
+  if (ADVERTS_CHANNEL.id === message.channel.id) {
+    await message.react('🔥')
     await message.react('💜')
   }
 }
