@@ -74,7 +74,6 @@ export const useColor = (): Command => {
       }
 
       await colorRole.setColor(color)
-      await colorRole.setPosition(priority)
 
       await interaction.channel.send({ content })
 
