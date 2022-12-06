@@ -2,7 +2,7 @@ import { PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@/types'
 import { ROLE_DELETE } from '@/defines/commands.json'
 import { ROLE_OPTION } from '-/commands/role_delete.json'
-import { getGuild, reply } from '@/utils'
+import { reply } from '@/utils'
 
 export const useRoleDelete = (): Command => {
   const data = new SlashCommandBuilder()
@@ -17,9 +17,7 @@ export const useRoleDelete = (): Command => {
     async (interaction, client) => {
       const role = interaction.options.get('cargo')
 
-      const guild = getGuild(client)
-
-      guild.roles
+      interaction.guild.roles
         .delete(role.value as string)
         .then(async () => {
           client.logger.emit({

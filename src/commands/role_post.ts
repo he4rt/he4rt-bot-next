@@ -1,11 +1,11 @@
 import { HexColorString, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@/types'
 import { ROLE_CREATE } from '@/defines/commands.json'
-import { getGuild, isHex, reply } from '@/utils'
+import { isHex, reply } from '@/utils'
 import { HEX_OPTION, NAME_OPTION } from '-/commands/role_create.json'
 import { HEX_ERROR, HEX_ERROR_IN_SPECIFIC_COLOR } from '-/commands/color.json'
 
-export const useRoleCreate = (): Command => {
+export const useRolePost = (): Command => {
   const data = new SlashCommandBuilder()
     .setName(ROLE_CREATE.TITLE)
     .setDescription(ROLE_CREATE.DESCRIPTION)
@@ -17,8 +17,6 @@ export const useRoleCreate = (): Command => {
   return [
     data,
     async (interaction, client) => {
-      const guild = getGuild(client)
-
       const name = interaction.options.get('nome')
       const color = interaction.options.get('hex')
 
@@ -34,7 +32,7 @@ export const useRoleCreate = (): Command => {
         return
       }
 
-      guild.roles
+      interaction.guild.roles
         .create({
           name: name.value as string,
           color: color.value as HexColorString,

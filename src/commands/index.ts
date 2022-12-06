@@ -21,7 +21,7 @@ import { useBadgePost } from './badge_post'
 import { useProfilePut } from './profile_put'
 import { useLogikoz } from './special/logikoz'
 import { useBadgeRedeem } from './badge_redeem'
-import { useRoleCreate } from './role_create'
+import { useRolePost } from './role_post'
 import { useRoleDelete } from './role_delete'
 
 const registerHooks = (client: He4rtClient, commands: Command[]) => {
@@ -52,7 +52,7 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useBadgePost(),
     useBadgeRedeem(),
     useLogikoz(),
-    useRoleCreate(),
+    useRolePost(),
     useRoleDelete(),
     // useReputation()
   ])
