@@ -3,7 +3,7 @@ import { commandsListener } from '@/commands'
 import { He4rtClient } from '@/types'
 import { XPListener } from './gamification'
 import { isBot, isValidXPMessage } from '@/utils'
-import { deletePossibleUserInServerLeave } from './guild'
+import { createUserInServerEnter, deletePossibleUserInServerLeave } from './guild'
 import {
   reactMessagesInSuggestionChannel,
   sendGoodMessagesInBusyChannels,
@@ -16,6 +16,12 @@ import { removeUserMuteInLeavePomodoro } from './voice'
 import { emitDefaultDiscordError, emitWebhookUpdate } from './logger'
 
 export const discordEvents = (client: He4rtClient) => {
+  client.on(Events.GuildMemberAdd, (member) => {
+    if (isBot(member.user)) return
+
+    createUserInServerEnter(client, member)
+  })
+
   client.on(Events.GuildMemberRemove, (member) => {
     if (isBot(member.user)) return
 

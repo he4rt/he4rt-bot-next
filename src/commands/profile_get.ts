@@ -1,5 +1,5 @@
 import { GuildMember, HexColorString, SlashCommandBuilder } from 'discord.js'
-import { Command, UserGET } from '@/types'
+import { Command, IntroducePOST, UserGET } from '@/types'
 import { PROFILE } from '@/defines/commands.json'
 import { COLORS } from '@/defines/values.json'
 import EMBED from '-/commands/profile.json'
@@ -91,6 +91,14 @@ export const useProfileGet = (): Command => {
           })
         })
         .catch(async () => {
+          // account error edge case
+          client.api.he4rt
+            .users()
+            .post<IntroducePOST>({
+              discord_id: target.id,
+            })
+            .catch(() => {})
+
           await reply(interaction).error()
         })
     },
