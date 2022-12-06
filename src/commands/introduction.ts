@@ -14,7 +14,6 @@ import { TIMEOUT_COMMAND, TIMEOUT_COMMAND_STRING } from '@/defines/values.json'
 import {
   getChannel,
   getTargetMember,
-  isPresentedMember,
   isPresentingMember,
   isValidId,
   reply,
@@ -173,15 +172,6 @@ export const useIntroduction = (): Command => {
     async (interaction, client) => {
       const author = interaction.user
       const member = interaction.member as GuildMember
-
-      if (isPresentedMember(member)) {
-        await interaction.reply({
-          content: INTRODUCTION.IS_PRESENTED_ERROR,
-          ephemeral: true,
-        })
-
-        return
-      }
 
       if (isPresentingMember(member)) {
         await reply(interaction).errorPresentingFail()
