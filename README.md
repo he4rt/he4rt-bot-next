@@ -28,6 +28,7 @@ He4rt Discord Bot
 - `/cor` (PRIVILEGIADOS)
 - `/reputacao` (DESATIVADO)
 - `/logikoz` (ESPECIAL)
+- `/avaliar`
 - `/apoiase`
 - `/bonus`
 - `/apresentar`
@@ -37,6 +38,7 @@ He4rt Discord Bot
 - `/ranqueamento`
 - `/distintivo`
 - `/codigo`
+- `/forum-fechar`
 
 ## Differences to [v1](https://github.com/he4rt/He4rt-Bot)
 
@@ -54,7 +56,6 @@ He4rt Discord Bot
 - Lista de comandos integrada com o `/` do próprio discord;
 - Agora os comandos usam a implementação de argumentos do `discord.js`;
 - `Nitro Boosters` agora possuem acesso ao canal de apoiadores e seus benefícios (/cor, por exemplo), deixando a role `Apoiadores` somente para os membros apoiadores;
-- Os usuários agora só são salvos na nuvem caso concluem o `/apresentar`, diferente de antes que o usuário precisava apenas entrar no servidor;
 - `/apresentar` somente por texto, descartando as reações;
 - `/apresentar` com recursos adicionais para o `He4rt Delas`;
 - Todas as definições estão na pasta `src/defines` ao invés de usar o `.env`;
