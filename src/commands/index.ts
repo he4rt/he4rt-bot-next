@@ -23,6 +23,7 @@ import { useLogikoz } from './special/logikoz'
 import { useBadgeRedeem } from './badge_redeem'
 import { useRolePost } from './role_post'
 import { useRoleDelete } from './role_delete'
+import { useForumClose } from './forum_close'
 import { resolveJudgeCommandButtonEvents, useJudge } from './judge'
 import { JUDGE } from '@/defines/commands.json'
 
@@ -57,6 +58,7 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useRolePost(),
     useRoleDelete(),
     useJudge(),
+    useForumClose(),
     // useReputation()
   ])
 

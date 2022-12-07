@@ -98,5 +98,9 @@
   "JUDGE": {
     "TITLE": "avaliar",
     "DESCRIPTION": "Feedback a um usuário."
+  },
+  "CLOSE_FORUM": {
+    "TITLE": "forum-fechar",
+    "DESCRIPTION": "(ADM|MOD): Fechar um fórum em específico."
   }
 }
