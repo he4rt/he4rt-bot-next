@@ -10,6 +10,7 @@ import { Command, He4rtClient } from '@/types'
 import { JUDGE } from '@/defines/commands.json'
 import { MEMBER_OPTION, TYPE_OPTION, REASON_OPTION } from '-/commands/judge.json'
 import { CALLED_CHANNEL } from '@/defines/ids.json'
+import { CLIENT_NAME } from '@/defines/values.json'
 import { embedTemplate, getChannel, getTargetMember, reply } from '@/utils'
 
 export const useJudge = (): Command => {
@@ -85,7 +86,10 @@ export const resolveJudgeCommandButtonEvents = async (client: He4rtClient, inter
             description,
           })
 
-          dm.send({ content: '****', embeds: [embed] })
+          dm.send({
+            content: `**Você recebeu um ticket de um usuário pertencente ao servidor **${CLIENT_NAME}!**`,
+            embeds: [embed],
+          })
             .then(async () => {
               client.logger.emit({
                 type: 'ticket',
@@ -132,6 +136,10 @@ export const resolveJudgeCommandButtonEvents = async (client: He4rtClient, inter
           30
         )}** foi recusado por ${getTargetMember(interaction.member as GuildMember)}!`,
       })
+
+      await interaction.message.delete().catch(() => {})
+
+      await reply(interaction).success()
     }
   }
 }

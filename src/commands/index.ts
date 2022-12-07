@@ -74,15 +74,17 @@ export const commandsListener = (client: He4rtClient, interaction: CommandIntera
     if (key.name === interaction.commandName) {
       cb && cb(interaction, client)
 
-      if (key.name === JUDGE.TITLE) return
+      const ignore = [JUDGE].map((m) => m.TITLE)
 
-      client.logger.emit({
-        message: `${getTargetMember(interaction.member as GuildMember)} acionou **/${key.name}** no canal **${
-          interaction.channel.name
-        }**`,
-        type: 'command',
-        color: 'info',
-      })
+      if (!ignore.some((title) => title === key.name)) {
+        client.logger.emit({
+          message: `${getTargetMember(interaction.member as GuildMember)} acionou **/${key.name}** no canal **${
+            interaction.channel.name
+          }**`,
+          type: 'command',
+          color: 'info',
+        })
+      }
     }
   }
 }
