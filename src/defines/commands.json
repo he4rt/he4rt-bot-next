@@ -94,5 +94,9 @@
   "ROLE_CREATE": {
     "TITLE": "cargo-criar",
     "DESCRIPTION": "ADM: Criar um cargo específico."
+  },
+  "JUDGE": {
+    "TITLE": "avaliar",
+    "DESCRIPTION": "Feedback a um usuário."
   }
 }

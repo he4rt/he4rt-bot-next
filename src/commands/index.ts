@@ -1,4 +1,4 @@
-import { CommandInteraction, GuildMember, Routes } from 'discord.js'
+import { ButtonInteraction, CommandInteraction, GuildMember, Routes } from 'discord.js'
 import { Command, Context, He4rtClient } from '@/types'
 import { useAnnounce } from './announce'
 import { useBan } from './ban'
@@ -23,6 +23,8 @@ import { useLogikoz } from './special/logikoz'
 import { useBadgeRedeem } from './badge_redeem'
 import { useRolePost } from './role_post'
 import { useRoleDelete } from './role_delete'
+import { resolveJudgeCommandButtonEvents, useJudge } from './judge'
+import { JUDGE } from '@/defines/commands.json'
 
 const registerHooks = (client: He4rtClient, commands: Command[]) => {
   commands.forEach(([data, cb]) => {
@@ -54,6 +56,7 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useLogikoz(),
     useRolePost(),
     useRoleDelete(),
+    useJudge(),
     // useReputation()
   ])
 
@@ -67,6 +70,8 @@ export const commandsListener = (client: He4rtClient, interaction: CommandIntera
     if (key.name === interaction.commandName) {
       cb && cb(interaction, client)
 
+      if (key.name === JUDGE.TITLE) return
+
       client.logger.emit({
         message: `${getTargetMember(interaction.member as GuildMember)} acionou **/${key.name}** no canal **${
           interaction.channel.name
@@ -76,4 +81,8 @@ export const commandsListener = (client: He4rtClient, interaction: CommandIntera
       })
     }
   }
+}
+
+export const buttonListener = async (client: He4rtClient, interaction: ButtonInteraction) => {
+  await resolveJudgeCommandButtonEvents(client, interaction)
 }

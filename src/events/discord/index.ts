@@ -1,5 +1,5 @@
 import { Events, GuildMember } from 'discord.js'
-import { commandsListener } from '@/commands'
+import { buttonListener, commandsListener } from '@/commands'
 import { He4rtClient } from '@/types'
 import { XPListener } from './gamification'
 import { isBot, isValidXPMessage } from '@/utils'
@@ -55,6 +55,7 @@ export const discordEvents = (client: He4rtClient) => {
 
   client.on(Events.InteractionCreate, (interaction) => {
     if (interaction.isChatInputCommand()) commandsListener(client, interaction)
+    if (interaction.isButton()) buttonListener(client, interaction)
   })
 
   client.on(Events.Error, (error) => {

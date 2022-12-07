@@ -1,4 +1,5 @@
 import {
+  ButtonInteraction,
   CommandInteraction,
   CommandInteractionOption,
   DMChannel,
@@ -175,7 +176,7 @@ export const replaceDefineString = (str: string, target: string) => {
   return str.replaceAll(DEFINE_STRING_REPLACED, target)
 }
 
-export const sendInDM = async (dm: DMChannel, interaction: CommandInteraction, str: string) => {
+export const sendInDM = async (dm: DMChannel, interaction: CommandInteraction | ButtonInteraction, str: string) => {
   await dm.send(str).catch(async () => {
     await reply(interaction).errorInAccessDM()
 
@@ -185,7 +186,7 @@ export const sendInDM = async (dm: DMChannel, interaction: CommandInteraction, s
   return true
 }
 
-export const reply = (interaction: CommandInteraction) => {
+export const reply = (interaction: CommandInteraction | ButtonInteraction) => {
   const success = async () => {
     await interaction.reply({ content: SUCCESS_COMMAND_DEFAULT, ephemeral: true }).catch(() => {})
   }
