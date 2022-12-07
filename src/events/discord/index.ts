@@ -12,7 +12,7 @@ import {
   reactAnnouncesInAdvertsChannel,
 } from './channel'
 import { setMemberIsADonatorOrNot } from './role'
-import { removeUserMuteInLeavePomodoro } from './voice'
+import { weeklyMeetingVoiceController, removeUserMuteInLeavePomodoro } from './voice'
 import { emitDefaultDiscordError, emitWebhookUpdate } from './logger'
 
 export const discordEvents = (client: He4rtClient) => {
@@ -35,6 +35,7 @@ export const discordEvents = (client: He4rtClient) => {
   })
 
   client.on(Events.VoiceStateUpdate, (oldVoice, newVoice) => {
+    weeklyMeetingVoiceController(oldVoice, newVoice)
     removeUserMuteInLeavePomodoro(oldVoice, newVoice)
   })
 
