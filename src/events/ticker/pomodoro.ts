@@ -14,7 +14,7 @@ import {
 } from '-/events/pomodoro.json'
 import { VoiceChannel } from 'discord.js'
 
-export const setPomodoroListener = async (client: He4rtClient) => {
+export const setPomodoro = async (client: He4rtClient) => {
   const guild = getGuild(client)
 
   const channel = (await guild.channels.fetch(POMODORO_CHANNEL.id)) as VoiceChannel
@@ -47,7 +47,7 @@ export const setPomodoroListener = async (client: He4rtClient) => {
     channel.permissionOverwrites
       .edit(guild.id, { Speak: speak })
       .then(async () => {
-        await channel.setName(`${speak ? '🟢 Coworking' : '🔴 Coworking'} | ${js().getTime()}`).catch(() => {})
+        await channel.setName(`${speak ? '🟢' : '🔴'} Pomodoro | ${js().getTime()}`).catch(() => {})
 
         for (const [_, member] of channel.members) {
           await member.voice.setMute(!speak).catch(() => {})
