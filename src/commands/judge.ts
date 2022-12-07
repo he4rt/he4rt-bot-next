@@ -24,11 +24,7 @@ export const useJudge = (): Command => {
         .setName('tipo')
         .setDescription(TYPE_OPTION)
         .setRequired(true)
-        .addChoices(
-          { name: '✅ Elogio', value: 0 },
-          { name: '❕ Ponderação', value: 1 },
-          { name: '❌ Crítica', value: 2 }
-        )
+        .addChoices({ name: '✅ Elogio', value: 0 }, { name: '❌ Crítica', value: 1 })
     )
     .addStringOption((option) => option.setName('motivo').setDescription(REASON_OPTION).setRequired(true))
 
@@ -42,8 +38,7 @@ export const useJudge = (): Command => {
       const getType = () => {
         return {
           0: '✅ Elogio',
-          1: '❕ Ponderação',
-          2: '❌ Crítica',
+          1: '❌ Crítica',
         }[value as number]
       }
 
