@@ -1,6 +1,7 @@
 import { GuildMember, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@/types'
 import { FORUM_CLOSE } from '@/defines/commands.json'
+import { CHANNEL_OPTION } from '-/commands/forum_close.json'
 import { getForumChannel, getTargetMember, reply } from '@/utils'
 
 export const useForumClose = (): Command => {
@@ -8,7 +9,7 @@ export const useForumClose = (): Command => {
     .setName(FORUM_CLOSE.TITLE)
     .setDescription(FORUM_CLOSE.DESCRIPTION)
     .setDMPermission(false)
-    .addChannelOption((option) => option.setName('canal').setDescription('teste').setRequired(true))
+    .addChannelOption((option) => option.setName('canal').setDescription(CHANNEL_OPTION).setRequired(true))
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageThreads)
 
   return [

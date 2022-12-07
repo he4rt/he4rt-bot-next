@@ -1,6 +1,7 @@
 import { GuildMember, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@/types'
 import { FORUM_OPEN } from '@/defines/commands.json'
+import { TITLE_OPTION, DESCRIPTION_OPTION } from '-/commands/forum_create.json'
 import { getForumChannel, getOption, getTargetMember, reply } from '@/utils'
 
 export const useForumCreate = (): Command => {
@@ -8,8 +9,8 @@ export const useForumCreate = (): Command => {
     .setName(FORUM_OPEN.TITLE)
     .setDescription(FORUM_OPEN.DESCRIPTION)
     .setDMPermission(false)
-    .addStringOption((option) => option.setName('titulo').setDescription('teste').setRequired(true))
-    .addStringOption((option) => option.setName('descricao').setDescription('teste').setRequired(true))
+    .addStringOption((option) => option.setName('titulo').setDescription(TITLE_OPTION).setRequired(true))
+    .addStringOption((option) => option.setName('descricao').setDescription(DESCRIPTION_OPTION).setRequired(true))
 
   return [
     data,
