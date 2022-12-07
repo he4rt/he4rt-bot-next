@@ -99,8 +99,12 @@
     "TITLE": "avaliar",
     "DESCRIPTION": "Feedback a um usuário."
   },
-  "CLOSE_FORUM": {
+  "FORUM_CLOSE": {
     "TITLE": "forum-fechar",
     "DESCRIPTION": "(ADM|MOD): Fechar um fórum em específico."
+  },
+  "FORUM_OPEN": {
+    "TITLE": "forum",
+    "DESCRIPTION": "Está com uma dúvida? Abra um fórum de ajuda específico e facilite os outros membros a te ajudarem!"
   }
 }

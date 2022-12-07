@@ -1,4 +1,5 @@
 import { ButtonInteraction, CommandInteraction, GuildMember, Routes } from 'discord.js'
+import { JUDGE } from '@/defines/commands.json'
 import { Command, Context, He4rtClient } from '@/types'
 import { useAnnounce } from './announce'
 import { useBan } from './ban'
@@ -23,9 +24,9 @@ import { useLogikoz } from './special/logikoz'
 import { useBadgeRedeem } from './badge_redeem'
 import { useRolePost } from './role_post'
 import { useRoleDelete } from './role_delete'
-import { useForumClose } from './forum_close'
 import { resolveJudgeCommandButtonEvents, useJudge } from './judge'
-import { JUDGE } from '@/defines/commands.json'
+import { useForumClose } from './forum_close'
+import { useForumCreate } from './forum_create'
 
 const registerHooks = (client: He4rtClient, commands: Command[]) => {
   commands.forEach(([data, cb]) => {
@@ -59,6 +60,7 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useRoleDelete(),
     useJudge(),
     useForumClose(),
+    useForumCreate(),
     // useReputation()
   ])
 

@@ -4,6 +4,7 @@ import {
   CommandInteractionOption,
   DMChannel,
   EmbedBuilder,
+  ForumChannel,
   Guild,
   GuildMember,
   HexColorString,
@@ -13,7 +14,7 @@ import {
   TextBasedChannel,
   User,
 } from 'discord.js'
-import { formatInTimeZone, zonedTimeToUtc } from 'date-fns-tz'
+import { formatInTimeZone } from 'date-fns-tz'
 import { CLIENT_NAME, CLIENT_TIMEZONE, COLORS, HE4RT_DELAS_ICON_1_URL, HE4RT_ICON_1_URL } from '@/defines/values.json'
 import {
   PRESENTING_ROLE,
@@ -23,6 +24,7 @@ import {
   HE4RT_DELAS_ROLE,
   VALID_PRESENTATION_DEV_ROLES,
   VALID_PRESENTATION_ENG_ROLES,
+  FORUM_CHANNEL,
 } from '@/defines/ids.json'
 import {
   SUCCESS_COMMAND_DEFAULT,
@@ -150,6 +152,10 @@ export const getGuild = ({ guilds }: He4rtClient): Guild => {
 
 export const getChannel = ({ client, id }: GetChannelOptions) => {
   return client.channels.cache.get(id) as TextBasedChannel
+}
+
+export const getForumChannel = async (client: He4rtClient) => {
+  return (await client.channels.fetch(FORUM_CHANNEL.id)) as ForumChannel
 }
 
 export const getOption: CommandGetOption = (interaction: CommandInteraction, target: string) => {
