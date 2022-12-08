@@ -38,6 +38,7 @@ He4rt Discord Bot
 - `/ranqueamento`
 - `/distintivo`
 - `/codigo`
+- `/forum`
 - `/forum-fechar`
 
 ## Differences to [v1](https://github.com/he4rt/He4rt-Bot)
