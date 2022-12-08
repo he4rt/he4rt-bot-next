@@ -47,7 +47,7 @@ export const setPomodoro = async (client: He4rtClient) => {
     channel.permissionOverwrites
       .edit(guild.id, { Speak: speak })
       .then(async () => {
-        await channel.setName(`${speak ? '🟢' : '🔴'} Pomodoro | ${js().getTime()}`).catch(() => {})
+        await channel.setName(`${speak ? '🟢' : '🔴'}︱Pomodoro » ${js().getTime()}`).catch(() => {})
 
         for (const [_, member] of channel.members) {
           await member.voice.setMute(!speak).catch(() => {})
