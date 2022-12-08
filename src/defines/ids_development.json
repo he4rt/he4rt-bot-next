@@ -131,5 +131,10 @@
     "id": "1042817315269509121",
     "name": "He4rt",
     "emoji": "💜"
+  },
+  "MODERATION_ROLE": {
+    "id": "1042817315248541756",
+    "name": "Equipe de Moderação",
+    "emoji": "👮"
   }
 }
