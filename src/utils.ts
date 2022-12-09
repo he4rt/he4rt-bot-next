@@ -1,8 +1,10 @@
 import {
+  ButtonInteraction,
   CommandInteraction,
   CommandInteractionOption,
   DMChannel,
   EmbedBuilder,
+  ForumChannel,
   Guild,
   GuildMember,
   HexColorString,
@@ -12,7 +14,7 @@ import {
   TextBasedChannel,
   User,
 } from 'discord.js'
-import { formatInTimeZone, zonedTimeToUtc } from 'date-fns-tz'
+import { formatInTimeZone } from 'date-fns-tz'
 import { CLIENT_NAME, CLIENT_TIMEZONE, COLORS, HE4RT_DELAS_ICON_1_URL, HE4RT_ICON_1_URL } from '@/defines/values.json'
 import {
   PRESENTING_ROLE,
@@ -22,6 +24,7 @@ import {
   HE4RT_DELAS_ROLE,
   VALID_PRESENTATION_DEV_ROLES,
   VALID_PRESENTATION_ENG_ROLES,
+  FORUM_CHANNEL,
 } from '@/defines/ids.json'
 import {
   SUCCESS_COMMAND_DEFAULT,
@@ -151,6 +154,10 @@ export const getChannel = ({ client, id }: GetChannelOptions) => {
   return client.channels.cache.get(id) as TextBasedChannel
 }
 
+export const getForumChannel = async (client: He4rtClient) => {
+  return (await client.channels.fetch(FORUM_CHANNEL.id)) as ForumChannel
+}
+
 export const getOption: CommandGetOption = (interaction: CommandInteraction, target: string) => {
   return interaction.options.get(target) as CommandInteractionOption
 }
@@ -175,7 +182,7 @@ export const replaceDefineString = (str: string, target: string) => {
   return str.replaceAll(DEFINE_STRING_REPLACED, target)
 }
 
-export const sendInDM = async (dm: DMChannel, interaction: CommandInteraction, str: string) => {
+export const sendInDM = async (dm: DMChannel, interaction: CommandInteraction | ButtonInteraction, str: string) => {
   await dm.send(str).catch(async () => {
     await reply(interaction).errorInAccessDM()
 
@@ -185,7 +192,7 @@ export const sendInDM = async (dm: DMChannel, interaction: CommandInteraction, s
   return true
 }
 
-export const reply = (interaction: CommandInteraction) => {
+export const reply = (interaction: CommandInteraction | ButtonInteraction) => {
   const success = async () => {
     await interaction.reply({ content: SUCCESS_COMMAND_DEFAULT, ephemeral: true }).catch(() => {})
   }

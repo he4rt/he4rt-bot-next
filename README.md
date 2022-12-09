@@ -17,6 +17,8 @@ He4rt Discord Bot
 - `/anunciar` (ADM)
 - `/falar` (ADM)
 - `/distintivo-criar` (ADM)
+- `/cargo-criar` (ADM)
+- `/cargo-deletar` (ADM)
 - `/versao` (ADM)
 - `/banir` (ADM|MOD)
 - `/desbanir` (ADM|MOD)
@@ -26,6 +28,7 @@ He4rt Discord Bot
 - `/cor` (PRIVILEGIADOS)
 - `/reputacao` (DESATIVADO)
 - `/logikoz` (ESPECIAL)
+- `/avaliar`
 - `/apoiase`
 - `/bonus`
 - `/apresentar`
@@ -35,24 +38,29 @@ He4rt Discord Bot
 - `/ranqueamento`
 - `/distintivo`
 - `/codigo`
+- `/forum`
+- `/forum-fechar`
 
 ## Differences to [v1](https://github.com/he4rt/He4rt-Bot)
 
 - `JS` -> `TS 100% Type-Safe`;
 - `discord.js v9` -> `discord.js v14`;
+- Versionamento com `git tags`;
+- Deploy automático;
 - Fluxo de código [Orientado a Dados (OOD)](https://en.wikipedia.org/wiki/Data-oriented_design);
 - _Purge_ completo de bibliotecas desnecessárias/depreciadas;
 - Implementação de _Logger_ para o registro de todas as ações;
 - Implementação de _Jobs_ para eventos temporizados;
 - Implementação de _Ticker_ para eventos sequenciais;
 - Integração com o [apoia.se](https://apoia.se/heartdevs);
+- _Gamificação_ com as interações do usuário no servidor;
 - Aplicação do [Pomodoro](https://pt.wikipedia.org/wiki/T%C3%A9cnica_pomodoro) no canal de voz _Coworking_;
 - Agora os comandos podem ser utilizados em qualquer canal (comandos privilegiados ainda dependem de condições de canal específico, como o /cor);
 - A grande maioria dos comandos retornam mensagens visíveis somente para o usuário com o intuito de não poluir os canais (e permitir a abordagem do item anterior);
 - Lista de comandos integrada com o `/` do próprio discord;
 - Agora os comandos usam a implementação de argumentos do `discord.js`;
 - `Nitro Boosters` agora possuem acesso ao canal de apoiadores e seus benefícios (/cor, por exemplo), deixando a role `Apoiadores` somente para os membros apoiadores;
-- Os usuários agora só são salvos na nuvem caso concluem o `/apresentar`, diferente de antes que o usuário precisava apenas entrar no servidor;
+- Controle de cargos, canais, palcos e forums;
 - `/apresentar` somente por texto, descartando as reações;
 - `/apresentar` com recursos adicionais para o `He4rt Delas`;
 - Todas as definições estão na pasta `src/defines` ao invés de usar o `.env`;
@@ -60,7 +68,7 @@ He4rt Discord Bot
 
 ## Development
 
-Caso deseje contribuir ao projeto, leia o [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) e o [CONTRIBUTING.md](./CONTRIBUTING.md)
+Caso deseje contribuir ao projeto, leia o [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) e o [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## Contributors
 

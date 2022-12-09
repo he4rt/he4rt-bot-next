@@ -49,6 +49,9 @@ export class Logger {
       case 'he4rt-api':
         embed.setTitle('He4rt API')
         break
+      case 'ticket':
+        embed.setTitle('Ticket')
+        break
     }
 
     embed.setDescription(`${options.message}`)

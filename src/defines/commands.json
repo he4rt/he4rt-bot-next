@@ -86,5 +86,25 @@
   "SPECIAL_LOGIKOZ": {
     "TITLE": "logikoz",
     "DESCRIPTION": "ESPECIAL: Qual a melhor linguagem?"
+  },
+  "ROLE_DELETE": {
+    "TITLE": "cargo-deletar",
+    "DESCRIPTION": "ADM: Deletar um cargo específico."
+  },
+  "ROLE_CREATE": {
+    "TITLE": "cargo-criar",
+    "DESCRIPTION": "ADM: Criar um cargo específico."
+  },
+  "JUDGE": {
+    "TITLE": "avaliar",
+    "DESCRIPTION": "Feedback a um usuário."
+  },
+  "FORUM_CLOSE": {
+    "TITLE": "forum-fechar",
+    "DESCRIPTION": "(ADM|MOD): Fechar um fórum em específico."
+  },
+  "FORUM_OPEN": {
+    "TITLE": "forum",
+    "DESCRIPTION": "Abra um fórum de ajuda específico e facilite os outros membros a te ajudarem."
   }
 }

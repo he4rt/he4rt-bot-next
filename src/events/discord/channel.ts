@@ -5,8 +5,9 @@ import {
   MEETING_CHANNEL,
   MEETING_DELAS_CHANNEL,
   LEARNING_DIARY_CHANNEL,
+  ADVERTS_CHANNEL,
 } from '@/defines/ids.json'
-import { isAdministrator, isImageHTTPUrl, isValidProxyContent } from '@/utils'
+import { isAdministrator, isImageHTTPUrl, isValidProxyContent, js } from '@/utils'
 
 export const suppressEmbedMessagesInBusyChannels = async (message: Message) => {
   const validChannels = [CHAT_CHANNEL, MEETING_CHANNEL, MEETING_DELAS_CHANNEL]
@@ -19,6 +20,8 @@ export const suppressEmbedMessagesInBusyChannels = async (message: Message) => {
       isImageHTTPUrl(message.content)
     )
       return
+
+    await js().sleep(1000)
 
     await message.suppressEmbeds(true).catch(() => {})
   }
@@ -53,6 +56,13 @@ export const reactMessagesInSuggestionChannel = async (message: Message) => {
 
 export const reactMessagesInLearningDiaryChannel = async (message: Message) => {
   if (LEARNING_DIARY_CHANNEL.id === message.channel.id) {
+    await message.react('💜')
+  }
+}
+
+export const reactAnnouncesInAdvertsChannel = async (message: Message) => {
+  if (ADVERTS_CHANNEL.id === message.channel.id) {
+    await message.react('🔥')
     await message.react('💜')
   }
 }
