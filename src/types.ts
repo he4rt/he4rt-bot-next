@@ -37,6 +37,7 @@ export type TickerItem = [TickerName, TickerCallback]
 export enum TickerName {
   Pomodoro = 'COWORKING_POMODORO',
   DiscordPresence = 'DISCORD_PRESENCE',
+  VoiceXP = 'VOICE_XP',
 }
 
 export type He4rtClient = Client<boolean> & {
