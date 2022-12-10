@@ -122,5 +122,9 @@
   "STAGE": {
     "TITLE": "palco",
     "DESCRIPTION": "Participe de uma reunião existente."
+  },
+  "DYNAMIC_VOICE": {
+    "TITLE": "sala",
+    "DESCRIPTION": "Crie um canal de voz temporário."
   }
 }

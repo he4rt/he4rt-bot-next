@@ -1,5 +1,6 @@
 import {
   ButtonInteraction,
+  CategoryChannel,
   CommandInteraction,
   CommandInteractionOption,
   DMChannel,
@@ -26,6 +27,7 @@ import {
   VALID_PRESENTATION_DEV_ROLES,
   VALID_PRESENTATION_ENG_ROLES,
   FORUM_CHANNEL,
+  DYNAMIC_CATEGORY_CHANNEL,
 } from '@/defines/ids.json'
 import {
   SUCCESS_COMMAND_DEFAULT,
@@ -161,6 +163,10 @@ export const getChannel = ({ client, id }: GetChannelOptions) => {
 
 export const getForumChannel = (client: He4rtClient) => {
   return client.channels.cache.get(FORUM_CHANNEL.id) as ForumChannel
+}
+
+export const getDynamicVoiceCategory = (client: He4rtClient) => {
+  return client.channels.cache.get(DYNAMIC_CATEGORY_CHANNEL.id) as CategoryChannel
 }
 
 export const getOption: CommandGetOption = (interaction: CommandInteraction, target: string) => {
