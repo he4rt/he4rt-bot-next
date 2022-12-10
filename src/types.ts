@@ -144,6 +144,22 @@ export interface ApoiaseGET extends RESTJson {
   thisMonthPaidValue?: number
 }
 
+export interface MeetingPATCH extends RESTJson {
+  id: number
+  content: string
+}
+
+export interface MeetingEndPOST extends RESTJson {
+  message: string
+}
+
+export interface MeetingPOST extends RESTJson {}
+
+export interface MeetingAttendPost extends RESTJson {
+  user_id: string
+  meeting_id: number
+}
+
 export interface RankingMember extends UserLevelXP {
   nickname?: string
   level: number

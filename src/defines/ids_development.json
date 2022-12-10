@@ -137,6 +137,11 @@
     "name": "Equipe de Moderação",
     "emoji": "👮"
   },
+  "ATA_ROLE": {
+    "id": "1021558149695680554",
+    "name": "Escrivão",
+    "emoji": "✍️"
+  },
   "SOLVED_TAG": {
     "id": "1020896504862494790",
     "name": "Resolvido"

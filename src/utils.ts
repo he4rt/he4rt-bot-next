@@ -22,6 +22,7 @@ import {
   DONATOR_ROLE,
   NITRO_BOOSTER_ROLE,
   HE4RT_DELAS_ROLE,
+  ATA_ROLE,
   VALID_PRESENTATION_DEV_ROLES,
   VALID_PRESENTATION_ENG_ROLES,
   FORUM_CHANNEL,
@@ -86,6 +87,10 @@ export const isNitroBoosterMember = (member: GuildMember) => {
 
 export const isHe4rtDelasMember = (member: GuildMember) => {
   return member.roles.cache.some(({ id }) => id === HE4RT_DELAS_ROLE.id)
+}
+
+export const isATAMember = (member: GuildMember) => {
+  return member.roles.cache.some(({ id }) => id === ATA_ROLE.id)
 }
 
 export const isBot = (author: User): boolean => {
