@@ -1,8 +1,7 @@
 import { GuildMember, SlashCommandBuilder, ThreadChannel } from 'discord.js'
 import { Command } from '@/types'
 import { FORUM_CLOSE } from '@/defines/commands.json'
-import { MODERATION_ROLE } from '@/defines/ids.json'
-import { CHANNEL_OPTION } from '-/commands/forum_close.json'
+import { SOLVED_TAG } from '@/defines/ids.json'
 import { getForumChannel, getTargetMember, reply } from '@/utils'
 
 export const useForumClose = (): Command => {
@@ -28,13 +27,9 @@ export const useForumClose = (): Command => {
 
         const thread = threads.get(target.id)
 
-        await thread.send(
-          `<@&${MODERATION_ROLE.id}> o usuário <@${interaction.user.id}> está requisitando o fechamento deste post!`
-        )
-
         await reply(interaction).success()
 
-        await thread.edit({ archived: true, locked: true })
+        await thread.edit({ archived: true, locked: true, appliedTags: [SOLVED_TAG.id] })
 
         client.logger.emit({
           message: `O canal de ajuda **${thread.name}** foi fechado por ${getTargetMember(

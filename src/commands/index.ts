@@ -1,5 +1,4 @@
 import { ButtonInteraction, CommandInteraction, GuildMember, Routes } from 'discord.js'
-import { JUDGE } from '@/defines/commands.json'
 import { Command, Context, He4rtClient } from '@/types'
 import { useAnnounce } from './announce'
 import { useBan } from './ban'
@@ -27,6 +26,10 @@ import { useRoleDelete } from './role/role_delete'
 import { resolveJudgeCommandButtonEvents, useJudge } from './judge'
 import { useForumClose } from './forum/forum_close'
 import { useForumCreate } from './forum/forum_create'
+import { useStageATA } from './stage/stage_ata'
+import { useStageEnter } from './stage/stage_enter'
+import { useStageFinish } from './stage/stage_finish'
+import { useStageStart } from './stage/stage_start'
 
 const registerHooks = (client: He4rtClient, commands: Command[]) => {
   commands.forEach(([data, cb]) => {
@@ -61,6 +64,10 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useJudge(),
     useForumClose(),
     useForumCreate(),
+    // useStageATA(),
+    // useStageEnter(),
+    // useStageFinish(),
+    // useStageStart(),
     // useReputation()
   ])
 
@@ -74,17 +81,13 @@ export const commandsListener = (client: He4rtClient, interaction: CommandIntera
     if (key.name === interaction.commandName) {
       cb && cb(interaction, client)
 
-      const ignore = [JUDGE].map((m) => m.TITLE)
-
-      if (!ignore.some((title) => title === key.name)) {
-        client.logger.emit({
-          message: `${getTargetMember(interaction.member as GuildMember)} acionou **/${key.name}** no canal **${
-            interaction.channel.name
-          }**`,
-          type: 'command',
-          color: 'info',
-        })
-      }
+      client.logger.emit({
+        message: `${getTargetMember(interaction.member as GuildMember)} acionou **/${key.name}** no canal **${
+          interaction.channel.name
+        }**`,
+        type: 'command',
+        color: 'info',
+      })
     }
   }
 }

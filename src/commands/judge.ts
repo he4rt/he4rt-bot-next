@@ -46,7 +46,12 @@ export const useJudge = (): Command => {
         title: `**He4rt Ticket** » ${getType()}`,
         description: reason.value as string,
         author: target,
-        fields: [[{ name: '**ID**', value: target.id, inline: false }]],
+        fields: [
+          [
+            { name: '**ID do Alvo**', value: target.id, inline: false },
+            { name: '**ID do Autor**', value: interaction.user.id, inline: false },
+          ],
+        ],
       })
 
       const row = new ActionRowBuilder<ButtonBuilder>()
@@ -66,12 +71,14 @@ export const useJudge = (): Command => {
 
 export const resolveJudgeCommandButtonEvents = async (client: He4rtClient, interaction: ButtonInteraction) => {
   if (interaction.customId.startsWith('c-judge')) {
-    const id = interaction.message.embeds[0].data.fields[0].value
+    const target_id = interaction.message.embeds[0].data.fields[0].value
+    // const author_id = interaction.message.embeds[0].data.fields[1].value
+
     const title = interaction.message.embeds[0].data.title
     const description = interaction.message.embeds[0].data.description
 
     if (interaction.customId === 'c-judge-accept') {
-      const user = (await interaction.guild.members.fetch()).get(id)
+      const user = (await interaction.guild.members.fetch()).get(target_id)
 
       user
         .createDM()
@@ -105,7 +112,7 @@ export const resolveJudgeCommandButtonEvents = async (client: He4rtClient, inter
               client.logger.emit({
                 type: 'ticket',
                 color: 'error',
-                message: `Não foi possível acessar a **DM** do usuário **${id}**!`,
+                message: `Não foi possível acessar a **DM** do usuário **${target_id}**!`,
               })
 
               await reply(interaction).errorInAccessDM()
@@ -115,7 +122,7 @@ export const resolveJudgeCommandButtonEvents = async (client: He4rtClient, inter
           client.logger.emit({
             type: 'ticket',
             color: 'error',
-            message: `Não foi possível acessar a **DM** do usuário **${id}**!`,
+            message: `Não foi possível acessar a **DM** do usuário **${target_id}**!`,
           })
 
           await reply(interaction).errorInAccessDM()

@@ -6,6 +6,8 @@ import {
   MEETING_DELAS_CHANNEL,
   LEARNING_DIARY_CHANNEL,
   ADVERTS_CHANNEL,
+  PRESENTATIONS_CHANNEL,
+  HE4RT_EMOJI_ID,
 } from '@/defines/ids.json'
 import { isAdministrator, isImageHTTPUrl, isValidProxyContent, js } from '@/utils'
 
@@ -64,5 +66,11 @@ export const reactAnnouncesInAdvertsChannel = async (message: Message) => {
   if (ADVERTS_CHANNEL.id === message.channel.id) {
     await message.react('🔥')
     await message.react('💜')
+  }
+}
+
+export const reactEmbedsInPresentationsChannel = async (message: Message) => {
+  if (PRESENTATIONS_CHANNEL.id === message.channel.id && message.embeds.length > 0) {
+    await message.react(HE4RT_EMOJI_ID).catch(() => {})
   }
 }

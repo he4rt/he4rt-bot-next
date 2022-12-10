@@ -37,6 +37,7 @@ export type TickerItem = [TickerName, TickerCallback]
 export enum TickerName {
   Pomodoro = 'COWORKING_POMODORO',
   DiscordPresence = 'DISCORD_PRESENCE',
+  VoiceXP = 'VOICE_XP',
 }
 
 export type He4rtClient = Client<boolean> & {
@@ -141,6 +142,22 @@ export interface ApoiaseGET extends RESTJson {
   isPaidThisMonth: boolean
   isBacker: boolean
   thisMonthPaidValue?: number
+}
+
+export interface MeetingPATCH extends RESTJson {
+  id: number
+  content: string
+}
+
+export interface MeetingEndPOST extends RESTJson {
+  message: string
+}
+
+export interface MeetingPOST extends RESTJson {}
+
+export interface MeetingAttendPost extends RESTJson {
+  user_id: string
+  meeting_id: number
 }
 
 export interface RankingMember extends UserLevelXP {
