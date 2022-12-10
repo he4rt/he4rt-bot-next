@@ -23,7 +23,18 @@ export const setDynamicVoiceRemover = async (client: He4rtClient) => {
 
         const targets = [...(channel.members as Collection<string, GuildMember>)]
 
-        if (targets.length === 0) await channel.delete().catch(() => {})
+        if (targets.length === 0) {
+          channel
+            .delete()
+            .then(() => {
+              client.logger.emit({
+                message: `O canal de voz dinâmico **${channel.id}** foi deletado com sucesso!`,
+                type: 'command',
+                color: 'success',
+              })
+            })
+            .catch(() => {})
+        }
       })
     }
   })

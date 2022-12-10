@@ -73,6 +73,12 @@ export const useDynamicVoice = (): Command => {
         maxUses: 1,
       })
 
+      client.logger.emit({
+        message: `O canal de voz dinâmico **${voice.id}** foi criado com sucesso!`,
+        type: 'command',
+        color: 'success',
+      })
+
       await interaction.reply({ content: invite.url, ephemeral: true })
     },
   ]
