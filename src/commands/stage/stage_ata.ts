@@ -34,7 +34,7 @@ export const useStageATA = (): Command => {
         return
       }
 
-      client.api.he4rt
+      client.api.he4rt.events
         .meeting(id)
         .subject.patch<MeetingPATCH>({
           content,
