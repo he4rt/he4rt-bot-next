@@ -2,7 +2,7 @@ import { CategoryChannel, ChannelType, GuildMember, SlashCommandBuilder } from '
 import { Command } from '@/types'
 import { DYNAMIC_VOICE } from '@/defines/commands.json'
 import { DYNAMIC_CATEGORY_CHANNEL } from '@/defines/ids.json'
-import { TYPE_OPTION, LIMIT_TYPE } from '-/commands/dynamic_voice.json'
+import { TYPE_OPTION, LIMIT_OPTION } from '-/commands/dynamic_voice.json'
 import { getGuild, getOption, isPresentedMember, reply } from '@/utils'
 
 export const useDynamicVoice = (): Command => {
@@ -25,7 +25,7 @@ export const useDynamicVoice = (): Command => {
     .addIntegerOption((option) =>
       option
         .setName('limite')
-        .setDescription(LIMIT_TYPE)
+        .setDescription(LIMIT_OPTION)
         .setRequired(true)
         .addChoices(
           { name: '2️⃣ Sala Pequena', value: 2 },
