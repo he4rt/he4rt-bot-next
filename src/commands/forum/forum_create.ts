@@ -2,6 +2,7 @@ import { GuildMember, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@/types'
 import { FORUM_OPEN } from '@/defines/commands.json'
 import { TITLE_OPTION, DESCRIPTION_OPTION } from '-/commands/forum_create.json'
+import { UNSOLVED_TAG } from '@/defines/ids.json'
 import { getForumChannel, getOption, getTargetMember, reply } from '@/utils'
 
 export const useForumCreate = (): Command => {
@@ -26,6 +27,7 @@ export const useForumCreate = (): Command => {
         await channel.threads.create({
           name,
           message: { content: description.value as string },
+          appliedTags: [UNSOLVED_TAG.id],
         })
 
         client.logger.emit({

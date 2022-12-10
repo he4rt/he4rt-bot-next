@@ -154,8 +154,8 @@ export const getChannel = ({ client, id }: GetChannelOptions) => {
   return client.channels.cache.get(id) as TextBasedChannel
 }
 
-export const getForumChannel = async (client: He4rtClient) => {
-  return (await client.channels.fetch(FORUM_CHANNEL.id)) as ForumChannel
+export const getForumChannel = (client: He4rtClient) => {
+  return client.channels.cache.get(FORUM_CHANNEL.id) as ForumChannel
 }
 
 export const getOption: CommandGetOption = (interaction: CommandInteraction, target: string) => {

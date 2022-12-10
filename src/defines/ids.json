@@ -135,5 +135,13 @@
     "id": "547549463942791181",
     "name": "Equipe de Moderação",
     "emoji": "👮"
+  },
+  "SOLVED_TAG": {
+    "id": "1020896504862494790",
+    "name": "Resolvido"
+  },
+  "UNSOLVED_TAG": {
+    "id": "1021558149695680554",
+    "name": "Não Resolvido"
   }
 }
