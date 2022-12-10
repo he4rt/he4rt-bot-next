@@ -65,10 +65,10 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useJudge(),
     useForumClose(),
     useForumCreate(),
-    useStageATA(),
-    useStageEnter(),
-    useStageFinish(),
-    useStageStart(),
+    // useStageATA(),
+    // useStageEnter(),
+    // useStageFinish(),
+    // useStageStart(),
     // useReputation()
   ])
 
