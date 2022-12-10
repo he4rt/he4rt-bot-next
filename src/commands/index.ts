@@ -1,5 +1,4 @@
 import { ButtonInteraction, CommandInteraction, GuildMember, Routes } from 'discord.js'
-import { JUDGE } from '@/defines/commands.json'
 import { Command, Context, He4rtClient } from '@/types'
 import { useAnnounce } from './announce'
 import { useBan } from './ban'
@@ -82,17 +81,13 @@ export const commandsListener = (client: He4rtClient, interaction: CommandIntera
     if (key.name === interaction.commandName) {
       cb && cb(interaction, client)
 
-      const ignore = [JUDGE].map((m) => m.TITLE)
-
-      if (!ignore.some((title) => title === key.name)) {
-        client.logger.emit({
-          message: `${getTargetMember(interaction.member as GuildMember)} acionou **/${key.name}** no canal **${
-            interaction.channel.name
-          }**`,
-          type: 'command',
-          color: 'info',
-        })
-      }
+      client.logger.emit({
+        message: `${getTargetMember(interaction.member as GuildMember)} acionou **/${key.name}** no canal **${
+          interaction.channel.name
+        }**`,
+        type: 'command',
+        color: 'info',
+      })
     }
   }
 }
