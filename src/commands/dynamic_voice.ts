@@ -18,7 +18,7 @@ export const useDynamicVoice = (): Command => {
         .addChoices(
           { name: '🗣 Only English', value: 0 },
           { name: '👥 Novas Amizades', value: 1 },
-          { name: '🏁 Novato', value: 2 },
+          { name: '👋 Novato', value: 2 },
           { name: '🎓 Mentoria', value: 3 }
         )
     )
@@ -38,7 +38,7 @@ export const useDynamicVoice = (): Command => {
     return {
       0: '🗣 Only English',
       1: '👥 Novas Amizades',
-      2: '🏁 Novato',
+      2: '👋 Novato',
       3: '🎓 Mentoria',
     }[value]
   }
