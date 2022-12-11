@@ -67,6 +67,10 @@
     "id": "544831124908802048",
     "title": "🏆|aprendizado-diário"
   },
+  "VOLUNTEER_CHANNEL": {
+    "id": "1051348602259251250",
+    "title": "🏆|voluntários"
+  },
   "VALID_PRESENTATION_DEV_ROLES": [
     { "id": "550411669084569602", "name": "GameDev", "emoji": "🎮" },
     { "id": "540993488410378281", "name": "JavaScript", "emoji": "📜" },
@@ -144,6 +148,11 @@
     "id": "1050965085184598037",
     "name": "Escrivão FODA",
     "emoji": "✍️"
+  },
+  "VOLUNTEER_ROLE": {
+    "id": "1051348460026204231",
+    "name": "Voluntário",
+    "emoji": "💜"
   },
   "SOLVED_TAG": {
     "id": "1020896504862494790",

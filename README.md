@@ -16,7 +16,6 @@ He4rt Discord Bot
 
 - `/anunciar` (ADM)
 - `/falar` (ADM)
-- `/distintivo-criar` (ADM)
 - `/cargo-criar` (ADM)
 - `/cargo-deletar` (ADM)
 - `/versao` (ADM)
@@ -28,6 +27,8 @@ He4rt Discord Bot
 - `/cor` (PRIVILEGIADOS)
 - `/reputacao` (DESATIVADO)
 - `/logikoz` (ESPECIAL)
+- `/gustavohe4rt` (ESPECIAL)
+- `/sala`
 - `/avaliar`
 - `/apoiase`
 - `/bonus`
@@ -37,9 +38,19 @@ He4rt Discord Bot
 - `/perguntar`
 - `/ranqueamento`
 - `/distintivo`
+- `/distintivo-criar` (ADM)
 - `/codigo`
 - `/forum`
 - `/forum-fechar`
+- `/reuniao`
+- `/reuniao-iniciar` (ADM)
+- `/reuniao-finalizar` (ADM)
+- `/reuniao-ata` (ESCRIVÃO)
+- `/onboarding`
+- `/onboarding-requisitar`
+- `/onboarding-voluntariar`
+- `/onboarding-finalizar`
+- `/onboarding-sair`
 
 ## Differences to [v1](https://github.com/he4rt/He4rt-Bot)
 
@@ -54,6 +65,9 @@ He4rt Discord Bot
 - Implementação de _Ticker_ para eventos sequenciais;
 - Integração com o [apoia.se](https://apoia.se/heartdevs);
 - _Gamificação_ com as interações do usuário no servidor;
+- Sistema para gerenciamento das reuniões semanais;
+- Sistema de acolhimento à novos membros pelo método _onboarding_;
+- Aplicação de canal de voz dinâmico pelo comando `/sala`;
 - Aplicação do [Pomodoro](https://pt.wikipedia.org/wiki/T%C3%A9cnica_pomodoro) no canal de voz _Coworking_;
 - Agora os comandos podem ser utilizados em qualquer canal (comandos privilegiados ainda dependem de condições de canal específico, como o /cor);
 - A grande maioria dos comandos retornam mensagens visíveis somente para o usuário com o intuito de não poluir os canais (e permitir a abordagem do item anterior);
