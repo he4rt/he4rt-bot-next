@@ -122,5 +122,21 @@
   "STAGE": {
     "TITLE": "reuniao",
     "DESCRIPTION": "Participe de uma reunião existente."
+  },
+  "ONBOARDING_VOLUNTARY": {
+    "TITLE": "onboarding-voluntariar",
+    "DESCRIPTION": "Voluntarie-se para ajudar novos membros no servidor."
+  },
+  "ONBOARDING_REQUIRE": {
+    "TITLE": "onboarding-requisitar",
+    "DESCRIPTION": "Use este comando para indicar que deseja ser ajudado por um voluntário."
+  },
+  "ONBOARDING_FINALIZE": {
+    "TITLE": "onboarding-finalizar",
+    "DESCRIPTION": "Finalize uma ajuda voluntária."
+  },
+  "ONBOARDING_QUIT": {
+    "TITLE": "onboarding-sair",
+    "DESCRIPTION": "Desista de ser um voluntário."
   }
 }

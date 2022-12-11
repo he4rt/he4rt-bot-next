@@ -30,6 +30,10 @@ import { useStageATA } from './stage/stage_ata'
 import { useStageStart } from './stage/stage_start'
 import { useStageFinish } from './stage/stage_finish'
 import { useStageEnter } from './stage/stage_enter'
+import { useOnboardingVoluntary } from './onboarding/onboarding_voluntary'
+import { useOnboardingRequire } from './onboarding/onboarding_require'
+import { useOnboardingFinalize } from './onboarding/onboarding_finalize'
+import { useOnboardingQuit } from './onboarding/onboarding_quit'
 
 const registerHooks = (client: He4rtClient, commands: Command[]) => {
   commands.forEach(([data, cb]) => {
@@ -68,6 +72,10 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useStageEnter(),
     useStageFinish(),
     useStageStart(),
+    useOnboardingVoluntary(),
+    useOnboardingRequire(),
+    useOnboardingFinalize(),
+    useOnboardingQuit(),
     // useReputation()
   ])
 
