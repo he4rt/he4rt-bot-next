@@ -2,7 +2,7 @@ import { GuildMember, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@/types'
 import { ONBOARDING_REQUIRE } from '@/defines/commands.json'
 import { VOLUNTEER_ROLE, VOLUNTEER_CHANNEL } from '@/defines/ids.json'
-import { getChannel, isPresentedMember, reply } from '@/utils'
+import { getChannel, reply } from '@/utils'
 
 export const useOnboardingRequire = (): Command => {
   const data = new SlashCommandBuilder()
@@ -14,12 +14,6 @@ export const useOnboardingRequire = (): Command => {
     data,
     async (interaction, client) => {
       const member = interaction.member as GuildMember
-
-      if (!isPresentedMember(member)) {
-        await reply(interaction).errorMemberIsNotPresented()
-
-        return
-      }
 
       const channel = getChannel({ id: VOLUNTEER_CHANNEL.id, client })
 
