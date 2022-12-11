@@ -2,6 +2,7 @@ import { CategoryChannel, ChannelType, GuildMember, SlashCommandBuilder } from '
 import { Command } from '@/types'
 import { DYNAMIC_VOICE } from '@/defines/commands.json'
 import { DYNAMIC_CATEGORY_CHANNEL } from '@/defines/ids.json'
+import { DYNAMIC_VOICE_REASON } from '@/defines/values.json'
 import { TYPE_OPTION, LIMIT_OPTION } from '-/commands/dynamic_voice.json'
 import { getGuild, getOption, isPresentedMember, reply } from '@/utils'
 
@@ -35,7 +36,7 @@ export const useDynamicVoice = (): Command => {
         )
     )
 
-  const getType = (value: number) => {
+  const getType = (value: number): string => {
     return {
       0: '🗣 Only English',
       1: '👥 Novas Amizades',
@@ -69,16 +70,18 @@ export const useDynamicVoice = (): Command => {
         type: ChannelType.GuildVoice,
         parent: category,
         userLimit: limit.value as number,
+        reason: DYNAMIC_VOICE_REASON,
       })
 
       const invite = await voice.createInvite({
         unique: true,
         temporary: true,
         maxUses: 1,
+        maxAge: 60 * 60,
       })
 
       client.logger.emit({
-        message: `O canal de voz dinâmico **${voice.id}** foi criado com sucesso!`,
+        message: `O canal de voz dinâmico **${voice.id}** foi criado automaticamente com sucesso!`,
         type: 'command',
         color: 'success',
       })
