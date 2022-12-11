@@ -97,7 +97,7 @@
   },
   "JUDGE": {
     "TITLE": "avaliar",
-    "DESCRIPTION": "Feedback a um usuário."
+    "DESCRIPTION": "Envie um feedback, seja negativo ou positivo, a um usuário do servidor."
   },
   "FORUM_CLOSE": {
     "TITLE": "forum-fechar",
