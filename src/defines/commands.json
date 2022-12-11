@@ -117,7 +117,7 @@
   },
   "STAGE_ATA": {
     "TITLE": "reuniao-ata",
-    "DESCRIPTION": "(ADM): Envie a ATA de uma reunião que já terminou."
+    "DESCRIPTION": "(ATA): Submeta a ATA de uma reunião que já terminou."
   },
   "STAGE": {
     "TITLE": "reuniao",
