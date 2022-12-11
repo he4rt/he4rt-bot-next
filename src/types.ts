@@ -38,6 +38,7 @@ export enum TickerName {
   Pomodoro = 'COWORKING_POMODORO',
   DiscordPresence = 'DISCORD_PRESENCE',
   VoiceXP = 'VOICE_XP',
+  DynamicVoice = 'DYNAMIC_VOICE',
 }
 
 export type He4rtClient = Client<boolean> & {
