@@ -19,7 +19,8 @@ export const useDynamicVoice = (): Command => {
           { name: '🗣 Only English', value: 0 },
           { name: '👥 Novas Amizades', value: 1 },
           { name: '👋 Novato', value: 2 },
-          { name: '🎓 Mentoria', value: 3 }
+          { name: '🎓 Mentoria', value: 3 },
+          { name: '🏢 Trabalho', value: 4 }
         )
     )
     .addIntegerOption((option) =>
@@ -40,6 +41,7 @@ export const useDynamicVoice = (): Command => {
       1: '👥 Novas Amizades',
       2: '👋 Novato',
       3: '🎓 Mentoria',
+      4: '🏢 Trabalho',
     }[value]
   }
 
