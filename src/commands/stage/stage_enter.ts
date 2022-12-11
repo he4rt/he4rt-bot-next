@@ -1,8 +1,8 @@
-import { PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
+import { GuildMember, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
 import { Command, MeetingAttendPost } from '@/types'
 import { STAGE } from '@/defines/commands.json'
 import { MEETING_OPTION } from '-/commands/stage_enter.json'
-import { getOption, reply } from '@/utils'
+import { getOption, isPresentedMember, reply } from '@/utils'
 
 export const useStageEnter = (): Command => {
   const data = new SlashCommandBuilder()
@@ -14,11 +14,16 @@ export const useStageEnter = (): Command => {
   return [
     data,
     async (interaction, client) => {
+      const member = interaction.member as GuildMember
       const meeting = getOption(interaction, 'reuniao')
 
       const meeting_id = meeting.value as number
 
-      console.log(meeting_id)
+      if (!isPresentedMember(member)) {
+        await reply(interaction).errorMemberIsNotPresented()
+
+        return
+      }
 
       client.api.he4rt.events.meeting.attend
         .post<MeetingAttendPost>({
