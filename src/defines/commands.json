@@ -108,19 +108,19 @@
     "DESCRIPTION": "Abra um fórum de ajuda específico e facilite os outros membros a te ajudarem."
   },
   "STAGE_START": {
-    "TITLE": "palco-iniciar",
+    "TITLE": "reuniao-iniciar",
     "DESCRIPTION": "(ADM): Inicialize uma reunião semanal."
   },
   "STAGE_FINISH": {
-    "TITLE": "palco-finalizar",
+    "TITLE": "reuniao-finalizar",
     "DESCRIPTION": "(ADM): Finalize uma reunião semanal existente."
   },
   "STAGE_ATA": {
-    "TITLE": "palco-ata",
-    "DESCRIPTION": "(ADM): Envie a ATA de uma reunião que já terminou."
+    "TITLE": "reuniao-ata",
+    "DESCRIPTION": "(ATA): Submeta a ATA de uma reunião que já terminou."
   },
   "STAGE": {
-    "TITLE": "palco",
+    "TITLE": "reuniao",
     "DESCRIPTION": "Participe de uma reunião existente."
   }
 }
