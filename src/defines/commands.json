@@ -87,6 +87,10 @@
     "TITLE": "logikoz",
     "DESCRIPTION": "ESPECIAL: Qual a melhor linguagem?"
   },
+  "SPECIAL_GUSTAVOHE4RT": {
+    "TITLE": "gustavohe4rt",
+    "DESCRIPTION": "ESPECIAL: Como fazer um anúncio com qualidade?"
+  },
   "ROLE_DELETE": {
     "TITLE": "cargo-deletar",
     "DESCRIPTION": "ADM: Deletar um cargo específico."
@@ -138,5 +142,9 @@
   "ONBOARDING_QUIT": {
     "TITLE": "onboarding-desistir",
     "DESCRIPTION": "Desista de ser um voluntário."
+  },
+  "DYNAMIC_VOICE": {
+    "TITLE": "sala",
+    "DESCRIPTION": "Crie um canal de voz temporário."
   }
 }
