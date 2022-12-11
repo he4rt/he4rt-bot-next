@@ -127,6 +127,10 @@
     "TITLE": "reuniao",
     "DESCRIPTION": "Participe de uma reunião existente."
   },
+  "ONBOARDING_WHY": {
+    "TITLE": "onboarding",
+    "DESCRIPTION": "Entenda o que é o nosso sistema de onboarding."
+  },
   "ONBOARDING_VOLUNTARY": {
     "TITLE": "onboarding-voluntariar",
     "DESCRIPTION": "Voluntarie-se para ajudar novos membros no servidor."

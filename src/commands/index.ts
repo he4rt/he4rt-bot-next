@@ -36,6 +36,7 @@ import { useOnboardingVoluntary } from './onboarding/onboarding_voluntary'
 import { useOnboardingRequire } from './onboarding/onboarding_require'
 import { useOnboardingFinalize } from './onboarding/onboarding_finalize'
 import { useOnboardingQuit } from './onboarding/onboarding_quit'
+import { useOnboardingWhy } from './onboarding/onboarding_why'
 
 const registerHooks = (client: He4rtClient, commands: Command[]) => {
   commands.forEach(([data, cb]) => {
@@ -80,6 +81,7 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useOnboardingRequire(),
     useOnboardingFinalize(),
     useOnboardingQuit(),
+    useOnboardingWhy(),
     // useReputation()
   ])
 
