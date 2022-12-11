@@ -27,7 +27,7 @@ export const useOnboardingFinalize = (): Command => {
       const channel = getChannel({ id: CHAT_CHANNEL.id, client })
 
       await channel.send(
-        `<@${volunteer.id}> ajudou o usuário <@${helped.id}> pelo nosso sistema de *onboarding*!\n\nSe você é um membro novo e gostaria de conhecer mais sobre o servidor e sobre nossa iniciativa, use o comando **/onboarding-requisitar**!`
+        `<@${volunteer.id}> ajudou o usuário <@${helped.id}> pelo nosso sistema de acolhimento à novos membros!\n\nSe você é um membro novo e gostaria de conhecer mais sobre o servidor e sobre nossa iniciativa, use o comando **/onboarding** para conhecer este sistema!`
       )
 
       await reply(interaction).success()
