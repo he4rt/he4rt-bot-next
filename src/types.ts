@@ -160,6 +160,20 @@ export interface MeetingAttendPost extends RESTJson {
   meeting_id: number
 }
 
+export interface FeedbackCreatePOST extends RESTJson {
+  sender_id: number
+  target_id: number
+  message: string
+  type: string
+  updated_at: string | null
+  created_at: string | null
+  id: number
+}
+
+export interface FeedbackReviewPOST extends RESTJson {
+  message: string
+}
+
 export interface RankingMember extends UserLevelXP {
   nickname?: string
   level: number
