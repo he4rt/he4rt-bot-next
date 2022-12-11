@@ -28,9 +28,9 @@ import { useForumClose } from './forum/forum_close'
 import { useForumCreate } from './forum/forum_create'
 import { useDynamicVoice } from './dynamic_voice'
 import { useStageATA } from './stage/stage_ata'
-import { useStageEnter } from './stage/stage_enter'
-import { useStageFinish } from './stage/stage_finish'
 import { useStageStart } from './stage/stage_start'
+import { useStageFinish } from './stage/stage_finish'
+import { useStageEnter } from './stage/stage_enter'
 
 const registerHooks = (client: He4rtClient, commands: Command[]) => {
   commands.forEach(([data, cb]) => {
@@ -66,10 +66,10 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useForumClose(),
     useForumCreate(),
     useDynamicVoice(),
-    // useStageATA(),
-    // useStageEnter(),
-    // useStageFinish(),
-    // useStageStart(),
+    useStageATA(),
+    useStageEnter(),
+    useStageFinish(),
+    useStageStart(),
     // useReputation()
   ])
 

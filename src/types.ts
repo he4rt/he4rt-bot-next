@@ -148,17 +148,43 @@ export interface ApoiaseGET extends RESTJson {
 export interface MeetingPATCH extends RESTJson {
   id: number
   content: string
+  meeting_type_id: number
+  admin_id: number
+  starts_at: string | null
+  ends_at: string | null
+  created_at: string | null
+  updated_at: string | null
 }
 
 export interface MeetingEndPOST extends RESTJson {
   message: string
 }
 
-export interface MeetingPOST extends RESTJson {}
+export interface MeetingPOST extends RESTJson {
+  meeting_type_id: number
+  starts_at: string | null
+  admin_id: number
+  updated_at: string | null
+  created_at: string | null
+  id: number
+}
 
 export interface MeetingAttendPost extends RESTJson {
-  user_id: string
-  meeting_id: number
+  message: string
+}
+
+export interface FeedbackCreatePOST extends RESTJson {
+  sender_id: number
+  target_id: number
+  message: string
+  type: string
+  updated_at: string | null
+  created_at: string | null
+  id: number
+}
+
+export interface FeedbackReviewPOST extends RESTJson {
+  message: string
 }
 
 export interface RankingMember extends UserLevelXP {
