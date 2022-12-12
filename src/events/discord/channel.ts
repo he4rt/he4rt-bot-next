@@ -51,21 +51,21 @@ export const sendGoodMessagesInBusyChannels = (message: Message) => {
 
 export const reactMessagesInSuggestionChannel = async (message: Message) => {
   if (SUGGESTION_CHANNEL.id === message.channel.id) {
-    await message.react('✅')
-    await message.react('❌')
+    await message.react('✅').catch(() => {})
+    await message.react('❌').catch(() => {})
   }
 }
 
 export const reactMessagesInLearningDiaryChannel = async (message: Message) => {
   if (LEARNING_DIARY_CHANNEL.id === message.channel.id) {
-    await message.react('💜')
+    await message.react('💜').catch(() => {})
   }
 }
 
 export const reactAnnouncesInAdvertsChannel = async (message: Message) => {
   if (ADVERTS_CHANNEL.id === message.channel.id) {
-    await message.react('🔥')
-    await message.react('💜')
+    await message.react('🔥').catch(() => {})
+    await message.react('💜').catch(() => {})
   }
 }
 
