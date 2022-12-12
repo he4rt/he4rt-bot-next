@@ -1,5 +1,6 @@
 import {
   ButtonInteraction,
+  CategoryChannel,
   CommandInteraction,
   CommandInteractionOption,
   DMChannel,
@@ -17,6 +18,7 @@ import {
 import { formatInTimeZone } from 'date-fns-tz'
 import { CLIENT_NAME, CLIENT_TIMEZONE, COLORS, HE4RT_DELAS_ICON_1_URL, HE4RT_ICON_1_URL } from '@/defines/values.json'
 import {
+  VOLUNTEER_ROLE,
   PRESENTING_ROLE,
   PRESENTED_ROLE,
   DONATOR_ROLE,
@@ -26,6 +28,7 @@ import {
   VALID_PRESENTATION_DEV_ROLES,
   VALID_PRESENTATION_ENG_ROLES,
   FORUM_CHANNEL,
+  DYNAMIC_CATEGORY_CHANNEL,
 } from '@/defines/ids.json'
 import {
   SUCCESS_COMMAND_DEFAULT,
@@ -93,6 +96,10 @@ export const isATAMember = (member: GuildMember) => {
   return member.roles.cache.some(({ id }) => id === ATA_ROLE.id)
 }
 
+export const isVoluntaryMember = (member: GuildMember) => {
+  return member.roles.cache.some(({ id }) => id === VOLUNTEER_ROLE.id)
+}
+
 export const isBot = (author: User): boolean => {
   return !!author?.bot
 }
@@ -109,6 +116,10 @@ export const isValidXPMessage = (message: Message) => {
 
 export const isValidId = (id: number, arr: any[]) => {
   return !isNaN(id) && id <= arr.length && id > 0
+}
+
+export const isCustomColorRole = (name: string) => {
+  return /.+#\d{4}/i.test(name)
 }
 
 export const hasRole = (member: GuildMember, target: string) => {
@@ -163,12 +174,16 @@ export const getForumChannel = (client: He4rtClient) => {
   return client.channels.cache.get(FORUM_CHANNEL.id) as ForumChannel
 }
 
+export const getDynamicVoiceCategory = (client: He4rtClient) => {
+  return client.channels.cache.get(DYNAMIC_CATEGORY_CHANNEL.id) as CategoryChannel
+}
+
 export const getOption: CommandGetOption = (interaction: CommandInteraction, target: string) => {
   return interaction.options.get(target) as CommandInteractionOption
 }
 
 export const getCustomColorRole = ({ roles }: GuildMember | PartialGuildMember) => {
-  return roles.cache.find((x) => /.+#\d{4}/i.test(x.name)) || false
+  return roles.cache.find((x) => isCustomColorRole(x.name)) || false
 }
 
 export const getTaggedMembers = (ids: string[]): string => {

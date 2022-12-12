@@ -87,6 +87,10 @@
     "TITLE": "logikoz",
     "DESCRIPTION": "ESPECIAL: Qual a melhor linguagem?"
   },
+  "SPECIAL_GUSTAVOHE4RT": {
+    "TITLE": "gustavohe4rt",
+    "DESCRIPTION": "ESPECIAL: Como fazer um anúncio com qualidade?"
+  },
   "ROLE_DELETE": {
     "TITLE": "cargo-deletar",
     "DESCRIPTION": "ADM: Deletar um cargo específico."
@@ -97,7 +101,7 @@
   },
   "JUDGE": {
     "TITLE": "avaliar",
-    "DESCRIPTION": "Feedback a um usuário."
+    "DESCRIPTION": "Envie um feedback, seja negativo ou positivo, a um usuário do servidor."
   },
   "FORUM_CLOSE": {
     "TITLE": "forum-fechar",
@@ -108,19 +112,43 @@
     "DESCRIPTION": "Abra um fórum de ajuda específico e facilite os outros membros a te ajudarem."
   },
   "STAGE_START": {
-    "TITLE": "palco-iniciar",
+    "TITLE": "reuniao-iniciar",
     "DESCRIPTION": "(ADM): Inicialize uma reunião semanal."
   },
   "STAGE_FINISH": {
-    "TITLE": "palco-finalizar",
+    "TITLE": "reuniao-finalizar",
     "DESCRIPTION": "(ADM): Finalize uma reunião semanal existente."
   },
   "STAGE_ATA": {
-    "TITLE": "palco-ata",
-    "DESCRIPTION": "(ADM): Envie a ATA de uma reunião que já terminou."
+    "TITLE": "reuniao-ata",
+    "DESCRIPTION": "(ATA): Submeta a ATA de uma reunião que já terminou."
   },
   "STAGE": {
-    "TITLE": "palco",
+    "TITLE": "reuniao",
     "DESCRIPTION": "Participe de uma reunião existente."
+  },
+  "ONBOARDING_WHY": {
+    "TITLE": "onboarding",
+    "DESCRIPTION": "Entenda o que é o nosso sistema de onboarding."
+  },
+  "ONBOARDING_VOLUNTARY": {
+    "TITLE": "onboarding-voluntariar",
+    "DESCRIPTION": "Voluntarie-se para ajudar novos membros no servidor."
+  },
+  "ONBOARDING_REQUIRE": {
+    "TITLE": "onboarding-requisitar",
+    "DESCRIPTION": "Use este comando para indicar que deseja ser ajudado por um voluntário."
+  },
+  "ONBOARDING_FINALIZE": {
+    "TITLE": "onboarding-finalizar",
+    "DESCRIPTION": "Finalize uma ajuda voluntária."
+  },
+  "ONBOARDING_QUIT": {
+    "TITLE": "onboarding-desistir",
+    "DESCRIPTION": "Desista de ser um voluntário."
+  },
+  "DYNAMIC_VOICE": {
+    "TITLE": "sala",
+    "DESCRIPTION": "Crie um canal de voz temporário."
   }
 }

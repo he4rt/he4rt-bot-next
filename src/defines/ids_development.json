@@ -1,4 +1,8 @@
 {
+  "DYNAMIC_CATEGORY_CHANNEL": {
+    "id": "1051218701338300416",
+    "title": "Voz Dinâmica"
+  },
   "FORUM_CHANNEL": {
     "id": "1049889714875932702",
     "title": "fórum-de-ajuda"
@@ -31,6 +35,10 @@
     "id": "1049873030387601449",
     "title": "✅ Reunião Semanal"
   },
+  "AWAY_VOICE_CHANNEL": {
+    "id": "1042817316334866486",
+    "title": "😴 Ausente"
+  },
   "CHAT_CHANNEL": {
     "id": "1042817315965763597",
     "title": "💬︱bate-papo"
@@ -62,6 +70,10 @@
   "LEARNING_DIARY_CHANNEL": {
     "id": "104281799981472332",
     "title": "🏆|aprendizado-diário"
+  },
+  "VOLUNTEER_CHANNEL": {
+    "id": "1042817315965763600",
+    "title": "🏆|voluntários"
   },
   "VALID_PRESENTATION_DEV_ROLES": [
     { "id": "1042817315227582488", "name": "GameDev", "emoji": "🎮" },
@@ -138,9 +150,14 @@
     "emoji": "👮"
   },
   "ATA_ROLE": {
-    "id": "1021558149695680554",
+    "id": "1042817315173056628",
     "name": "Escrivão",
     "emoji": "✍️"
+  },
+  "VOLUNTEER_ROLE": {
+    "id": "1042817315185627257",
+    "name": "Voluntário",
+    "emoji": "💜"
   },
   "SOLVED_TAG": {
     "id": "1020896504862494790",

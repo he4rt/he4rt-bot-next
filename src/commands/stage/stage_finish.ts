@@ -9,7 +9,7 @@ export const useStageFinish = (): Command => {
     .setName(STAGE_FINISH.TITLE)
     .setDescription(STAGE_FINISH.DESCRIPTION)
     .setDMPermission(false)
-    .addStringOption((option) => option.setName('reuniao').setDescription(MEETING_OPTION).setRequired(true))
+    .addIntegerOption((option) => option.setName('reuniao').setDescription(MEETING_OPTION).setRequired(true))
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
 
   return [
@@ -19,7 +19,7 @@ export const useStageFinish = (): Command => {
 
       const meeting_id = meeting.value as number
 
-      client.api.he4rt.meeting.end
+      client.api.he4rt.events.meeting.end
         .post<MeetingEndPOST>({
           meeting_id,
         })

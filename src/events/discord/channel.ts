@@ -51,26 +51,28 @@ export const sendGoodMessagesInBusyChannels = (message: Message) => {
 
 export const reactMessagesInSuggestionChannel = async (message: Message) => {
   if (SUGGESTION_CHANNEL.id === message.channel.id) {
-    await message.react('✅')
-    await message.react('❌')
+    await message.react('✅').catch(() => {})
+    await message.react('❌').catch(() => {})
   }
 }
 
 export const reactMessagesInLearningDiaryChannel = async (message: Message) => {
   if (LEARNING_DIARY_CHANNEL.id === message.channel.id) {
-    await message.react('💜')
+    await message.react('💜').catch(() => {})
   }
 }
 
 export const reactAnnouncesInAdvertsChannel = async (message: Message) => {
   if (ADVERTS_CHANNEL.id === message.channel.id) {
-    await message.react('🔥')
-    await message.react('💜')
+    await message.react('🔥').catch(() => {})
+    await message.react('💜').catch(() => {})
   }
 }
 
 export const reactEmbedsInPresentationsChannel = async (message: Message) => {
-  if (PRESENTATIONS_CHANNEL.id === message.channel.id && message.embeds.length > 0) {
-    await message.react(HE4RT_EMOJI_ID).catch(() => {})
+  if (PRESENTATIONS_CHANNEL.id === message.channel.id) {
+    await message.react(HE4RT_EMOJI_ID).catch(async () => {
+      await message.react('💜').catch(() => {})
+    })
   }
 }

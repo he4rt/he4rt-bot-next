@@ -19,17 +19,24 @@ import { useAsk } from './ask'
 import { getTargetMember } from '@/utils'
 import { useBadgePost } from './badge/badge_post'
 import { useProfilePut } from './profile/profile_put'
-import { useLogikoz } from './special/logikoz'
+import { useSpecialLogikoz } from './special/logikoz'
+import { useSpecialGustavoHe4rt } from './special/gustavohe4rt'
 import { useBadgeRedeem } from './badge/badge_redeem'
 import { useRolePost } from './role/role_post'
 import { useRoleDelete } from './role/role_delete'
 import { resolveJudgeCommandButtonEvents, useJudge } from './judge'
 import { useForumClose } from './forum/forum_close'
 import { useForumCreate } from './forum/forum_create'
+import { useDynamicVoice } from './dynamic_voice'
 import { useStageATA } from './stage/stage_ata'
-import { useStageEnter } from './stage/stage_enter'
-import { useStageFinish } from './stage/stage_finish'
 import { useStageStart } from './stage/stage_start'
+import { useStageFinish } from './stage/stage_finish'
+import { useStageEnter } from './stage/stage_enter'
+import { useOnboardingVoluntary } from './onboarding/onboarding_voluntary'
+import { useOnboardingRequire } from './onboarding/onboarding_require'
+import { useOnboardingFinalize } from './onboarding/onboarding_finalize'
+import { useOnboardingQuit } from './onboarding/onboarding_quit'
+import { useOnboardingWhy } from './onboarding/onboarding_why'
 
 const registerHooks = (client: He4rtClient, commands: Command[]) => {
   commands.forEach(([data, cb]) => {
@@ -58,16 +65,23 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useAsk(),
     useBadgePost(),
     useBadgeRedeem(),
-    useLogikoz(),
+    useSpecialLogikoz(),
+    useSpecialGustavoHe4rt(),
     useRolePost(),
     useRoleDelete(),
     useJudge(),
     useForumClose(),
     useForumCreate(),
-    // useStageATA(),
-    // useStageEnter(),
-    // useStageFinish(),
-    // useStageStart(),
+    useDynamicVoice(),
+    useStageATA(),
+    useStageEnter(),
+    useStageFinish(),
+    useStageStart(),
+    useOnboardingVoluntary(),
+    useOnboardingRequire(),
+    useOnboardingFinalize(),
+    useOnboardingQuit(),
+    useOnboardingWhy(),
     // useReputation()
   ])
 

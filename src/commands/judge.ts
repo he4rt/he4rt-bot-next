@@ -6,7 +6,7 @@ import {
   GuildMember,
   SlashCommandBuilder,
 } from 'discord.js'
-import { Command, He4rtClient } from '@/types'
+import { Command, FeedbackCreatePOST, FeedbackReviewPOST, He4rtClient } from '@/types'
 import { JUDGE } from '@/defines/commands.json'
 import { MEMBER_OPTION, TYPE_OPTION, REASON_OPTION } from '-/commands/judge.json'
 import { CALLED_CHANNEL } from '@/defines/ids.json'
@@ -42,71 +42,118 @@ export const useJudge = (): Command => {
         }[value as number]
       }
 
-      const embed = embedTemplate({
-        title: `**He4rt Ticket** » ${getType()}`,
-        description: reason.value as string,
-        author: target,
-        fields: [
-          [
-            { name: '**ID do Alvo**', value: target.id, inline: false },
-            { name: '**ID do Autor**', value: interaction.user.id, inline: false },
-          ],
-        ],
-      })
+      client.api.he4rt.feedback
+        .post<FeedbackCreatePOST>({
+          sender_id: interaction.user.id,
+          target_id: target.id,
+          message: reason.value as string,
+          type: getType(),
+        })
+        .then(async ({ id }) => {
+          const embed = embedTemplate({
+            title: `**He4rt Ticket** » ${getType()}`,
+            description: reason.value as string,
+            author: target,
+            fields: [
+              [
+                { name: '**ID do Ticket**', value: String(id), inline: false },
+                { name: '**ID do Alvo**', value: target.id, inline: false },
+                { name: '**ID do Autor**', value: interaction.user.id, inline: false },
+              ],
+            ],
+          })
 
-      const row = new ActionRowBuilder<ButtonBuilder>()
-        .addComponents(new ButtonBuilder().setCustomId('c-judge-deny').setLabel('Negar').setStyle(ButtonStyle.Danger))
-        .addComponents(
-          new ButtonBuilder().setCustomId('c-judge-accept').setLabel('Aceitar').setStyle(ButtonStyle.Success)
-        )
+          const component = new ActionRowBuilder<ButtonBuilder>()
+            .addComponents(
+              new ButtonBuilder().setCustomId('c-judge-deny').setLabel('Negar').setStyle(ButtonStyle.Danger)
+            )
+            .addComponents(
+              new ButtonBuilder().setCustomId('c-judge-accept').setLabel('Aceitar').setStyle(ButtonStyle.Success)
+            )
 
-      const calledChannel = getChannel({ id: CALLED_CHANNEL.id, client })
+          const calledChannel = getChannel({ id: CALLED_CHANNEL.id, client })
 
-      await calledChannel.send({ embeds: [embed], components: [row] })
+          await calledChannel.send({ embeds: [embed], components: [component] })
 
-      await reply(interaction).success()
+          client.logger.emit({
+            type: 'command',
+            color: 'success',
+            message: `Um pedido de feedback **${id}** foi criado com sucesso!`,
+          })
+
+          await reply(interaction).success()
+        })
+        .catch(async () => {
+          client.logger.emit({
+            type: 'command',
+            color: 'error',
+            message: `Um pedido de feedback enviado por **${interaction.user.id}** não foi enviado!`,
+          })
+
+          await reply(interaction).error()
+        })
     },
   ]
 }
 
 export const resolveJudgeCommandButtonEvents = async (client: He4rtClient, interaction: ButtonInteraction) => {
   if (interaction.customId.startsWith('c-judge')) {
-    const target_id = interaction.message.embeds[0].data.fields[0].value
-    // const author_id = interaction.message.embeds[0].data.fields[1].value
+    const feedback_id = interaction.message.embeds[0].data.fields[0].value
+    const target_id = interaction.message.embeds[0].data.fields[1].value
+    const author_id = interaction.message.embeds[0].data.fields[2].value
 
     const title = interaction.message.embeds[0].data.title
     const description = interaction.message.embeds[0].data.description
 
     if (interaction.customId === 'c-judge-accept') {
-      const user = (await interaction.guild.members.fetch()).get(target_id)
+      client.api.he4rt.feedback
+        .review(feedback_id)
+        .approve.post<FeedbackReviewPOST>({
+          staff_id: interaction.user.id,
+        })
+        .then(async () => {
+          const members = await interaction.guild.members.fetch()
 
-      user
-        .createDM()
-        .then((dm) => {
-          const embed = embedTemplate({
-            title,
-            description,
-          })
+          const target = members.get(target_id)
+          const author = members.get(author_id)
 
-          dm.send({
-            content: `**Você recebeu um ticket de um usuário pertencente ao servidor **${CLIENT_NAME}!**`,
-            embeds: [embed],
-          })
-            .then(async () => {
-              client.logger.emit({
-                type: 'ticket',
-                color: 'success',
-                message: `O ticket de título ${title} e de descrição **${description.substring(
-                  0,
-                  30
-                )}** foi aceito por ${getTargetMember(
-                  interaction.member as GuildMember
-                )} e enviado para ${getTargetMember(user)}!`,
+          target
+            .createDM()
+            .then((dm) => {
+              const embed = embedTemplate({
+                title,
+                description,
               })
 
-              await interaction.message.delete().catch(() => {})
+              dm.send({
+                content: `**Você recebeu um ticket de um usuário pertencente ao servidor **${CLIENT_NAME}!**`,
+                embeds: [embed],
+              })
+                .then(async () => {
+                  client.logger.emit({
+                    type: 'ticket',
+                    color: 'success',
+                    message: `O ticket de título ${title} e de descrição **${description.substring(
+                      0,
+                      30
+                    )}** foi enviado por ${getTargetMember(author)}, aceito por ${getTargetMember(
+                      interaction.member as GuildMember
+                    )} e enviado para ${getTargetMember(target)}!`,
+                  })
 
-              await reply(interaction).success()
+                  await interaction.message.delete().catch(() => {})
+
+                  await reply(interaction).success()
+                })
+                .catch(async () => {
+                  client.logger.emit({
+                    type: 'ticket',
+                    color: 'error',
+                    message: `Não foi possível acessar a **DM** do usuário **${target_id}**!`,
+                  })
+
+                  await reply(interaction).errorInAccessDM()
+                })
             })
             .catch(async () => {
               client.logger.emit({
@@ -118,30 +165,30 @@ export const resolveJudgeCommandButtonEvents = async (client: He4rtClient, inter
               await reply(interaction).errorInAccessDM()
             })
         })
-        .catch(async () => {
-          client.logger.emit({
-            type: 'ticket',
-            color: 'error',
-            message: `Não foi possível acessar a **DM** do usuário **${target_id}**!`,
-          })
-
-          await reply(interaction).errorInAccessDM()
-        })
+        .catch(() => {})
     }
 
     if (interaction.customId === 'c-judge-deny') {
-      client.logger.emit({
-        type: 'ticket',
-        color: 'warning',
-        message: `O ticket de título ${title} e de descrição **${description.substring(
-          0,
-          30
-        )}** foi recusado por ${getTargetMember(interaction.member as GuildMember)}!`,
-      })
+      client.api.he4rt.feedback
+        .review(feedback_id)
+        .decline.post<FeedbackReviewPOST>({
+          staff_id: interaction.user.id,
+        })
+        .then(async () => {
+          client.logger.emit({
+            type: 'ticket',
+            color: 'warning',
+            message: `O ticket de título ${title} e de descrição **${description.substring(
+              0,
+              30
+            )}** foi recusado por ${getTargetMember(interaction.member as GuildMember)}!`,
+          })
 
-      await interaction.message.delete().catch(() => {})
+          await interaction.message.delete().catch(() => {})
 
-      await reply(interaction).success()
+          await reply(interaction).success()
+        })
+        .catch(() => {})
     }
   }
 }

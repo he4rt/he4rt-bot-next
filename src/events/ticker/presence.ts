@@ -33,13 +33,13 @@ export const setPresence = (client: He4rtClient) => {
     },
   ]
   const randomTimer = 60 * DISCORD_PRESENCE_IN_MINUTES
-  let random = TICKER_SETTER
+  let randomCounterInSeconds = TICKER_SETTER
 
   client.ticker.add(TickerName.DiscordPresence, () => {
-    --random
+    --randomCounterInSeconds
 
-    if (random <= 0) {
-      random = randomTimer
+    if (randomCounterInSeconds <= 0) {
+      randomCounterInSeconds = randomTimer
 
       client.user.setPresence({
         status: 'online',

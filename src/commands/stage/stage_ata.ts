@@ -10,17 +10,17 @@ export const useStageATA = (): Command => {
     .setName(STAGE_ATA.TITLE)
     .setDescription(STAGE_ATA.DESCRIPTION)
     .setDMPermission(false)
-    .addIntegerOption((option) => option.setName('reuniao').setDescription(ATA_OPTION).setRequired(true))
-    .addStringOption((option) => option.setName('ata').setDescription(MEETING_OPTION).setRequired(true))
+    .addIntegerOption((option) => option.setName('reuniao').setDescription(MEETING_OPTION).setRequired(true))
+    .addStringOption((option) => option.setName('ata').setDescription(ATA_OPTION).setRequired(true))
 
   return [
     data,
     async (interaction, client) => {
       const ATA = getOption(interaction, 'ata')
-      const meeting = getOption(interaction, 'meeting')
+      const meeting = getOption(interaction, 'reuniao')
 
       if (!isATAMember(interaction.member as GuildMember)) {
-        await reply(interaction).error()
+        await interaction.reply({ content: `Apenas o escrivão pode utilizar este comando!`, ephemeral: true })
 
         return
       }
@@ -29,18 +29,24 @@ export const useStageATA = (): Command => {
       const id = meeting.value as number
 
       if (content.length >= DISCORD_MESSAGE_LIMIT) {
-        await reply(interaction).error()
+        await interaction.reply({
+          content: `O seu texto ultrapassa o limite do discord (${DISCORD_MESSAGE_LIMIT} caracteres) e por isso foi desconsiderado!`,
+          ephemeral: true,
+        })
 
         return
       }
 
-      client.api.he4rt
+      client.api.he4rt.events
         .meeting(id)
         .subject.patch<MeetingPATCH>({
           content,
         })
-        .then(async () => {
-          await reply(interaction).success()
+        .then(async ({ id }) => {
+          await interaction.reply({
+            content: `ATA foi submetida com sucesso para a reunião de id **${id}**!`,
+            ephemeral: true,
+          })
         })
         .catch(async () => {
           await reply(interaction).error()
