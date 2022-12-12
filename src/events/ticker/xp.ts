@@ -1,5 +1,6 @@
-import { He4rtClient, TickerName } from '@/types'
+import { He4rtClient, TickerName, VoicePOST } from '@/types'
 import { VOICE_COUNTER_XP_IN_MINUTES, TICKER_SETTER } from '@/defines/values.json'
+import { AWAY_VOICE_CHANNEL } from '@/defines/ids.json'
 import { getGuild } from '@/utils'
 
 export const setVoiceXP = async (client: He4rtClient) => {
@@ -16,14 +17,21 @@ export const setVoiceXP = async (client: He4rtClient) => {
     if (xpCounterInSeconds <= 0) {
       xpCounterInSeconds = xpTimer
 
-      for (const [_, member] of members) {
-        const inVoiceChannel = member.voice.channel
+      const targets = members.filter(([_, member]) => member?.voice?.channel)
 
-        if (inVoiceChannel) {
-          const isTalking = !member.voice.selfMute && !member.voice.serverMute
-          const isListening = !member.voice.selfDeaf && !member.voice.serverDeaf
+      for (const [id, member] of targets) {
+        const voiceChannel = member.voice.channel
 
-          // TODO: api request to counter xp.
+        const isTalking = !member.voice.selfMute && !member.voice.serverMute
+        const isListening = !member.voice.selfDeaf && !member.voice.serverDeaf
+
+        if (AWAY_VOICE_CHANNEL.id === voiceChannel.id) return
+
+        if (isTalking && isListening) {
+          client.api.he4rt
+            .users(id)
+            .voice.post<VoicePOST>()
+            .catch(() => {})
         }
       }
     }

@@ -139,6 +139,8 @@ export interface UserPUT extends UserGET {}
 
 export interface MessagePOST extends RESTJson {}
 
+export interface VoicePOST extends RESTJson {}
+
 export interface ApoiaseGET extends RESTJson {
   isPaidThisMonth: boolean
   isBacker: boolean
