@@ -18,6 +18,7 @@ import {
 import { formatInTimeZone } from 'date-fns-tz'
 import { CLIENT_NAME, CLIENT_TIMEZONE, COLORS, HE4RT_DELAS_ICON_1_URL, HE4RT_ICON_1_URL } from '@/defines/values.json'
 import {
+  VOLUNTEER_ROLE,
   PRESENTING_ROLE,
   PRESENTED_ROLE,
   DONATOR_ROLE,
@@ -93,6 +94,10 @@ export const isHe4rtDelasMember = (member: GuildMember) => {
 
 export const isATAMember = (member: GuildMember) => {
   return member.roles.cache.some(({ id }) => id === ATA_ROLE.id)
+}
+
+export const isVoluntaryMember = (member: GuildMember) => {
+  return member.roles.cache.some(({ id }) => id === VOLUNTEER_ROLE.id)
 }
 
 export const isBot = (author: User): boolean => {

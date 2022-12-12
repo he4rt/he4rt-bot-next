@@ -127,6 +127,26 @@
     "TITLE": "reuniao",
     "DESCRIPTION": "Participe de uma reunião existente."
   },
+  "ONBOARDING_WHY": {
+    "TITLE": "onboarding",
+    "DESCRIPTION": "Entenda o que é o nosso sistema de onboarding."
+  },
+  "ONBOARDING_VOLUNTARY": {
+    "TITLE": "onboarding-voluntariar",
+    "DESCRIPTION": "Voluntarie-se para ajudar novos membros no servidor."
+  },
+  "ONBOARDING_REQUIRE": {
+    "TITLE": "onboarding-requisitar",
+    "DESCRIPTION": "Use este comando para indicar que deseja ser ajudado por um voluntário."
+  },
+  "ONBOARDING_FINALIZE": {
+    "TITLE": "onboarding-finalizar",
+    "DESCRIPTION": "Finalize uma ajuda voluntária."
+  },
+  "ONBOARDING_QUIT": {
+    "TITLE": "onboarding-desistir",
+    "DESCRIPTION": "Desista de ser um voluntário."
+  },
   "DYNAMIC_VOICE": {
     "TITLE": "sala",
     "DESCRIPTION": "Crie um canal de voz temporário."
