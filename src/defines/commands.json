@@ -83,13 +83,9 @@
     "TITLE": "distintivo",
     "DESCRIPTION": "Pegue um distintivo de um evento que você participou?"
   },
-  "SPECIAL_LOGIKOZ": {
-    "TITLE": "logikoz",
-    "DESCRIPTION": "ESPECIAL: Qual a melhor linguagem?"
-  },
-  "SPECIAL_GUSTAVOHE4RT": {
-    "TITLE": "gustavohe4rt",
-    "DESCRIPTION": "ESPECIAL: Como fazer um anúncio com qualidade?"
+  "SPECIAL": {
+    "TITLE": "especial",
+    "DESCRIPTION": "Frases características de alguns membros do servidor!"
   },
   "ROLE_DELETE": {
     "TITLE": "cargo-deletar",
