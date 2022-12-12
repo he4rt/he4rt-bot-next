@@ -6,15 +6,15 @@ export const setVoiceXP = async (client: He4rtClient) => {
   const guild = getGuild(client)
 
   const xpTimer = 60 * VOICE_COUNTER_XP_IN_MINUTES
-  let xp = TICKER_SETTER
+  let xpCounterInSeconds = TICKER_SETTER
 
   const members = [...(await guild.members.fetch())]
 
   client.ticker.add(TickerName.VoiceXP, () => {
-    --xp
+    --xpCounterInSeconds
 
-    if (xp <= 0) {
-      xp = xpTimer
+    if (xpCounterInSeconds <= 0) {
+      xpCounterInSeconds = xpTimer
 
       for (const [_, member] of members) {
         const inVoiceChannel = member.voice.channel

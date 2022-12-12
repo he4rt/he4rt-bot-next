@@ -7,13 +7,13 @@ export const setDynamicVoiceRemover = async (client: He4rtClient) => {
   const guild = getGuild(client)
 
   const voiceTimer = 60 * DYNAMIC_VOICE_DELETE_CHANNELS_IN_MINUTES
-  let voice = TICKER_SETTER
+  let voiceCounterInSeconds = TICKER_SETTER
 
   client.ticker.add(TickerName.DynamicVoice, () => {
-    --voice
+    --voiceCounterInSeconds
 
-    if (voice <= 0) {
-      voice = voiceTimer
+    if (voiceCounterInSeconds <= 0) {
+      voiceCounterInSeconds = voiceTimer
 
       const category = getDynamicVoiceCategory(client)
       const channels = [...guild.channels.cache]

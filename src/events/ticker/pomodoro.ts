@@ -22,8 +22,8 @@ export const setPomodoro = async (client: He4rtClient) => {
   const mutatedTimer = 60 * POMODORO_MUTATED_IN_MINUTES
   const talkingTimer = 60 * POMODORO_TALKING_IN_MINUTES
 
-  let mutated = TICKER_SETTER
-  let talking = TICKER_SETTER
+  let mutatedCounterInSeconds = TICKER_SETTER
+  let talkingCounterInSeconds = TICKER_SETTER
 
   let isMutated = false
   let isTalking = true
@@ -63,12 +63,12 @@ export const setPomodoro = async (client: He4rtClient) => {
   }
 
   client.ticker.add(TickerName.Pomodoro, () => {
-    if (isMutated) mutated--
-    if (isTalking) talking--
+    if (isMutated) mutatedCounterInSeconds--
+    if (isTalking) talkingCounterInSeconds--
 
-    if (mutated <= 0 && isMutated) {
-      mutated = mutatedTimer
-      talking = talkingTimer
+    if (mutatedCounterInSeconds <= 0 && isMutated) {
+      mutatedCounterInSeconds = mutatedTimer
+      talkingCounterInSeconds = talkingTimer
 
       isMutated = false
       isTalking = true
@@ -76,9 +76,9 @@ export const setPomodoro = async (client: He4rtClient) => {
       handleVoice(true)
     }
 
-    if (talking <= 0 && isTalking) {
-      mutated = mutatedTimer
-      talking = talkingTimer
+    if (talkingCounterInSeconds <= 0 && isTalking) {
+      mutatedCounterInSeconds = mutatedTimer
+      talkingCounterInSeconds = talkingTimer
 
       isMutated = true
       isTalking = false
@@ -100,7 +100,7 @@ export const setPomodoro = async (client: He4rtClient) => {
         60: () => {
           sendMessage(TALKING_MUTATED_ONE_MINUTE)
         },
-      }[mutated] || (() => {})
+      }[mutatedCounterInSeconds] || (() => {})
     )())
     ;((
       {
@@ -110,7 +110,7 @@ export const setPomodoro = async (client: He4rtClient) => {
         60: () => {
           sendMessage(TALKING_TALKING_ONE_MINUTE)
         },
-      }[talking] || (() => {})
+      }[talkingCounterInSeconds] || (() => {})
     )())
   })
 }
