@@ -86,6 +86,8 @@ export const useDynamicVoice = (): Command => {
         color: 'success',
       })
 
+      await voice.send(`<@${member.id}> aqui está o seu novo canal de voz!`).catch(() => {})
+
       await interaction.reply({ content: invite.url, ephemeral: true })
     },
   ]

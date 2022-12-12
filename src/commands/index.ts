@@ -19,8 +19,6 @@ import { useAsk } from './ask'
 import { getTargetMember } from '@/utils'
 import { useBadgePost } from './badge/badge_post'
 import { useProfilePut } from './profile/profile_put'
-import { useSpecialLogikoz } from './special/logikoz'
-import { useSpecialGustavoHe4rt } from './special/gustavohe4rt'
 import { useBadgeRedeem } from './badge/badge_redeem'
 import { useRolePost } from './role/role_post'
 import { useRoleDelete } from './role/role_delete'
@@ -37,6 +35,7 @@ import { useOnboardingRequire } from './onboarding/onboarding_require'
 import { useOnboardingFinalize } from './onboarding/onboarding_finalize'
 import { useOnboardingQuit } from './onboarding/onboarding_quit'
 import { useOnboardingWhy } from './onboarding/onboarding_why'
+import { useSpecial } from './special'
 
 const registerHooks = (client: He4rtClient, commands: Command[]) => {
   commands.forEach(([data, cb]) => {
@@ -65,8 +64,6 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useAsk(),
     useBadgePost(),
     useBadgeRedeem(),
-    useSpecialLogikoz(),
-    useSpecialGustavoHe4rt(),
     useRolePost(),
     useRoleDelete(),
     useJudge(),
@@ -82,6 +79,7 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useOnboardingFinalize(),
     useOnboardingQuit(),
     useOnboardingWhy(),
+    useSpecial(),
     // useReputation()
   ])
 
