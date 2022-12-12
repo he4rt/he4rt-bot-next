@@ -50,7 +50,7 @@ He4rt Discord Bot
 - `/onboarding-requisitar`
 - `/onboarding-voluntariar`
 - `/onboarding-finalizar`
-- `/onboarding-sair`
+- `/onboarding-desistir`
 
 ## Differences to [v1](https://github.com/he4rt/He4rt-Bot)
 
