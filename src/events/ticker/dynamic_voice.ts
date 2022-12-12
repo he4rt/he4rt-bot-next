@@ -1,5 +1,9 @@
 import { He4rtClient, TickerName } from '@/types'
-import { DYNAMIC_VOICE_DELETE_CHANNELS_IN_MINUTES, TICKER_SETTER } from '@/defines/values.json'
+import {
+  DYNAMIC_VOICE_DELETE_CHANNELS_IN_MINUTES,
+  DYNAMIC_VOICE_INVITE_LIMIT_TIME,
+  TICKER_SETTER,
+} from '@/defines/values.json'
 import { getDynamicVoiceCategory, getGuild } from '@/utils'
 import { Collection, GuildMember } from 'discord.js'
 
@@ -23,7 +27,10 @@ export const setDynamicVoiceRemover = async (client: He4rtClient) => {
 
         const targets = [...(channel.members as Collection<string, GuildMember>)]
 
-        if (targets.length === 0) {
+        const actuallyTime = new Date().valueOf()
+        const expirationLimitTime = new Date(channel.createdAt).valueOf() + DYNAMIC_VOICE_INVITE_LIMIT_TIME
+
+        if (targets.length === 0 && actuallyTime > expirationLimitTime) {
           channel
             .delete()
             .then(() => {
