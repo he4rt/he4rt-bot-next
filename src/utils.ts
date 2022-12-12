@@ -118,6 +118,10 @@ export const isValidId = (id: number, arr: any[]) => {
   return !isNaN(id) && id <= arr.length && id > 0
 }
 
+export const isCustomColorRole = (name: string) => {
+  return /.+#\d{4}/i.test(name)
+}
+
 export const hasRole = (member: GuildMember, target: string) => {
   return member.roles.cache.some(({ id }) => id === target)
 }
@@ -179,7 +183,7 @@ export const getOption: CommandGetOption = (interaction: CommandInteraction, tar
 }
 
 export const getCustomColorRole = ({ roles }: GuildMember | PartialGuildMember) => {
-  return roles.cache.find((x) => /.+#\d{4}/i.test(x.name)) || false
+  return roles.cache.find((x) => isCustomColorRole(x.name)) || false
 }
 
 export const getTaggedMembers = (ids: string[]): string => {

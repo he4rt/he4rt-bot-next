@@ -3,7 +3,7 @@ import { Command } from '@/types'
 import { COLOR } from '@/defines/commands.json'
 import { DONATORS_CHANNEL } from '@/defines/ids.json'
 import { HEX_ERROR, HEX_OPTION, HEX_SUCCESS, HEX_ERROR_IN_SPECIFIC_COLOR } from '-/commands/color.json'
-import { getCustomColorRole, getTargetMember, isHex, isPrivilegedMember, reply } from '@/utils'
+import { getCustomColorRole, getTargetMember, isCustomColorRole, isHex, isPrivilegedMember, reply } from '@/utils'
 
 export const useColor = (): Command => {
   const data = new SlashCommandBuilder()
@@ -46,7 +46,10 @@ export const useColor = (): Command => {
       }
 
       const colorRole = getCustomColorRole(member)
-      const priority = member.roles.highest.position + 1
+
+      const highestRole = member.roles.highest
+      const priority = highestRole.position + 1
+
       const content = `<@${member.id}>${HEX_SUCCESS}(${color})`
 
       if (!colorRole) {
@@ -79,8 +82,8 @@ export const useColor = (): Command => {
         return
       }
 
-      await colorRole.setColor(color)
-      await colorRole.setPosition(priority)
+      await colorRole.setColor(color).catch(() => {})
+      if (!isCustomColorRole(highestRole.name)) await colorRole.setPosition(priority).catch(() => {})
 
       client.logger.emit({
         message: `${getTargetMember(member)} atualizou seu cargo colorido!`,
