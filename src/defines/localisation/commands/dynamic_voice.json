@@ -1,6 +1,4 @@
 {
   "TYPE_OPTION": "Escolha o tipo de canal que deseja criar.",
-  "LIMIT_OPTION": "Escolha o limite de pessoas que podem acessar o canal.",
-  "MIN_SIZE": 2,
-  "MAX_SIZE": 15
+  "LIMIT_OPTION": "Escolha o limite de pessoas que podem acessar o canal."
 }
