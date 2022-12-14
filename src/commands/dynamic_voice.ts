@@ -3,7 +3,7 @@ import { Command } from '@/types'
 import { DYNAMIC_VOICE } from '@/defines/commands.json'
 import { DYNAMIC_CATEGORY_CHANNEL } from '@/defines/ids.json'
 import { DYNAMIC_VOICE_REASON, DYNAMIC_VOICE_MIN_SIZE, DYNAMIC_VOICE_MAX_SIZE } from '@/defines/values.json'
-import { TYPE_OPTION, LIMIT_OPTION } from '-/commands/dynamic_voice.json'
+import { TYPE_OPTION, LIMIT_OPTION, IN_DYNAMIC_VOICE_ERROR } from '-/commands/dynamic_voice.json'
 import { getGuild, getOption, isPresentedMember, reply } from '@/utils'
 
 export const useDynamicVoice = (): Command => {
@@ -61,6 +61,12 @@ export const useDynamicVoice = (): Command => {
       const category = guild.channels.cache.get(DYNAMIC_CATEGORY_CHANNEL.id) as CategoryChannel
 
       const typeTitle = getType(type.value as number)
+
+      if (member.voice.channel?.parent?.id === DYNAMIC_CATEGORY_CHANNEL.id) {
+        await interaction.reply({ content: IN_DYNAMIC_VOICE_ERROR, ephemeral: true })
+
+        return
+      }
 
       const voice = await guild.channels.create({
         name: typeTitle,
