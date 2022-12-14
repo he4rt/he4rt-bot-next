@@ -2,8 +2,8 @@ import { CategoryChannel, ChannelType, GuildMember, SlashCommandBuilder } from '
 import { Command } from '@/types'
 import { DYNAMIC_VOICE } from '@/defines/commands.json'
 import { DYNAMIC_CATEGORY_CHANNEL } from '@/defines/ids.json'
-import { DYNAMIC_VOICE_REASON } from '@/defines/values.json'
-import { TYPE_OPTION, LIMIT_OPTION } from '-/commands/dynamic_voice.json'
+import { DYNAMIC_VOICE_REASON, DYNAMIC_VOICE_MIN_SIZE, DYNAMIC_VOICE_MAX_SIZE } from '@/defines/values.json'
+import { TYPE_OPTION, LIMIT_OPTION, IN_DYNAMIC_VOICE_ERROR } from '-/commands/dynamic_voice.json'
 import { getGuild, getOption, isPresentedMember, reply } from '@/utils'
 
 export const useDynamicVoice = (): Command => {
@@ -29,11 +29,8 @@ export const useDynamicVoice = (): Command => {
         .setName('limite')
         .setDescription(LIMIT_OPTION)
         .setRequired(true)
-        .addChoices(
-          { name: '2️⃣ Sala Pequena', value: 2 },
-          { name: '5️⃣ Sala Média', value: 5 },
-          { name: '🔟 Sala Grande', value: 10 }
-        )
+        .setMinValue(DYNAMIC_VOICE_MIN_SIZE)
+        .setMaxValue(DYNAMIC_VOICE_MAX_SIZE)
     )
 
   const getType = (value: number): string => {
@@ -64,6 +61,12 @@ export const useDynamicVoice = (): Command => {
       const category = guild.channels.cache.get(DYNAMIC_CATEGORY_CHANNEL.id) as CategoryChannel
 
       const typeTitle = getType(type.value as number)
+
+      if (member.voice.channel?.parent?.id === DYNAMIC_CATEGORY_CHANNEL.id) {
+        await interaction.reply({ content: IN_DYNAMIC_VOICE_ERROR, ephemeral: true })
+
+        return
+      }
 
       const voice = await guild.channels.create({
         name: typeTitle,
