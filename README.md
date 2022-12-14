@@ -26,8 +26,7 @@ He4rt Discord Bot
 - `/limpar` (ADM|MOD)
 - `/cor` (PRIVILEGIADOS)
 - `/reputacao` (DESATIVADO)
-- `/logikoz` (ESPECIAL)
-- `/gustavohe4rt` (ESPECIAL)
+- `/especial`
 - `/sala`
 - `/avaliar`
 - `/apoiase`
