@@ -126,7 +126,7 @@ export const resolveJudgeCommandButtonEvents = async (client: He4rtClient, inter
               })
 
               dm.send({
-                content: `**Você recebeu um ticket de um usuário pertencente ao servidor **${CLIENT_NAME}!**`,
+                content: `Você recebeu um ticket de um usuário pertencente ao servidor **${CLIENT_NAME}!**`,
                 embeds: [embed],
               })
                 .then(async () => {
