@@ -3,7 +3,7 @@ import { Command } from '@/types'
 import { DYNAMIC_VOICE } from '@/defines/commands.json'
 import { DYNAMIC_CATEGORY_CHANNEL } from '@/defines/ids.json'
 import { DYNAMIC_VOICE_REASON } from '@/defines/values.json'
-import { TYPE_OPTION, LIMIT_OPTION } from '-/commands/dynamic_voice.json'
+import { TYPE_OPTION, LIMIT_OPTION, MIN_SIZE, MAX_SIZE } from '-/commands/dynamic_voice.json'
 import { getGuild, getOption, isPresentedMember, reply } from '@/utils'
 
 export const useDynamicVoice = (): Command => {
@@ -29,11 +29,8 @@ export const useDynamicVoice = (): Command => {
         .setName('limite')
         .setDescription(LIMIT_OPTION)
         .setRequired(true)
-        .addChoices(
-          { name: '2️⃣ Sala Pequena', value: 2 },
-          { name: '5️⃣ Sala Média', value: 5 },
-          { name: '🔟 Sala Grande', value: 10 }
-        )
+        .setMinValue(MIN_SIZE)
+        .setMaxValue(MAX_SIZE)
     )
 
   const getType = (value: number): string => {
