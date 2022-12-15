@@ -7,6 +7,7 @@ import {
   HE4RT_DELAS_ROLE,
   VALID_PRESENTATION_DEV_ROLES,
   VALID_PRESENTATION_ENG_ROLES,
+  VALID_PRESENTATION_RF,
 } from '@/defines/ids.json'
 import INTRODUCTION from '-/commands/introduction.json'
 import { INTRODUCE } from '@/defines/commands.json'
@@ -72,6 +73,22 @@ const nextMultipleRoleSelection = async (
 
   await dm.send(INTRODUCTION.INVALID_NUMBER)
   await nextMultipleRoleSelection(roles, text, dm, member, interaction)
+}
+
+const nextRFSelection = async (dm: DMChannel, interaction: CommandInteraction) => {
+  await dm.send(
+    VALID_PRESENTATION_RF.reduce(
+      (acc, val, index) => (acc += `**${index + 1}**` + ` -   ${val.id} ${val.name}` + '\n'),
+      '\n'
+    )
+  )
+
+  const value = Number(await nextTextMessage(dm, interaction))
+
+  if (isValidId(value, VALID_PRESENTATION_RF)) return VALID_PRESENTATION_RF[value - 1].id
+
+  await dm.send(INTRODUCTION.INVALID_NUMBER)
+  await nextRFSelection(dm, interaction)
 }
 
 const nextRoleSelection = async (
@@ -146,7 +163,10 @@ const nextStringsData = async (dm: DMChannel, interaction: CommandInteraction): 
   await dm.send(INTRODUCTION.USER.LINKEDIN)
   const linkedin = await nextTextMessage(dm, interaction)
 
-  if ([name, nickname, about, git, linkedin].some((v) => v === TIMEOUT_COMMAND_STRING || !v)) {
+  await dm.send(INTRODUCTION.USER.RF)
+  const rf = await nextRFSelection(dm, interaction)
+
+  if ([name, nickname, about, git, linkedin, rf].some((v) => v === TIMEOUT_COMMAND_STRING || !v)) {
     await dm.send(INTRODUCTION.INVALID_STRING_DATA)
 
     return await nextStringsData(dm, interaction)
@@ -158,6 +178,7 @@ const nextStringsData = async (dm: DMChannel, interaction: CommandInteraction): 
     about,
     git,
     linkedin,
+    rf,
   }
 }
 
