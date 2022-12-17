@@ -1,4 +1,4 @@
-import { CommandInteraction, DMChannel, GuildMember, SlashCommandBuilder } from 'discord.js'
+import { CommandInteraction, DMChannel, GuildMember, SlashCommandBuilder, Message } from 'discord.js'
 import { Command, IntroducePOST, IntroducePUT, RoleDefine, UserGETBody } from '@/types'
 import {
   PRESENTATIONS_CHANNEL,
@@ -7,6 +7,7 @@ import {
   HE4RT_DELAS_ROLE,
   VALID_PRESENTATION_DEV_ROLES,
   VALID_PRESENTATION_ENG_ROLES,
+  HE4RT_EMOJI_ID,
 } from '@/defines/ids.json'
 import INTRODUCTION from '-/commands/introduction.json'
 import { INTRODUCE } from '@/defines/commands.json'
@@ -233,10 +234,16 @@ export const useIntroduction = (): Command => {
 
           const channel = getChannel({ id: PRESENTATIONS_CHANNEL.id, client })
 
-          await channel?.send({
-            content: `👋 <@${interaction.user.id}>!`,
-            embeds: [embed],
-          })
+          await channel
+            ?.send({
+              content: `👋 <@${interaction.user.id}>!`,
+              embeds: [embed],
+            })
+            .then(async (msg: Message) => {
+              await msg.react(HE4RT_EMOJI_ID).catch(async () => {
+                await msg.react('💜').catch(() => {})
+              })
+            })
 
           await member.roles.add(PRESENTED_ROLE.id)
           await removePresentingFlag(member)
