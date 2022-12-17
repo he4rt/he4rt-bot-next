@@ -10,7 +10,6 @@ import {
   suppressEmbedMessagesInBusyChannels,
   reactMessagesInLearningDiaryChannel,
   reactAnnouncesInAdvertsChannel,
-  reactEmbedsInPresentationsChannel,
 } from './channel'
 import { setMemberIsADonatorOrNot } from './role'
 import { weeklyMeetingVoiceController, removeUserMuteInLeavePomodoro } from './voice'
@@ -52,7 +51,6 @@ export const discordEvents = (client: He4rtClient) => {
 
     suppressEmbedMessagesInBusyChannels(message)
     sendGoodMessagesInBusyChannels(message)
-    reactEmbedsInPresentationsChannel(message)
     reactMessagesInSuggestionChannel(message)
     reactMessagesInLearningDiaryChannel(message)
   })

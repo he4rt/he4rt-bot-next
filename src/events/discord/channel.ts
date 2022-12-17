@@ -66,11 +66,3 @@ export const reactAnnouncesInAdvertsChannel = async (message: Message) => {
     await message.react('💜').catch(() => {})
   }
 }
-
-export const reactEmbedsInPresentationsChannel = async (message: Message) => {
-  if (PRESENTATIONS_CHANNEL.id === message.channel.id) {
-    await message.react(HE4RT_EMOJI_ID).catch(async () => {
-      await message.react('💜').catch(() => {})
-    })
-  }
-}
