@@ -33,15 +33,18 @@ export const sendGoodMessagesInBusyChannels = (message: Message) => {
   if (validChannels.some((v) => v.id === message.channel.id)) {
     const content = message.content.toLowerCase().trim()
 
+    const currentHour = parseInt(new Date().getHours().toLocaleString('pt-br'))
+    const currentPeriod = (hour) => ({ morning: hour < 12, afternoon: hour > 12 && hour < 18, night: hour > 18 })
+
     if (content.length > 50 && message.channel.id === CHAT_CHANNEL.id) return
 
-    if (content.startsWith('bom dia')) {
+    if (content.startsWith('bom dia') && currentPeriod(currentHour).morning) {
       message.reply({ content: `dia!` }).catch(() => {})
     }
-    if (content.startsWith('boa tarde')) {
+    if (content.startsWith('boa tarde') && currentPeriod(currentHour).afternoon) {
       message.reply({ content: `tarde!` }).catch(() => {})
     }
-    if (content.startsWith('boa noite')) {
+    if (content.startsWith('boa noite') && currentPeriod(currentHour).night) {
       message.reply({ content: `noite!` }).catch(() => {})
     }
   }
