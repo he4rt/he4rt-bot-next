@@ -76,7 +76,7 @@ const nextMultipleRoleSelection = async (
   await nextMultipleRoleSelection(roles, text, dm, member, interaction)
 }
 
-const nextRFSelection = async (dm: DMChannel, interaction: CommandInteraction) => {
+const nextUFSelection = async (dm: DMChannel, interaction: CommandInteraction): Promise<string> => {
   await dm.send(
     VALID_PRESENTATION_RF.reduce(
       (acc, val, index) => (acc += `**${index + 1}**` + ` -   ${val.id} ${val.name}` + '\n'),
@@ -89,7 +89,7 @@ const nextRFSelection = async (dm: DMChannel, interaction: CommandInteraction) =
   if (isValidId(value, VALID_PRESENTATION_RF)) return VALID_PRESENTATION_RF[value - 1].id
 
   await dm.send(INTRODUCTION.INVALID_NUMBER)
-  await nextRFSelection(dm, interaction)
+  return await nextUFSelection(dm, interaction)
 }
 
 const nextRoleSelection = async (
@@ -165,9 +165,9 @@ const nextStringsData = async (dm: DMChannel, interaction: CommandInteraction): 
   const linkedin = await nextTextMessage(dm, interaction)
 
   await dm.send(INTRODUCTION.USER.RF)
-  const rf = await nextRFSelection(dm, interaction)
+  const uf = await nextUFSelection(dm, interaction)
 
-  if ([name, nickname, about, git, linkedin, rf].some((v) => v === TIMEOUT_COMMAND_STRING || !v)) {
+  if ([name, nickname, about, git, linkedin, uf].some((v) => v === TIMEOUT_COMMAND_STRING || !v)) {
     await dm.send(INTRODUCTION.INVALID_STRING_DATA)
 
     return await nextStringsData(dm, interaction)
@@ -179,7 +179,7 @@ const nextStringsData = async (dm: DMChannel, interaction: CommandInteraction): 
     about,
     git,
     linkedin,
-    rf,
+    uf,
   }
 }
 
@@ -256,7 +256,7 @@ export const useIntroduction = (): Command => {
           const channel = getChannel({ id: PRESENTATIONS_CHANNEL.id, client })
 
           await channel
-            ?.send({
+            .send({
               content: `👋 <@${interaction.user.id}>!`,
               embeds: [embed],
             })
