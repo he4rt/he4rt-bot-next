@@ -111,6 +111,7 @@ export interface UserGETBody {
   about: string
   git: string
   linkedin: string | null
+  uf: string | null
 }
 
 export interface UserLevelXP {
