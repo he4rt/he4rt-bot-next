@@ -6,9 +6,8 @@ import {
   MEETING_DELAS_CHANNEL,
   LEARNING_DIARY_CHANNEL,
   ADVERTS_CHANNEL,
-  PRESENTATIONS_CHANNEL,
-  HE4RT_EMOJI_ID,
 } from '@/defines/ids.json'
+import { CLIENT_TIMEZONE } from '@/defines/values.json'
 import { isAdministrator, isImageHTTPUrl, isValidProxyContent } from '@/utils'
 
 export const suppressEmbedMessagesInBusyChannels = async (message: Message) => {
@@ -33,19 +32,29 @@ export const sendGoodMessagesInBusyChannels = (message: Message) => {
   if (validChannels.some((v) => v.id === message.channel.id)) {
     const content = message.content.toLowerCase().trim()
 
-    const currentHour = parseInt(new Date().getHours().toLocaleString('pt-br'))
-    const currentPeriod = (hour) => ({ morning: hour < 12, afternoon: hour > 12 && hour < 18, night: hour > 18 })
-
     if (content.length > 50 && message.channel.id === CHAT_CHANNEL.id) return
+
+    const date = new Date()
+    date.toLocaleString('pt-BR', {
+      timeZone: CLIENT_TIMEZONE,
+    })
+
+    const currentHour = date.getHours()
+    const currentPeriod = (hour) => ({
+      dawn: hour >= 0 && hour <= 4,
+      morning: hour > 4 && hour < 12,
+      afternoon: hour > 12 && hour < 18,
+      night: hour > 18,
+    })
 
     if (content.startsWith('bom dia') && currentPeriod(currentHour).morning) {
       message.reply({ content: `dia!` }).catch(() => {})
-    }
-    if (content.startsWith('boa tarde') && currentPeriod(currentHour).afternoon) {
+    } else if (content.startsWith('boa tarde') && currentPeriod(currentHour).afternoon) {
       message.reply({ content: `tarde!` }).catch(() => {})
-    }
-    if (content.startsWith('boa noite') && currentPeriod(currentHour).night) {
+    } else if (content.startsWith('boa noite') && currentPeriod(currentHour).night) {
       message.reply({ content: `noite!` }).catch(() => {})
+    } else if (content.startsWith('boa madrugada') && currentPeriod(currentHour).dawn) {
+      message.reply({ content: `boa madrugada!` }).catch(() => {})
     }
   }
 }
