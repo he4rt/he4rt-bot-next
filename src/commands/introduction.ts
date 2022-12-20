@@ -1,4 +1,4 @@
-import { CommandInteraction, DMChannel, GuildMember, SlashCommandBuilder } from 'discord.js'
+import { CommandInteraction, DMChannel, GuildMember, SlashCommandBuilder, Message } from 'discord.js'
 import { Command, IntroducePOST, IntroducePUT, RoleDefine, UserGETBody } from '@/types'
 import {
   PRESENTATIONS_CHANNEL,
@@ -7,6 +7,8 @@ import {
   HE4RT_DELAS_ROLE,
   VALID_PRESENTATION_DEV_ROLES,
   VALID_PRESENTATION_ENG_ROLES,
+  VALID_PRESENTATION_RF,
+  HE4RT_EMOJI_ID,
 } from '@/defines/ids.json'
 import INTRODUCTION from '-/commands/introduction.json'
 import { INTRODUCE } from '@/defines/commands.json'
@@ -72,6 +74,22 @@ const nextMultipleRoleSelection = async (
 
   await dm.send(INTRODUCTION.INVALID_NUMBER)
   await nextMultipleRoleSelection(roles, text, dm, member, interaction)
+}
+
+const nextUFSelection = async (dm: DMChannel, interaction: CommandInteraction): Promise<string> => {
+  await dm.send(
+    VALID_PRESENTATION_RF.reduce(
+      (acc, val, index) => (acc += `**${index + 1}**` + ` -   ${val.id} ${val.name}` + '\n'),
+      '\n'
+    )
+  )
+
+  const value = Number(await nextTextMessage(dm, interaction))
+
+  if (isValidId(value, VALID_PRESENTATION_RF)) return VALID_PRESENTATION_RF[value - 1].id
+
+  await dm.send(INTRODUCTION.INVALID_NUMBER)
+  return await nextUFSelection(dm, interaction)
 }
 
 const nextRoleSelection = async (
@@ -146,7 +164,10 @@ const nextStringsData = async (dm: DMChannel, interaction: CommandInteraction): 
   await dm.send(INTRODUCTION.USER.LINKEDIN)
   const linkedin = await nextTextMessage(dm, interaction)
 
-  if ([name, nickname, about, git, linkedin].some((v) => v === TIMEOUT_COMMAND_STRING || !v)) {
+  await dm.send(INTRODUCTION.USER.RF)
+  const uf = await nextUFSelection(dm, interaction)
+
+  if ([name, nickname, about, git, linkedin, uf].some((v) => v === TIMEOUT_COMMAND_STRING || !v)) {
     await dm.send(INTRODUCTION.INVALID_STRING_DATA)
 
     return await nextStringsData(dm, interaction)
@@ -158,6 +179,7 @@ const nextStringsData = async (dm: DMChannel, interaction: CommandInteraction): 
     about,
     git,
     linkedin,
+    uf,
   }
 }
 
@@ -233,10 +255,16 @@ export const useIntroduction = (): Command => {
 
           const channel = getChannel({ id: PRESENTATIONS_CHANNEL.id, client })
 
-          await channel?.send({
-            content: `👋 <@${interaction.user.id}>!`,
-            embeds: [embed],
-          })
+          await channel
+            .send({
+              content: `👋 <@${interaction.user.id}>!`,
+              embeds: [embed],
+            })
+            .then(async (msg: Message) => {
+              await msg.react(HE4RT_EMOJI_ID).catch(async () => {
+                await msg.react('💜').catch(() => {})
+              })
+            })
 
           await member.roles.add(PRESENTED_ROLE.id)
           await removePresentingFlag(member)
