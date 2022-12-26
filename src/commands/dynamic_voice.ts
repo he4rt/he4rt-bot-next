@@ -4,7 +4,7 @@ import { DYNAMIC_VOICE } from '@/defines/commands.json'
 import { DYNAMIC_CATEGORY_CHANNEL } from '@/defines/ids.json'
 import { DYNAMIC_VOICE_REASON, DYNAMIC_VOICE_MIN_SIZE, DYNAMIC_VOICE_MAX_SIZE } from '@/defines/values.json'
 import { TYPE_OPTION, LIMIT_OPTION, IN_DYNAMIC_VOICE_ERROR } from '-/commands/dynamic_voice.json'
-import { getGuild, getOption, isPresentedMember, reply } from '@/utils'
+import { getGuild, getOption, getTargetMember, isPresentedMember, reply } from '@/utils'
 
 export const useDynamicVoice = (): Command => {
   const data = new SlashCommandBuilder()
@@ -86,7 +86,7 @@ export const useDynamicVoice = (): Command => {
       })
 
       client.logger.emit({
-        message: `O canal de voz dinâmico **${voice.id}** foi criado automaticamente com sucesso!`,
+        message: `${getTargetMember(member)} criou o canal de voz dinâmico **${typeTitle}**`,
         type: 'command',
         color: 'success',
       })

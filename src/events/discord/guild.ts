@@ -32,7 +32,7 @@ export const deletePossibleUserInServerLeave = (client: He4rtClient, member: Gui
       client.logger.emit({
         type: 'http',
         color: 'info',
-        message: `${getTargetMember(member as GuildMember)} **saiu do servidor e teve a sua conta deletada!**`,
+        message: `${getTargetMember(member as GuildMember)} saiu do servidor e teve a sua conta deletada.`,
       })
     })
     .catch(() => {})
@@ -48,7 +48,7 @@ export const createUserInServerEnter = (client: He4rtClient, member: GuildMember
       client.logger.emit({
         type: 'http',
         color: 'info',
-        message: `${getTargetMember(member)} **entrou no servidor e teve a sua conta criada!**`,
+        message: `${getTargetMember(member)} entrou no servidor e teve a sua conta criada.`,
       })
     })
     .catch(() => {})
