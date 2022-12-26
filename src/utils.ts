@@ -15,7 +15,6 @@ import {
   TextBasedChannel,
   User,
 } from 'discord.js'
-import { formatInTimeZone } from 'date-fns-tz'
 import { CLIENT_NAME, CLIENT_TIMEZONE, COLORS, HE4RT_DELAS_ICON_1_URL, HE4RT_ICON_1_URL } from '@/defines/values.json'
 import {
   VOLUNTEER_ROLE,
@@ -305,21 +304,32 @@ export const js = () => {
     return new Promise((resolve) => setTimeout(resolve, ms))
   }
 
-  const getFullTime = (): string => {
-    const utc = formatInTimeZone(new Date(), CLIENT_TIMEZONE, 'yyyy-MM-dd HH:mm:ss')
+  const getUTCDate = () => {
+    const date = new Date()
+    date.toLocaleString('pt-BR', {
+      timeZone: CLIENT_TIMEZONE,
+    })
 
-    return utc
+    return date
+  }
+
+  const getFullTime = (): string => {
+    const date = getUTCDate()
+
+    return `${date.getFullYear()}-${date.getMonth()}-${
+      date.getDay
+    } ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
   }
 
   const getTime = (): string => {
-    const utc = formatInTimeZone(new Date(), CLIENT_TIMEZONE, 'HH:mm')
+    const date = getUTCDate()
 
-    return utc
+    return `${date.getHours()}:${date.getMinutes()}`
   }
 
   const randomHex = (): HexColorString => {
     return `#${Math.floor(Math.random() * 16777215).toString(16)}`
   }
 
-  return { sleep, getFullTime, getTime, randomHex }
+  return { sleep, getUTCDate, getFullTime, getTime, randomHex }
 }
