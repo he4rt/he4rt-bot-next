@@ -335,9 +335,7 @@ export const js = () => {
   const getFullTime = (): string => {
     const date = getUTCDate()
 
-    return `${date.getFullYear()}-${date.getMonth()}-${
-      date.getDay
-    } ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+    return `${date.getFullYear()}-${date.getMonth()}-${date.getDay()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
   }
 
   const getTime = (): string => {
