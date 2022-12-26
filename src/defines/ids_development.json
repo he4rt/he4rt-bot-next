@@ -174,6 +174,16 @@
     "name": "He4rt",
     "emoji": "💜"
   },
+  "HE4RTLESS_ROLE": {
+    "id": "1042817315290497037",
+    "name": "He4rtless",
+    "emoji": "🍷"
+  },
+  "ADMINISTRATOR_ROLE": {
+    "id": "1042817315269509120",
+    "name": "Equipe de Administração",
+    "emoji": "💼"
+  },
   "MODERATION_ROLE": {
     "id": "1042817315248541756",
     "name": "Equipe de Moderação",

@@ -28,6 +28,14 @@ import {
   VALID_PRESENTATION_ENG_ROLES,
   FORUM_CHANNEL,
   DYNAMIC_CATEGORY_CHANNEL,
+  HE4RTLESS_ROLE,
+  HE4RT_ROLE,
+  ADMINISTRATOR_ROLE,
+  MODERATION_ROLE,
+  SUPREME_ROLE,
+  ADVANCED_ROLE,
+  INTERMEDIATE_ROLE,
+  BEGINNER_ROLE,
 } from '@/defines/ids.json'
 import {
   SUCCESS_COMMAND_DEFAULT,
@@ -54,7 +62,7 @@ export const validDisplayDevRoles = (member: GuildMember) => {
     member?.roles?.cache
       ?.filter((role) => VALID_PRESENTATION_DEV_ROLES.some((v) => v.id === role.id))
       .map((role) => `<@&${role.id}>`)
-      .join(', ') || LANGUAGE_NONE
+      .join(' ') || LANGUAGE_NONE
   )
 }
 
@@ -63,7 +71,28 @@ export const validDisplayEngRoles = (member: GuildMember) => {
     member?.roles?.cache
       ?.filter((role) => VALID_PRESENTATION_ENG_ROLES.some((v) => v.id === role.id))
       .map((role) => `<@&${role.id}>`)
-      .join(', ') || LANGUAGE_NONE
+      .join(' ') || LANGUAGE_NONE
+  )
+}
+
+export const validDisplaySpecialRoles = (member: GuildMember) => {
+  return (
+    member?.roles?.cache
+      ?.filter((role) =>
+        [
+          HE4RTLESS_ROLE,
+          HE4RT_ROLE,
+          ADMINISTRATOR_ROLE,
+          MODERATION_ROLE,
+          SUPREME_ROLE,
+          ADVANCED_ROLE,
+          INTERMEDIATE_ROLE,
+          BEGINNER_ROLE,
+          HE4RT_DELAS_ROLE,
+        ].some((v) => v.id === role.id)
+      )
+      .map((role) => `<@&${role.id}>`)
+      .join(' ') || LANGUAGE_NONE
   )
 }
 

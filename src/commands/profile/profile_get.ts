@@ -11,6 +11,7 @@ import {
   reply,
   validDisplayDevRoles,
   validDisplayEngRoles,
+  validDisplaySpecialRoles,
 } from '@/utils'
 
 export const useProfileGet = (): Command => {
@@ -70,7 +71,12 @@ export const useProfileGet = (): Command => {
               {
                 name: EMBED.EMBED_ENGLISH,
                 value: validDisplayEngRoles(target),
-                inline: true,
+                inline: false,
+              },
+              {
+                name: EMBED.EMBED_SPECIAL,
+                value: validDisplaySpecialRoles(target),
+                inline: false,
               },
             ],
           ]
