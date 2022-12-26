@@ -30,7 +30,7 @@ export const useBan = (): Command => {
       const reason = interaction.options.get('razao')
 
       interaction.guild.members
-        .ban(user)
+        .ban(user, { reason: reason.value as string, deleteMessageSeconds: 604800 })
         .then(async () => {
           const embed = embedTemplate({
             title: EMBED_TITLE,

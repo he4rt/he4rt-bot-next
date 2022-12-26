@@ -30,7 +30,7 @@ export const useUnban = (): Command => {
       const reason = interaction.options.get('razao')
 
       interaction.guild.members
-        .unban(user)
+        .unban(user, reason.value as string)
         .then(async () => {
           const embed = embedTemplate({
             title: EMBED_TITLE,
