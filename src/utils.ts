@@ -30,8 +30,6 @@ import {
   DYNAMIC_CATEGORY_CHANNEL,
   HE4RTLESS_ROLE,
   HE4RT_ROLE,
-  ADMINISTRATOR_ROLE,
-  MODERATION_ROLE,
   SUPREME_ROLE,
   ADVANCED_ROLE,
   INTERMEDIATE_ROLE,
@@ -79,17 +77,9 @@ export const validDisplaySpecialRoles = (member: GuildMember) => {
   return (
     member?.roles?.cache
       ?.filter((role) =>
-        [
-          HE4RTLESS_ROLE,
-          HE4RT_ROLE,
-          ADMINISTRATOR_ROLE,
-          MODERATION_ROLE,
-          SUPREME_ROLE,
-          ADVANCED_ROLE,
-          INTERMEDIATE_ROLE,
-          BEGINNER_ROLE,
-          HE4RT_DELAS_ROLE,
-        ].some((v) => v.id === role.id)
+        [HE4RTLESS_ROLE, HE4RT_ROLE, SUPREME_ROLE, ADVANCED_ROLE, INTERMEDIATE_ROLE, BEGINNER_ROLE].some(
+          (v) => v.id === role.id
+        )
       )
       .map((role) => `<@&${role.id}>`)
       .join(' ') || LANGUAGE_NONE
