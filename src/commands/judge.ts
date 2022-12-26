@@ -10,6 +10,7 @@ import { Command, FeedbackCreatePOST, FeedbackReviewPOST, He4rtClient } from '@/
 import { JUDGE } from '@/defines/commands.json'
 import { MEMBER_OPTION, TYPE_OPTION, REASON_OPTION } from '-/commands/judge.json'
 import { CALLED_CHANNEL } from '@/defines/ids.json'
+import { DISCORD_MESSAGE_LIMIT } from '@/defines/values.json'
 import { CLIENT_NAME } from '@/defines/values.json'
 import { embedTemplate, getChannel, getTargetMember, reply } from '@/utils'
 
@@ -42,6 +43,15 @@ export const useJudge = (): Command => {
         }[value as number]
       }
 
+      if ((reason.value as string).length >= DISCORD_MESSAGE_LIMIT) {
+        await interaction.reply({
+          content: `O seu texto de motivo ultrapassa o limite do discord (${DISCORD_MESSAGE_LIMIT} caracteres) e por isso foi desconsiderado! Opte por enviar ticket's separados!`,
+          ephemeral: true,
+        })
+
+        return
+      }
+
       client.api.he4rt.feedback
         .post<FeedbackCreatePOST>({
           sender_id: interaction.user.id,
@@ -53,7 +63,11 @@ export const useJudge = (): Command => {
           const embed = embedTemplate({
             title: `**He4rt Ticket** » ${getType()}`,
             description: reason.value as string,
-            author: target,
+            author: interaction.user,
+            target: {
+              user: target,
+              icon: true,
+            },
             fields: [
               [
                 { name: '**ID do Ticket**', value: String(id), inline: false },
@@ -78,7 +92,7 @@ export const useJudge = (): Command => {
           client.logger.emit({
             type: 'command',
             color: 'success',
-            message: `Um pedido de feedback **${id}** foi criado com sucesso!`,
+            message: `Feedback **${id}** foi criado com sucesso!`,
           })
 
           await reply(interaction).success()
