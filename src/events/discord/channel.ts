@@ -41,10 +41,10 @@ export const sendGoodMessagesInBusyChannels = (message: Message) => {
 
     const currentHour = date.getHours()
     const currentPeriod = (hour) => ({
-      dawn: hour >= 0 && hour <= 4,
-      morning: hour > 4 && hour < 12,
-      afternoon: hour > 12 && hour < 18,
-      night: hour > 18,
+      dawn: hour < 5,
+      morning: hour >= 5 && hour < 12,
+      afternoon: hour >= 12 && hour < 18,
+      night: hour >= 18,
     })
 
     if (content.startsWith('bom dia') && currentPeriod(currentHour).morning) {
