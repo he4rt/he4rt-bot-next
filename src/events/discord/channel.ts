@@ -7,8 +7,7 @@ import {
   LEARNING_DIARY_CHANNEL,
   ADVERTS_CHANNEL,
 } from '@/defines/ids.json'
-import { CLIENT_TIMEZONE } from '@/defines/values.json'
-import { isAdministrator, isImageHTTPUrl, isValidProxyContent } from '@/utils'
+import { isAdministrator, isImageHTTPUrl, isValidProxyContent, js } from '@/utils'
 
 export const suppressEmbedMessagesInBusyChannels = async (message: Message) => {
   const validChannels = [CHAT_CHANNEL, MEETING_CHANNEL, MEETING_DELAS_CHANNEL]
@@ -34,17 +33,14 @@ export const sendGoodMessagesInBusyChannels = (message: Message) => {
 
     if (content.length > 50 && message.channel.id === CHAT_CHANNEL.id) return
 
-    const date = new Date()
-    date.toLocaleString('pt-BR', {
-      timeZone: CLIENT_TIMEZONE,
-    })
+    const date = js().getUTCDate()
 
     const currentHour = date.getHours()
     const currentPeriod = (hour) => ({
-      dawn: hour >= 0 && hour <= 4,
-      morning: hour > 4 && hour < 12,
-      afternoon: hour > 12 && hour < 18,
-      night: hour > 18,
+      dawn: hour < 5,
+      morning: hour >= 5 && hour < 12,
+      afternoon: hour >= 12 && hour < 18,
+      night: hour >= 18,
     })
 
     if (content.startsWith('bom dia') && currentPeriod(currentHour).morning) {

@@ -50,7 +50,7 @@ export const useTimeout = (): Command => {
       const timeout = time.value as number
 
       try {
-        await member.timeout(timeout)
+        await member.timeout(timeout, reason.value as string)
       } catch (e) {
         await reply(interaction).errorPermission()
 

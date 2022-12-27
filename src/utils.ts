@@ -15,7 +15,6 @@ import {
   TextBasedChannel,
   User,
 } from 'discord.js'
-import { formatInTimeZone } from 'date-fns-tz'
 import { CLIENT_NAME, CLIENT_TIMEZONE, COLORS, HE4RT_DELAS_ICON_1_URL, HE4RT_ICON_1_URL } from '@/defines/values.json'
 import {
   VOLUNTEER_ROLE,
@@ -29,6 +28,12 @@ import {
   VALID_PRESENTATION_ENG_ROLES,
   FORUM_CHANNEL,
   DYNAMIC_CATEGORY_CHANNEL,
+  HE4RTLESS_ROLE,
+  HE4RT_ROLE,
+  SUPREME_ROLE,
+  ADVANCED_ROLE,
+  INTERMEDIATE_ROLE,
+  BEGINNER_ROLE,
 } from '@/defines/ids.json'
 import {
   SUCCESS_COMMAND_DEFAULT,
@@ -55,7 +60,7 @@ export const validDisplayDevRoles = (member: GuildMember) => {
     member?.roles?.cache
       ?.filter((role) => VALID_PRESENTATION_DEV_ROLES.some((v) => v.id === role.id))
       .map((role) => `<@&${role.id}>`)
-      .join(', ') || LANGUAGE_NONE
+      .join(' ') || LANGUAGE_NONE
   )
 }
 
@@ -64,7 +69,20 @@ export const validDisplayEngRoles = (member: GuildMember) => {
     member?.roles?.cache
       ?.filter((role) => VALID_PRESENTATION_ENG_ROLES.some((v) => v.id === role.id))
       .map((role) => `<@&${role.id}>`)
-      .join(', ') || LANGUAGE_NONE
+      .join(' ') || LANGUAGE_NONE
+  )
+}
+
+export const validDisplaySpecialRoles = (member: GuildMember) => {
+  return (
+    member?.roles?.cache
+      ?.filter((role) =>
+        [HE4RTLESS_ROLE, HE4RT_ROLE, SUPREME_ROLE, ADVANCED_ROLE, INTERMEDIATE_ROLE, BEGINNER_ROLE].some(
+          (v) => v.id === role.id
+        )
+      )
+      .map((role) => `<@&${role.id}>`)
+      .join(' ') || LANGUAGE_NONE
   )
 }
 
@@ -305,21 +323,30 @@ export const js = () => {
     return new Promise((resolve) => setTimeout(resolve, ms))
   }
 
-  const getFullTime = (): string => {
-    const utc = formatInTimeZone(new Date(), CLIENT_TIMEZONE, 'yyyy-MM-dd HH:mm:ss')
+  const getUTCDate = () => {
+    const date = new Date()
+    date.toLocaleString('pt-BR', {
+      timeZone: CLIENT_TIMEZONE,
+    })
 
-    return utc
+    return date
+  }
+
+  const getFullTime = (): string => {
+    const date = getUTCDate()
+
+    return `${date.getFullYear()}-${date.getMonth()}-${date.getDay()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
   }
 
   const getTime = (): string => {
-    const utc = formatInTimeZone(new Date(), CLIENT_TIMEZONE, 'HH:mm')
+    const date = getUTCDate()
 
-    return utc
+    return `${date.getHours()}:${date.getMinutes()}`
   }
 
   const randomHex = (): HexColorString => {
     return `#${Math.floor(Math.random() * 16777215).toString(16)}`
   }
 
-  return { sleep, getFullTime, getTime, randomHex }
+  return { sleep, getUTCDate, getFullTime, getTime, randomHex }
 }

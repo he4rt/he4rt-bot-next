@@ -37,7 +37,7 @@ export const setDynamicVoiceRemover = async (client: He4rtClient) => {
               client.logger.emit({
                 message: `O canal de voz dinâmico **${channel.id}** foi deletado automaticamente com sucesso!`,
                 type: 'command',
-                color: 'success',
+                color: 'info',
               })
             })
             .catch(() => {})
