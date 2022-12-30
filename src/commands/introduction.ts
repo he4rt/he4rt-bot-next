@@ -84,12 +84,16 @@ const nextUFSelection = async (dm: DMChannel, interaction: CommandInteraction): 
     )
   )
 
-  const value = Number(await nextTextMessage(dm, interaction))
+  const response = await nextTextMessage(dm, interaction)
+
+  if (response.toLowerCase() === '/parar') return '/parar'
+
+  const value = Number(response)
 
   if (isValidId(value, VALID_PRESENTATION_RF)) return VALID_PRESENTATION_RF[value - 1].id
 
   await dm.send(INTRODUCTION.INVALID_NUMBER)
-  return await nextUFSelection(dm, interaction)
+  return TIMEOUT_COMMAND_STRING
 }
 
 const nextRoleSelection = async (
@@ -148,29 +152,47 @@ const validateAccess = async (dm: DMChannel, interaction: CommandInteraction): P
   return true
 }
 
-const nextStringsData = async (dm: DMChannel, interaction: CommandInteraction): Promise<UserGETBody> => {
+const nextStringsData = async (
+  dm: DMChannel,
+  interaction: CommandInteraction,
+  attempts = 1
+): Promise<UserGETBody | false> => {
   await dm.send(INTRODUCTION.USER.NAME)
   const name = await nextTextMessage(dm, interaction)
+
+  if (name.toLowerCase() === '/parar') return false
 
   await dm.send(INTRODUCTION.USER.NICK)
   const nickname = await nextTextMessage(dm, interaction)
 
+  if (nickname.toLowerCase() === '/parar') return false
+
   await dm.send(INTRODUCTION.USER.ABOUT)
   const about = await nextTextMessage(dm, interaction)
+
+  if (about.toLowerCase() === '/parar') return false
 
   await dm.send(INTRODUCTION.USER.GIT)
   const git = await nextTextMessage(dm, interaction)
 
+  if (git.toLowerCase() === '/parar') return false
+
   await dm.send(INTRODUCTION.USER.LINKEDIN)
   const linkedin = await nextTextMessage(dm, interaction)
+
+  if (linkedin.toLowerCase() === '/parar') return false
 
   await dm.send(INTRODUCTION.USER.RF)
   const uf = await nextUFSelection(dm, interaction)
 
+  if (uf.toLowerCase() === '/parar') return false
+
   if ([name, nickname, about, git, linkedin, uf].some((v) => v === TIMEOUT_COMMAND_STRING || !v)) {
+    if (attempts >= 3) return false
+
     await dm.send(INTRODUCTION.INVALID_STRING_DATA)
 
-    return await nextStringsData(dm, interaction)
+    return await nextStringsData(dm, interaction, attempts + 1)
   }
 
   return {
@@ -211,6 +233,8 @@ export const useIntroduction = (): Command => {
           await setPresentingFlag(member)
 
           const body = await nextStringsData(dm, interaction)
+
+          if (body === false) return await dm.send(INTRODUCTION.STOP)
 
           await nextMultipleRoleSelection(
             VALID_PRESENTATION_DEV_ROLES,
