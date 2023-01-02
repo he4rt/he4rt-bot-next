@@ -128,6 +128,7 @@ export interface UserGET extends RESTJson, UserGETBody, UserLevelXP {
   discord_id: string
   twitch_id: any
   email: string | null
+  uf: string | null
   level: number
   current_exp: number
   money: string
