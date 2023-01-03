@@ -1,8 +1,8 @@
 {
   "IS_PRESENTED_ERROR": "**Você já se apresentou!** Caso queira editar o seu perfil, utilize o comando `/perfil-editar`!",
-  "CONTINUE": "``❗`` Este é o nosso sistema de apresentação.\n\nResponda as perguntas a seguir com sinceridade total por sua pessoa.\nEu aguardo por cinco minutos em cada resposta, caso este tempo seja ultrapassado, os valores são ignorados.\nSe desejar omitir algum dado, não tem problema algum!\nPara parar a apresentação use ``/parar``\n\n``❗`` Como primeira questão:\n\n",
+  "CONTINUE": "``❗`` Este é o nosso sistema de apresentação.\n\nResponda as perguntas a seguir com sinceridade total por sua pessoa.\nEu aguardo por cinco minutos em cada resposta, caso este tempo seja ultrapassado, os valores são ignorados.\nSe desejar omitir algum dado, não tem problema algum!\nCaso queira parar a apresentação, digite ``/parar``\n\n``❗`` Como primeira questão:\n\n",
   "CONTINUE_MESSAGE": "\n**0 **-   Continuar a Apresentação.\n",
-  "STOP": "``❗`` A apresentação foi parada. \nPara iniciar novamente, utilize o comando `/apresentar`.",
+  "STOP": "``❗`` A apresentação foi parada. \nPara iniciar novamente, utilize o comando `/apresentar` em algum canal dentro do servidor.",
   "USER": {
     "NAME": "> **Qual é seu nome?** (Exemplo: Daniel Reis)",
     "NICK": "> **Qual é seu nickname?** (Exemplo: DanielHe4rt)",

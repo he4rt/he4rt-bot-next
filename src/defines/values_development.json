@@ -3,6 +3,8 @@
   "CLIENT_TIMEZONE": "America/Sao_Paulo",
   "TIMEOUT_COMMAND": 300000,
   "TIMEOUT_COMMAND_STRING": "__INVALID__RESPONSE__",
+  "TIMEOUT_MAX_RETRY": 3,
+  "FORCE_STOP_COMMAND": "/parar",
   "DEFINE_STRING_REPLACED": "__REPLACED__",
   "HE4RT_ICON_1_URL": "https://i.imgur.com/iWhfWMa.png",
   "HE4RT_DELAS_ICON_1_URL": "https://imgur.com/PDNU5Xq.png",
@@ -26,5 +28,5 @@
   "DISCORD_MESSAGE_LIMIT": 2000,
   "DYNAMIC_VOICE_MIN_SIZE": 2,
   "DYNAMIC_VOICE_MAX_SIZE": 15,
-  "EXTENDED_PROFILE_LINK": "https://he4rt-landing-ssr.vercel.app/profile/"
+  "EXTENDED_PROFILE_LINK": "https://heartdevs.com/profile/"
 }
