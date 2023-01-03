@@ -26,5 +26,5 @@
   "DISCORD_MESSAGE_LIMIT": 2000,
   "DYNAMIC_VOICE_MIN_SIZE": 2,
   "DYNAMIC_VOICE_MAX_SIZE": 15,
-  "EXTENDED_PROFILE_LINK": "https://he4rt-landing-ssr.vercel.app/profile/"
+  "EXTENDED_PROFILE_LINK": "https://heartdevs.com/profile/"
 }
