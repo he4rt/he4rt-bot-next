@@ -183,7 +183,7 @@ const nextStringsData = async (
 
   if (isStopEntryCommand(linkedin)) return false
 
-  await dm.send(INTRODUCTION.USER.RF)
+  await dm.send(INTRODUCTION.USER.UF)
   const uf = await nextUFSelection(dm, interaction)
 
   if (isStopEntryCommand(uf)) return false
