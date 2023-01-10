@@ -5,24 +5,24 @@ specifiers:
   '@commitlint/config-conventional': ^17.3.0
   '@types/cron': ^2.0.0
   concurrently: ^7.6.0
-  cron: ^2.1.0
+  cron: ^2.2.0
   destr: ^1.2.2
   discord.js: ^14.7.1
   dotenv: ^16.0.3
   esbuild-plugin-replace: ^1.3.0
-  generi: ^0.4.2
+  generi: ^0.5.1
   husky: ^8.0.0
   lint-staged: ^13.0.4
   nodemon: ^2.0.20
   pm2: ^5.2.2
-  prettier: ^2.7.1
+  prettier: ^2.8.2
   pretty-quick: ^3.1.3
   tsup: ^6.5.0
   typescript: ^4.9.4
   uncreate: ^0.9.3
 
 dependencies:
-  cron: 2.1.0
+  cron: 2.2.0
   destr: 1.2.2
   discord.js: 14.7.1
   uncreate: 0.9.3
@@ -34,13 +34,13 @@ devDependencies:
   concurrently: 7.6.0
   dotenv: 16.0.3
   esbuild-plugin-replace: 1.3.0
-  generi: 0.4.2
+  generi: 0.5.1
   husky: 8.0.2
   lint-staged: 13.0.4
   nodemon: 2.0.20
   pm2: 5.2.2
-  prettier: 2.7.1
-  pretty-quick: 3.1.3_prettier@2.7.1
+  prettier: 2.8.2
+  pretty-quick: 3.1.3_prettier@2.8.2
   tsup: 6.5.0_typescript@4.9.4
   typescript: 4.9.4
 
@@ -1143,11 +1143,11 @@ packages:
       { integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ== }
     dev: true
 
-  /cron/2.1.0:
+  /cron/2.2.0:
     resolution:
-      { integrity: sha512-Hq7u3P8y7UWYvsZbSKHHJDVG0VO9O7tp2qljxzTScelcTODBfCme8AIhnZsFwmQ9NchZ3hr2uNr+s3DSms7q6w== }
+      { integrity: sha512-GPiI3OgMv83XRtEUc2gUdaLvJhO3XbLN288layOBkDTupg0RK5IECNGpkykIMHg+muVR2bxt29b0xvCAcBrjYQ== }
     dependencies:
-      luxon: 1.28.0
+      luxon: 3.2.1
     dev: false
 
   /croner/4.1.97:
@@ -1870,9 +1870,9 @@ packages:
       { integrity: sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A== }
     dev: true
 
-  /generi/0.4.2:
+  /generi/0.5.1:
     resolution:
-      { integrity: sha512-vsXs+D3qnA0Svhpi6KRg0FHcCJ7PcsavsIU3uVj4iaGkfQTvJNfEaqsNwPPw190Q4rtxfUHboDWJ91XJLbBwxw== }
+      { integrity: sha512-ZmvOckX8PGMnUej5eaIS1fRNtx3RUsFa2EhI+PS7f5YMJmKKPPhFIyVryW+4x0OWw1JHwHh1/a0Z2Nmm9KRXqw== }
     hasBin: true
     dependencies:
       consola: 2.15.3
@@ -2513,9 +2513,10 @@ packages:
       yallist: 4.0.0
     dev: true
 
-  /luxon/1.28.0:
+  /luxon/3.2.1:
     resolution:
-      { integrity: sha512-TfTiyvZhwBYM/7QdAVDh+7dBTBA29v4ik0Ce9zda3Mnf8on1S5KJI8P2jKFZ8+5C0jhmr0KwJEO/Wdpm0VeWJQ== }
+      { integrity: sha512-QrwPArQCNLAKGO/C+ZIilgIuDnEnKx5QYODdDtbFaxzsbZcc/a7WFq7MhsVYgRlwawLtvOUESTlfJ+hc/USqPg== }
+    engines: { node: '>=12' }
     dev: false
 
   /magic-string/0.25.9:
@@ -3123,14 +3124,14 @@ packages:
     engines: { node: '>= 0.8.0' }
     dev: true
 
-  /prettier/2.7.1:
+  /prettier/2.8.2:
     resolution:
-      { integrity: sha512-ujppO+MkdPqoVINuDFDRLClm7D78qbDt0/NR+wp5FqEZOoTNAjPHWj17QRhu7geIHJfcNhRk1XVQmF8Bp3ye+g== }
+      { integrity: sha512-BtRV9BcncDyI2tsuS19zzhzoxD8Dh8LiCx7j7tHzrkz8GFXAexeWFdi22mjE1d16dftH2qNaytVxqiRTGlMfpw== }
     engines: { node: '>=10.13.0' }
     hasBin: true
     dev: true
 
-  /pretty-quick/3.1.3_prettier@2.7.1:
+  /pretty-quick/3.1.3_prettier@2.8.2:
     resolution:
       { integrity: sha512-kOCi2FJabvuh1as9enxYmrnBC6tVMoVOenMaBqRfsvBHB0cbpYHjdQEpSglpASDFEXVwplpcGR4CLEaisYAFcA== }
     engines: { node: '>=10.13' }
@@ -3144,7 +3145,7 @@ packages:
       ignore: 5.2.0
       mri: 1.2.0
       multimatch: 4.0.0
-      prettier: 2.7.1
+      prettier: 2.8.2
     dev: true
 
   /promptly/2.2.0:
