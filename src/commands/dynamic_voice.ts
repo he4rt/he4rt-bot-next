@@ -88,6 +88,10 @@ export const useDynamicVoice = (): Command => {
         reason: DYNAMIC_VOICE_REASON,
       })
 
+      voice.permissionOverwrites
+        .edit(guild.id, { SendMessages: true, ViewChannel: true, Speak: true, Connect: true })
+        .catch(() => {})
+
       const invite = await voice.createInvite({
         unique: true,
         temporary: true,
