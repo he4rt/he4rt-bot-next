@@ -86,7 +86,8 @@
     { "id": "541021498064896000", "name": "C, C++, C#", "emoji": "🇨" },
     { "id": "546152565633449995", "name": "UX/UI", "emoji": "🎨" },
     { "id": "1043325810347606056", "name": "Rust", "emoji": "r" },
-    { "id": "547606728179449895", "name": "Designer", "emoji": "🎨" }
+    { "id": "547606728179449895", "name": "Designer", "emoji": "🎨" },
+    { "id": "958788344974831687", "name": "Elixir", "emoji": "💧" }
   ],
   "VALID_PRESENTATION_ENG_ROLES": [
     { "id": "546148712833875985", "name": "Advanced English", "emoji": "🗽" },
