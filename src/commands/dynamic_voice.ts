@@ -121,13 +121,10 @@ export const useDynamicVoice = (): Command => {
 
       const component = new ActionRowBuilder<ButtonBuilder>()
         .addComponents(
-          new ButtonBuilder().setCustomId('c-dynamic-voice-decrease').setLabel('Diminuir').setStyle(ButtonStyle.Danger)
+          new ButtonBuilder().setCustomId('c-dynamic-voice-decrease').setLabel('-').setStyle(ButtonStyle.Danger)
         )
         .addComponents(
-          new ButtonBuilder()
-            .setCustomId('c-dynamic-voice-increment')
-            .setLabel('Aumentar')
-            .setStyle(ButtonStyle.Success)
+          new ButtonBuilder().setCustomId('c-dynamic-voice-increment').setLabel('+').setStyle(ButtonStyle.Success)
         )
 
       await voice
