@@ -5,7 +5,7 @@ import {
   TICKER_SETTER,
 } from '@/defines/values.json'
 import { getDynamicVoiceCategory, getGuild } from '@/utils'
-import { Collection, GuildMember } from 'discord.js'
+import { channelMention, Collection, GuildMember, VoiceChannel } from 'discord.js'
 
 export const setDynamicVoiceRemover = async (client: He4rtClient) => {
   const guild = getGuild(client)
@@ -20,7 +20,7 @@ export const setDynamicVoiceRemover = async (client: He4rtClient) => {
       voiceCounterInSeconds = voiceTimer
 
       const category = getDynamicVoiceCategory(client)
-      const channels = [...guild.channels.cache]
+      const channels = [...guild.channels.cache] as [string, VoiceChannel][]
 
       channels.forEach(async ([_, channel]) => {
         if (channel.parentId !== category.id) return
@@ -31,6 +31,8 @@ export const setDynamicVoiceRemover = async (client: He4rtClient) => {
         const expirationLimitTime = new Date(channel.createdAt).valueOf() + DYNAMIC_VOICE_INVITE_LIMIT_TIME
 
         if (targets.length === 0 && actuallyTime > expirationLimitTime) {
+          await channel.bulkDelete(channel.messages.cache.reduce((sum) => ++sum, 0)).catch(() => {})
+
           channel
             .delete()
             .then(() => {
