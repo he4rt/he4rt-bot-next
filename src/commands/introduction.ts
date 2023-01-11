@@ -12,12 +12,11 @@ import {
 } from '@/defines/ids.json'
 import INTRODUCTION from '-/commands/introduction.json'
 import { INTRODUCE } from '@/defines/commands.json'
-import { TIMEOUT_COMMAND, FORCE_STOP_COMMAND, TIMEOUT_MAX_RETRY, TIMEOUT_COMMAND_STRING } from '@/defines/values.json'
+import { TIMEOUT_COMMAND, TIMEOUT_MAX_RETRY, TIMEOUT_COMMAND_STRING } from '@/defines/values.json'
 import {
   getChannel,
   getTargetMember,
   isPresentingMember,
-  isStopEntryCommand,
   isValidId,
   reply,
   sendInDM,
@@ -86,8 +85,6 @@ const nextUFSelection = async (dm: DMChannel, interaction: CommandInteraction): 
   )
 
   const response = await nextTextMessage(dm, interaction)
-
-  if (response.trim().toLowerCase() === FORCE_STOP_COMMAND) return FORCE_STOP_COMMAND
 
   const value = Number(response)
 
@@ -161,32 +158,20 @@ const nextStringsData = async (
   await dm.send(INTRODUCTION.USER.NAME)
   const name = await nextTextMessage(dm, interaction)
 
-  if (isStopEntryCommand(name)) return false
-
   await dm.send(INTRODUCTION.USER.NICK)
   const nickname = await nextTextMessage(dm, interaction)
-
-  if (isStopEntryCommand(nickname)) return false
 
   await dm.send(INTRODUCTION.USER.ABOUT)
   const about = await nextTextMessage(dm, interaction)
 
-  if (isStopEntryCommand(about)) return false
-
   await dm.send(INTRODUCTION.USER.GIT)
   const git = await nextTextMessage(dm, interaction)
-
-  if (isStopEntryCommand(git)) return false
 
   await dm.send(INTRODUCTION.USER.LINKEDIN)
   const linkedin = await nextTextMessage(dm, interaction)
 
-  if (isStopEntryCommand(linkedin)) return false
-
   await dm.send(INTRODUCTION.USER.UF)
   const uf = await nextUFSelection(dm, interaction)
-
-  if (isStopEntryCommand(uf)) return false
 
   if ([name, nickname, about, git, linkedin, uf].some((v) => v === TIMEOUT_COMMAND_STRING || !v)) {
     if (attempts >= TIMEOUT_MAX_RETRY) return false

@@ -15,14 +15,7 @@ import {
   TextBasedChannel,
   User,
 } from 'discord.js'
-import {
-  CLIENT_NAME,
-  CLIENT_TIMEZONE,
-  FORCE_STOP_COMMAND,
-  COLORS,
-  HE4RT_DELAS_ICON_1_URL,
-  HE4RT_ICON_1_URL,
-} from '@/defines/values.json'
+import { CLIENT_NAME, CLIENT_TIMEZONE, COLORS, HE4RT_DELAS_ICON_1_URL, HE4RT_ICON_1_URL } from '@/defines/values.json'
 import {
   VOLUNTEER_ROLE,
   PRESENTING_ROLE,
@@ -146,8 +139,6 @@ export const isValidId = (id: number, arr: any[]) => {
 export const isCustomColorRole = (name: string) => {
   return /.+#\d{4}/i.test(name)
 }
-
-export const isStopEntryCommand = (entry: string): boolean => entry.trim().toLowerCase() === FORCE_STOP_COMMAND
 
 export const hasRole = (member: GuildMember, target: string) => {
   return member.roles.cache.some(({ id }) => id === target)
