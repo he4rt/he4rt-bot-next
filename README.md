@@ -41,7 +41,6 @@ He4rt Discord Bot
 - `/codigo`
 - `/forum`
 - `/forum-fechar`
-- `/reuniao`
 - `/reuniao-iniciar` (ADM)
 - `/reuniao-finalizar` (ADM)
 - `/reuniao-ata` (ESCRIVÃO)
