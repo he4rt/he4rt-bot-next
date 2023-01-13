@@ -14,6 +14,7 @@ export const XPListener = (client: He4rtClient, message: Message) => {
       channel_id: message.channelId,
       message_content: message.content,
       message_id: message.id,
+      message_at: message.createdTimestamp,
     })
     .catch(() => {})
 }
