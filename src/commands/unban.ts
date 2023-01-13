@@ -54,7 +54,7 @@ export const useUnban = (): Command => {
 
           await channel?.send({ content: `Usuário **${user.id}** Desbanido!`, embeds: [embed] })
 
-          if (expose) {
+          if (expose.channel) {
             const target = expose.channel as TextChannel
 
             await target
