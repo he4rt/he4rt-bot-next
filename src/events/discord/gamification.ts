@@ -1,22 +1,19 @@
 import { ChannelType, GuildMember, Message } from 'discord.js'
 import { He4rtClient, MessagePOST } from '@/types'
-import { LEVELUP_CHANNEL, PRESENTATIONS_CHANNEL, COMMANDS_CHANNEL } from '@/defines/ids.json'
 
 export const XPListener = (client: He4rtClient, message: Message) => {
   const member = message.member as GuildMember
 
   if (!member?.id) return
 
-  const invalidChannels = [LEVELUP_CHANNEL, PRESENTATIONS_CHANNEL, COMMANDS_CHANNEL]
-
-  if (message.channel.type === ChannelType.DM || invalidChannels.some((v) => v.id === message.channel.id)) return
-
-  if (client.user?.id === message.author.id) return
+  if (message.channel.type === ChannelType.DM || client.user?.id === message.author.id || !message.channelId) return
 
   client.api.he4rt
     .users(member.id)
     .message.post<MessagePOST>({
-      message: message.content,
+      channel_id: message.channelId,
+      message_content: message.content,
+      message_id: message.id,
     })
     .catch(() => {})
 }
