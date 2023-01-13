@@ -58,7 +58,7 @@ export const useUnban = (): Command => {
             const target = expose.channel as TextChannel
 
             await target
-              .send({ content: `Usuário **${user.username ?? user.id}** Banido!`, embeds: [embed] })
+              .send({ content: `Usuário **${user.username ?? user.id}** Desbanido!`, embeds: [embed] })
               .then(async (msg: Message) => {
                 await msg.react(HE4RT_EMOJI_ID).catch(async () => {
                   await msg.react('💜').catch(() => {})
