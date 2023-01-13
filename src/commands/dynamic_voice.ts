@@ -90,10 +90,6 @@ export const useDynamicVoice = (): Command => {
         reason: DYNAMIC_VOICE_REASON,
       })
 
-      voice.permissionOverwrites
-        .edit(guild.id, { SendMessages: true, ViewChannel: true, Speak: true, Connect: true })
-        .catch(() => {})
-
       const invite = await voice.createInvite({
         unique: true,
         temporary: true,
@@ -109,8 +105,7 @@ export const useDynamicVoice = (): Command => {
 
       const embed = embedTemplate({
         title: `Canal de Voz Dinâmico`,
-        description:
-          'Controle nos botoes abaixo a quantidade de pessoas que podem permanecer no mesmo canal caso haja necessidade. **Apenas o criador do canal pode controlar!**',
+        description: `Controle nos botoes abaixo a quantidade de pessoas que podem permanecer no mesmo canal caso haja necessidade. **Apenas o criador do canal pode controlar, e o limite mínimo de membros é ${DYNAMIC_VOICE_MIN_SIZE} e o máximo é ${DYNAMIC_VOICE_MAX_SIZE}!**`,
         fields: [
           [
             { name: '**ID do Canal**', value: invite.channelId, inline: false },
