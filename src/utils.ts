@@ -126,7 +126,7 @@ export const isAdministrator = (member: GuildMember) => {
   return member.permissions.has(PermissionFlagsBits.Administrator, true)
 }
 
-export const isValidXPMessage = (message: Message) => {
+export const isValidMessage = (message: Message) => {
   return (
     !isBot(message.author) && message.content && message.member && message.inGuild && message?.id && message?.author?.id
   )
