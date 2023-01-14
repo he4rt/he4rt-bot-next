@@ -16,7 +16,9 @@ export const setVoiceXP = async (client: He4rtClient) => {
       xpCounterInSeconds = xpTimer
 
       const members = [...guild.members.cache]
+
       const targets = members.filter(([_, member]) => member?.voice?.channel)
+      console.log(targets)
 
       for (const [id, member] of targets) {
         const voiceChannel = member.voice.channel
