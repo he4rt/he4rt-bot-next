@@ -21,6 +21,7 @@ import { Ticker } from './client/ticker'
 
 export type Maybe<T> = T | undefined | null
 export type RESTJson<T extends string | number | symbol = string, K = any> = Record<T, K>
+export type Cancellable<T = any> = T | '__INVALID__RESPONSE__'
 export type CommandGetOption<T extends CacheType = CacheType> = (
   interaction: CommandInteraction,
   target: string

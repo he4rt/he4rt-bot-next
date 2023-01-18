@@ -140,6 +140,10 @@ export const isCustomColorRole = (name: string) => {
   return /.+#\d{4}/i.test(name)
 }
 
+export const isCancellable = (str: string) => {
+  return str === TIMEOUT_COMMAND_STRING
+}
+
 export const hasRole = (member: GuildMember, target: string) => {
   return member.roles.cache.some(({ id }) => id === target)
 }

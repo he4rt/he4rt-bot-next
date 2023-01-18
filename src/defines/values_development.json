@@ -1,9 +1,8 @@
 {
   "CLIENT_NAME": "He4rt Developers",
   "CLIENT_TIMEZONE": "America/Sao_Paulo",
-  "TIMEOUT_COMMAND": 300000,
+  "TIMEOUT_COMMAND": 30000,
   "TIMEOUT_COMMAND_STRING": "__INVALID__RESPONSE__",
-  "TIMEOUT_MAX_RETRY": 3,
   "DEFINE_STRING_REPLACED": "__REPLACED__",
   "HE4RT_ICON_1_URL": "https://i.imgur.com/iWhfWMa.png",
   "HE4RT_DELAS_ICON_1_URL": "https://imgur.com/PDNU5Xq.png",
