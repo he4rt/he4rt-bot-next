@@ -5,6 +5,7 @@ import {
   ButtonStyle,
   CategoryChannel,
   ChannelType,
+  CommandInteraction,
   GuildMember,
   SlashCommandBuilder,
   VoiceChannel,
@@ -13,7 +14,7 @@ import { Command, He4rtClient } from '@/types'
 import { DYNAMIC_VOICE } from '@/defines/commands.json'
 import { DYNAMIC_CATEGORY_CHANNEL } from '@/defines/ids.json'
 import { DYNAMIC_VOICE_REASON, DYNAMIC_VOICE_MIN_SIZE, DYNAMIC_VOICE_MAX_SIZE } from '@/defines/values.json'
-import { TYPE_OPTION, LIMIT_OPTION, IN_DYNAMIC_VOICE_ERROR } from '-/commands/dynamic_voice.json'
+import { TYPE_OPTION, LIMIT_OPTION, IN_DYNAMIC_VOICE_ERROR, STUDYING_TITLE_OPTION } from '-/commands/dynamic_voice.json'
 import { embedTemplate, getGuild, getOption, getTargetMember, isPresentedMember, reply } from '@/utils'
 
 export const useDynamicVoice = (): Command => {
@@ -44,9 +45,16 @@ export const useDynamicVoice = (): Command => {
         .setMinValue(DYNAMIC_VOICE_MIN_SIZE)
         .setMaxValue(DYNAMIC_VOICE_MAX_SIZE)
     )
+    .addStringOption((option) => option.setName('estudando-título').setDescription(STUDYING_TITLE_OPTION))
 
-  const getType = (value: number): string => {
-    return {
+  const getType = (type: number, interaction: CommandInteraction): string => {
+    const asCustomizableStudyingTitle = getOption(interaction, 'estudando-título')
+
+    if (asCustomizableStudyingTitle?.value && type === 5) {
+      return `📖 ${asCustomizableStudyingTitle.value}`
+    }
+
+    const defaultTarget = {
       0: '🗣 Only English',
       1: '👥 Novas Amizades',
       2: '👋 Novato',
@@ -54,7 +62,9 @@ export const useDynamicVoice = (): Command => {
       4: '🏢 Trabalho',
       5: '📖 Estudando',
       6: '🔴 Live',
-    }[value]
+    }[type]
+
+    return defaultTarget
   }
 
   return [
@@ -63,6 +73,7 @@ export const useDynamicVoice = (): Command => {
       const member = interaction.member as GuildMember
 
       const type = getOption(interaction, 'tipo')
+
       const limit = getOption(interaction, 'limite')
 
       if (!isPresentedMember(member)) {
@@ -74,7 +85,7 @@ export const useDynamicVoice = (): Command => {
       const guild = getGuild(client)
       const category = guild.channels.cache.get(DYNAMIC_CATEGORY_CHANNEL.id) as CategoryChannel
 
-      const typeTitle = getType(type.value as number)
+      const typeTitle = getType(type.value as number, interaction)
 
       if (member.voice.channel?.parent?.id === DYNAMIC_CATEGORY_CHANNEL.id) {
         await interaction.reply({ content: IN_DYNAMIC_VOICE_ERROR, ephemeral: true })
