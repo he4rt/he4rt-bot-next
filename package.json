@@ -1,6 +1,6 @@
 {
   "name": "he4rt-discord-bot-next",
-  "version": "2.6.3",
+  "version": "2.7.0",
   "author": "He4rt Developers",
   "main": "dist/index.js",
   "scripts": {
@@ -16,24 +16,24 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "cron": "^2.1.0",
+    "cron": "^2.2.0",
     "destr": "^1.2.2",
     "discord.js": "^14.7.1",
     "uncreate": "^0.9.3"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.3.0",
-    "@commitlint/config-conventional": "^17.3.0",
+    "@commitlint/cli": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.2",
     "@types/cron": "^2.0.0",
     "concurrently": "^7.6.0",
     "dotenv": "^16.0.3",
     "esbuild-plugin-replace": "^1.3.0",
-    "generi": "^0.4.2",
-    "husky": "^8.0.0",
-    "lint-staged": "^13.0.4",
+    "generi": "^0.5.2",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.0",
     "nodemon": "^2.0.20",
     "pm2": "^5.2.2",
-    "prettier": "^2.7.1",
+    "prettier": "^2.8.2",
     "pretty-quick": "^3.1.3",
     "tsup": "^6.5.0",
     "typescript": "^4.9.4"

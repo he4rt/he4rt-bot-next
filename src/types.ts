@@ -21,6 +21,7 @@ import { Ticker } from './client/ticker'
 
 export type Maybe<T> = T | undefined | null
 export type RESTJson<T extends string | number | symbol = string, K = any> = Record<T, K>
+export type Cancellable<T extends unknown> = T | '__INVALID__RESPONSE__'
 export type CommandGetOption<T extends CacheType = CacheType> = (
   interaction: CommandInteraction,
   target: string
@@ -128,6 +129,7 @@ export interface UserGET extends RESTJson, UserGETBody, UserLevelXP {
   discord_id: string
   twitch_id: any
   email: string | null
+  uf: string | null
   level: number
   current_exp: number
   money: string

@@ -119,10 +119,6 @@
     "TITLE": "reuniao-ata",
     "DESCRIPTION": "(ATA): Submeta a ATA de uma reunião que já terminou."
   },
-  "STAGE": {
-    "TITLE": "reuniao",
-    "DESCRIPTION": "Participe de uma reunião existente."
-  },
   "ONBOARDING_WHY": {
     "TITLE": "onboarding",
     "DESCRIPTION": "Entenda o que é o nosso sistema de onboarding."

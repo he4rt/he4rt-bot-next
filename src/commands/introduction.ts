@@ -1,5 +1,5 @@
 import { CommandInteraction, DMChannel, GuildMember, SlashCommandBuilder, Message } from 'discord.js'
-import { Command, IntroducePOST, IntroducePUT, RoleDefine, UserGETBody } from '@/types'
+import { Cancellable, Command, IntroducePOST, IntroducePUT, RoleDefine, UserGETBody } from '@/types'
 import {
   PRESENTATIONS_CHANNEL,
   PRESENTED_ROLE,
@@ -9,6 +9,7 @@ import {
   VALID_PRESENTATION_ENG_ROLES,
   VALID_PRESENTATION_RF,
   HE4RT_EMOJI_ID,
+  HE4RT_DELAS_EMOJI_ID,
 } from '@/defines/ids.json'
 import INTRODUCTION from '-/commands/introduction.json'
 import { INTRODUCE } from '@/defines/commands.json'
@@ -16,6 +17,7 @@ import { TIMEOUT_COMMAND, TIMEOUT_COMMAND_STRING } from '@/defines/values.json'
 import {
   getChannel,
   getTargetMember,
+  isCancellable,
   isPresentingMember,
   isValidId,
   reply,
@@ -33,7 +35,7 @@ const removePresentingFlag = async (member: GuildMember) => {
   await member.roles.remove(PRESENTING_ROLE.id)
 }
 
-const nextTextMessage = async (dm: DMChannel, interaction: CommandInteraction): Promise<string> => {
+const nextTextMessage = async (dm: DMChannel, interaction: CommandInteraction): Promise<Cancellable<string>> => {
   try {
     const result = await dm.awaitMessages({
       filter: (m) => m.author.id === interaction.user.id,
@@ -53,30 +55,29 @@ const nextMultipleRoleSelection = async (
   dm: DMChannel,
   member: GuildMember,
   interaction: CommandInteraction
-) => {
+): Promise<number | boolean> => {
   await dm.send(text)
   await dm.send(
     roles.reduce((acc, val, index) => (acc += `**${index + 1}**` + ` -   ${val.emoji} ${val.name}` + '\n'), '\n')
   )
   await dm.send(INTRODUCTION.CONTINUE_MESSAGE)
 
-  const value = Number(await nextTextMessage(dm, interaction))
+  const tg = await nextTextMessage(dm, interaction)
+
+  if (isCancellable(tg)) return false
+
+  const value = Number(tg)
+
+  if (value === 0) return true
 
   if (isValidId(value, roles)) {
     member.roles.add(roles[value - 1].id)
 
     await nextMultipleRoleSelection(roles, text, dm, member, interaction)
-
-    return
   }
-
-  if (value === 0) return
-
-  await dm.send(INTRODUCTION.INVALID_NUMBER)
-  await nextMultipleRoleSelection(roles, text, dm, member, interaction)
 }
 
-const nextUFSelection = async (dm: DMChannel, interaction: CommandInteraction): Promise<string> => {
+const nextUFSelection = async (dm: DMChannel, interaction: CommandInteraction): Promise<string | false> => {
   await dm.send(
     VALID_PRESENTATION_RF.reduce(
       (acc, val, index) => (acc += `**${index + 1}**` + ` -   ${val.id} ${val.name}` + '\n'),
@@ -84,12 +85,15 @@ const nextUFSelection = async (dm: DMChannel, interaction: CommandInteraction): 
     )
   )
 
-  const value = Number(await nextTextMessage(dm, interaction))
+  const response = await nextTextMessage(dm, interaction)
+
+  if (isCancellable(response)) return false
+
+  const value = Number(response)
 
   if (isValidId(value, VALID_PRESENTATION_RF)) return VALID_PRESENTATION_RF[value - 1].id
 
-  await dm.send(INTRODUCTION.INVALID_NUMBER)
-  return await nextUFSelection(dm, interaction)
+  return false
 }
 
 const nextRoleSelection = async (
@@ -98,27 +102,30 @@ const nextRoleSelection = async (
   dm: DMChannel,
   member: GuildMember,
   interaction: CommandInteraction
-) => {
+): Promise<number | false> => {
   await dm.send(text)
   await dm.send(roles.reduce((acc, val, index) => (acc += index + 1 + ` -   ${val.emoji} ${val.name}` + '\n'), '\n'))
 
-  const value = Number(await nextTextMessage(dm, interaction))
+  const tg = await nextTextMessage(dm, interaction)
+
+  if (isCancellable(tg)) return false
+
+  const value = Number(tg)
 
   if (isValidId(value, roles)) {
     member.roles.add(roles[value - 1].id)
 
-    return
+    return value
   }
 
-  await dm.send(INTRODUCTION.INVALID_NUMBER)
-  await nextRoleSelection(roles, text, dm, member, interaction)
+  return false
 }
 
 const nextHe4rtDelasRole = async (
   dm: DMChannel,
   member: GuildMember,
   interaction: CommandInteraction
-): Promise<boolean> => {
+): Promise<number | false> => {
   const roles: RoleDefine[] = [HE4RT_DELAS_ROLE]
 
   await dm.send(INTRODUCTION.USER.DELAS)
@@ -127,15 +134,15 @@ const nextHe4rtDelasRole = async (
   )
   await dm.send(INTRODUCTION.CONTINUE_MESSAGE)
 
-  const value = Number(await nextTextMessage(dm, interaction))
+  const tg = await nextTextMessage(dm, interaction)
 
-  if (isValidId(value, roles)) {
-    member.roles.add(roles[value - 1].id)
+  if (isCancellable(tg)) return false
 
-    return true
-  }
+  const value = Number(tg)
 
-  return false
+  if (isValidId(value, roles)) member.roles.add(roles[value - 1].id)
+
+  return value
 }
 
 const validateAccess = async (dm: DMChannel, interaction: CommandInteraction): Promise<boolean> => {
@@ -148,30 +155,32 @@ const validateAccess = async (dm: DMChannel, interaction: CommandInteraction): P
   return true
 }
 
-const nextStringsData = async (dm: DMChannel, interaction: CommandInteraction): Promise<UserGETBody> => {
+const nextStringsData = async (dm: DMChannel, interaction: CommandInteraction): Promise<UserGETBody | false> => {
   await dm.send(INTRODUCTION.USER.NAME)
   const name = await nextTextMessage(dm, interaction)
+  if (isCancellable(name)) return false
 
   await dm.send(INTRODUCTION.USER.NICK)
   const nickname = await nextTextMessage(dm, interaction)
+  if (isCancellable(nickname)) return false
 
   await dm.send(INTRODUCTION.USER.ABOUT)
   const about = await nextTextMessage(dm, interaction)
+  if (isCancellable(about)) return false
 
   await dm.send(INTRODUCTION.USER.GIT)
   const git = await nextTextMessage(dm, interaction)
+  if (isCancellable(git)) return false
 
   await dm.send(INTRODUCTION.USER.LINKEDIN)
   const linkedin = await nextTextMessage(dm, interaction)
+  if (isCancellable(linkedin)) return false
 
-  await dm.send(INTRODUCTION.USER.RF)
+  await dm.send(INTRODUCTION.USER.UF)
   const uf = await nextUFSelection(dm, interaction)
+  if (!uf) return false
 
-  if ([name, nickname, about, git, linkedin, uf].some((v) => v === TIMEOUT_COMMAND_STRING || !v)) {
-    await dm.send(INTRODUCTION.INVALID_STRING_DATA)
-
-    return await nextStringsData(dm, interaction)
-  }
+  if ([name, nickname, about, git, linkedin].some((v) => v === TIMEOUT_COMMAND_STRING || !v)) return false
 
   return {
     name,
@@ -212,7 +221,9 @@ export const useIntroduction = (): Command => {
 
           const body = await nextStringsData(dm, interaction)
 
-          await nextMultipleRoleSelection(
+          if (body === false) return await dm.send(INTRODUCTION.STOP)
+
+          const multipleRoles = await nextMultipleRoleSelection(
             VALID_PRESENTATION_DEV_ROLES,
             INTRODUCTION.USER.LANGUAGES,
             dm,
@@ -220,9 +231,21 @@ export const useIntroduction = (): Command => {
             interaction
           )
 
-          await nextRoleSelection(VALID_PRESENTATION_ENG_ROLES, INTRODUCTION.USER.ENGLISH, dm, member, interaction)
+          if (multipleRoles === false) return await dm.send(INTRODUCTION.STOP)
 
-          const isHe4rtDelasMember = await nextHe4rtDelasRole(dm, member, interaction)
+          const role = await nextRoleSelection(
+            VALID_PRESENTATION_ENG_ROLES,
+            INTRODUCTION.USER.ENGLISH,
+            dm,
+            member,
+            interaction
+          )
+
+          if (role === false) return await dm.send(INTRODUCTION.STOP)
+
+          const delas = await nextHe4rtDelasRole(dm, member, interaction)
+
+          if (delas === false) return await dm.send(INTRODUCTION.STOP)
 
           const embed = embedTemplate({
             title: `${INTRODUCTION.EMBED.TITLE}${author.username}`,
@@ -230,7 +253,7 @@ export const useIntroduction = (): Command => {
               user: author,
               icon: true,
             },
-            delas: isHe4rtDelasMember,
+            delas: delas === 1,
             fields: [
               [
                 { name: INTRODUCTION.EMBED.NAME, value: body.name, inline: true },
@@ -261,7 +284,7 @@ export const useIntroduction = (): Command => {
               embeds: [embed],
             })
             .then(async (msg: Message) => {
-              await msg.react(HE4RT_EMOJI_ID).catch(async () => {
+              await msg.react(delas === 1 ? HE4RT_DELAS_EMOJI_ID : HE4RT_EMOJI_ID).catch(async () => {
                 await msg.react('💜').catch(() => {})
               })
             })

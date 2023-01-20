@@ -1,5 +1,6 @@
 {
   "TYPE_OPTION": "Escolha o tipo de canal que deseja criar.",
   "LIMIT_OPTION": "Escolha o limite de pessoas que podem acessar o canal.",
+  "STUDYING_TITLE_OPTION": "OPCIONAL: Digite um título para o canal Estudando.",
   "IN_DYNAMIC_VOICE_ERROR": "Você já está em um canal de voz dinâmico!"
 }

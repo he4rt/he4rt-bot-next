@@ -147,10 +147,9 @@ export const resolveJudgeCommandButtonEvents = async (client: He4rtClient, inter
                   client.logger.emit({
                     type: 'ticket',
                     color: 'success',
-                    message: `O ticket de título ${title} e de descrição **${description.substring(
-                      0,
-                      30
-                    )}** foi enviado por ${getTargetMember(author)}, aceito por ${getTargetMember(
+                    message: `O ticket de título ${title} e de descrição **${description}** foi enviado por ${getTargetMember(
+                      author
+                    )}, aceito por ${getTargetMember(
                       interaction.member as GuildMember
                     )} e enviado para ${getTargetMember(target)}!`,
                   })
@@ -192,10 +191,9 @@ export const resolveJudgeCommandButtonEvents = async (client: He4rtClient, inter
           client.logger.emit({
             type: 'ticket',
             color: 'warning',
-            message: `O ticket de título ${title} e de descrição **${description.substring(
-              0,
-              30
-            )}** foi recusado por ${getTargetMember(interaction.member as GuildMember)}!`,
+            message: `O ticket de título ${title} e de descrição **${description}** foi recusado por ${getTargetMember(
+              interaction.member as GuildMember
+            )}!`,
           })
 
           await interaction.message.delete().catch(() => {})

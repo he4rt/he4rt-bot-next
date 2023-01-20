@@ -1,7 +1,7 @@
 import { GuildMember, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
 import { Command, MeetingPOST } from '@/types'
 import { STAGE_START } from '@/defines/commands.json'
-import { MEETING_OPTION } from '-/commands/stage_enter.json'
+import { MEETING_OPTION } from '-/commands/stage_start.json'
 import { getOption, getTargetMember, reply } from '@/utils'
 
 export const useStageStart = (): Command => {

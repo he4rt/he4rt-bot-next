@@ -126,7 +126,7 @@ export const isAdministrator = (member: GuildMember) => {
   return member.permissions.has(PermissionFlagsBits.Administrator, true)
 }
 
-export const isValidXPMessage = (message: Message) => {
+export const isValidMessage = (message: Message) => {
   return (
     !isBot(message.author) && message.content && message.member && message.inGuild && message?.id && message?.author?.id
   )
@@ -138,6 +138,10 @@ export const isValidId = (id: number, arr: any[]) => {
 
 export const isCustomColorRole = (name: string) => {
   return /.+#\d{4}/i.test(name)
+}
+
+export const isCancellable = (str: string) => {
+  return str === TIMEOUT_COMMAND_STRING
 }
 
 export const hasRole = (member: GuildMember, target: string) => {

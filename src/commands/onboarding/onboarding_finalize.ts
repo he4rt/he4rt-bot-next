@@ -1,7 +1,7 @@
 import { GuildMember, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@/types'
 import { ONBOARDING_FINALIZE } from '@/defines/commands.json'
-import { CHAT_CHANNEL } from '@/defines/ids.json'
+import { CHAT_CHANNEL, HE4RT_EMOJI_ID } from '@/defines/ids.json'
 import { MEMBER_OPTION } from '-/commands/onboarding_finalize.json'
 import { getChannel, isVoluntaryMember, reply } from '@/utils'
 
@@ -26,9 +26,11 @@ export const useOnboardingFinalize = (): Command => {
 
       const channel = getChannel({ id: CHAT_CHANNEL.id, client })
 
-      await channel.send(
+      const message = await channel.send(
         `<@${volunteer.id}> ajudou o usuário <@${helped.id}> pelo nosso sistema de acolhimento à novos membros!\n\nSe você é um membro novo e gostaria de conhecer mais sobre o servidor e sobre nossa iniciativa, use o comando **/onboarding** para conhecer este sistema!`
       )
+
+      await message.react(HE4RT_EMOJI_ID).catch(() => {})
 
       await reply(interaction).success()
     },

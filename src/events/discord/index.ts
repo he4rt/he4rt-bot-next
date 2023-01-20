@@ -1,8 +1,7 @@
 import { Events, GuildMember } from 'discord.js'
 import { buttonListener, commandsListener } from '@/commands'
 import { He4rtClient } from '@/types'
-import { XPListener } from './gamification'
-import { isBot, isValidXPMessage } from '@/utils'
+import { isBot, isValidMessage } from '@/utils'
 import { createUserInServerEnter, deletePossibleUserInServerLeave, sendDmToNewUser } from './guild'
 import {
   reactMessagesInSuggestionChannel,
@@ -10,6 +9,7 @@ import {
   suppressEmbedMessagesInBusyChannels,
   reactMessagesInLearningDiaryChannel,
   reactAnnouncesInAdvertsChannel,
+  MessageListener,
 } from './channel'
 import { setMemberIsADonatorOrNot } from './role'
 import { removeUserMuteInLeavePomodoro } from './voice'
@@ -44,8 +44,8 @@ export const discordEvents = (client: He4rtClient) => {
 
     if (isBot(message.author)) return
 
-    if (isValidXPMessage(message)) {
-      XPListener(client, message)
+    if (isValidMessage(message)) {
+      MessageListener(client, message)
     }
 
     suppressEmbedMessagesInBusyChannels(message)

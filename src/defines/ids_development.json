@@ -76,53 +76,202 @@
     "title": "🏆|voluntários"
   },
   "VALID_PRESENTATION_DEV_ROLES": [
-    { "id": "1042817315227582488", "name": "GameDev", "emoji": "🎮" },
-    { "id": "1042817315227582487", "name": "JavaScript", "emoji": "📜" },
-    { "id": "1042817315227582486", "name": "Elixir", "emoji": "💧" },
-    { "id": "1042817315227582485", "name": "PHP", "emoji": "🐘" },
-    { "id": "1042817315227582484", "name": "Python", "emoji": "🐍" },
-    { "id": "1042817315206594640", "name": "Perl", "emoji": "🐪" },
-    { "id": "1042817315206594639", "name": "Java", "emoji": "☕" },
-    { "id": "1042817315206594638", "name": "Ruby", "emoji": "💎" },
-    { "id": "1042817315206594637", "name": "C, C++, C#", "emoji": "🇨" },
-    { "id": "1042817315206594636", "name": "UX/UI", "emoji": "🎨" },
-    { "id": "1042824308604551188", "name": "Rust", "emoji": "r" },
-    { "id": "1042824387805597757", "name": "Designer", "emoji": "🎨" }
+    {
+      "id": "1042817315227582488",
+      "name": "GameDev",
+      "emoji": "🎮"
+    },
+    {
+      "id": "1042817315227582487",
+      "name": "JavaScript",
+      "emoji": "📜"
+    },
+    {
+      "id": "1042817315227582486",
+      "name": "Elixir",
+      "emoji": "💧"
+    },
+    {
+      "id": "1042817315227582485",
+      "name": "PHP",
+      "emoji": "🐘"
+    },
+    {
+      "id": "1042817315227582484",
+      "name": "Python",
+      "emoji": "🐍"
+    },
+    {
+      "id": "1042817315206594640",
+      "name": "Perl",
+      "emoji": "🐪"
+    },
+    {
+      "id": "1042817315206594639",
+      "name": "Java",
+      "emoji": "☕"
+    },
+    {
+      "id": "1042817315206594638",
+      "name": "Ruby",
+      "emoji": "💎"
+    },
+    {
+      "id": "1042817315206594637",
+      "name": "C, C++, C#",
+      "emoji": "🇨"
+    },
+    {
+      "id": "1042817315206594636",
+      "name": "UX/UI",
+      "emoji": "🎨"
+    },
+    {
+      "id": "1042824308604551188",
+      "name": "Rust",
+      "emoji": "r"
+    },
+    {
+      "id": "1042824387805597757",
+      "name": "Designer",
+      "emoji": "🎨"
+    },
+    {
+      "id": "1042817315227582486",
+      "name": "Elixir",
+      "emoji": "💧"
+    }
   ],
   "VALID_PRESENTATION_ENG_ROLES": [
-    { "id": "1042817315185627258", "name": "Advanced English", "emoji": "🗽" },
-    { "id": "1042817315185627257", "name": "Intermediate English", "emoji": "🗽" },
-    { "id": "1042817315185627256", "name": "Basic English", "emoji": "🗽" }
+    {
+      "id": "1042817315185627258",
+      "name": "Advanced English",
+      "emoji": "🗽"
+    },
+    {
+      "id": "1042817315185627257",
+      "name": "Intermediate English",
+      "emoji": "🗽"
+    },
+    {
+      "id": "1042817315185627256",
+      "name": "Basic English",
+      "emoji": "🗽"
+    }
   ],
   "VALID_PRESENTATION_RF": [
-    { "id": "AC", "name": "Acre" },
-    { "id": "AL", "name": "Alagoas" },
-    { "id": "AP", "name": "Amapá" },
-    { "id": "AM", "name": "Amazonas" },
-    { "id": "BA", "name": "Bahia" },
-    { "id": "CE", "name": "Ceará" },
-    { "id": "DF", "name": "Distrito Federal" },
-    { "id": "ES", "name": "Espírito Santo" },
-    { "id": "GO", "name": "Goiás" },
-    { "id": "MA", "name": "Maranhão" },
-    { "id": "MT", "name": "Mato Grosso" },
-    { "id": "MS", "name": "Mato Grosso do Sul" },
-    { "id": "MG", "name": "Minas Gerais" },
-    { "id": "PA", "name": "Pará" },
-    { "id": "PB", "name": "Paraíba" },
-    { "id": "PR", "name": "Paraná" },
-    { "id": "PE", "name": "Pernambuco" },
-    { "id": "PI", "name": "Piauí" },
-    { "id": "RJ", "name": "Rio de Janeiro" },
-    { "id": "RN", "name": "Rio Grande do Norte" },
-    { "id": "RS", "name": "Rio Grande do Sul" },
-    { "id": "RO", "name": "Rondônia" },
-    { "id": "RR", "name": "Roraima" },
-    { "id": "SC", "name": "Santa Catarina" },
-    { "id": "SP", "name": "São Paulo" },
-    { "id": "SE", "name": "Sergipe" },
-    { "id": "TO", "name": "Tocantins" },
-    { "id": "__", "name": "Não moro no Brasil" }
+    {
+      "id": "AC",
+      "name": "Acre"
+    },
+    {
+      "id": "AL",
+      "name": "Alagoas"
+    },
+    {
+      "id": "AP",
+      "name": "Amapá"
+    },
+    {
+      "id": "AM",
+      "name": "Amazonas"
+    },
+    {
+      "id": "BA",
+      "name": "Bahia"
+    },
+    {
+      "id": "CE",
+      "name": "Ceará"
+    },
+    {
+      "id": "DF",
+      "name": "Distrito Federal"
+    },
+    {
+      "id": "ES",
+      "name": "Espírito Santo"
+    },
+    {
+      "id": "GO",
+      "name": "Goiás"
+    },
+    {
+      "id": "MA",
+      "name": "Maranhão"
+    },
+    {
+      "id": "MT",
+      "name": "Mato Grosso"
+    },
+    {
+      "id": "MS",
+      "name": "Mato Grosso do Sul"
+    },
+    {
+      "id": "MG",
+      "name": "Minas Gerais"
+    },
+    {
+      "id": "PA",
+      "name": "Pará"
+    },
+    {
+      "id": "PB",
+      "name": "Paraíba"
+    },
+    {
+      "id": "PR",
+      "name": "Paraná"
+    },
+    {
+      "id": "PE",
+      "name": "Pernambuco"
+    },
+    {
+      "id": "PI",
+      "name": "Piauí"
+    },
+    {
+      "id": "RJ",
+      "name": "Rio de Janeiro"
+    },
+    {
+      "id": "RN",
+      "name": "Rio Grande do Norte"
+    },
+    {
+      "id": "RS",
+      "name": "Rio Grande do Sul"
+    },
+    {
+      "id": "RO",
+      "name": "Rondônia"
+    },
+    {
+      "id": "RR",
+      "name": "Roraima"
+    },
+    {
+      "id": "SC",
+      "name": "Santa Catarina"
+    },
+    {
+      "id": "SP",
+      "name": "São Paulo"
+    },
+    {
+      "id": "SE",
+      "name": "Sergipe"
+    },
+    {
+      "id": "TO",
+      "name": "Tocantins"
+    },
+    {
+      "id": "__",
+      "name": "Não moro no Brasil"
+    }
   ],
   "HE4RT_DELAS_ROLE": {
     "id": "1042817315173056629",
@@ -207,5 +356,6 @@
     "id": "1021558149695680554",
     "name": "Não Resolvido"
   },
-  "HE4RT_EMOJI_ID": "<:he4rt:1051194598891991141>"
+  "HE4RT_EMOJI_ID": "<:he4rt:1051194598891991141>",
+  "HE4RT_DELAS_EMOJI_ID": "<:he4rtDelas:1051983616437145610>"
 }

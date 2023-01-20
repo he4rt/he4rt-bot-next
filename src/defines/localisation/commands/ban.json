@@ -1,4 +1,5 @@
 {
+  "EXPOSE_OPTION": "OPCIONAL: Expõe o banimento em algum canal público.",
   "MEMBER_OPTION": "Usuário a ser banido.",
   "REASON_OPTION": "Texto que irá aparecer no anúncio.",
   "EMBED_TITLE": "``🚔`` » Punição"

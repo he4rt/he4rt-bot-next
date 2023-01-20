@@ -2,7 +2,7 @@ import { GuildMember, SlashCommandBuilder } from 'discord.js'
 import { ApoiaseGET, Command, UserPUT } from '@/types'
 import { APOIASE } from '@/defines/commands.json'
 import { APOIASE_CUSTOM_COLOR_MINIMAL_VALUE } from '@/defines/values.json'
-import { DONATOR_ROLE, CHAT_CHANNEL } from '@/defines/ids.json'
+import { DONATOR_ROLE, CHAT_CHANNEL, HE4RT_EMOJI_ID } from '@/defines/ids.json'
 import { EMAIL_OPTION, APOIASE_MEMBER, INVALID_ACCOUNT, SUCCESS_IN_CHAT } from '-/commands/apoiase.json'
 import { getChannel, getOption, getTargetMember, isApoiaseMember, isPresentedMember, reply } from '@/utils'
 
@@ -78,7 +78,7 @@ export const useApoiase = (): Command => {
 
                 await message.suppressEmbeds(true).catch(() => {})
 
-                await message.react('💜').catch(() => {})
+                await message.react(HE4RT_EMOJI_ID).catch(() => {})
               })
               .catch(() => {
                 client.logger.emit({
