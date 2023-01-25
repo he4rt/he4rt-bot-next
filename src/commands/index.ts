@@ -5,6 +5,7 @@ import { useBan } from './ban'
 import { useColor } from './color'
 import { useDaily } from './daily'
 import { useIntroduction } from './introduction'
+import { useQuizEvent } from './event_coding'
 import { useProfileGet } from './profile/profile_get'
 import { useRanking } from './ranking'
 import { useUnban } from './unban'
@@ -46,6 +47,7 @@ const registerHooks = (client: He4rtClient, commands: Command[]) => {
 export const registerCommands = async ({ client, rest }: Context) => {
   registerHooks(client, [
     useIntroduction(),
+    useQuizEvent(),
     useAnnounce(),
     useColor(),
     useBan(),

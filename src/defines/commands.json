@@ -3,6 +3,10 @@
     "TITLE": "apresentar",
     "DESCRIPTION": "Se apresente para os membros de nossa comunidade e ganhe cargos!"
   },
+  "START_CODE_CHALLENGE": {
+    "TITLE": "ajudar-bot",
+    "DESCRIPTION": "Iniciar sequência de desafio de perguntas."
+  },
   "ANNOUNCE": {
     "TITLE": "anunciar",
     "DESCRIPTION": "ADM: Anuncie no discord automaticamente com o uso do everyone."

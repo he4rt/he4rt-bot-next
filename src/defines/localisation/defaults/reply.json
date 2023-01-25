@@ -11,5 +11,7 @@
   "ERROR_CHANNEL_PERMISSION": "Só é permitido usar este comando no canal ",
   "ERROR_CANNOT_BE_BANNED": "O usuário em questão não pode ser banido ou desbanido!",
   "ERROR_PAGINATION": "Este número de página não existe.",
-  "ERROR_PRESENTING": "**Você já está se apresentando! Consulte sua DM.**"
+  "ERROR_PRESENTING": "**Você já está se apresentando! Consulte sua DM.**",
+  "ERROR_PARTICIPANT_EVENT": "**Você já completou este evento.**",
+  "ERROR_EVENT_NO_FOUND": "**Não há evento ativo neste momento.**"
 }

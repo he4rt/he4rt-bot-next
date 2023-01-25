@@ -40,7 +40,7 @@
     "title": "😴 Ausente"
   },
   "CHAT_CHANNEL": {
-    "id": "1042817315965763597",
+    "id": "1053459533667778630",
     "title": "💬︱bate-papo"
   },
   "COMMANDS_CHANNEL": {
@@ -74,6 +74,10 @@
   "VOLUNTEER_CHANNEL": {
     "id": "1042817315965763600",
     "title": "🏆|voluntários"
+  },
+  "EVENT_CODING": {
+    "id": "1050944705610911774",
+    "name": "evento-he4rt"
   },
   "VALID_PRESENTATION_DEV_ROLES": [
     { "id": "1042817315227582488", "name": "GameDev", "emoji": "🎮" },
