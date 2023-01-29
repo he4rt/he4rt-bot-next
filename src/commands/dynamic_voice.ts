@@ -155,28 +155,36 @@ export const resolveDynamicVoiceUserLimitControl = async (client: He4rtClient, i
     const channel = guild.channels.cache.get(channel_id) as VoiceChannel
 
     if (interaction.customId === 'c-dynamic-voice-decrease') {
-      if (channel.userLimit <= DYNAMIC_VOICE_MIN_SIZE) await reply(interaction).error()
+      if (channel.userLimit <= DYNAMIC_VOICE_MIN_SIZE) {
+        await reply(interaction).error().catch(() => { })
+
+        return
+      }
 
       channel
         .setUserLimit(--channel.userLimit)
         .then(async () => {
-          await reply(interaction).success()
+          await reply(interaction).success().catch(() => { })
         })
         .catch(async () => {
-          await reply(interaction).error()
+          await reply(interaction).error().catch(() => { })
         })
     }
 
     if (interaction.customId === 'c-dynamic-voice-increment') {
-      if (channel.userLimit >= DYNAMIC_VOICE_MAX_SIZE) await reply(interaction).error()
+      if (channel.userLimit >= DYNAMIC_VOICE_MAX_SIZE) {
+        await reply(interaction).error().catch(() => { })
+
+        return
+      }
 
       channel
         .setUserLimit(++channel.userLimit)
         .then(async () => {
-          await reply(interaction).success()
+          await reply(interaction).success().catch(() => { })
         })
         .catch(async () => {
-          await reply(interaction).error()
+          await reply(interaction).error().catch(() => { })
         })
     }
   }
