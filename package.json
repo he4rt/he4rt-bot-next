@@ -1,6 +1,6 @@
 {
   "name": "he4rt-discord-bot-next",
-  "version": "2.7.0",
+  "version": "2.7.1",
   "author": "He4rt Developers",
   "main": "dist/index.js",
   "scripts": {
@@ -33,7 +33,7 @@
     "lint-staged": "^13.1.0",
     "nodemon": "^2.0.20",
     "pm2": "^5.2.2",
-    "prettier": "^2.8.2",
+    "prettier": "^2.8.3",
     "pretty-quick": "^3.1.3",
     "tsup": "^6.5.0",
     "typescript": "^4.9.4"

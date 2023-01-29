@@ -14,7 +14,7 @@ import { Command, He4rtClient } from '@/types'
 import { DYNAMIC_VOICE } from '@/defines/commands.json'
 import { DYNAMIC_CATEGORY_CHANNEL } from '@/defines/ids.json'
 import { DYNAMIC_VOICE_REASON, DYNAMIC_VOICE_MIN_SIZE, DYNAMIC_VOICE_MAX_SIZE } from '@/defines/values.json'
-import { TYPE_OPTION, LIMIT_OPTION, IN_DYNAMIC_VOICE_ERROR, STUDYING_TITLE_OPTION } from '-/commands/dynamic_voice.json'
+import { TYPE_OPTION, LIMIT_OPTION, IN_DYNAMIC_VOICE_ERROR } from '-/commands/dynamic_voice.json'
 import { embedTemplate, getGuild, getOption, getTargetMember, isPresentedMember, reply } from '@/utils'
 
 export const useDynamicVoice = (): Command => {
@@ -34,7 +34,10 @@ export const useDynamicVoice = (): Command => {
           { name: '🎓 Mentoria', value: 3 },
           { name: '🏢 Trabalho', value: 4 },
           { name: '📖 Estudando', value: 5 },
-          { name: '🔴 Live', value: 6 }
+          { name: '🔴 Live', value: 6 },
+          { name: '🎮 Joguinhos', value: 7 },
+          { name: '🗣 Conversando', value: 8 },
+          { name: '🆘 ME AJUDAAA!!!!', value: 9 }
         )
     )
     .addIntegerOption((option) =>
@@ -45,15 +48,8 @@ export const useDynamicVoice = (): Command => {
         .setMinValue(DYNAMIC_VOICE_MIN_SIZE)
         .setMaxValue(DYNAMIC_VOICE_MAX_SIZE)
     )
-    .addStringOption((option) => option.setName('estudando-título').setDescription(STUDYING_TITLE_OPTION))
 
-  const getType = (type: number, interaction: CommandInteraction): string => {
-    const asCustomizableStudyingTitle = getOption(interaction, 'estudando-título')
-
-    if (asCustomizableStudyingTitle?.value && type === 5) {
-      return `📖 ${asCustomizableStudyingTitle.value}`
-    }
-
+  const getType = (type: number): string => {
     const defaultTarget = {
       0: '🗣 Only English',
       1: '👥 Novas Amizades',
@@ -62,7 +58,10 @@ export const useDynamicVoice = (): Command => {
       4: '🏢 Trabalho',
       5: '📖 Estudando',
       6: '🔴 Live',
-    }[type]
+      7: '🎮 Joguinhos',
+      8: '🗣 Conversando',
+      9: '🆘 ME AJUDAAA!!!!'
+    }[type] || '👥 Novas Amizades'
 
     return defaultTarget
   }
@@ -73,7 +72,6 @@ export const useDynamicVoice = (): Command => {
       const member = interaction.member as GuildMember
 
       const type = getOption(interaction, 'tipo')
-
       const limit = getOption(interaction, 'limite')
 
       if (!isPresentedMember(member)) {
@@ -85,7 +83,7 @@ export const useDynamicVoice = (): Command => {
       const guild = getGuild(client)
       const category = guild.channels.cache.get(DYNAMIC_CATEGORY_CHANNEL.id) as CategoryChannel
 
-      const typeTitle = getType(type.value as number, interaction)
+      const typeTitle = getType(type.value as number)
 
       if (member.voice.channel?.parent?.id === DYNAMIC_CATEGORY_CHANNEL.id) {
         await interaction.reply({ content: IN_DYNAMIC_VOICE_ERROR, ephemeral: true })
@@ -139,9 +137,9 @@ export const useDynamicVoice = (): Command => {
           embeds: [embed],
           components: [component],
         })
-        .catch(() => {})
+        .catch(() => { })
 
-      await interaction.reply({ content: invite.url, ephemeral: true })
+      await interaction.reply({ content: invite.url, ephemeral: true }).catch(() => { })
     },
   ]
 }
