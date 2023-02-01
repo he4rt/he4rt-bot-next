@@ -57,6 +57,7 @@ export interface LoggerEmitOptions {
   type: 'bot' | 'http' | 'apoiase' | 'command' | 'event' | 'role' | 'discord' | 'he4rt-api' | 'ticket'
   color: 'success' | 'info' | 'warning' | 'error'
   user?: User
+  customChannelId?: string
 }
 
 export interface RoleDefine {
@@ -94,9 +95,9 @@ export interface DailyPOST extends RESTJson {
   date: string
 }
 
-export interface IntroducePUT extends RESTJson {}
+export interface IntroducePUT extends RESTJson { }
 
-export interface IntroducePOST extends RESTJson {}
+export interface IntroducePOST extends RESTJson { }
 
 export interface BadgePOST {
   name: string
@@ -138,11 +139,11 @@ export interface UserGET extends RESTJson, UserGETBody, UserLevelXP {
   updated_at: string | null
 }
 
-export interface UserPUT extends UserGET {}
+export interface UserPUT extends UserGET { }
 
-export interface MessagePOST extends RESTJson {}
+export interface MessagePOST extends RESTJson { }
 
-export interface VoicePOST extends RESTJson {}
+export interface VoicePOST extends RESTJson { }
 
 export interface ApoiaseGET extends RESTJson {
   isPaidThisMonth: boolean

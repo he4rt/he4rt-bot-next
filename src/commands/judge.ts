@@ -10,8 +10,7 @@ import { Command, FeedbackCreatePOST, FeedbackReviewPOST, He4rtClient } from '@/
 import { JUDGE } from '@/defines/commands.json'
 import { MEMBER_OPTION, TYPE_OPTION, REASON_OPTION } from '-/commands/judge.json'
 import { CALLED_CHANNEL } from '@/defines/ids.json'
-import { DISCORD_MESSAGE_LIMIT } from '@/defines/values.json'
-import { CLIENT_NAME } from '@/defines/values.json'
+import { DISCORD_MESSAGE_LIMIT, CLIENT_NAME } from '@/defines/values.json'
 import { embedTemplate, getChannel, getTargetMember, reply } from '@/utils'
 
 export const useJudge = (): Command => {
@@ -61,7 +60,7 @@ export const useJudge = (): Command => {
         })
         .then(async ({ id }) => {
           const embed = embedTemplate({
-            title: `**He4rt Ticket** » ${getType()}`,
+            title: `**Avaliar** » ${getType()}`,
             description: reason.value as string,
             author: interaction.user,
             target: {
@@ -152,9 +151,10 @@ export const resolveJudgeCommandButtonEvents = async (client: He4rtClient, inter
                     )}, aceito por ${getTargetMember(
                       interaction.member as GuildMember
                     )} e enviado para ${getTargetMember(target)}!`,
+                    customChannelId: CALLED_CHANNEL.id
                   })
 
-                  await interaction.message.delete().catch(() => {})
+                  await interaction.message.delete().catch(() => { })
 
                   await reply(interaction).success()
                 })
@@ -178,7 +178,7 @@ export const resolveJudgeCommandButtonEvents = async (client: He4rtClient, inter
               await reply(interaction).errorInAccessDM()
             })
         })
-        .catch(() => {})
+        .catch(() => { })
     }
 
     if (interaction.customId === 'c-judge-deny') {
@@ -194,13 +194,14 @@ export const resolveJudgeCommandButtonEvents = async (client: He4rtClient, inter
             message: `O ticket de título ${title} e de descrição **${description}** foi recusado por ${getTargetMember(
               interaction.member as GuildMember
             )}!`,
+            customChannelId: CALLED_CHANNEL.id
           })
 
-          await interaction.message.delete().catch(() => {})
+          await interaction.message.delete().catch(() => { })
 
           await reply(interaction).success()
         })
-        .catch(() => {})
+        .catch(() => { })
     }
   }
 }
