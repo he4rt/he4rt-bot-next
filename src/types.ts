@@ -87,7 +87,7 @@ export interface GetChannelOptions {
 }
 
 export interface RankingGET extends RESTJson {
-  data: RankingMember[]
+  data: RESTJson[]
 }
 
 export interface DailyPOST extends RESTJson {
