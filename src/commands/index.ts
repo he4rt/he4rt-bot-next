@@ -17,7 +17,6 @@ import { useApoiase } from './apoiase'
 import { useVersion } from './version'
 import { useAsk } from './ask'
 import { getTargetMember } from '@/utils'
-import { useBadgePost } from './badge/badge_post'
 import { useProfilePut } from './profile/profile_put'
 import { useBadgeRedeem } from './badge/badge_redeem'
 import { useRolePost } from './role/role_post'
@@ -61,7 +60,6 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useApoiase(),
     useVersion(),
     useAsk(),
-    useBadgePost(),
     useBadgeRedeem(),
     useRolePost(),
     useRoleDelete(),

@@ -51,7 +51,7 @@ export const useJudge = (): Command => {
         return
       }
 
-      client.api.he4rt.feedback
+      client.api.he4rt.feedbacks
         .post<FeedbackCreatePOST>({
           sender_id: interaction.user.id,
           target_id: target.id,
@@ -119,9 +119,9 @@ export const resolveJudgeCommandButtonEvents = async (client: He4rtClient, inter
     const description = interaction.message.embeds[0].data.description
 
     if (interaction.customId === 'c-judge-accept') {
-      client.api.he4rt.feedback
-        .review(feedback_id)
-        .approve.post<FeedbackReviewPOST>({
+      client.api.he4rt
+        .feedbacks(feedback_id)
+        .approved.post<FeedbackReviewPOST>({
           staff_id: interaction.user.id,
         })
         .then(async () => {
@@ -151,10 +151,10 @@ export const resolveJudgeCommandButtonEvents = async (client: He4rtClient, inter
                     )}, aceito por ${getTargetMember(
                       interaction.member as GuildMember
                     )} e enviado para ${getTargetMember(target)}!`,
-                    customChannelId: CALLED_CHANNEL.id
+                    customChannelId: CALLED_CHANNEL.id,
                   })
 
-                  await interaction.message.delete().catch(() => { })
+                  await interaction.message.delete().catch(() => {})
 
                   await reply(interaction).success()
                 })
@@ -178,13 +178,13 @@ export const resolveJudgeCommandButtonEvents = async (client: He4rtClient, inter
               await reply(interaction).errorInAccessDM()
             })
         })
-        .catch(() => { })
+        .catch(() => {})
     }
 
     if (interaction.customId === 'c-judge-deny') {
-      client.api.he4rt.feedback
-        .review(feedback_id)
-        .decline.post<FeedbackReviewPOST>({
+      client.api.he4rt
+        .feedbacks(feedback_id)
+        .declined.post<FeedbackReviewPOST>({
           staff_id: interaction.user.id,
         })
         .then(async () => {
@@ -194,14 +194,14 @@ export const resolveJudgeCommandButtonEvents = async (client: He4rtClient, inter
             message: `O ticket de título ${title} e de descrição **${description}** foi recusado por ${getTargetMember(
               interaction.member as GuildMember
             )}!`,
-            customChannelId: CALLED_CHANNEL.id
+            customChannelId: CALLED_CHANNEL.id,
           })
 
-          await interaction.message.delete().catch(() => { })
+          await interaction.message.delete().catch(() => {})
 
           await reply(interaction).success()
         })
-        .catch(() => { })
+        .catch(() => {})
     }
   }
 }

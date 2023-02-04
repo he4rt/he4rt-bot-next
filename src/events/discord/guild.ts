@@ -25,6 +25,7 @@ export const sendDmToNewUser = (client: He4rtClient, member: GuildMember) => {
 }
 
 export const deletePossibleUserInServerLeave = (client: He4rtClient, member: GuildMember | PartialGuildMember) => {
+  /*
   client.api.he4rt
     .users(member.id)
     .delete()
@@ -36,13 +37,14 @@ export const deletePossibleUserInServerLeave = (client: He4rtClient, member: Gui
       })
     })
     .catch(() => {})
+  */
 }
 
 export const createUserInServerEnter = (client: He4rtClient, member: GuildMember) => {
-  client.api.he4rt
-    .users()
+  client.api.he4rt.providers.discord
     .post<IntroducePOST>({
-      discord_id: member.id,
+      provider_id: member.id,
+      username: `${member?.nickname ?? member.user.username}-${member.user.discriminator}`,
     })
     .then(() => {
       client.logger.emit({

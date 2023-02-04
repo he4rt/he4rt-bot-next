@@ -95,9 +95,9 @@ export interface DailyPOST extends RESTJson {
   date: string
 }
 
-export interface IntroducePUT extends RESTJson { }
+export interface IntroducePUT extends RESTJson {}
 
-export interface IntroducePOST extends RESTJson { }
+export interface IntroducePOST extends RESTJson {}
 
 export interface BadgePOST {
   name: string
@@ -108,12 +108,17 @@ export interface BadgePOST {
 }
 
 export interface UserGETBody {
-  name: string
-  nickname: string
-  about: string
-  git: string
-  linkedin: string | null
-  uf: string | null
+  info: {
+    name: string
+    nickname: string
+    about: string
+    github_url: string
+    linkedin_url: string | null
+    birthdate: string
+  }
+  address: {
+    state: string | null
+  }
 }
 
 export interface UserLevelXP {
@@ -125,25 +130,13 @@ export interface UserLevelXP {
   }
 }
 
-export interface UserGET extends RESTJson, UserGETBody, UserLevelXP {
-  id: number
-  discord_id: string
-  twitch_id: any
-  email: string | null
-  uf: string | null
-  level: number
-  current_exp: number
-  money: string
-  daily: string | null
-  created_at: string | null
-  updated_at: string | null
-}
+export interface UserGET extends RESTJson, UserGETBody, UserLevelXP {}
 
-export interface UserPUT extends UserGET { }
+export interface UserPUT extends UserGET {}
 
-export interface MessagePOST extends RESTJson { }
+export interface MessagePOST extends RESTJson {}
 
-export interface VoicePOST extends RESTJson { }
+export interface VoicePOST extends RESTJson {}
 
 export interface ApoiaseGET extends RESTJson {
   isPaidThisMonth: boolean

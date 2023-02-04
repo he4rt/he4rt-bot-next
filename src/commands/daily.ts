@@ -18,14 +18,17 @@ export const useDaily = (): Command => {
         return
       }
 
-      client.api.he4rt
-        .users(member.id)
+      client.api.he4rt.characters
+        .discord(member.id)
         .daily.post<DailyPOST>()
-        .then(async ({ points }) => {
+        .then(async () => {
+          await reply(interaction).success()
+          /*
           await interaction.reply({
             content: replaceDefineString(HCOINS_SUCCESS, String(points)),
             ephemeral: true,
           })
+          */
         })
         .catch(async () => {
           await interaction.reply({
