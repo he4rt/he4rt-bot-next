@@ -1,6 +1,6 @@
 import { ApoiaseGET, He4rtClient, UserGET } from '@/types'
-import { getGuild, getTargetMember, isApoiaseMember, js } from '@/utils'
-import { APOIASE_CUSTOM_COLOR_MINIMAL_VALUE } from '@/defines/values.json'
+import { getGuild, getTargetMember, isApoiaseMember, js, openAndSendMessageInDm } from '@/utils'
+import { APOIASE_CUSTOM_COLOR_MINIMAL_VALUE, CLIENT_NAME } from '@/defines/values.json'
 import { DONATOR_ROLE } from '@/defines/ids.json'
 import { CronJob } from 'cron'
 
@@ -48,6 +48,12 @@ export const verifyApoiaseMembers = async (client: He4rtClient) => {
               }
 
               await member.roles.remove(DONATOR_ROLE.id).catch(() => {})
+
+              openAndSendMessageInDm(
+                client,
+                member,
+                `O seu **apoia.se** no servidor **${CLIENT_NAME}** foi removido por não atender aos requisitos necessários!\n\nCaso queira manter o seu apoio, acesse https://apoia.se/heartdevs e utilize o comando **/apoiase <email>** dentro do servidor!`
+              )
 
               client.logger.emit({
                 type: 'apoiase',
