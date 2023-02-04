@@ -25,6 +25,6 @@
   "TICKER_SETTER": 10,
   "DISCORD_MESSAGE_LIMIT": 2000,
   "DYNAMIC_VOICE_MIN_SIZE": 1,
-  "DYNAMIC_VOICE_MAX_SIZE": 10,
+  "DYNAMIC_VOICE_MAX_SIZE": 99,
   "EXTENDED_PROFILE_LINK": "https://he4rt-landing-ssr.vercel.app/profile/"
 }
