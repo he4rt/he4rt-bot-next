@@ -32,6 +32,12 @@ export const useBan = (): Command => {
       const reason = interaction.options.get('razao')
       const expose = interaction.options.get('expor')
 
+      await openAndSendMessageInDm(
+        client,
+        member,
+        `Você foi banido do servidor **${CLIENT_NAME}**!\n\nMotivo: ${reason.value}`
+      )
+
       interaction.guild.members
         .ban(member, { reason: reason.value as string, deleteMessageSeconds: 604800 })
         .catch(async () => {
@@ -70,12 +76,6 @@ export const useBan = (): Command => {
               })
               .catch(() => {})
           }
-
-          openAndSendMessageInDm(
-            client,
-            member,
-            `Você foi banido do servidor **${CLIENT_NAME}**!\n\nMotivo: ${reason.value}`
-          )
 
           await reply(interaction).success()
         })

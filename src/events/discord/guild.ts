@@ -3,8 +3,8 @@ import { getTargetMember, openAndSendMessageInDm } from '@/utils'
 import { GuildMember, PartialGuildMember } from 'discord.js'
 import { INITIAL_MESSAGE } from '-/events/guild_enter.json'
 
-export const sendDmToNewUser = (client: He4rtClient, member: GuildMember) => {
-  openAndSendMessageInDm(client, member, INITIAL_MESSAGE)
+export const sendDmToNewUser = async (client: He4rtClient, member: GuildMember) => {
+  await openAndSendMessageInDm(client, member, INITIAL_MESSAGE)
 }
 
 export const deletePossibleUserInServerLeave = (client: He4rtClient, member: GuildMember | PartialGuildMember) => {

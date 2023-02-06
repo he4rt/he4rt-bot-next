@@ -49,7 +49,7 @@ export const verifyApoiaseMembers = async (client: He4rtClient) => {
 
               await member.roles.remove(DONATOR_ROLE.id).catch(() => {})
 
-              openAndSendMessageInDm(
+              await openAndSendMessageInDm(
                 client,
                 member,
                 `O seu **apoia.se** no servidor **${CLIENT_NAME}** foi removido por não atender aos requisitos necessários!\n\nCaso queira manter o seu apoio, acesse https://apoia.se/heartdevs e utilize o comando **/apoiase <email>** dentro do servidor!`
