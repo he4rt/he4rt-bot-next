@@ -2,6 +2,7 @@ import { GuildMember, PermissionFlagsBits, SlashCommandBuilder } from 'discord.j
 import { Command } from '@/types'
 import COMMANDS from '@/defines/commands.json'
 import { PUNISHMENTS_CHANNEL } from '@/defines/ids.json'
+import { CLIENT_NAME } from '@/defines/values.json'
 import TIMEOUT from '-/commands/timeout.json'
 import {
   EMBED_FIELD_USER,
@@ -9,7 +10,7 @@ import {
   EMBED_FIELD_REASON,
   EMBED_FIELD_REASON_VALUE,
 } from '-/commands/shared.json'
-import { embedTemplate, getChannel, getOption, reply } from '@/utils'
+import { embedTemplate, getChannel, getOption, openAndSendMessageInDm, reply } from '@/utils'
 
 export const useTimeout = (): Command => {
   const data = new SlashCommandBuilder()
@@ -86,6 +87,12 @@ export const useTimeout = (): Command => {
         }[timeout] || 'deu ruim'
 
       await channel?.send({ content: `Usuário **${member.id}** suprimido por ${normalize}!`, embeds: [embed] })
+
+      openAndSendMessageInDm(
+        client,
+        member,
+        `Você foi silenciado no servidor **${CLIENT_NAME}** por **${normalize}**!\n\nMotivo: ${reason.value}`
+      )
 
       await reply(interaction).success()
     },
