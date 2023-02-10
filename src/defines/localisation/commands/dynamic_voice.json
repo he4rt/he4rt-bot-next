@@ -2,5 +2,17 @@
   "TYPE_OPTION": "Escolha o tipo de canal que deseja criar.",
   "LIMIT_OPTION": "Escolha o limite de pessoas que podem acessar o canal.",
   "STUDYING_TITLE_OPTION": "OPCIONAL: Digite um título para o canal Estudando.",
-  "IN_DYNAMIC_VOICE_ERROR": "Você já está em um canal de voz dinâmico!"
+  "IN_DYNAMIC_VOICE_ERROR": "Você já está em um canal de voz dinâmico!",
+  "TITLE_OPTION": "OPCIONAL: Digite um título para o canal",
+
+  "ONLY_ENGLISH": "Only English",
+  "NEW_FRIENDS": "Novas Amizades",
+  "NEWBIE": "Novato",
+  "MENTORSHIP": "Mentoria",
+  "WORK": "Trabalho",
+  "STUDYING": "Estudando",
+  "LIVE": "Live",
+  "GAMES": "Joguinhos",
+  "TALKING": "Conversando",
+  "HELP": "ME AJUDAAA!!!!"
 }

@@ -49,6 +49,7 @@ import {
   ERROR_CANNOT_BE_BANNED,
   ERROR_PAGINATION,
   ERROR_PRESENTING,
+  ERROR_INVALID_TITLE,
 } from '-/defaults/reply.json'
 import { NOT_FOUND, LANGUAGE_NONE } from '-/defaults/display.json'
 import { TIMEOUT_COMMAND_STRING, DEFINE_STRING_REPLACED } from '@/defines/values.json'
@@ -88,6 +89,10 @@ export const validDisplaySpecialRoles = (member: GuildMember) => {
 
 export const isPresentedMember = (member: GuildMember) => {
   return member.roles.cache.some(({ id }) => id === PRESENTED_ROLE.id)
+}
+
+export const isLink = (str: string) => {
+  return /^(https?:\/\/)?(www\.)?([a-zA-Z0-9]+)\.([a-zA-Z0-9]+)([\/a-zA-Z0-9#?=&-_]+)?$/i.test(str)
 }
 
 export const isPresentingMember = (member: GuildMember) => {
@@ -265,6 +270,10 @@ export const reply = (interaction: CommandInteraction | ButtonInteraction) => {
     return await interaction.reply({ content: ERROR_MISS_PERMISSION, ephemeral: true })
   }
 
+  const errorIsNotValidTitle = async () => {
+    return await interaction.reply({ content: ERROR_INVALID_TITLE, ephemeral: true })
+  }
+
   const errorMemberIsNotPresented = async () => {
     return await interaction.reply({ content: ERROR_MEMBER_IS_NOT_PRESENTED, ephemeral: true })
   }
@@ -299,6 +308,7 @@ export const reply = (interaction: CommandInteraction | ButtonInteraction) => {
     executing,
     error,
     errorInvalidEmail,
+    errorIsNotValidTitle,
     errorPermission,
     errorMemberIsNotPresented,
     errorInAccessDM,

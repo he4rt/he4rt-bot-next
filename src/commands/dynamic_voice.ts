@@ -14,8 +14,34 @@ import { Command, He4rtClient } from '@/types'
 import { DYNAMIC_VOICE } from '@/defines/commands.json'
 import { DYNAMIC_CATEGORY_CHANNEL } from '@/defines/ids.json'
 import { DYNAMIC_VOICE_REASON, DYNAMIC_VOICE_MIN_SIZE, DYNAMIC_VOICE_MAX_SIZE } from '@/defines/values.json'
-import { TYPE_OPTION, LIMIT_OPTION, IN_DYNAMIC_VOICE_ERROR } from '-/commands/dynamic_voice.json'
-import { embedTemplate, getGuild, getOption, getTargetMember, isPresentedMember, reply } from '@/utils'
+import {
+  GRADUATION_CAP,
+  OFFICE_BUILDING,
+  OPEN_BOOK,
+  PEOPLES,
+  PLAY_CONSOLE,
+  RED_CIRCLE,
+  SOS,
+  USER_SPEAKING,
+  WAVING_HAND,
+} from '@/defines/emojis.json'
+import {
+  TYPE_OPTION,
+  LIMIT_OPTION,
+  IN_DYNAMIC_VOICE_ERROR,
+  TITLE_OPTION,
+  GAMES,
+  HELP,
+  LIVE,
+  MENTORSHIP,
+  NEWBIE,
+  NEW_FRIENDS,
+  ONLY_ENGLISH,
+  STUDYING,
+  TALKING,
+  WORK,
+} from '-/commands/dynamic_voice.json'
+import { embedTemplate, getGuild, getOption, getTargetMember, isLink, isPresentedMember, reply } from '@/utils'
 
 export const useDynamicVoice = (): Command => {
   const data = new SlashCommandBuilder()
@@ -48,22 +74,50 @@ export const useDynamicVoice = (): Command => {
         .setMinValue(DYNAMIC_VOICE_MIN_SIZE)
         .setMaxValue(DYNAMIC_VOICE_MAX_SIZE)
     )
+    .addStringOption((option) => option.setName('title-dynamic-voice').setDescription(TITLE_OPTION))
 
-  const getType = (type: number): string => {
-    const defaultTarget = {
-      0: '🗣 Only English',
-      1: '👥 Novas Amizades',
-      2: '👋 Novato',
-      3: '🎓 Mentoria',
-      4: '🏢 Trabalho',
-      5: '📖 Estudando',
-      6: '🔴 Live',
-      7: '🎮 Joguinhos',
-      8: '🗣 Conversando',
-      9: '🆘 ME AJUDAAA!!!!'
-    }[type] || '👥 Novas Amizades'
+  const getEmoji = (type: number): string => {
+    const emoji =
+      {
+        0: USER_SPEAKING,
+        1: PEOPLES,
+        2: WAVING_HAND,
+        3: GRADUATION_CAP,
+        4: OFFICE_BUILDING,
+        5: OPEN_BOOK,
+        6: RED_CIRCLE,
+        7: PLAY_CONSOLE,
+        8: USER_SPEAKING,
+        9: SOS,
+      }[type] || PEOPLES
 
-    return defaultTarget
+    return emoji
+  }
+
+  const getTarget = (type: number): string => {
+    const target =
+      {
+        0: ONLY_ENGLISH,
+        1: NEW_FRIENDS,
+        2: NEWBIE,
+        3: MENTORSHIP,
+        4: WORK,
+        5: STUDYING,
+        6: LIVE,
+        7: GAMES,
+        8: TALKING,
+        9: HELP,
+      }[type] || NEW_FRIENDS
+
+    return target
+  }
+
+  const getType = (type: number, customizeTitle: string): string => {
+    if (customizeTitle) {
+      return `${getEmoji(type)} ${customizeTitle}`
+    }
+
+    return `${getEmoji(type)} ${getTarget(type)}`
   }
 
   return [
@@ -73,6 +127,13 @@ export const useDynamicVoice = (): Command => {
 
       const type = getOption(interaction, 'tipo')
       const limit = getOption(interaction, 'limite')
+      const customizeTitle = getOption(interaction, 'title-dynamic-voice')
+
+      if (isLink(customizeTitle?.value as string)) {
+        await reply(interaction).errorIsNotValidTitle()
+
+        return
+      }
 
       if (!isPresentedMember(member)) {
         await reply(interaction).errorMemberIsNotPresented()
@@ -83,7 +144,7 @@ export const useDynamicVoice = (): Command => {
       const guild = getGuild(client)
       const category = guild.channels.cache.get(DYNAMIC_CATEGORY_CHANNEL.id) as CategoryChannel
 
-      const typeTitle = getType(type.value as number)
+      const typeTitle = getType(type.value as number, customizeTitle?.value as string)
 
       if (member.voice.channel?.parent?.id === DYNAMIC_CATEGORY_CHANNEL.id) {
         await interaction.reply({ content: IN_DYNAMIC_VOICE_ERROR, ephemeral: true })
@@ -137,9 +198,9 @@ export const useDynamicVoice = (): Command => {
           embeds: [embed],
           components: [component],
         })
-        .catch(() => { })
+        .catch(() => {})
 
-      await interaction.reply({ content: invite.url, ephemeral: true }).catch(() => { })
+      await interaction.reply({ content: invite.url, ephemeral: true }).catch(() => {})
     },
   ]
 }
@@ -156,7 +217,9 @@ export const resolveDynamicVoiceUserLimitControl = async (client: He4rtClient, i
 
     if (interaction.customId === 'c-dynamic-voice-decrease') {
       if (channel.userLimit <= DYNAMIC_VOICE_MIN_SIZE) {
-        await reply(interaction).error().catch(() => { })
+        await reply(interaction)
+          .error()
+          .catch(() => {})
 
         return
       }
@@ -164,16 +227,22 @@ export const resolveDynamicVoiceUserLimitControl = async (client: He4rtClient, i
       channel
         .setUserLimit(--channel.userLimit)
         .then(async () => {
-          await reply(interaction).success().catch(() => { })
+          await reply(interaction)
+            .success()
+            .catch(() => {})
         })
         .catch(async () => {
-          await reply(interaction).error().catch(() => { })
+          await reply(interaction)
+            .error()
+            .catch(() => {})
         })
     }
 
     if (interaction.customId === 'c-dynamic-voice-increment') {
       if (channel.userLimit >= DYNAMIC_VOICE_MAX_SIZE) {
-        await reply(interaction).error().catch(() => { })
+        await reply(interaction)
+          .error()
+          .catch(() => {})
 
         return
       }
@@ -181,10 +250,14 @@ export const resolveDynamicVoiceUserLimitControl = async (client: He4rtClient, i
       channel
         .setUserLimit(++channel.userLimit)
         .then(async () => {
-          await reply(interaction).success().catch(() => { })
+          await reply(interaction)
+            .success()
+            .catch(() => {})
         })
         .catch(async () => {
-          await reply(interaction).error().catch(() => { })
+          await reply(interaction)
+            .error()
+            .catch(() => {})
         })
     }
   }
