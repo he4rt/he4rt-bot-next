@@ -18,7 +18,7 @@
   "dependencies": {
     "cron": "^2.2.0",
     "destr": "^1.2.2",
-    "discord.js": "^14.7.1",
+    "discord.js": "^14.8.0",
     "uncreate": "^0.9.3"
   },
   "devDependencies": {
