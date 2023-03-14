@@ -73,7 +73,7 @@ export class Logger {
 
     embed.setTimestamp()
 
-    const channel = getChannel({ id: REPORT_CHANNEL.id, client: this._client })
+    const channel = getChannel({ id: options?.customChannelId ?? REPORT_CHANNEL.id, client: this._client })
 
     channel?.send({ embeds: [embed] })
   }

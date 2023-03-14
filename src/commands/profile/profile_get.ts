@@ -1,5 +1,5 @@
 import { GuildMember, HexColorString, SlashCommandBuilder } from 'discord.js'
-import { Command, IntroducePOST, UserGET } from '@/types'
+import { Command, UserGET } from '@/types'
 import { PROFILE } from '@/defines/commands.json'
 import { COLORS, EXTENDED_PROFILE_LINK } from '@/defines/values.json'
 import EMBED from '-/commands/profile.json'
@@ -36,34 +36,28 @@ export const useProfileGet = (): Command => {
       }
 
       client.api.he4rt
-        .users(target.id)
+        .users()
+        .profile(target.id)
         .get<UserGET>()
-        .then(async (user) => {
+        .then(async (obj) => {
           const fields = [
             [{ name: EMBED.EMBED_PROFILE_LINK, value: `${EXTENDED_PROFILE_LINK}${target.id}` }],
             [
-              { name: EMBED.EMBED_NAME, value: user.name, inline: true },
-              { name: EMBED.EMBED_NICKNAME, value: user.nickname || LANGUAGE_NONE_ONE, inline: true },
-              { name: EMBED.EMBED_UF, value: user.uf || UF_NONE, inline: true },
+              { name: EMBED.EMBED_NAME, value: obj.information.name, inline: true },
+              { name: EMBED.EMBED_NICKNAME, value: obj.information.nickname || LANGUAGE_NONE_ONE, inline: true },
+              { name: EMBED.EMBED_UF, value: obj.address.state || UF_NONE, inline: true },
             ],
             [
-              { name: EMBED.EMBED_ABOUT, value: user.about, inline: true },
-              { name: EMBED.EMBED_GIT, value: user.git, inline: true },
-              { name: EMBED.EMBED_LINKEDIN, value: user?.linkedin || NOT_FOUND, inline: true },
+              { name: EMBED.EMBED_ABOUT, value: obj.information.about, inline: true },
+              { name: EMBED.EMBED_GIT, value: obj.information.github_url, inline: true },
+              { name: EMBED.EMBED_LINKEDIN, value: obj.information?.linkedin_url || NOT_FOUND, inline: true },
             ],
             [
-              { name: EMBED.EMBED_LEVEL, value: `${user.level}`, inline: true },
+              { name: EMBED.EMBED_LEVEL, value: `${obj.character.level}`, inline: true },
               {
                 name: EMBED.EMBED_XP,
                 inline: true,
-                value: `${user.current_exp}`,
-              },
-            ],
-            [
-              {
-                name: EMBED.EMBED_COINS,
-                value: user.money,
-                inline: false,
+                value: `${obj.character.experience}`,
               },
             ],
             [
@@ -89,10 +83,7 @@ export const useProfileGet = (): Command => {
           const embed = embedTemplate({
             title: EMBED.EMBED_PROFILE,
             color: delas ? (COLORS.HE4RT_DELAS as HexColorString) : (COLORS.HE4RT as HexColorString),
-            target: {
-              user: interaction.user,
-              icon: true,
-            },
+            author: target.user,
             delas,
             fields,
           })
@@ -108,14 +99,6 @@ export const useProfileGet = (): Command => {
             type: 'he4rt-api',
             color: 'error',
           })
-
-          // account error edge case
-          client.api.he4rt
-            .users()
-            .post<IntroducePOST>({
-              discord_id: target.id,
-            })
-            .catch(() => {})
 
           await reply(interaction).error()
         })

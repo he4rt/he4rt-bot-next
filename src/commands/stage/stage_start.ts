@@ -26,10 +26,10 @@ export const useStageStart = (): Command => {
 
       const meeting_type_id = meeting.value as number
 
-      client.api.he4rt.events.meeting
+      client.api.he4rt.events.discord.meeting.start
         .post<MeetingPOST>({
           meeting_type_id,
-          discord_id: interaction.user.id,
+          provider_id: interaction.user.id,
         })
         .then(async ({ id }) => {
           client.logger.emit({

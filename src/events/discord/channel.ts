@@ -6,9 +6,10 @@ import {
   LEARNING_DIARY_CHANNEL,
   ADVERTS_CHANNEL,
 } from '@/defines/ids.json'
+import { HE4RT_EMOJI_ID } from '@/defines/ids.json'
 import { isAdministrator, isImageHTTPUrl, isValidProxyContent, js } from '@/utils'
 
-import { ChannelType, GuildMember, Message } from 'discord.js'
+import { ChannelType, GuildMember, Message, TextChannel } from 'discord.js'
 import { He4rtClient, MessagePOST } from '@/types'
 
 export const MessageListener = (client: He4rtClient, message: Message) => {
@@ -19,12 +20,14 @@ export const MessageListener = (client: He4rtClient, message: Message) => {
   if (message.channel.type === ChannelType.DM || client.user?.id === message.author.id || !message.channelId) return
 
   client.api.he4rt
-    .users(member.id)
-    .message.post<MessagePOST>({
+    .messages()
+    .discord.post<MessagePOST>({
+      // provider_message_parent_id: message.parentId
+      provider_id: member.id,
+      provider_message_id: message.id,
       channel_id: message.channelId,
-      message_content: message.content,
-      message_id: message.id,
-      message_at: message.createdTimestamp,
+      content: message.content,
+      sent_at: message.createdAt,
     })
     .catch(() => {})
 }
@@ -84,13 +87,13 @@ export const reactMessagesInSuggestionChannel = async (message: Message) => {
 
 export const reactMessagesInLearningDiaryChannel = async (message: Message) => {
   if (LEARNING_DIARY_CHANNEL.id === message.channel.id) {
-    await message.react('💜').catch(() => {})
+    await message.react(HE4RT_EMOJI_ID).catch(() => {})
   }
 }
 
 export const reactAnnouncesInAdvertsChannel = async (message: Message) => {
   if (ADVERTS_CHANNEL.id === message.channel.id) {
     await message.react('🔥').catch(() => {})
-    await message.react('💜').catch(() => {})
+    await message.react(HE4RT_EMOJI_ID).catch(() => {})
   }
 }

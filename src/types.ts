@@ -57,6 +57,7 @@ export interface LoggerEmitOptions {
   type: 'bot' | 'http' | 'apoiase' | 'command' | 'event' | 'role' | 'discord' | 'he4rt-api' | 'ticket'
   color: 'success' | 'info' | 'warning' | 'error'
   user?: User
+  customChannelId?: string
 }
 
 export interface RoleDefine {
@@ -86,7 +87,7 @@ export interface GetChannelOptions {
 }
 
 export interface RankingGET extends RESTJson {
-  data: RankingMember[]
+  data: RESTJson[]
 }
 
 export interface DailyPOST extends RESTJson {
@@ -107,12 +108,17 @@ export interface BadgePOST {
 }
 
 export interface UserGETBody {
-  name: string
-  nickname: string
-  about: string
-  git: string
-  linkedin: string | null
-  uf: string | null
+  info: {
+    name: string
+    nickname: string
+    about: string
+    github_url: string
+    linkedin_url: string | null
+    birthdate: string
+  }
+  address: {
+    state: string | null
+  }
 }
 
 export interface UserLevelXP {
@@ -124,19 +130,7 @@ export interface UserLevelXP {
   }
 }
 
-export interface UserGET extends RESTJson, UserGETBody, UserLevelXP {
-  id: number
-  discord_id: string
-  twitch_id: any
-  email: string | null
-  uf: string | null
-  level: number
-  current_exp: number
-  money: string
-  daily: string | null
-  created_at: string | null
-  updated_at: string | null
-}
+export interface UserGET extends RESTJson, UserGETBody, UserLevelXP {}
 
 export interface UserPUT extends UserGET {}
 

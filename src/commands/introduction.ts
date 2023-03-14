@@ -169,26 +169,31 @@ const nextStringsData = async (dm: DMChannel, interaction: CommandInteraction): 
   if (isCancellable(about)) return false
 
   await dm.send(INTRODUCTION.USER.GIT)
-  const git = await nextTextMessage(dm, interaction)
-  if (isCancellable(git)) return false
+  const github_url = await nextTextMessage(dm, interaction)
+  if (isCancellable(github_url)) return false
 
   await dm.send(INTRODUCTION.USER.LINKEDIN)
-  const linkedin = await nextTextMessage(dm, interaction)
-  if (isCancellable(linkedin)) return false
+  const linkedin_url = await nextTextMessage(dm, interaction)
+  if (isCancellable(linkedin_url)) return false
 
   await dm.send(INTRODUCTION.USER.UF)
   const uf = await nextUFSelection(dm, interaction)
   if (!uf) return false
 
-  if ([name, nickname, about, git, linkedin].some((v) => v === TIMEOUT_COMMAND_STRING || !v)) return false
+  if ([name, nickname, about, github_url, linkedin_url].some((v) => v === TIMEOUT_COMMAND_STRING || !v)) return false
 
   return {
-    name,
-    nickname,
-    about,
-    git,
-    linkedin,
-    uf,
+    info: {
+      name,
+      nickname,
+      about,
+      github_url,
+      linkedin_url,
+      birthdate: '1999-01-01',
+    },
+    address: {
+      state: uf,
+    },
   }
 }
 
@@ -256,13 +261,13 @@ export const useIntroduction = (): Command => {
             delas: delas === 1,
             fields: [
               [
-                { name: INTRODUCTION.EMBED.NAME, value: body.name, inline: true },
-                { name: INTRODUCTION.EMBED.NICKNAME, value: body.nickname, inline: true },
-                { name: INTRODUCTION.EMBED.ABOUT, value: body.about, inline: true },
+                { name: INTRODUCTION.EMBED.NAME, value: body.info.name, inline: true },
+                { name: INTRODUCTION.EMBED.NICKNAME, value: body.info.nickname, inline: true },
+                { name: INTRODUCTION.EMBED.ABOUT, value: body.info.about, inline: true },
               ],
               [
-                { name: INTRODUCTION.EMBED.GIT, value: body.git, inline: true },
-                { name: INTRODUCTION.EMBED.LINKEDIN, value: body.linkedin, inline: true },
+                { name: INTRODUCTION.EMBED.GIT, value: body.info.github_url, inline: true },
+                { name: INTRODUCTION.EMBED.LINKEDIN, value: body.info.linkedin_url, inline: true },
                 {
                   name: INTRODUCTION.EMBED.LANGUAGES,
                   value: validDisplayDevRoles(member),
@@ -292,28 +297,36 @@ export const useIntroduction = (): Command => {
           await member.roles.add(PRESENTED_ROLE.id)
           await removePresentingFlag(member)
 
-          client.api.he4rt
-            .users()
+          client.api.he4rt.providers.discord
             .post<IntroducePOST>({
-              discord_id: member.id,
+              provider_id: member.id,
+              username: `${member?.nickname ?? member.user.username}-${member.user.discriminator}`,
             })
             .then(() => {
-              client.logger.emit({
-                type: 'http',
-                color: 'info',
-                message: `${getTargetMember(member)} apresentou e teve a sua conta criada!`,
-                user: member.user,
-              })
-
-              client.api.he4rt
-                .users(member.id)
-                .put<IntroducePUT>(body)
-                .catch(() => {})
+              client.api.he4rt.users
+                .profile(member.id)
+                .put<IntroducePOST>(body)
+                .then(() => {
+                  client.logger.emit({
+                    type: 'http',
+                    color: 'info',
+                    message: `${getTargetMember(member)} apresentou e teve a sua conta criada!`,
+                    user: member.user,
+                  })
+                })
+                .catch((e) => {
+                  client.logger.emit({
+                    type: 'http',
+                    color: 'error',
+                    message: `${getTargetMember(member)} não consegiu criar sua conta! Erro: ${e}`,
+                    user: member.user,
+                  })
+                })
             })
             .catch(() => {
-              client.api.he4rt
-                .users(member.id)
-                .put<IntroducePUT>(body)
+              client.api.he4rt.users
+                .profile(member.id)
+                .put<IntroducePOST>(body)
                 .then(() => {
                   client.logger.emit({
                     type: 'http',
@@ -322,7 +335,14 @@ export const useIntroduction = (): Command => {
                     user: member.user,
                   })
                 })
-                .catch(() => {})
+                .catch((e) => {
+                  client.logger.emit({
+                    type: 'http',
+                    color: 'error',
+                    message: `${getTargetMember(member)} não consegiu criar sua conta! Erro: ${e}`,
+                    user: member.user,
+                  })
+                })
             })
 
           await dm.send(INTRODUCTION.FINISH)

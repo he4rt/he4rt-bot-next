@@ -1,5 +1,5 @@
 {
   "MEMBER_OPTION": "Usuário a ser selecionado.",
   "TYPE_OPTION": "Escolha o tipo de ticket que deseja enviar.",
-  "REASON_OPTION": "Descreva extensamente o motivo de seu ticket."
+  "REASON_OPTION": "Escreva extensamente uma mensagem que será lida pelo usuário em questão."
 }

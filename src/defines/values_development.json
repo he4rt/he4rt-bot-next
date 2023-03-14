@@ -14,6 +14,20 @@
     "WARNING": "#FFD421",
     "INFO": "#7291FA"
   },
+  "RESTRICTED_CUSTOM_ROLE_COLORS": [
+    "#313335",
+    "#313336",
+    "#313337",
+    "#313338",
+    "#313339",
+    "#313340",
+    "#313341",
+    "#00faff",
+    "#000000",
+    "#ff4848",
+    "#8753dc",
+    "#9f0af5"
+  ],
   "POMODORO_MUTATED_IN_MINUTES": 50,
   "POMODORO_TALKING_IN_MINUTES": 10,
   "DISCORD_PRESENCE_IN_MINUTES": 60,

@@ -25,7 +25,7 @@ export const useRanking = (): Command => {
         return
       }
 
-      client.api.he4rt.ranking.general
+      client.api.he4rt.ranking.leveling
         .get<RankingGET>({
           page,
         })
@@ -33,9 +33,10 @@ export const useRanking = (): Command => {
           const fields: RestOrArray<APIEmbedField> = []
 
           members.forEach((member, index) => {
+
             fields.push({
-              name: `${index + 1 + (page - 1) * 10}° | ${(member.nickname as string) || NULL_ACCOUNT}`,
-              value: `Level: ${member.level} - Exp: ${member.current_exp}`,
+              name: `${member.ranking}° | ${(member.user?.username as string) || NULL_ACCOUNT}`,
+              value: `Level: ${member.level} - Exp: ${member.experience}`,
               inline: false,
             })
           })
