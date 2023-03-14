@@ -108,17 +108,24 @@ Caso deseje contribuir ao projeto, leia o [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT
         </a>
     </td>
     <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
-        <a href=https://github.com/P0sseid0n>
-            <img src=https://avatars.githubusercontent.com/u/54502007?v=4 width="100;"  alt=Matheus/>
-            <br />
-            <sub style="font-size:14px"><b>Matheus</b></sub>
-        </a>
-    </td>
-    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
         <a href=https://github.com/DanielHe4rt>
             <img src=https://avatars.githubusercontent.com/u/6912596?v=4 width="100;"  alt=Daniel Reis/>
             <br />
             <sub style="font-size:14px"><b>Daniel Reis</b></sub>
+        </a>
+    </td>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/JVictorV>
+            <img src=https://avatars.githubusercontent.com/u/40485924?v=4 width="100;"  alt=João Victor/>
+            <br />
+            <sub style="font-size:14px"><b>João Victor</b></sub>
+        </a>
+    </td>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/P0sseid0n>
+            <img src=https://avatars.githubusercontent.com/u/54502007?v=4 width="100;"  alt=Matheus/>
+            <br />
+            <sub style="font-size:14px"><b>Matheus</b></sub>
         </a>
     </td>
 </tr>
