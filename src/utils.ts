@@ -234,21 +234,31 @@ export const sendInDM = async (dm: DMChannel, interaction: CommandInteraction | 
   return true
 }
 
-export const openAndSendMessageInDm = (client: He4rtClient, member: GuildMember, message: string): Promise<void> => {
+export const openAndSendMessageInDm = (
+  client: He4rtClient,
+  member: GuildMember,
+  message: string,
+  suppress: boolean = false
+): Promise<void> => {
   return new Promise((res) => {
-    // serio msm n fala cmg
     member
       ?.createDM()
-      .then(async (dm) => {
-        await dm.send(message).then(() => { res() }).catch(() => {
-          client.logger.emit({
-            message: `Não foi possível enviar uma mensagem na DM para o usuário ${getTargetMember(member)}!`,
-            type: 'bot',
-            color: 'error',
-          })
+      .then((dm) => {
+        dm.send(message)
+          .then(async (msg) => {
+            if (suppress) await msg.suppressEmbeds(true).catch(() => {})
 
-          res()
-        })
+            res()
+          })
+          .catch(() => {
+            client.logger.emit({
+              message: `Não foi possível enviar uma mensagem na DM para o usuário ${getTargetMember(member)}!`,
+              type: 'bot',
+              color: 'error',
+            })
+
+            res()
+          })
       })
       .catch(() => {
         client.logger.emit({
