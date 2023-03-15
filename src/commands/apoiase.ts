@@ -54,10 +54,10 @@ export const useApoiase = (): Command => {
             thisMonthPaidValue &&
             thisMonthPaidValue >= APOIASE_CUSTOM_COLOR_MINIMAL_VALUE
           ) {
-            client.api.he4rt
-              .users(member.id)
+            client.api.he4rt.users
+              .profile(member.id)
               .put<UserPUT>({
-                email: email,
+                email,
                 is_donator: 1,
               })
               .then(async () => {
