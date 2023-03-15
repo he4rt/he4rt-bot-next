@@ -8,8 +8,7 @@ import {
 } from '@/defines/ids.json'
 import { HE4RT_EMOJI_ID } from '@/defines/ids.json'
 import { isAdministrator, isImageHTTPUrl, isValidProxyContent, js } from '@/utils'
-
-import { ChannelType, GuildMember, Message, TextChannel } from 'discord.js'
+import { ChannelType, GuildMember, Message } from 'discord.js'
 import { He4rtClient, MessagePOST } from '@/types'
 
 export const MessageListener = (client: He4rtClient, message: Message) => {

@@ -18,8 +18,8 @@ export const setMemberIsADonatorOrNot = async (client: He4rtClient, oldMember: G
   }
 
   if (old && !active) {
-    client.api.he4rt
-      .users(oldMember.id)
+    client.api.he4rt.users
+      .profile(oldMember.id)
       .put<UserPUT>({
         is_donator: 0,
       })
@@ -38,8 +38,8 @@ export const setMemberIsADonatorOrNot = async (client: He4rtClient, oldMember: G
   }
 
   if (!old && active) {
-    client.api.he4rt
-      .users(newMember.id)
+    client.api.he4rt.users
+      .profile(newMember.id)
       .put<UserPUT>({
         is_donator: 1,
       })

@@ -21,8 +21,8 @@ export const verifyApoiaseMembers = async (client: He4rtClient) => {
       // apoia.se requests by second limit
       await js().sleep(2000)
 
-      client.api.he4rt
-        .users(member.id)
+      client.api.he4rt.users
+        .profile(member.id)
         .get<UserGET>()
         .then(({ email }) => {
           client.api.apoiase.backers

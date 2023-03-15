@@ -3,6 +3,7 @@ import { replace } from 'esbuild-plugin-replace'
 
 export default defineConfig({
   entry: ['src/index.ts'],
+  format: ['cjs', 'esm'],
   target: ['node16'],
   clean: true,
   sourcemap: true,

@@ -5,9 +5,9 @@ import {
   TICKER_SETTER,
 } from '@/defines/values.json'
 import { getDynamicVoiceCategory, getGuild } from '@/utils'
-import { channelMention, Collection, GuildMember, VoiceChannel } from 'discord.js'
+import { Collection, GuildMember, VoiceChannel } from 'discord.js'
 
-export const setDynamicVoiceRemover = async (client: He4rtClient) => {
+export const setDynamicVoiceRemover = (client: He4rtClient) => {
   const guild = getGuild(client)
 
   const voiceTimer = 60 * DYNAMIC_VOICE_DELETE_CHANNELS_IN_MINUTES
@@ -22,7 +22,7 @@ export const setDynamicVoiceRemover = async (client: He4rtClient) => {
       const category = getDynamicVoiceCategory(client)
       const channels = [...guild.channels.cache] as [string, VoiceChannel][]
 
-      channels.forEach(async ([_, channel]) => {
+      channels.forEach(([_, channel]) => {
         if (channel.parentId !== category.id) return
 
         const targets = [...(channel.members as Collection<string, GuildMember>)]
@@ -30,9 +30,9 @@ export const setDynamicVoiceRemover = async (client: He4rtClient) => {
         const actuallyTime = new Date().valueOf()
         const expirationLimitTime = new Date(channel.createdAt).valueOf() + DYNAMIC_VOICE_INVITE_LIMIT_TIME
 
-        if (targets.length === 0 && actuallyTime > expirationLimitTime) {
-          await channel.bulkDelete(channel.messages.cache.reduce((sum) => ++sum, 0)).catch(() => {})
+        const debounceTime = actuallyTime > expirationLimitTime
 
+        if (targets.length === 0 && debounceTime) {
           channel
             .delete()
             .then(() => {
