@@ -36,7 +36,7 @@ export const useProfileGet = (): Command => {
       }
 
       client.api.he4rt
-        .users()
+        .users
         .profile(target.id)
         .get<UserGET>()
         .then(async (obj) => {
