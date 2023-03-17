@@ -131,13 +131,14 @@ export const useDynamicVoice = (): Command => {
           new ButtonBuilder().setCustomId('c-dynamic-voice-increment').setLabel('+').setStyle(ButtonStyle.Success)
         )
 
-      await voice
-        .send({
-          content: `<@${member.id}> aqui está o seu novo canal de voz!`,
-          embeds: [embed],
-          components: [component],
-        })
-        .catch(() => { })
+      const message = {
+        content: `<@${member.id}> aqui está o seu novo canal de voz!`,
+        embeds: [embed],
+        components: [component],
+      }
+
+      await member.send(message).catch(() => {})
+      await voice.send(message).catch(() => {})
 
       await interaction.reply({ content: invite.url, ephemeral: true }).catch(() => { })
     },
