@@ -142,5 +142,13 @@
   "DYNAMIC_VOICE": {
     "TITLE": "sala",
     "DESCRIPTION": "Crie um canal de voz temporário."
+  },
+  "DYNAMIC_VOICE_SIZE": {
+    "TITLE": "sala-tamanho",
+    "DESCRIPTION": "(DONO): Altere o tamanho da sala."
+  },
+  "DYNAMIC_VOICE_OWNER": {
+    "TITLE": "sala-transferir",
+    "DESCRIPTION": "(DONO): Transfira o dono da sala para outro membro que esteja no mesmo canal de voz."
   }
 }

@@ -41,5 +41,17 @@
   "DISCORD_MESSAGE_LIMIT": 2000,
   "DYNAMIC_VOICE_MIN_SIZE": 1,
   "DYNAMIC_VOICE_MAX_SIZE": 40,
+  "DYNAMIC_VOICE_OPTIONS": [
+    { "name": "🗣 Only English", "value": 0 },
+    { "name": "👥 Novas Amizades", "value": 1 },
+    { "name": "👋 Novato", "value": 2 },
+    { "name": "🎓 Mentoria", "value": 3 },
+    { "name": "🏢 Trabalho", "value": 4 },
+    { "name": "🔴 Live", "value": 6 },
+    { "name": "🎮 Joguinhos", "value": 7 },
+    { "name": "🗣 Conversando", "value": 8 },
+    { "name": "🆘 ME AJUDAAA!!!!", "value": 9 },
+    { "name": "📖 Estudando", "value": 10 }
+  ],
   "EXTENDED_PROFILE_LINK": "https://he4rt-landing-ssr.vercel.app/profile/"
 }
