@@ -56,7 +56,7 @@ export const useDynamicVoiceSize = (): Command => {
         return
       }
 
-      const messages = [...channel.messages.cache]
+      const messages = [...(await channel.messages.fetch())]
 
       if (messages.length === 0) {
         await reply(interaction).error()
