@@ -46,11 +46,11 @@
     { "name": "👋 Novato", "value": 2 },
     { "name": "🎓 Mentoria", "value": 3 },
     { "name": "🏢 Trabalho", "value": 4 },
-    { "name": "📖 Estudando", "value": 5 },
     { "name": "🔴 Live", "value": 6 },
     { "name": "🎮 Joguinhos", "value": 7 },
     { "name": "🗣 Conversando", "value": 8 },
-    { "name": "🆘 ME AJUDAAA!!!!", "value": 9 }
+    { "name": "🆘 ME AJUDAAA!!!!", "value": 9 },
+    { "name": "📖 Estudando", "value": 10 }
   ],
   "EXTENDED_PROFILE_LINK": "https://heartdevs.com/profile/"
 }

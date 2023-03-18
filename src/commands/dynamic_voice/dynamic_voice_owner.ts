@@ -78,10 +78,10 @@ export const useDynamicVoiceOwner = (): Command => {
       await controller
         .edit(message)
         .then(async () => {
-          reply(interaction).success()
+          await reply(interaction).success()
         })
         .catch(async () => {
-          reply(interaction).error()
+          await reply(interaction).error()
         })
     },
   ]
