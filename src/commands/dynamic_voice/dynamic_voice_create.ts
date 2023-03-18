@@ -9,7 +9,7 @@ import {
   DYNAMIC_VOICE_OPTIONS,
 } from '@/defines/values.json'
 import { TYPE_OPTION, LIMIT_OPTION, IN_DYNAMIC_VOICE_ERROR } from '-/commands/dynamic_voice.json'
-import { dynamicVoiceEmbedTemplate, getGuild, getOption, getTargetMember, isPresentedMember, reply } from '@/utils'
+import { dynamicVoiceEmbedTemplate, getChannel, getGuild, getOption, getTargetMember, isPresentedMember, reply } from '@/utils'
 
 export const useDynamicVoice = (): Command => {
   const data = new SlashCommandBuilder()
@@ -51,7 +51,7 @@ export const useDynamicVoice = (): Command => {
       }
 
       const guild = getGuild(client)
-      const category = guild.channels.cache.get(DYNAMIC_CATEGORY_CHANNEL.id) as CategoryChannel
+      const category = getChannel<CategoryChannel>({ client, id: DYNAMIC_CATEGORY_CHANNEL.id })
 
       const typeTitle = getType(type.value as number)
 
