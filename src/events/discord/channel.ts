@@ -51,6 +51,7 @@ export const sendGoodMessagesInBusyChannels = (message: Message) => {
   const validChannels = [CHAT_CHANNEL, MEETING_CHANNEL, MEETING_DELAS_CHANNEL]
 
   if (validChannels.some((v) => v.id === message.channel.id)) {
+    const isChatChannel = message.channel.id === CHAT_CHANNEL.id
     const content = message.content.toLowerCase().trim()
 
     if (content.length > 50 && message.channel.id === CHAT_CHANNEL.id) return
@@ -65,13 +66,13 @@ export const sendGoodMessagesInBusyChannels = (message: Message) => {
       night: hour >= 18,
     })
 
-    if (content.match(/(bom\sdia)+(\s|[a-zA-Z0-9]){0,20}$/i) && currentPeriod(currentHour).morning) {
+    if (content.match(isChatChannel ? /(bom dia)+( |[a-z0-9]){0,20}$/i : /(bom dia)/gi) && currentPeriod(currentHour).morning) {
       message.reply({ content: `dia!` }).catch(() => {})
-    } else if (content.match(/(boa\starde)+(\s|[a-zA-Z0-9]){0,20}$/i) && currentPeriod(currentHour).afternoon) {
+    } else if (content.match(isChatChannel ? /(boa tarde)+( |[a-z0-9]){0,20}$/i : /(boa tarde)/gi) && currentPeriod(currentHour).afternoon) {
       message.reply({ content: `tarde!` }).catch(() => {})
-    } else if (content.match(/(boa\snoite)+(\s|[a-zA-Z0-9]){0,20}$/i) && currentPeriod(currentHour).night) {
+    } else if (content.match(isChatChannel ? /(boa noite)+( |[a-z0-9]){0,20}$/i : /(boa noite)/gi) && currentPeriod(currentHour).night) {
       message.reply({ content: `noite!` }).catch(() => {})
-    } else if (content.match(/(boa\smadrugada)+(\s|[a-zA-Z0-9]){0,20}$/i) && currentPeriod(currentHour).dawn) {
+    } else if (content.match(isChatChannel ? /(boa madrugada)+( |[a-z0-9]){0,20}$/i : /(boa madrugada)/gi) && currentPeriod(currentHour).dawn) {
       message.reply({ content: `boa madrugada!` }).catch(() => {})
     }
   }
