@@ -9,7 +9,15 @@ import {
   DYNAMIC_VOICE_OPTIONS,
 } from '@/defines/values.json'
 import { TYPE_OPTION, LIMIT_OPTION, IN_DYNAMIC_VOICE_ERROR } from '-/commands/dynamic_voice.json'
-import { dynamicVoiceEmbedTemplate, getChannel, getGuild, getOption, getTargetMember, isPresentedMember, reply } from '@/utils'
+import {
+  dynamicVoiceEmbedTemplate,
+  getChannel,
+  getGuild,
+  getOption,
+  getTargetMember,
+  isPresentedMember,
+  reply,
+} from '@/utils'
 
 export const useDynamicVoice = (): Command => {
   const data = new SlashCommandBuilder()
@@ -33,8 +41,7 @@ export const useDynamicVoice = (): Command => {
     )
 
   const getType = (type: number): string =>
-    DYNAMIC_VOICE_OPTIONS.reduce((prev, current) => ({ [current.value]: current.name, ...prev }), {})[type] ||
-    '👥 Novas Amizades'
+    DYNAMIC_VOICE_OPTIONS.reduce((prev, current) => ({ [current.value]: current.name, ...prev }), {})[type]
 
   return [
     data,
@@ -55,7 +62,7 @@ export const useDynamicVoice = (): Command => {
 
       const typeTitle = getType(type.value as number)
 
-      if (member.voice.channel?.parent?.id === DYNAMIC_CATEGORY_CHANNEL.id) {
+      if (member?.voice?.channel?.parent?.id === DYNAMIC_CATEGORY_CHANNEL.id) {
         await interaction.reply({ content: IN_DYNAMIC_VOICE_ERROR, ephemeral: true })
 
         return
@@ -84,7 +91,13 @@ export const useDynamicVoice = (): Command => {
         color: 'success',
       })
 
-      await interaction.reply({ content: invite.url, ephemeral: true }).catch(() => {})
+      await interaction.reply({ content: invite.url, ephemeral: true }).catch(() => {
+        client.logger.emit({
+          message: `${getTargetMember(member)} não conseguiu criar o canal de voz dinâmico **${typeTitle}**!`,
+          type: 'command',
+          color: 'error',
+        })
+      })
     },
   ]
 }

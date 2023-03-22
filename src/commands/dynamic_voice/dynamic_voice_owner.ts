@@ -20,6 +20,12 @@ export const useDynamicVoiceOwner = (): Command => {
       const act = interaction.member as GuildMember
       const actState = act?.voice
 
+      if (!isPresentedMember(target) || !isPresentedMember(act)) {
+        await reply(interaction).errorMemberIsNotPresented()
+
+        return
+      }
+
       if (!targetState || !actState || targetState.channelId !== actState.channelId) {
         await reply(interaction).error()
 
@@ -28,12 +34,6 @@ export const useDynamicVoiceOwner = (): Command => {
 
       if (target.id === act.id) {
         await reply(interaction).error()
-
-        return
-      }
-
-      if (!isPresentedMember(target) || !isPresentedMember(act)) {
-        await reply(interaction).errorMemberIsNotPresented()
 
         return
       }
