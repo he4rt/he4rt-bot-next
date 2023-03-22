@@ -1,6 +1,7 @@
 import {
   ButtonInteraction,
   CategoryChannel,
+  Channel,
   CommandInteraction,
   CommandInteractionOption,
   DMChannel,
@@ -14,6 +15,7 @@ import {
   PermissionFlagsBits,
   TextBasedChannel,
   User,
+  VoiceChannel,
 } from 'discord.js'
 import { CLIENT_NAME, CLIENT_TIMEZONE, COLORS, HE4RT_DELAS_ICON_1_URL, HE4RT_ICON_1_URL } from '@/defines/values.json'
 import {
@@ -53,6 +55,7 @@ import {
 import { NOT_FOUND, LANGUAGE_NONE } from '-/defaults/display.json'
 import { TIMEOUT_COMMAND_STRING, DEFINE_STRING_REPLACED } from '@/defines/values.json'
 import { CommandGetOption, EmbedTemplateOptions, GetChannelOptions, He4rtClient } from '@/types'
+import { DYNAMIC_VOICE_MIN_SIZE, DYNAMIC_VOICE_MAX_SIZE } from '@/defines/values.json'
 import pkg from '../package.json'
 
 export const validDisplayDevRoles = (member: GuildMember) => {
@@ -180,6 +183,29 @@ export const embedTemplate = (options: EmbedTemplateOptions) => {
   return embed
 }
 
+export const dynamicVoiceEmbedTemplate = async (
+  channel: VoiceChannel | TextBasedChannel,
+  owner: GuildMember,
+  options?: { send?: boolean }
+) => {
+  const embed = embedTemplate({
+    title: `Canal de Voz Dinâmico`,
+    description: `Para alterar o limite de membros, use \`sala-alterar\`, sendo seu limite mínimo de membros **${DYNAMIC_VOICE_MIN_SIZE}** e de máximo **${DYNAMIC_VOICE_MAX_SIZE}**. Para transferir o dono da sala a outro membro, use \`sala-transferir\`.`,
+    fields: [
+      [
+        { name: '**ID do Canal**', value: channel.id, inline: false },
+        { name: '**ID do Dono**', value: owner.id, inline: false },
+      ],
+    ],
+  })
+
+  const message = { content: `<@${owner.id}>`, embeds: [embed] }
+
+  if (options?.send) await channel.send(message).catch(() => {})
+
+  return message
+}
+
 export const getUserAvatar = (author: User) => {
   return `https://cdn.discordapp.com/avatars/${author.id}/${author.avatar}.png?size=256`
 }
@@ -188,8 +214,8 @@ export const getGuild = ({ guilds }: He4rtClient): Guild => {
   return guilds.cache.get(process.env.DISCORD_GUILD_ID)
 }
 
-export const getChannel = ({ client, id }: GetChannelOptions) => {
-  return client.channels.cache.get(id) as TextBasedChannel
+export function getChannel<T extends Channel = TextBasedChannel>({ client, id }: GetChannelOptions): T {
+  return client.channels.cache.get(id) as T
 }
 
 export const getForumChannel = (client: He4rtClient) => {
@@ -286,10 +312,12 @@ export const reply = (interaction: CommandInteraction | ButtonInteraction) => {
   }
 
   const error = async () => {
-    return await interaction.reply({
-      content: ERROR_DEFAULT,
-      ephemeral: true,
-    })
+    return await interaction
+      .reply({
+        content: ERROR_DEFAULT,
+        ephemeral: true,
+      })
+      .catch(() => {})
   }
 
   const errorInvalidEmail = async () => {

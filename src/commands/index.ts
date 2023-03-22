@@ -24,7 +24,9 @@ import { useRoleDelete } from './role/role_delete'
 import { resolveJudgeCommandButtonEvents, useJudge } from './judge'
 import { useForumClose } from './forum/forum_close'
 import { useForumCreate } from './forum/forum_create'
-import { resolveDynamicVoiceUserLimitControl, useDynamicVoice } from './dynamic_voice'
+import { useDynamicVoice } from './dynamic_voice/dynamic_voice_create'
+import { useDynamicVoiceSize } from './dynamic_voice/dynamic_voice_size'
+import { useDynamicVoiceOwner } from './dynamic_voice/dynamic_voice_owner'
 import { useStageATA } from './stage/stage_ata'
 import { useStageStart } from './stage/stage_start'
 import { useStageFinish } from './stage/stage_finish'
@@ -67,6 +69,8 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useForumClose(),
     useForumCreate(),
     useDynamicVoice(),
+    useDynamicVoiceSize(),
+    useDynamicVoiceOwner(),
     useStageATA(),
     useStageFinish(),
     useStageStart(),
@@ -102,5 +106,4 @@ export const commandsListener = (client: He4rtClient, interaction: CommandIntera
 
 export const buttonListener = async (client: He4rtClient, interaction: ButtonInteraction) => {
   await resolveJudgeCommandButtonEvents(client, interaction)
-  await resolveDynamicVoiceUserLimitControl(client, interaction)
 }
