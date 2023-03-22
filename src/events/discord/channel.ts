@@ -65,13 +65,13 @@ export const sendGoodMessagesInBusyChannels = (message: Message) => {
       night: hour >= 18,
     })
 
-    if (content.startsWith('bom dia') && currentPeriod(currentHour).morning) {
+    if (content.match(/(bom\sdia)+(\s|[a-zA-Z0-9]){0,20}$/i) && currentPeriod(currentHour).morning) {
       message.reply({ content: `dia!` }).catch(() => {})
-    } else if (content.startsWith('boa tarde') && currentPeriod(currentHour).afternoon) {
+    } else if (content.match(/(boa\starde)+(\s|[a-zA-Z0-9]){0,20}$/i) && currentPeriod(currentHour).afternoon) {
       message.reply({ content: `tarde!` }).catch(() => {})
-    } else if (content.startsWith('boa noite') && currentPeriod(currentHour).night) {
+    } else if (content.match(/(boa\snoite)+(\s|[a-zA-Z0-9]){0,20}$/i) && currentPeriod(currentHour).night) {
       message.reply({ content: `noite!` }).catch(() => {})
-    } else if (content.startsWith('boa madrugada') && currentPeriod(currentHour).dawn) {
+    } else if (content.match(/(boa\smadrugada)+(\s|[a-zA-Z0-9]){0,20}$/i) && currentPeriod(currentHour).dawn) {
       message.reply({ content: `boa madrugada!` }).catch(() => {})
     }
   }
