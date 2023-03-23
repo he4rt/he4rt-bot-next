@@ -28,6 +28,8 @@ He4rt Discord Bot
 - `/reputacao` (DESATIVADO)
 - `/especial`
 - `/sala`
+- `/sala-transferir`
+- `/sala-limite`
 - `/avaliar`
 - `/apoiase`
 - `/bonus`
