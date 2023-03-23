@@ -190,7 +190,7 @@ export const dynamicVoiceEmbedTemplate = async (
 ) => {
   const embed = embedTemplate({
     title: `Canal de Voz Dinâmico`,
-    description: `Para alterar o limite de membros, use \`sala-alterar\`, sendo seu limite mínimo de membros **${DYNAMIC_VOICE_MIN_SIZE}** e de máximo **${DYNAMIC_VOICE_MAX_SIZE}**. Para transferir o dono da sala a outro membro, use \`sala-transferir\`.`,
+    description: `Para alterar o limite de membros, use \`sala-limite\`, sendo o  limite mínimo de membros **${DYNAMIC_VOICE_MIN_SIZE}** com o máximo de **${DYNAMIC_VOICE_MAX_SIZE}**. Para transferir o dono da sala a outro membro, use \`sala-transferir\`.`,
     fields: [
       [
         { name: '**ID do Canal**', value: channel.id, inline: false },
