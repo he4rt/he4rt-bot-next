@@ -9,13 +9,14 @@ import {
   suppressEmbedMessagesInBusyChannels,
   reactMessagesInLearningDiaryChannel,
   reactAnnouncesInAdvertsChannel,
+  bussinOrCap,
   MessageListener,
 } from './channel'
 import { setMemberIsADonatorOrNot } from './role'
 import { removeUserMuteInLeavePomodoro } from './voice'
 import { emitDefaultDiscordError, emitWebhookUpdate } from './logger'
 
-export const discordEvents = (client: He4rtClient) => {
+export const discordEvents = async (client: He4rtClient) => {
   client.on(Events.GuildMemberAdd, (member) => {
     if (isBot(member.user)) return
 
@@ -50,6 +51,7 @@ export const discordEvents = (client: He4rtClient) => {
 
     suppressEmbedMessagesInBusyChannels(message)
     sendGoodMessagesInBusyChannels(message)
+	bussinOrCap(message)
     reactMessagesInSuggestionChannel(message)
     reactMessagesInLearningDiaryChannel(message)
   })
