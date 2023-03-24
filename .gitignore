@@ -10,3 +10,6 @@ logs
 
 TODO.md
 .idea
+
+output.log
+error.log
