@@ -131,6 +131,15 @@ Caso deseje contribuir ao projeto, leia o [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT
         </a>
     </td>
 </tr>
+<tr>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/kkuriboh>
+            <img src=https://avatars.githubusercontent.com/u/40146018?v=4 width="100;"  alt=Augusto Pieper/>
+            <br />
+            <sub style="font-size:14px"><b>Augusto Pieper</b></sub>
+        </a>
+    </td>
+</tr>
 </table>
 
 A He4rt Developers agradece a todos os contribuidores acima e aos contribuidores [da primeira versão](https://github.com/he4rt/He4rt-Bot/blob/master/README.md#-contribuidores)!
