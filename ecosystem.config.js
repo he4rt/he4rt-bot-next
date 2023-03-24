@@ -10,7 +10,6 @@ module.exports = {
       cron_restart: '0 3 * * 0', // every dawn sunday
       restart_delay: 10000, // for discord.js destroy instance
       kill_timeout: 2000, // for discord.js destroy instance
-      max_memory_restart: '1G',
       post_update: ['pnpm install', 'pnpm prod:build'],
       env_production: {
         NODE_ENV: 'production',
