@@ -1,6 +1,6 @@
 {
   "name": "he4rt-discord-bot-next",
-  "version": "2.8.0",
+  "version": "2.8.2",
   "author": "He4rt Developers",
   "main": "dist/index.js",
   "exports": {
@@ -13,7 +13,8 @@
     "dev": "concurrently pnpm:dev:*",
     "dev:build": "tsup --config tsup.development.config.ts",
     "dev:run": "nodemon .",
-    "prod": "pnpm install && pnpm prod:build && pm2 start dist/index.js --name he4rt-bot",
+    "dev:pm2": "pnpm install && pnpm prod:build && pm2 start ecosystem.config.js --env development",
+    "prod": "pnpm install && pnpm prod:build && pm2 start ecosystem.config.js --env production",
     "prod:build": "tsup --config tsup.production.config.ts",
     "version:init": "generi init",
     "version:patch": "generi log patch",
