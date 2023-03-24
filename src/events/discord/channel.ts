@@ -54,12 +54,12 @@ export const sendGoodMessagesInBusyChannels = (message: Message) => {
     const isChatChannel = message.channel.id === CHAT_CHANNEL.id
     const content = message.content.toLowerCase().trim()
 
-    if (content.length > 50 && message.channel.id === CHAT_CHANNEL.id) return
+    if (content.length > 50 && isChatChannel) return
 
     const date = js().getUTCDate()
 
     const currentHour = date.getHours()
-    const currentPeriod = (hour) => ({
+    const currentPeriod = (hour: number) => ({
       dawn: hour < 5,
       morning: hour >= 5 && hour < 12,
       afternoon: hour >= 12 && hour < 18,
@@ -75,6 +75,26 @@ export const sendGoodMessagesInBusyChannels = (message: Message) => {
     } else if (content.match(isChatChannel ? /(boa madrugada)+( |[a-z0-9]){0,20}$/i : /(boa madrugada)/gi) && currentPeriod(currentHour).dawn) {
       message.reply({ content: `boa madrugada!` }).catch(() => {})
     }
+  }
+}
+
+export const bussinOrCap = async (message: Message) => {
+  const validChannels = [CHAT_CHANNEL, MEETING_CHANNEL, MEETING_DELAS_CHANNEL]
+
+  if (validChannels.some((v) => v.id === message.channel.id)) {
+	const content = message.content.toLowerCase().split(/\s+/)
+	const randomness = Math.round(Math.random() % 100 * 100)
+
+	const containsRust = content.includes('rust')
+	const containsGo = content.includes('go')
+
+	if (containsRust && containsGo && randomness === 69) {
+	  message.reply({ content: 'no cap' }).catch(() => {})
+	} else if (containsRust && randomness === 69) {
+	  message.reply({ content: 'bussin' }).catch(() => {})
+	} else if (containsGo && randomness === 69) {
+	  message.reply({ content: 'cap' }).catch(() => {})
+	}
   }
 }
 
