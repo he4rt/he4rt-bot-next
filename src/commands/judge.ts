@@ -24,7 +24,7 @@ export const useJudge = (): Command => {
         .setName('tipo')
         .setDescription(TYPE_OPTION)
         .setRequired(true)
-        .addChoices({ name: '✅ Elogio', value: 0 }, { name: '❌ Crítica', value: 1 })
+        .addChoices({ name: '✅ Elogio', value: 0 }, { name: '❌ Oportunidade de melhoria', value: 1 })
     )
     .addStringOption((option) => option.setName('motivo').setDescription(REASON_OPTION).setRequired(true))
 
@@ -38,13 +38,13 @@ export const useJudge = (): Command => {
       const getType = () => {
         return {
           0: '✅ Elogio',
-          1: '❌ Crítica',
+          1: '❌ Oportunidade de melhoria',
         }[value as number]
       }
 
       if ((reason.value as string).length >= DISCORD_MESSAGE_LIMIT) {
         await interaction.reply({
-          content: `O seu texto de motivo ultrapassa o limite do discord (${DISCORD_MESSAGE_LIMIT} caracteres) e por isso foi desconsiderado! Opte por enviar ticket's separados!`,
+          content: `O seu texto de motivo ultrapassa o limite do discord (${DISCORD_MESSAGE_LIMIT} caracteres) e por isso foi desconsiderado! Opte por enviar feedback's separados!`,
           ephemeral: true,
         })
 
@@ -139,14 +139,14 @@ export const resolveJudgeCommandButtonEvents = async (client: He4rtClient, inter
               })
 
               dm.send({
-                content: `Você recebeu um ticket de um usuário pertencente ao servidor **${CLIENT_NAME}!**`,
+                content: `Você recebeu um feedback de um usuário pertencente ao servidor **${CLIENT_NAME}!**`,
                 embeds: [embed],
               })
                 .then(async () => {
                   client.logger.emit({
                     type: 'ticket',
                     color: 'success',
-                    message: `O ticket de título ${title} e de descrição **${description}** foi enviado por ${getTargetMember(
+                    message: `O feedback de título ${title} e de descrição **${description}** foi enviado por ${getTargetMember(
                       author
                     )}, aceito por ${getTargetMember(
                       interaction.member as GuildMember
@@ -191,7 +191,7 @@ export const resolveJudgeCommandButtonEvents = async (client: He4rtClient, inter
           client.logger.emit({
             type: 'ticket',
             color: 'warning',
-            message: `O ticket de título ${title} e de descrição **${description}** foi recusado por ${getTargetMember(
+            message: `O feedback de título ${title} e de descrição **${description}** foi recusado por ${getTargetMember(
               interaction.member as GuildMember
             )}!`,
             customChannelId: CALLED_CHANNEL.id,
