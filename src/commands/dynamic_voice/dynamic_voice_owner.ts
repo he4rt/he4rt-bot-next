@@ -54,7 +54,7 @@ export const useDynamicVoiceOwner = (): Command => {
         return
       }
 
-      const messages = [...(await channel.messages.fetch())]
+      const messages = [...(await channel.messages.fetch())].reverse()
 
       if (messages.length === 0) {
         await reply(interaction).error()

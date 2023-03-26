@@ -56,7 +56,7 @@ export const useDynamicVoiceSize = (): Command => {
         return
       }
 
-      const messages = [...(await channel.messages.fetch())]
+      const messages = [...(await channel.messages.fetch())].reverse()
 
       if (messages.length === 0) {
         await reply(interaction).error()
@@ -75,7 +75,7 @@ export const useDynamicVoiceSize = (): Command => {
 
       const value = limit.value as number
 
-      if (value > DYNAMIC_VOICE_MAX_SIZE || value <= DYNAMIC_VOICE_MIN_SIZE) {
+      if (value > DYNAMIC_VOICE_MAX_SIZE || value < DYNAMIC_VOICE_MIN_SIZE) {
         await reply(interaction).error()
 
         return
