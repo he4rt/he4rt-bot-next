@@ -12,7 +12,7 @@ import {
   bussinOrCap,
   MessageListener,
 } from './channel'
-import { setMemberIsADonatorOrNot } from './role'
+import { setMemberIsADonatorOrNot, userBoostingServerMessage } from './role'
 import { removeUserMuteInLeavePomodoro } from './voice'
 import { emitDefaultDiscordError, emitWebhookUpdate } from './logger'
 
@@ -30,10 +30,11 @@ export const discordEvents = async (client: He4rtClient) => {
     deletePossibleUserInServerLeave(client, member)
   })
 
-  client.on(Events.GuildMemberUpdate, (oldMember, newMember) => {
+  client.on(Events.GuildMemberUpdate, async (oldMember, newMember) => {
     if (isBot(oldMember.user) || isBot(newMember.user) || !oldMember) return
 
-    setMemberIsADonatorOrNot(client, oldMember as GuildMember, newMember)
+    await setMemberIsADonatorOrNot(client, oldMember as GuildMember, newMember)
+    await userBoostingServerMessage(client, oldMember as GuildMember, newMember)
   })
 
   client.on(Events.VoiceStateUpdate, (oldVoice, newVoice) => {
@@ -51,7 +52,7 @@ export const discordEvents = async (client: He4rtClient) => {
 
     suppressEmbedMessagesInBusyChannels(message)
     sendGoodMessagesInBusyChannels(message)
-	bussinOrCap(message)
+    bussinOrCap(message)
     reactMessagesInSuggestionChannel(message)
     reactMessagesInLearningDiaryChannel(message)
   })
