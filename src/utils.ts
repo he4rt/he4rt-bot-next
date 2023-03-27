@@ -223,7 +223,7 @@ export const getForumChannel = (client: He4rtClient) => {
 }
 
 export const getDynamicVoiceCategory = (client: He4rtClient) => {
-  return client.channels.cache.get(DYNAMIC_CATEGORY_CHANNEL.id) as CategoryChannel
+  return getChannel<CategoryChannel>({ client, id: DYNAMIC_CATEGORY_CHANNEL.id })
 }
 
 export const getOption: CommandGetOption = (interaction: CommandInteraction, target: string) => {
