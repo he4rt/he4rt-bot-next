@@ -56,7 +56,7 @@ export const useDynamicVoiceSize = (): Command => {
         return
       }
 
-      const messages = [...(await channel.messages.fetch())].reverse()
+      const messages = [...(await channel.messages.fetch({ limit: 100, cache: false }))].reverse().filter(Boolean)
 
       if (messages.length === 0) {
         await reply(interaction).error()
@@ -64,31 +64,39 @@ export const useDynamicVoiceSize = (): Command => {
         return
       }
 
-      const channel_id = messages[0][1].embeds[0].data.fields[0].value
-      const author_id = messages[0][1].embeds[0].data.fields[1].value
+      try {
+        const controller = messages[0][1]
 
-      if (author_id !== member.id || channel_id !== channel.id) {
-        await reply(interaction).error()
+        const channel_id = controller.embeds[0].data.fields[0].value
+        const author_id = controller.embeds[0].data.fields[1].value
 
-        return
-      }
-
-      const value = limit.value as number
-
-      if (value > DYNAMIC_VOICE_MAX_SIZE || value < DYNAMIC_VOICE_MIN_SIZE) {
-        await reply(interaction).error()
-
-        return
-      }
-
-      channel
-        .setUserLimit(value)
-        .then(async () => {
-          await reply(interaction).success()
-        })
-        .catch(async () => {
+        if (author_id !== member.id || channel_id !== channel.id) {
           await reply(interaction).error()
-        })
+
+          return
+        }
+
+        const value = limit.value as number
+
+        if (value > DYNAMIC_VOICE_MAX_SIZE || value < DYNAMIC_VOICE_MIN_SIZE) {
+          await reply(interaction).error()
+
+          return
+        }
+
+        channel
+          .setUserLimit(value)
+          .then(async () => {
+            await reply(interaction).success()
+          })
+          .catch(async () => {
+            await reply(interaction).error()
+          })
+      } catch (e) {
+        await reply(interaction).error()
+
+        return
+      }
     },
   ]
 }
