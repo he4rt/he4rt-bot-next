@@ -54,16 +54,11 @@ export const useDynamicVoiceOwner = (): Command => {
         return
       }
 
-      const messages = [...(await channel.messages.fetch({ limit: 100, cache: false }))].reverse().filter(Boolean)
-
-      if (messages.length === 0) {
-        await reply(interaction).error()
-
-        return
-      }
-
       try {
-        const controller = messages[0][1]
+        //@ts-expect-error
+        const fetched = [...(await channel.messages.fetch({ limit: 1, after: 1 }))]
+
+        const controller = fetched[0][1]
 
         const channel_id = controller.embeds[0].data.fields[0].value
         const author_id = controller.embeds[0].data.fields[1].value
