@@ -2,14 +2,12 @@ import { He4rtClient, TickerName } from '@/types'
 import {
   DYNAMIC_VOICE_DELETE_CHANNELS_IN_MINUTES,
   DYNAMIC_VOICE_INVITE_LIMIT_TIME,
-  DYNAMIC_VOICE_MESSAGE_LIMIT_FOR_DELETE,
   TICKER_SETTER,
 } from '@/defines/values.json'
-import { BOT_ID } from '@/defines/ids.json'
-import { getDynamicVoiceCategory, getGuild, js } from '@/utils'
+import { getDynamicVoiceCategory, getGuild } from '@/utils'
 import { Collection, GuildMember, VoiceChannel } from 'discord.js'
 
-export const setDynamicVoiceRemover = (client: He4rtClient) => {
+export const setDynamicVoice = (client: He4rtClient) => {
   const guild = getGuild(client)
 
   const voiceTimer = 60 * DYNAMIC_VOICE_DELETE_CHANNELS_IN_MINUTES
@@ -34,7 +32,6 @@ export const setDynamicVoiceRemover = (client: He4rtClient) => {
 
         const debounceTime = actuallyTime > expirationLimitTime
 
-        // first, check if this channel is valid for delete
         if (targets.length === 0 && debounceTime) {
           channel
             .delete()
@@ -52,38 +49,7 @@ export const setDynamicVoiceRemover = (client: He4rtClient) => {
                 color: 'error',
               })
             })
-
-          return
         }
-
-        // second, check if this channel is valid for bulk delete messages because 100 messages discord.js limit for search in fetched cases.
-        // this is a workaround for /sala-limite and /sala-transferir. Better suggestions are welcome.
-        channel.messages
-          .fetch({ limit: DYNAMIC_VOICE_MESSAGE_LIMIT_FOR_DELETE, cache: false })
-          .then(async (payload) => {
-            // exclude bot messages (especially controller with embeds)
-            const messages = payload.filter((msg) => msg && msg.author.id !== BOT_ID)
-
-            if ([...messages]?.length >= DYNAMIC_VOICE_MESSAGE_LIMIT_FOR_DELETE) {
-              const before = await channel.send(
-                `Apaguarei as últimas ${DYNAMIC_VOICE_MESSAGE_LIMIT_FOR_DELETE} mensagens daqui 10 segundos para o melhor funcionamento do canal dinâmico!!!`
-              )
-              await js().sleep(10000)
-
-              // delete target messages
-              await channel.bulkDelete(messages).catch(() => {})
-
-              const current = await channel.send(
-                `Apagando as últimas ${DYNAMIC_VOICE_MESSAGE_LIMIT_FOR_DELETE} mensagens!`
-              )
-
-              setTimeout(() => {
-                before.delete().catch(() => {})
-                current.delete().catch(() => {})
-              }, 10000)
-            }
-          })
-          .catch(() => {})
       })
     }
   })
