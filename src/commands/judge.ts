@@ -24,7 +24,7 @@ export const useJudge = (): Command => {
         .setName('tipo')
         .setDescription(TYPE_OPTION)
         .setRequired(true)
-        .addChoices({ name: '✅ Elogio', value: 0 }, { name: '❌ Oportunidade de melhoria', value: 1 })
+        .addChoices({ name: '✅ Elogio', value: 0 }, { name: '❌ Oportunidade de Melhoria', value: 1 })
     )
     .addStringOption((option) => option.setName('motivo').setDescription(REASON_OPTION).setRequired(true))
 
