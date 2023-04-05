@@ -7,8 +7,9 @@ import {
   DYNAMIC_VOICE_MIN_SIZE,
   DYNAMIC_VOICE_MAX_SIZE,
   DYNAMIC_VOICE_OPTIONS,
+  DYNAMIC_VOICE_STUDYING_OPTIONS,
 } from '@/defines/values.json'
-import { TYPE_OPTION, LIMIT_OPTION, IN_DYNAMIC_VOICE_ERROR } from '-/commands/dynamic_voice.json'
+import { TYPE_OPTION, STUDYING_TITLE_OPTION, LIMIT_OPTION, IN_DYNAMIC_VOICE_ERROR } from '-/commands/dynamic_voice.json'
 import {
   dynamicVoiceEmbedTemplate,
   getChannel,
@@ -39,9 +40,15 @@ export const useDynamicVoice = (): Command => {
         .setMinValue(DYNAMIC_VOICE_MIN_SIZE)
         .setMaxValue(DYNAMIC_VOICE_MAX_SIZE)
     )
+    .addIntegerOption((option) =>
+      option
+        .setName('estudando-titulo')
+        .setDescription(STUDYING_TITLE_OPTION)
+        .addChoices(...DYNAMIC_VOICE_STUDYING_OPTIONS)
+    )
 
-  const getType = (type: number): string =>
-    DYNAMIC_VOICE_OPTIONS.reduce((prev, current) => ({ [current.value]: current.name, ...prev }), {})[type]
+  const getType = (arr: { value: number, name: string }[], type: number): string =>
+    arr.reduce((prev, current) => ({ [current.value]: current.name, ...prev }), {})[type]
 
   return [
     data,
@@ -50,6 +57,7 @@ export const useDynamicVoice = (): Command => {
 
       const type = getOption(interaction, 'tipo')
       const limit = getOption(interaction, 'limite')
+      const optional_study = getOption(interaction, 'estudando-titulo')
 
       if (!isPresentedMember(member)) {
         await reply(interaction).errorMemberIsNotPresented()
@@ -60,7 +68,7 @@ export const useDynamicVoice = (): Command => {
       const guild = getGuild(client)
       const category = getChannel<CategoryChannel>({ client, id: DYNAMIC_CATEGORY_CHANNEL.id })
 
-      const typeTitle = getType(type.value as number)
+      const typeTitle = optional_study?.value && type.value === 5 ? `📖 ${getType(DYNAMIC_VOICE_STUDYING_OPTIONS, optional_study.value as number)}` : getType(DYNAMIC_VOICE_OPTIONS, type.value as number)
 
       if (member?.voice?.channel?.parent?.id === DYNAMIC_CATEGORY_CHANNEL.id) {
         await interaction.reply({ content: IN_DYNAMIC_VOICE_ERROR, ephemeral: true })

@@ -54,5 +54,25 @@
     { "name": "🗣 Conversando", "value": 8 },
     { "name": "🆘 ME AJUDAAA!!!!", "value": 9 }
   ],
+  "DYNAMIC_VOICE_STUDYING_OPTIONS": [
+    { "name": "JS|TS", "value": 0 },
+    { "name": "HTML|CSS", "value": 1 },
+    { "name": "C|C++", "value": 2 },
+    { "name": "C#", "value": 3 },
+    { "name": "Rust", "value": 4 },
+    { "name": "PHP", "value": 5 },
+    { "name": "Java", "value": 6 },
+    { "name": "Go", "value": 7 },
+    { "name": "Lua", "value": 8 },
+    { "name": "Elixir", "value": 9 },
+    { "name": "Haskell", "value": 10 },
+    { "name": "Front-end", "value": 11 },
+    { "name": "Back-end", "value": 12 },
+    { "name": "Funcional", "value": 13 },
+    { "name": "Interpretadores", "value": 14 },
+    { "name": "Algoritmos", "value": 15 },
+    { "name": "UI|UX", "value": 16 },
+    { "name": "SoftSkills", "value": 17 }
+  ],
   "EXTENDED_PROFILE_LINK": "https://he4rt-landing-ssr.vercel.app/profile/"
 }
