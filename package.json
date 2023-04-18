@@ -20,6 +20,9 @@
     "version:patch": "generi log patch",
     "version:minor": "generi log minor",
     "version:major": "generi log major",
+    "version:prepatch": "generi log prepatch",
+    "version:preminor": "generi log preminor",
+    "version:premajor": "generi log premajor",
     "prepare": "husky install"
   },
   "dependencies": {
