@@ -111,9 +111,9 @@ Caso deseje contribuir ao projeto, leia o [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT
     </td>
     <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
         <a href=https://github.com/henri1i>
-            <img src=https://avatars.githubusercontent.com/u/23015763?v=4 width="100;"  alt=Henri Borges/>
+            <img src=https://avatars.githubusercontent.com/u/23015763?v=4 width="100;"  alt=Henri/>
             <br />
-            <sub style="font-size:14px"><b>Henri Borges</b></sub>
+            <sub style="font-size:14px"><b>Henri</b></sub>
         </a>
     </td>
     <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
