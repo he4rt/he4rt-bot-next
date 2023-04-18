@@ -15,6 +15,7 @@ import {
   getChannel,
   getGuild,
   getOption,
+  getOptionType,
   getTargetMember,
   isPresentedMember,
   reply,
@@ -47,9 +48,6 @@ export const useDynamicVoice = (): Command => {
         .addChoices(...DYNAMIC_VOICE_STUDYING_OPTIONS)
     )
 
-  const getType = (arr: { value: number, name: string }[], type: number): string =>
-    arr.reduce((prev, current) => ({ [current.value]: current.name, ...prev }), {})[type]
-
   return [
     data,
     async (interaction, client) => {
@@ -68,7 +66,10 @@ export const useDynamicVoice = (): Command => {
       const guild = getGuild(client)
       const category = getChannel<CategoryChannel>({ client, id: DYNAMIC_CATEGORY_CHANNEL.id })
 
-      const typeTitle = optional_study?.value && type.value === 5 ? `📖 ${getType(DYNAMIC_VOICE_STUDYING_OPTIONS, optional_study.value as number)}` : getType(DYNAMIC_VOICE_OPTIONS, type.value as number)
+      const typeTitle =
+        optional_study?.value && type.value === 5
+          ? `📖 ${getOptionType(DYNAMIC_VOICE_STUDYING_OPTIONS, optional_study.value as number)}`
+          : getOptionType(DYNAMIC_VOICE_OPTIONS, type.value as number)
 
       if (member?.voice?.channel?.parent?.id === DYNAMIC_CATEGORY_CHANNEL.id) {
         await interaction.reply({ content: IN_DYNAMIC_VOICE_ERROR, ephemeral: true })

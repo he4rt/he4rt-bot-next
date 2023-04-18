@@ -150,5 +150,9 @@
   "DYNAMIC_VOICE_OWNER": {
     "TITLE": "sala-transferir",
     "DESCRIPTION": "(DONO): Transfira o dono da sala para outro membro que esteja no mesmo canal de voz."
+  },
+  "DYNAMIC_VOICE_TITLE": {
+    "TITLE": "sala-titulo",
+    "DESCRIPTION": "(DONO): Altere o título da sala por outro."
   }
 }

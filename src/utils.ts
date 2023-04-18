@@ -190,7 +190,7 @@ export const dynamicVoiceEmbedTemplate = async (
 ) => {
   const embed = embedTemplate({
     title: `Canal de Voz Dinâmico`,
-    description: `Para alterar o limite de membros, use \`/sala-limite\`, sendo o  limite mínimo de membros **${DYNAMIC_VOICE_MIN_SIZE}** com o máximo de **${DYNAMIC_VOICE_MAX_SIZE}**. Para transferir o dono da sala a outro membro, use \`/sala-transferir\`.`,
+    description: `Para alterar o limite de membros, use \`/sala-limite\`, sendo o  limite mínimo de membros **${DYNAMIC_VOICE_MIN_SIZE}** com o máximo de **${DYNAMIC_VOICE_MAX_SIZE}**. Para transferir o dono da sala a outro membro, use \`/sala-transferir\`. Para alterar o título da sala, use \`/sala-titulo\`. **Atenção: O discord limita alterações do canal de voz em 2 vezes a cada 10 minutos!**`,
     fields: [
       [
         { name: '**ID do Canal**', value: channel.id, inline: false },
@@ -245,6 +245,9 @@ export const getTargetMember = (member: GuildMember): string => {
 export const getBotVersion = (): string => {
   return `v${pkg.version}`
 }
+
+export const getOptionType = (arr: { value: number; name: string }[], type: number): string =>
+  arr.reduce((prev, current) => ({ [current.value]: current.name, ...prev }), {})[type]
 
 export const replaceDefineString = (str: string, target: string) => {
   return str.replaceAll(DEFINE_STRING_REPLACED, target)

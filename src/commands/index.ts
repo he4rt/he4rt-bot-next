@@ -36,6 +36,7 @@ import { useOnboardingFinalize } from './onboarding/onboarding_finalize'
 import { useOnboardingQuit } from './onboarding/onboarding_quit'
 import { useOnboardingWhy } from './onboarding/onboarding_why'
 import { useSpecial } from './special'
+import { useDynamicVoiceTitle } from './dynamic_voice/dynamic_voice_title'
 
 const registerHooks = (client: He4rtClient, commands: Command[]) => {
   commands.forEach(([data, cb]) => {
@@ -71,6 +72,7 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useDynamicVoice(),
     useDynamicVoiceSize(),
     useDynamicVoiceOwner(),
+    useDynamicVoiceTitle(),
     useStageATA(),
     useStageFinish(),
     useStageStart(),
