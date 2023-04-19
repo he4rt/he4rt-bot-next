@@ -140,6 +140,13 @@ Caso deseje contribuir ao projeto, leia o [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT
         </a>
     </td>
     <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/ronei-kunkel>
+            <img src=https://avatars.githubusercontent.com/u/41250984?v=4 width="100;"  alt=Ronei Kunkel/>
+            <br />
+            <sub style="font-size:14px"><b>Ronei Kunkel</b></sub>
+        </a>
+    </td>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
         <a href=https://github.com/kkuriboh>
             <img src=https://avatars.githubusercontent.com/u/40146018?v=4 width="100;"  alt=Augusto Pieper/>
             <br />
