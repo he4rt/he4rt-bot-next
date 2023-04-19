@@ -414,7 +414,11 @@ export const js = () => {
   const getTime = (): string => {
     const date = getUTCDate()
 
-    return `${date.getHours()}:${date.getMinutes()}`
+    let hours = (date.getHours() < 10 ? '0' : '') + date.getHours()
+
+    let minuts = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes()
+
+    return `${hours}:${minuts}`
   }
 
   const randomHex = (): HexColorString => {
