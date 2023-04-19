@@ -416,9 +416,9 @@ export const js = () => {
 
     let hours = (date.getHours() < 10 ? '0' : '') + date.getHours()
 
-    let minuts = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes()
+    let minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes()
 
-    return `${hours}:${minuts}`
+    return `${hours}:${minutes}`
   }
 
   const randomHex = (): HexColorString => {
