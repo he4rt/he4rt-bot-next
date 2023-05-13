@@ -8,7 +8,7 @@ import {
 } from '@/defines/ids.json'
 import { HE4RT_EMOJI_ID } from '@/defines/ids.json'
 import { isAdministrator, isImageHTTPUrl, isValidProxyContent, js } from '@/utils'
-import { ChannelType, GuildMember, Message } from 'discord.js'
+import { ChannelType, GuildMember, Message, MessageType } from 'discord.js'
 import { He4rtClient, MessagePOST } from '@/types'
 
 export const MessageListener = (client: He4rtClient, message: Message) => {
@@ -106,7 +106,7 @@ export const reactMessagesInSuggestionChannel = async (message: Message) => {
 }
 
 export const reactMessagesInLearningDiaryChannel = async (message: Message) => {
-  if (LEARNING_DIARY_CHANNEL.id === message.channel.id) {
+  if (LEARNING_DIARY_CHANNEL.id === message.channel.id && message.type === MessageType.Default) {
     await message.react(HE4RT_EMOJI_ID).catch(() => {})
   }
 }
