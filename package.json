@@ -28,7 +28,7 @@
   "dependencies": {
     "cron": "^2.3.0",
     "destr": "^1.2.2",
-    "discord.js": "^14.9.0",
+    "discord.js": "^14.11.0",
     "fast-glob": "^3.2.12",
     "uncreate": "^0.9.3"
   },
