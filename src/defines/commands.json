@@ -154,5 +154,9 @@
   "DYNAMIC_VOICE_TITLE": {
     "TITLE": "sala-titulo",
     "DESCRIPTION": "(DONO): Altere o título da sala por outro."
+  },
+  "MEDAL": {
+    "TITLE": "medalha",
+    "DESCRIPTION": "Selecione sua medalha de contribuição com a comunidade."
   }
 }
