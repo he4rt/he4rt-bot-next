@@ -40,6 +40,8 @@ He4rt Discord Bot
 - `/perfil`
 - `/perfil-editar`
 - `/perguntar`
+- `/medalha`
+- `/medalha-adicionar` (ADM|MOD)
 - `/ranqueamento`
 - `/distintivo`
 - `/distintivo-criar` (ADM)

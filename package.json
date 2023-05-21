@@ -3,12 +3,6 @@
   "version": "2.8.15",
   "author": "He4rt Developers",
   "main": "dist/index.js",
-  "exports": {
-    ".": {
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs"
-    }
-  },
   "scripts": {
     "dev": "concurrently pnpm:dev:*",
     "dev:build": "tsup --config tsup.development.config.ts",

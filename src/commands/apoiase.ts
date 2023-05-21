@@ -3,8 +3,8 @@ import { ApoiaseGET, Command } from '@/types'
 import { APOIASE } from '@/defines/commands.json'
 import { APOIASE_CUSTOM_COLOR_MINIMAL_VALUE } from '@/defines/values.json'
 import { DONATOR_ROLE, CHAT_CHANNEL, HE4RT_EMOJI_ID } from '@/defines/ids.json'
-import { EMAIL_OPTION, APOIASE_MEMBER, SUCCESS_IN_CHAT } from '-/commands/apoiase.json'
-import { getChannel, getOption, getTargetMember, isApoiaseMember, isPresentedMember, reply } from '@/utils'
+import { EMAIL_OPTION, SUCCESS_IN_CHAT } from '-/commands/apoiase.json'
+import { getChannel, getOption, getTargetMember, isPresentedMember, reply } from '@/utils'
 import { upsertUser } from '@/http/firebase'
 
 export const useApoiase = (): Command => {
@@ -32,15 +32,6 @@ export const useApoiase = (): Command => {
         )
       ) {
         await reply(interaction).errorInvalidEmail()
-
-        return
-      }
-
-      if (isApoiaseMember(member)) {
-        await interaction.reply({
-          content: APOIASE_MEMBER,
-          ephemeral: true,
-        })
 
         return
       }

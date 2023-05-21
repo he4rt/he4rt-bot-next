@@ -73,5 +73,6 @@
     { "name": "UI|UX", "value": 16 },
     { "name": "SoftSkills", "value": 17 }
   ],
+  "MEDALS": [{ "name": "He4rt", "role_id": "1107790862869614684" }],
   "EXTENDED_PROFILE_LINK": "https://heartdevs.com/profile/"
 }

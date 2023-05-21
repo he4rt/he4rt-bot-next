@@ -12,6 +12,7 @@ import { MEMBER_OPTION, TYPE_OPTION, REASON_OPTION } from '-/commands/judge.json
 import { CALLED_CHANNEL } from '@/defines/ids.json'
 import { DISCORD_MESSAGE_LIMIT, CLIENT_NAME } from '@/defines/values.json'
 import { embedTemplate, getChannel, getTargetMember, reply } from '@/utils'
+import { getUser, upsertUser } from '@/http/firebase'
 
 export const useJudge = (): Command => {
   const data = new SlashCommandBuilder()
@@ -94,7 +95,15 @@ export const useJudge = (): Command => {
             message: `Feedback **${id}** foi criado com sucesso!`,
           })
 
-          await reply(interaction).success()
+          const user = await getUser(client, { id: target.id })
+
+          await upsertUser(client, { id: target.id, reputation: user.reputation ? ++user.reputation : 1 })
+            .then(async () => {
+              await reply(interaction).success()
+            })
+            .catch(async () => {
+              await reply(interaction).error()
+            })
         })
         .catch(async () => {
           client.logger.emit({
@@ -156,7 +165,15 @@ export const resolveJudgeCommandButtonEvents = async (client: He4rtClient, inter
 
                   await interaction.message.delete().catch(() => {})
 
-                  await reply(interaction).success()
+                  const user = await getUser(client, { id: target.id })
+
+                  await upsertUser(client, { id: target.id, reputation: user.reputation ? --user.reputation : -1 })
+                    .then(async () => {
+                      await reply(interaction).success()
+                    })
+                    .catch(async () => {
+                      await reply(interaction).error()
+                    })
                 })
                 .catch(async () => {
                   client.logger.emit({

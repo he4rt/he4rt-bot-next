@@ -3,16 +3,31 @@ import { getTargetMember, openAndSendMessageInDm } from '@/utils'
 import { GuildMember, PartialGuildMember } from 'discord.js'
 import { INITIAL_MESSAGE } from '-/events/guild_enter.json'
 import { createUser, deleteUser } from '@/http/firebase'
+import { REPORT_CHANNEL } from '@/defines/ids.json'
 
 export const sendDmToNewUser = async (client: He4rtClient, member: GuildMember) => {
   await openAndSendMessageInDm(client, member, INITIAL_MESSAGE, true)
 }
 
-export const deletePossibleUserInServerLeave = (client: He4rtClient, member: GuildMember | PartialGuildMember) => {
+export const userLeave = (client: He4rtClient, member: GuildMember | PartialGuildMember) => {
+  client.logger.emit({
+    type: 'event',
+    color: 'warning',
+    message: `${getTargetMember(member as GuildMember)} saiu do servidor!.`,
+    customChannelId: REPORT_CHANNEL.id,
+  })
+
   deleteUser(client, { id: member.id }).catch(() => {})
 }
 
-export const createUserInServerEnter = (client: He4rtClient, member: GuildMember) => {
+export const userEnter = (client: He4rtClient, member: GuildMember) => {
+  client.logger.emit({
+    type: 'event',
+    color: 'success',
+    message: `${getTargetMember(member)} entrou no servidor!.`,
+    customChannelId: REPORT_CHANNEL.id,
+  })
+
   createUser(client, { id: member.id }).catch(() => {
     client.logger.emit({
       type: 'http',

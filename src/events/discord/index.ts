@@ -2,7 +2,7 @@ import { Events, GuildMember } from 'discord.js'
 import { buttonListener, commandsListener } from '@/commands'
 import { He4rtClient } from '@/types'
 import { isBot, isValidMessage } from '@/utils'
-import { createUserInServerEnter, deletePossibleUserInServerLeave, sendDmToNewUser } from './guild'
+import { userEnter, userLeave, sendDmToNewUser } from './guild'
 import {
   reactMessagesInSuggestionChannel,
   sendGoodMessagesInBusyChannels,
@@ -21,14 +21,14 @@ export const discordEvents = async (client: He4rtClient) => {
   client.on(Events.GuildMemberAdd, (member) => {
     if (isBot(member.user)) return
 
-    createUserInServerEnter(client, member)
+    userEnter(client, member)
     sendDmToNewUser(client, member)
   })
 
   client.on(Events.GuildMemberRemove, (member) => {
     if (isBot(member.user)) return
 
-    deletePossibleUserInServerLeave(client, member)
+    userLeave(client, member)
   })
 
   client.on(Events.GuildMemberUpdate, async (oldMember, newMember) => {

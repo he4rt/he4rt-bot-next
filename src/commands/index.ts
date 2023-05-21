@@ -37,7 +37,8 @@ import { useOnboardingQuit } from './onboarding/onboarding_quit'
 import { useOnboardingWhy } from './onboarding/onboarding_why'
 import { useSpecial } from './special'
 import { useDynamicVoiceTitle } from './dynamic_voice/dynamic_voice_title'
-import { useMedal } from './medal'
+import { useMedal } from './medal/medal_set'
+import { useMedalAdd } from './medal/medal_add'
 import { useWatch } from './watch/watch_set'
 import { useWatchList } from './watch/watch_get'
 import { useWatchRemove } from './watch/watch_remove'
@@ -87,6 +88,7 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useOnboardingWhy(),
     useSpecial(),
     useMedal(),
+    useMedalAdd(),
     useWatch(),
     useWatchList(),
     useWatchRemove(),

@@ -159,6 +159,10 @@
     "TITLE": "medalha",
     "DESCRIPTION": "Selecione sua medalha de contribuição com a comunidade."
   },
+  "MEDAL_ADD": {
+    "TITLE": "medalha-adicionar",
+    "DESCRIPTION": "(ADM): Adiciona um usuário a uma medalha em específico"
+  },
   "WATCH": {
     "TITLE": "observar",
     "DESCRIPTION": "(ADM|MOD): Observe um membro em específico."

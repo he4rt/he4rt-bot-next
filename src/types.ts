@@ -206,7 +206,6 @@ export interface FirestoreUser {
   donator_email: string
   donator_value: number
   nitro: boolean
-  guarded: boolean
   join_space: number
   reputation: number
   time_voice: number
@@ -216,4 +215,5 @@ export interface FirestoreMedal {
   name: string
   description: string
   role_id: string
+  users_id: string[]
 }
