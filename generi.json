@@ -1,6 +1,6 @@
 {
   "silent": false,
-  "repository": "https://github.com/he4rt/he4rt-bot-api",
+  "repository": "https://github.com/he4rt/he4rt-bot-next",
   "commits": "conventional-commits",
   "tag": true,
   "version": true,
