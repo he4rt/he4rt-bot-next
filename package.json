@@ -1,6 +1,6 @@
 {
   "name": "he4rt-discord-bot-next",
-  "version": "2.9.2",
+  "version": "2.9.3",
   "author": "He4rt Developers",
   "main": "dist/index.js",
   "scripts": {
