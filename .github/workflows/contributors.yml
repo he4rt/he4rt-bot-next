@@ -1,8 +1,7 @@
 name: Contributors
 on:
-  push:
-    branches:
-      - main
+  schedule:
+    - cron:  '20 20 * * *'
 
 jobs:
   add-contributors:
