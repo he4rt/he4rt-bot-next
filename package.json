@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "cron": "^2.3.0",
+    "defu": "^6.1.2",
     "destr": "^1.2.2",
     "discord.js": "^14.11.0",
     "firebase-admin": "^11.8.0",

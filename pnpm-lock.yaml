@@ -4,6 +4,9 @@ dependencies:
   cron:
     specifier: ^2.3.0
     version: 2.3.0
+  defu:
+    specifier: ^6.1.2
+    version: 6.1.2
   destr:
     specifier: ^1.2.2
     version: 1.2.2
@@ -2003,6 +2006,11 @@ packages:
   /deep-is@0.1.4:
     resolution:
       { integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ== }
+
+  /defu@6.1.2:
+    resolution:
+      { integrity: sha512-+uO4+qr7msjNNWKYPHqN/3+Dx3NFkmIzayk2L1MyZQlvgZb/J1A0fo410dpKrN2SnqFjt8n4JL8fDJE0wIgjFQ== }
+    dev: false
 
   /degenerator@3.0.4:
     resolution:

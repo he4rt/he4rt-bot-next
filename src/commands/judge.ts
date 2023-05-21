@@ -6,7 +6,7 @@ import {
   GuildMember,
   SlashCommandBuilder,
 } from 'discord.js'
-import { Command, FeedbackCreatePOST, FeedbackReviewPOST, He4rtClient } from '@/types'
+import { Command, He4rtClient } from '@/types'
 import { JUDGE } from '@/defines/commands.json'
 import { MEMBER_OPTION, TYPE_OPTION, REASON_OPTION } from '-/commands/judge.json'
 import { CALLED_CHANNEL } from '@/defines/ids.json'
@@ -39,7 +39,7 @@ export const useJudge = (): Command => {
       const getType = () => {
         return {
           0: '✅ Elogio',
-          1: '❌ Oportunidade de melhoria',
+          1: '❌ Oportunidade de Melhoria',
         }[value as number]
       }
 
@@ -52,75 +52,47 @@ export const useJudge = (): Command => {
         return
       }
 
-      client.api.he4rt.feedbacks
-        .post<FeedbackCreatePOST>({
-          sender_id: interaction.user.id,
-          target_id: target.id,
-          message: reason.value as string,
-          type: getType(),
-        })
-        .then(async ({ id }) => {
-          const embed = embedTemplate({
-            title: `**Avaliar** » ${getType()}`,
-            description: reason.value as string,
-            author: interaction.user,
-            target: {
-              user: target,
-              icon: true,
-            },
-            fields: [
-              [
-                { name: '**ID do Ticket**', value: String(id), inline: false },
-                { name: '**ID do Alvo**', value: target.id, inline: false },
-                { name: '**ID do Autor**', value: interaction.user.id, inline: false },
-              ],
-            ],
-          })
+      const embed = embedTemplate({
+        title: `**Avaliar** » ${getType()}`,
+        description: reason.value as string,
+        author: interaction.user,
+        target: {
+          user: target,
+          icon: true,
+        },
+        fields: [
+          [
+            { name: '**Tipo**', value: String(value), inline: false },
+            { name: '**ID do Alvo**', value: target.id, inline: false },
+            { name: '**ID do Autor**', value: interaction.user.id, inline: false },
+          ],
+        ],
+      })
 
-          const component = new ActionRowBuilder<ButtonBuilder>()
-            .addComponents(
-              new ButtonBuilder().setCustomId('c-judge-deny').setLabel('Negar').setStyle(ButtonStyle.Danger)
-            )
-            .addComponents(
-              new ButtonBuilder().setCustomId('c-judge-accept').setLabel('Aceitar').setStyle(ButtonStyle.Success)
-            )
+      const component = new ActionRowBuilder<ButtonBuilder>()
+        .addComponents(new ButtonBuilder().setCustomId('c-judge-deny').setLabel('Negar').setStyle(ButtonStyle.Danger))
+        .addComponents(
+          new ButtonBuilder().setCustomId('c-judge-accept').setLabel('Aceitar').setStyle(ButtonStyle.Success)
+        )
 
-          const calledChannel = getChannel({ id: CALLED_CHANNEL.id, client })
+      const calledChannel = getChannel({ id: CALLED_CHANNEL.id, client })
 
-          await calledChannel.send({ embeds: [embed], components: [component] })
+      await calledChannel.send({ embeds: [embed], components: [component] })
 
-          client.logger.emit({
-            type: 'command',
-            color: 'success',
-            message: `Feedback **${id}** foi criado com sucesso!`,
-          })
+      client.logger.emit({
+        type: 'command',
+        color: 'success',
+        message: `Novo feedback criado com sucesso!`,
+      })
 
-          const user = await getUser(client, { id: target.id })
-
-          await upsertUser(client, { id: target.id, reputation: user.reputation ? ++user.reputation : 1 })
-            .then(async () => {
-              await reply(interaction).success()
-            })
-            .catch(async () => {
-              await reply(interaction).error()
-            })
-        })
-        .catch(async () => {
-          client.logger.emit({
-            type: 'command',
-            color: 'error',
-            message: `Um pedido de feedback enviado por **${interaction.user.id}** não foi enviado!`,
-          })
-
-          await reply(interaction).error()
-        })
+      await reply(interaction).success()
     },
   ]
 }
 
 export const resolveJudgeCommandButtonEvents = async (client: He4rtClient, interaction: ButtonInteraction) => {
   if (interaction.customId.startsWith('c-judge')) {
-    const feedback_id = interaction.message.embeds[0].data.fields[0].value
+    const type = interaction.message.embeds[0].data.fields[0].value
     const target_id = interaction.message.embeds[0].data.fields[1].value
     const author_id = interaction.message.embeds[0].data.fields[2].value
 
@@ -128,61 +100,49 @@ export const resolveJudgeCommandButtonEvents = async (client: He4rtClient, inter
     const description = interaction.message.embeds[0].data.description
 
     if (interaction.customId === 'c-judge-accept') {
-      client.api.he4rt
-        .feedbacks(feedback_id)
-        .approved.post<FeedbackReviewPOST>({
-          staff_id: interaction.user.id,
-        })
-        .then(async () => {
-          const members = await interaction.guild.members.fetch()
+      const members = await interaction.guild.members.fetch()
 
-          const target = members.get(target_id)
-          const author = members.get(author_id)
+      const target = members.get(target_id)
+      const author = members.get(author_id)
 
-          target
-            .createDM()
-            .then((dm) => {
-              const embed = embedTemplate({
-                title,
-                description,
+      target
+        .createDM()
+        .then((dm) => {
+          const embed = embedTemplate({
+            title,
+            description,
+          })
+          dm.send({
+            content: `Você recebeu um feedback de um usuário pertencente ao servidor **${CLIENT_NAME}!**`,
+            embeds: [embed],
+          })
+            .then(async () => {
+              client.logger.emit({
+                type: 'ticket',
+                color: 'success',
+                message: `O feedback para ${getTargetMember(
+                  target
+                )} de título ${title} e de descrição **${description}** foi criado por ${getTargetMember(
+                  author
+                )}, aceito por ${getTargetMember(interaction.member as GuildMember)} e enviado para ${getTargetMember(
+                  target
+                )}!`,
+                customChannelId: CALLED_CHANNEL.id,
               })
 
-              dm.send({
-                content: `Você recebeu um feedback de um usuário pertencente ao servidor **${CLIENT_NAME}!**`,
-                embeds: [embed],
-              })
+              const user = await getUser(client, { id: target.id })
+
+              const reputation =
+                type == '0' ? (user.reputation ? ++user.reputation : 1) : user.reputation ? --user.reputation : -1
+
+              upsertUser(client, { id: target.id, reputation })
                 .then(async () => {
-                  client.logger.emit({
-                    type: 'ticket',
-                    color: 'success',
-                    message: `O feedback de título ${title} e de descrição **${description}** foi enviado por ${getTargetMember(
-                      author
-                    )}, aceito por ${getTargetMember(
-                      interaction.member as GuildMember
-                    )} e enviado para ${getTargetMember(target)}!`,
-                    customChannelId: CALLED_CHANNEL.id,
-                  })
-
                   await interaction.message.delete().catch(() => {})
 
-                  const user = await getUser(client, { id: target.id })
-
-                  await upsertUser(client, { id: target.id, reputation: user.reputation ? --user.reputation : -1 })
-                    .then(async () => {
-                      await reply(interaction).success()
-                    })
-                    .catch(async () => {
-                      await reply(interaction).error()
-                    })
+                  await reply(interaction).success()
                 })
                 .catch(async () => {
-                  client.logger.emit({
-                    type: 'ticket',
-                    color: 'error',
-                    message: `Não foi possível acessar a **DM** do usuário **${target_id}**!`,
-                  })
-
-                  await reply(interaction).errorInAccessDM()
+                  await reply(interaction).error()
                 })
             })
             .catch(async () => {
@@ -195,30 +155,36 @@ export const resolveJudgeCommandButtonEvents = async (client: He4rtClient, inter
               await reply(interaction).errorInAccessDM()
             })
         })
-        .catch(() => {})
+        .catch(async () => {
+          client.logger.emit({
+            type: 'ticket',
+            color: 'error',
+            message: `Não foi possível acessar a **DM** do usuário **${target_id}**!`,
+          })
+
+          await reply(interaction).errorInAccessDM()
+        })
     }
 
     if (interaction.customId === 'c-judge-deny') {
-      client.api.he4rt
-        .feedbacks(feedback_id)
-        .declined.post<FeedbackReviewPOST>({
-          staff_id: interaction.user.id,
-        })
-        .then(async () => {
-          client.logger.emit({
-            type: 'ticket',
-            color: 'warning',
-            message: `O feedback de título ${title} e de descrição **${description}** foi recusado por ${getTargetMember(
-              interaction.member as GuildMember
-            )}!`,
-            customChannelId: CALLED_CHANNEL.id,
-          })
+      const members = await interaction.guild.members.fetch()
 
-          await interaction.message.delete().catch(() => {})
+      const target = members.get(target_id)
 
-          await reply(interaction).success()
-        })
-        .catch(() => {})
+      client.logger.emit({
+        type: 'ticket',
+        color: 'warning',
+        message: `O feedback para ${getTargetMember(
+          target
+        )} de título ${title} e de descrição **${description}** foi recusado por ${getTargetMember(
+          interaction.member as GuildMember
+        )}!`,
+        customChannelId: CALLED_CHANNEL.id,
+      })
+
+      await interaction.message.delete().catch(() => {})
+
+      await reply(interaction).success()
     }
   }
 }

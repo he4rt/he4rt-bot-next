@@ -1,9 +1,13 @@
 import { FirestoreMedal, FirestoreUser, He4rtClient } from '@/types'
+import { defu } from 'defu'
 
-export const upsertUser = (client: He4rtClient, fields: Partial<FirestoreUser>) => {
+export const upsertUser = async (client: He4rtClient, fields: Partial<FirestoreUser>) => {
   const collection = client.firestore.collection('users')
 
-  return collection.doc(fields.id).set(fields)
+  const user = await getUser(client, { id: fields.id })
+  const result = defu(fields, user)
+
+  return collection.doc(fields.id).set(result)
 }
 
 export const deleteUser = async (client: He4rtClient, fields: Pick<FirestoreUser, 'id'>) => {

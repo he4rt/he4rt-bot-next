@@ -205,6 +205,8 @@ export interface FirestoreUser {
   id: string
   donator_email: string
   donator_value: number
+  daily: number
+  daily_last: string
   nitro: boolean
   join_space: number
   reputation: number
