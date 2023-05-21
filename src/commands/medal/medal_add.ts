@@ -17,7 +17,6 @@ export const useMedalAdd = (): Command => {
   return [
     data,
     async (interaction, client) => {
-      const author = interaction.member as GuildMember
       const member = interaction.options.getMember('membro') as GuildMember
 
       const medal = interaction.options.get('medalha')
@@ -27,6 +26,7 @@ export const useMedalAdd = (): Command => {
 
       if (userHasMedal) {
         await interaction.reply({ content: DO_NOT_HAVE, ephemeral: true })
+        
         return
       }
 
