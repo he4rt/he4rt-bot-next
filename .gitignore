@@ -6,6 +6,8 @@ dist
 coverage
 logs
 
+firebase_admin.json
+
 .env
 
 TODO.md

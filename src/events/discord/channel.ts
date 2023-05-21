@@ -1,4 +1,5 @@
 import {
+  DEPOSITIONS_CHANNEL,
   SUGGESTION_CHANNEL,
   CHAT_CHANNEL,
   MEETING_CHANNEL,
@@ -99,7 +100,7 @@ export const bussinOrCap = async (message: Message) => {
 }
 
 export const reactMessagesInSuggestionChannel = async (message: Message) => {
-  if (SUGGESTION_CHANNEL.id === message.channel.id) {
+  if (SUGGESTION_CHANNEL.id === message.channel.id && message.type === MessageType.Default) {
     await message.react('✅').catch(() => {})
     await message.react('❌').catch(() => {})
   }
@@ -113,7 +114,12 @@ export const reactMessagesInLearningDiaryChannel = async (message: Message) => {
 
 export const reactAnnouncesInAdvertsChannel = async (message: Message) => {
   if (ADVERTS_CHANNEL.id === message.channel.id) {
-    await message.react('🔥').catch(() => {})
+    await message.react(HE4RT_EMOJI_ID).catch(() => {})
+  }
+}
+
+export const reactMessagesInDepositionsChannel = async (message: Message) => {
+  if (DEPOSITIONS_CHANNEL.id === message.channel.id) {
     await message.react(HE4RT_EMOJI_ID).catch(() => {})
   }
 }

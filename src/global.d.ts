@@ -8,6 +8,8 @@ declare global {
       readonly HE4RT_URL: `http${string}`
       readonly HE4RT_TOKEN: string
 
+      readonly FIREBASE_DATABASE_URL: `http${string}`
+
       readonly APOIASE_URL: `http${string}`
       readonly APOIASE_TOKEN: string
       readonly APOIASE_SECRET: string

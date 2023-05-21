@@ -38,6 +38,9 @@ import { useOnboardingWhy } from './onboarding/onboarding_why'
 import { useSpecial } from './special'
 import { useDynamicVoiceTitle } from './dynamic_voice/dynamic_voice_title'
 import { useMedal } from './medal'
+import { useWatch } from './watch/watch_set'
+import { useWatchList } from './watch/watch_get'
+import { useWatchRemove } from './watch/watch_remove'
 
 const registerHooks = (client: He4rtClient, commands: Command[]) => {
   commands.forEach(([data, cb]) => {
@@ -83,7 +86,10 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useOnboardingQuit(),
     useOnboardingWhy(),
     useSpecial(),
-    useMedal()
+    useMedal(),
+    useWatch(),
+    useWatchList(),
+    useWatchRemove(),
     // useReputation()
   ])
 

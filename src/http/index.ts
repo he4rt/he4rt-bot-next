@@ -1,5 +1,7 @@
 import { createClient } from 'uncreate'
 import JSON_PARSE from 'destr'
+import firebase_admin from '../../firebase_admin.json'
+import firebase from 'firebase-admin'
 
 export const HE4RT = createClient({
   parseResponse: JSON_PARSE,
@@ -20,3 +22,11 @@ export const APOIASE = createClient({
     authorization: `Bearer ${process.env.APOIASE_SECRET}`,
   },
 })
+
+const FIREBASE = firebase.initializeApp({
+  // @ts-expect-error
+  credential: firebase.credential.cert(firebase_admin),
+  databaseURL: process.env.FIREBASE_DATABASE_URL,
+})
+
+export const FIRESTORE = FIREBASE.firestore()

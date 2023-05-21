@@ -1,5 +1,9 @@
 {
   "BOT_ID": "546150119792443403",
+  "DEPOSITIONS_CHANNEL": {
+    "id": "958175169359265802",
+    "title": "depoimentos-he4rt"
+  },
   "DYNAMIC_CATEGORY_CHANNEL": {
     "id": "1051218990174838814",
     "title": "Voz Dinâmica"

@@ -235,8 +235,10 @@ export const getCustomColorRole = ({ roles }: GuildMember | PartialGuildMember) 
 }
 
 export const getTaggedMembers = (ids: string[]): string => {
-  return ids.map((id) => `<@${id}>`).join(' ') || ''
+  return ids.map((id) => getUserTemplate(id)).join(' ') || ''
 }
+
+export const getUserTemplate = (id: string) => `<@${id}>`
 
 export const getTargetMember = (member: GuildMember): string => {
   return `**${member.id || 0} - ${member.user?.username || 'Indefinido'}**`

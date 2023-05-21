@@ -3,6 +3,10 @@ import { getGuild, getTargetMember, isApoiaseMember, js, openAndSendMessageInDm 
 import { APOIASE_CUSTOM_COLOR_MINIMAL_VALUE, CLIENT_NAME } from '@/defines/values.json'
 import { DONATOR_ROLE } from '@/defines/ids.json'
 import { CronJob } from 'cron'
+import { getUser, upsertUser } from '@/http/firebase'
+import { GuildMember } from 'discord.js'
+
+const removeDonatorRole = async (member: GuildMember) => await member.roles.remove(DONATOR_ROLE.id).catch(() => {})
 
 export const verifyApoiaseMembers = async (client: He4rtClient) => {
   const guild = getGuild(client)
@@ -21,12 +25,16 @@ export const verifyApoiaseMembers = async (client: He4rtClient) => {
       // apoia.se requests by second limit
       await js().sleep(2000)
 
-      client.api.he4rt.users
-        .profile(member.id)
-        .get<UserGET>()
-        .then(({ email }) => {
+      getUser(client, { id: member.id })
+        .then(({ donator_email }) => {
+          if (!donator_email) {
+            removeDonatorRole(member)
+
+            return
+          }
+
           client.api.apoiase.backers
-            .charges(email)
+            .charges(donator_email)
             .get<ApoiaseGET>()
             .then(async ({ isBacker, isPaidThisMonth, thisMonthPaidValue }) => {
               if (
@@ -40,19 +48,34 @@ export const verifyApoiaseMembers = async (client: He4rtClient) => {
                   color: 'success',
                   message: `${getTargetMember(
                     member
-                  )} teve o seu **apoio renovado** com o email **${email}** no valor de **${thisMonthPaidValue}** reais mensais!`,
+                  )} teve o seu **apoio renovado** com o email **${donator_email}** no valor de **${thisMonthPaidValue}** reais mensais!`,
                   user: member.user,
+                })
+
+                upsertUser(client, {
+                  id: member.id,
+                  donator_email,
+                  donator_value: thisMonthPaidValue,
+                }).catch(() => {
+                  client.logger.emit({
+                    type: 'apoiase',
+                    color: 'error',
+                    message: `Não foi possível atualizar o valor da doação mensal do usuário ${getTargetMember(
+                      member
+                    )}!`,
+                    user: member.user,
+                  })
                 })
 
                 return
               }
 
-              await member.roles.remove(DONATOR_ROLE.id).catch(() => {})
+              await removeDonatorRole(member)
 
               await openAndSendMessageInDm(
                 client,
                 member,
-                `O seu **apoia.se** no servidor **${CLIENT_NAME}** foi removido por não atender aos requisitos necessários!\n\nCaso queira manter o seu apoio, acesse https://apoia.se/heartdevs e utilize o comando **/apoiase <email>** dentro do servidor!`
+                `O seu **apoia.se** no servidor **${CLIENT_NAME}** foi removido por não atender aos requisitos mínimos!\n\nCaso queira manter o seu apoio, acesse https://apoia.se/heartdevs e utilize o comando **/apoiase <email_do_apoiase>** dentro do servidor!`
               )
 
               client.logger.emit({
@@ -62,9 +85,13 @@ export const verifyApoiaseMembers = async (client: He4rtClient) => {
                 user: member.user,
               })
             })
-            .catch(() => {})
+            .catch(() => {
+              removeDonatorRole(member)
+            })
         })
-        .catch(() => {})
+        .catch(() => {
+          removeDonatorRole(member)
+        })
     }
   }).start()
 }

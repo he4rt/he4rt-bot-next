@@ -1,4 +1,4 @@
-import {
+import type {
   APIEmbedField,
   CacheType,
   Client,
@@ -15,7 +15,8 @@ import {
   User,
   VoiceChannel,
 } from 'discord.js'
-import { ClientBuilder } from 'uncreate'
+import type { ClientBuilder } from 'uncreate'
+import admin from 'firebase-admin'
 import { Logger } from './client/logger'
 import { Ticker } from './client/ticker'
 
@@ -46,6 +47,7 @@ export type He4rtClient = Client<boolean> & {
   commands: Collection<CommandSet, CommandCallback>
   ticker: Ticker
   logger: Logger
+  firestore: admin.firestore.Firestore
   api: {
     he4rt: ClientBuilder
     apoiase: ClientBuilder
@@ -197,4 +199,21 @@ export interface RankingMember extends UserLevelXP {
 export interface Context {
   client: He4rtClient
   rest: REST
+}
+
+export interface FirestoreUser {
+  id: string
+  donator_email: string
+  donator_value: number
+  nitro: boolean
+  guarded: boolean
+  join_space: number
+  reputation: number
+  time_voice: number
+}
+
+export interface FirestoreMedal {
+  name: string
+  description: string
+  role_id: string
 }

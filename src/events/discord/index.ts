@@ -11,8 +11,9 @@ import {
   reactAnnouncesInAdvertsChannel,
   bussinOrCap,
   MessageListener,
+  reactMessagesInDepositionsChannel,
 } from './channel'
-import { setMemberIsADonatorOrNot, userBoostingServerMessage } from './role'
+import { setMemberIsAPrivilegedOrNot, setMemberIsANitroOrNot, userBoostingServerMessage } from './role'
 import { removeUserMuteInLeavePomodoro } from './voice'
 import { emitDefaultDiscordError, emitWebhookUpdate } from './logger'
 
@@ -33,7 +34,8 @@ export const discordEvents = async (client: He4rtClient) => {
   client.on(Events.GuildMemberUpdate, async (oldMember, newMember) => {
     if (isBot(oldMember.user) || isBot(newMember.user) || !oldMember) return
 
-    await setMemberIsADonatorOrNot(client, oldMember as GuildMember, newMember)
+    await setMemberIsAPrivilegedOrNot(client, oldMember as GuildMember, newMember)
+    await setMemberIsANitroOrNot(client, oldMember as GuildMember, newMember)
     await userBoostingServerMessage(client, oldMember as GuildMember, newMember)
   })
 
@@ -55,6 +57,7 @@ export const discordEvents = async (client: He4rtClient) => {
     bussinOrCap(message)
     reactMessagesInSuggestionChannel(message)
     reactMessagesInLearningDiaryChannel(message)
+    reactMessagesInDepositionsChannel(message)
   })
 
   client.on(Events.InteractionCreate, (interaction) => {

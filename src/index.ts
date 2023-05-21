@@ -19,4 +19,6 @@ runner()
       message: `**BOT ON! ${getBotVersion()}**`,
     })
   })
-  .catch((reason) => { console.error(reason) })
+  .catch((reason) => {
+    console.error(reason)
+  })

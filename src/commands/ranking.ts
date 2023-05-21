@@ -32,8 +32,7 @@ export const useRanking = (): Command => {
         .then(async ({ data: members }) => {
           const fields: RestOrArray<APIEmbedField> = []
 
-          members.forEach((member, index) => {
-
+          members.forEach((member) => {
             fields.push({
               name: `${member.ranking}° | ${(member.user?.username as string) || NULL_ACCOUNT}`,
               value: `Level: ${member.level} - Exp: ${member.experience}`,

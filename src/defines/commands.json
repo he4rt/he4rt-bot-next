@@ -158,5 +158,17 @@
   "MEDAL": {
     "TITLE": "medalha",
     "DESCRIPTION": "Selecione sua medalha de contribuição com a comunidade."
+  },
+  "WATCH": {
+    "TITLE": "observar",
+    "DESCRIPTION": "(ADM|MOD): Observe um membro em específico."
+  },
+  "WATCH_LIST": {
+    "TITLE": "observar-lista",
+    "DESCRIPTION": "(ADM|MOD): Veja a lista de membros observados."
+  },
+  "WATCH_REMOVE": {
+    "TITLE": "observar-remover",
+    "DESCRIPTION": "(ADM|MOD): Remova um membro que esteja sendo observado."
   }
 }

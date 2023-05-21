@@ -20,8 +20,8 @@ jobs:
         uses: easingthemes/ssh-deploy@main
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          ARGS: "-rltgoDzvO --delete"
-          SOURCE: "/"
+          ARGS: '-rltgoDzvO --delete'
+          SOURCE: '/'
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           TARGET: ${{ secrets.REMOTE_TARGET }}
@@ -42,10 +42,10 @@ jobs:
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           envs: APP_DISCORD_TOKEN,APP_DISCORD_CLIENT_ID,APP_DISCORD_GUILD_ID,APP_HE4RT_TOKEN,APP_HE4RT_URL,APP_APOIASE_TOKEN,APP_APOIASE_URL,APP_APOIASE_SECRET,REMOTE_TARGET
-          script: | 
+          script: |
             echo -e "DISCORD_TOKEN=$APP_DISCORD_TOKEN\nDISCORD_CLIENT_ID=$APP_DISCORD_CLIENT_ID\nDISCORD_GUILD_ID=$APP_DISCORD_GUILD_ID\nHE4RT_TOKEN=$APP_HE4RT_TOKEN\nHE4RT_URL=$APP_HE4RT_URL\nAPOIASE_URL=$APP_APOIASE_URL\nAPOIASE_TOKEN=$APP_APOIASE_TOKEN\nAPOIASE_SECRET=$APP_APOIASE_SECRET" > /home/he4rt/he4rt-bot-next/.env
             cp .env ./he4rt-bot-next/.env
+            cp firebase_admin.json ./he4rt-bot-next/firebase_admin.json
             cd ./he4rt-bot-next
             pnpm run prod
             echo 'He4rtbot Restarted!'
-            
