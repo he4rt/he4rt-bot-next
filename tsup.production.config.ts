@@ -8,6 +8,5 @@ export default defineConfig({
   minify: true,
   env: {
     NODE_ENV: 'production',
-  },
-  noExternal: ['discord.js'],
+  }
 })
