@@ -12,7 +12,7 @@ He4rt Discord Bot
   <a href="https://discord.gg/he4rt"><img src="https://img.shields.io/github/license/he4rt/he4rt-bot-next?color=A655FF&style=for-the-badge"></a>
 <p>
 
-## Commands
+## Comandos
 
 - `/anunciar` (ADM)
 - `/falar` (ADM)
@@ -57,39 +57,7 @@ He4rt Discord Bot
 - `/onboarding-finalizar`
 - `/onboarding-desistir`
 
-## Differences to [v1](https://github.com/he4rt/He4rt-Bot)
-
-- `JS` -> `TS 100% Type-Safe`;
-- `discord.js v9` -> `discord.js v14`;
-- Versionamento com `git tags`;
-- Deploy automático;
-- Fluxo de código [Orientado a Dados (OOD)](https://en.wikipedia.org/wiki/Data-oriented_design);
-- _Purge_ completo de bibliotecas desnecessárias/depreciadas;
-- Implementação de _Logger_ para o registro de todas as ações;
-- Implementação de _Jobs_ para eventos temporizados;
-- Implementação de _Ticker_ para eventos sequenciais;
-- Integração com o [apoia.se](https://apoia.se/heartdevs);
-- _Gamificação_ com as interações do usuário no servidor;
-- Sistema para gerenciamento das reuniões semanais;
-- Sistema de acolhimento à novos membros pelo método _onboarding_;
-- Aplicação de canal de voz dinâmico pelo comando `/sala`;
-- Aplicação do [Pomodoro](https://pt.wikipedia.org/wiki/T%C3%A9cnica_pomodoro) no canal de voz _Coworking_;
-- Agora os comandos podem ser utilizados em qualquer canal (comandos privilegiados ainda dependem de condições de canal específico, como o /cor);
-- A grande maioria dos comandos retornam mensagens visíveis somente para o usuário com o intuito de não poluir os canais (e permitir a abordagem do item anterior);
-- Lista de comandos integrada com o `/` do próprio discord;
-- Agora os comandos usam a implementação de argumentos do `discord.js`;
-- `Nitro Boosters` agora possuem acesso ao canal de apoiadores e seus benefícios (/cor, por exemplo), deixando a role `Apoiadores` somente para os membros apoiadores;
-- Controle de cargos, canais, palcos e forums;
-- `/apresentar` somente por texto, descartando as reações;
-- `/apresentar` com recursos adicionais para o `He4rt Delas`;
-- Todas as definições estão na pasta `src/defines` ao invés de usar o `.env`;
-- Os eventos do discord estão subdivididos pelo seu emissor (a versão antiga tratava somente em eventos de mensagem).
-
-## Development
-
-Caso deseje contribuir ao projeto, leia o [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) e o [CONTRIBUTING.md](./CONTRIBUTING.md).
-
-## Contributors
+## Contribuidores
 
 <table>
 <tr>
@@ -169,3 +137,56 @@ Caso deseje contribuir ao projeto, leia o [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT
 </table>
 
 A He4rt Developers agradece a todos os contribuidores acima e aos contribuidores [da primeira versão](https://github.com/he4rt/He4rt-Bot/blob/master/README.md#-contribuidores)!
+
+## Guia de Contribuição
+
+Caso deseje contribuir com a ferramenta, siga as seguintes instruções:
+
+## Requisitos
+
+- [Discord Development Portal](https://discord.com/developers/docs/intro)
+- [Discord Permissions](https://discordapi.com/permissions.html)
+- [discord.js Guide](https://discordjs.guide/#before-you-begin)
+- [discord.js Docs](https://discord.js.org/)
+- [GIT](https://git-scm.com/)
+- [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+- [Node 16.18.1](https://nodejs.org/en/)
+- [PNPM](https://pnpm.io/pt/)
+
+> ATENÇÃO! Siga os guias do portal do desenvolver e convide o bot para o seu servidor usando o Discord Permissions para facilitar o seu trabalho.
+
+### Rodar
+
+- Clone o repositório
+- Instale as dependências usando `pnpm install`
+- Copie as chaves secretas usando:
+
+```
+cp .env.example .env
+```
+
+> Itens com o prefixo `HE4RT_` indicam env do [discord-bot-api](https://github.com/he4rt/he4rt-bot-api), `FIREBASE_` do [firebase](https://firebase.google.com/?hl=pt-br), `APOIASE_` do [apoia.se](https://github.com/he4rt/he4rt-bot-api). Essencialmente, você >não< precisa desses tokens para rodar o bot, apenas para testar comandos que dependem destas chaves. Caso queira usar o firebase, crie o seu json de admin na raiz do projeto com o nome `firebase_admin.json`.
+
+- Use o comando `pnpm dev`
+
+> ATENÇÃO! Caso use o comando `pnpm dev` e dê algum erro, aperte `Ctrl + S` em um arquivo `.ts` para ele recompilar a aplicação. As vezes a aplicação não vai responder, exigindo que cancele a operação, aguarde alguns segundos e execute `pnpm dev`
+
+### Estrutura
+
+```
+.
+├── client                       # Anexos para o cliente padrão do `discord.js`
+├── commands                     # Comandos do BOT
+├── defines                      # Definições
+├── events                       # Eventos temporizados, sequenciais e do discord.js
+├── http                         # Construtores HTTP
+| global.d.ts                    # Tipos do NodeJS e derivados
+| index.ts                       # Ponto de partida para a inicialização do BOT
+| main.ts                        # Criação do cliente do `discord.js`
+| types.ts                       # Tipagem
+| utils.ts                       # Funções para uso genérico em outros arquivos
+```
+
+> Os arquivos de sufixo \_development são variações usadas em modo de desenvolvedor (pnpm dev)
+
+> Caso queira criar um novo comando, copia o de exemplo em src/commands/example.ts e consulte os outros para entender o padrão

@@ -21,20 +21,22 @@ export const useDaily = (): Command => {
 
       const user = await getUser(client, { id: member.id })
 
-      const oneDayInMilliseconds = 60000 * 1440
-      const lastRedeem = new Date(user.daily_last).valueOf() + oneDayInMilliseconds
-      const actuallyTime = new Date().valueOf()
+      if (user?.daily_last && user?.daily) {
+        const oneDayInMilliseconds = 60000 * 1440
+        const lastRedeem = new Date(user.daily_last).valueOf() + oneDayInMilliseconds
+        const actuallyTime = new Date().valueOf()
 
-      if (lastRedeem >= actuallyTime) {
-        await interaction.reply({
-          content: HCOINS_ERROR,
-          ephemeral: true,
-        })
+        if (lastRedeem >= actuallyTime) {
+          await interaction.reply({
+            content: HCOINS_ERROR,
+            ephemeral: true,
+          })
 
-        return
+          return
+        }
       }
 
-      upsertUser(client, { id: member.id, daily: user.daily ? ++user.daily : 1, daily_last: new Date().toISOString() })
+      upsertUser(client, { id: member.id, daily: user?.daily ? ++user.daily : 1, daily_last: new Date().toISOString() })
         .then(async () => {
           await reply(interaction).success()
         })

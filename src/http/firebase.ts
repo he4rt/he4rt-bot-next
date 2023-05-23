@@ -24,16 +24,14 @@ export const createUser = async (client: He4rtClient, fields: Pick<FirestoreUser
 
 export const getUser = async (client: He4rtClient, fields: Pick<FirestoreUser, 'id'>) => {
   const collection = client.firestore.collection('users')
-
-  const target = await collection.where('id', '==', fields.id).get()
-  const user = target.docs[0]
+  const user = await collection.doc(fields.id).get()
 
   if (!user) {
     await upsertUser(client, { id: fields.id })
 
-    const set = await collection.where('id', '==', fields.id).get()
+    const set = await collection.doc(fields.id).get()
 
-    return set.docs[0].data() as FirestoreUser
+    return set.data() as FirestoreUser
   }
 
   return user.data() as FirestoreUser
