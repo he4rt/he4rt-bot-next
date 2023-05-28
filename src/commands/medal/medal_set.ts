@@ -24,18 +24,22 @@ export const useMedal = (): Command => {
 
       if (!userHasMedal) {
         await interaction.reply({ content: DO_NOT_HAVE, ephemeral: true })
+
         return
       }
 
       if (hasRole(member, medal_id)) {
         await interaction.reply({ content: ALREADY, ephemeral: true })
+
         return
       }
 
       getMedals(client)
         .then(async (medals) => {
-          await member.roles.remove(medals.map((medal) => medal.role_id).filter((role_id) => role_id !== medal_id))
-          await member.roles.add(medal_id)
+          await member.roles.add(medal_id).catch(() => {})
+          await member.roles
+            .remove(medals.filter(({ role_id }) => role_id !== medal_id).map((role) => role.role_id))
+            .catch(() => {})
 
           await interaction.reply({ content: SUCCESS, ephemeral: true })
         })

@@ -1,4 +1,4 @@
-import { FirestoreMedal, FirestoreUser, He4rtClient } from '@/types'
+import { FirestoreMedal, FirestoreMedalUser, FirestoreUser, He4rtClient } from '@/types'
 import { defu } from 'defu'
 
 export const upsertUser = async (client: He4rtClient, fields: Partial<FirestoreUser>) => {
@@ -29,12 +29,18 @@ export const getUser = async (client: He4rtClient, fields: Pick<FirestoreUser, '
   if (!user) {
     await upsertUser(client, { id: fields.id })
 
-    const set = await collection.doc(fields.id).get()
-
-    return set.data() as FirestoreUser
+    return { id: fields.id } as FirestoreUser
   }
 
   return user.data() as FirestoreUser
+}
+
+export const getUsers = async (client: He4rtClient) => {
+  const collection = client.firestore.collection('users')
+
+  const users = await collection.get()
+
+  return users.docs
 }
 
 export const insertWatchedUser = (
@@ -62,14 +68,25 @@ export const getWatchedUsers = async (client: He4rtClient) => {
   return list.docs.reduce((arr, item) => [...arr, { ...item.data() }], [])
 }
 
-export const getMedals = async (client: He4rtClient) => {
+export const getMedals = async (client: He4rtClient): Promise<FirestoreMedal[]> => {
   const collection = client.firestore.collection('medals')
 
-  const target = await collection.doc().get()
+  const target = await collection.get()
+  const docs = await target.docs
 
   if (!target) return Promise.reject()
 
-  return (target.data() as FirestoreMedal[]) ?? []
+  return (docs.map((doc) => ({ ...doc.data() })) as FirestoreMedal[]) ?? []
+}
+
+export const getMedalsDocument = async (client: He4rtClient) => {
+  const collection = client.firestore.collection('medals')
+
+  const target = await collection.get()
+
+  if (!target) return Promise.reject()
+
+  return target.docs ?? []
 }
 
 export const getMedalDocument = async (client: He4rtClient, fields: Pick<FirestoreMedal, 'role_id'>) => {
@@ -100,9 +117,9 @@ export const getMedal = async (
 
 export const hasMedal = async (client: He4rtClient, fields: Pick<FirestoreMedal & FirestoreUser, 'id' | 'role_id'>) => {
   try {
-    const medal = await getMedal(client, { role_id: fields.role_id })
+    const medal = await getMedalDocument(client, { role_id: fields.role_id })
 
-    return medal.users_id.some((id) => id === fields.id)
+    return await !!medal.ref.collection('users').doc(fields.id).get()
   } catch (e) {
     return false
   }
@@ -110,12 +127,11 @@ export const hasMedal = async (client: He4rtClient, fields: Pick<FirestoreMedal 
 
 export const addUserInMedal = async (
   client: He4rtClient,
-  fields: Pick<FirestoreMedal & FirestoreUser, 'id' | 'role_id'>
+  fields: Pick<FirestoreMedal & FirestoreMedalUser, 'id' | 'role_id' | 'expires_at'>
 ) => {
   const medal = await getMedalDocument(client, { role_id: fields.role_id })
-  const medalUsers = medal.data().users_id
 
-  if (medalUsers.some((id) => id === fields.id)) return Promise.reject()
+  const userCollection = medal.ref.collection('users')
 
-  return medal.ref.set({ users_id: [...medalUsers, fields.id] })
+  return userCollection.doc(fields.id).set({ id: fields.id, expires_at: fields.expires_at })
 }

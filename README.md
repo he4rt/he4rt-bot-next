@@ -187,6 +187,6 @@ cp .env.example .env
 | utils.ts                       # Funções para uso genérico em outros arquivos
 ```
 
-> Os arquivos de sufixo \_development são variações usadas em modo de desenvolvedor (pnpm dev)
+> Os arquivos de sufixo \_development são variações usadas em modo de desenvolvedor (pnpm dev), com o `ids_development` indicando id's de nosso servidor de teste e com o `ids.json` indicando id's o nosso servidor do discord. Caso queira entrar no servidor de desenvolvimento, contate um dos administradores no discord.
 
-> Caso queira criar um novo comando, copia o de exemplo em src/commands/example.ts e consulte os outros para entender o padrão
+> Caso queira criar um novo comando, copie o de exemplo em src/commands/example.ts e consulte os outros para entender o padrão

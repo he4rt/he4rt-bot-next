@@ -1,5 +1,5 @@
 import { GuildMember, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
-import { Command } from '@/types'
+import { Command, Maybe } from '@/types'
 import { MEDAL_ADD } from '@/defines/commands.json'
 import { MEDAL_OPTION, MEMBER_OPTION, DO_NOT_HAVE, SUCCESS } from '-/commands/medal.json'
 import { reply } from '../../utils'
@@ -12,6 +12,7 @@ export const useMedalAdd = (): Command => {
     .setDMPermission(false)
     .addUserOption((option) => option.setName('membro').setDescription(MEMBER_OPTION).setRequired(true))
     .addRoleOption((option) => option.setName('medalha').setDescription(MEDAL_OPTION).setRequired(true))
+    .addNumberOption((option) => option.setName('tempo').setDescription(MEDAL_OPTION).setRequired(false))
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
 
   return [
@@ -22,15 +23,13 @@ export const useMedalAdd = (): Command => {
       const medal = interaction.options.get('medalha')
       const medal_id = medal.value as string
 
-      const userHasMedal = await hasMedal(client, { id: member.id, role_id: medal_id })
+      const time = interaction.options.get('tempo')
 
-      if (userHasMedal) {
-        await interaction.reply({ content: DO_NOT_HAVE, ephemeral: true })
-        
-        return
-      }
+      const expires_at: Maybe<string> = !time?.value
+        ? null
+        : String(new Date().valueOf() + 60000 * 60 * 24 * (time.value as number))
 
-      addUserInMedal(client, { id: member.id, role_id: medal_id })
+      addUserInMedal(client, { id: member.id, role_id: medal_id, expires_at })
         .then(async () => {
           await interaction.reply({ content: SUCCESS, ephemeral: true })
         })

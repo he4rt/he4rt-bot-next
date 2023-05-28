@@ -219,3 +219,8 @@ export interface FirestoreMedal {
   role_id: string
   users_id: string[]
 }
+
+export interface FirestoreMedalUser {
+  id: string
+  expires_at: string
+}
