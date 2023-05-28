@@ -35,29 +35,28 @@ export const useProfileGet = (): Command => {
         return
       }
 
-      client.api.he4rt
-        .users
+      client.api.he4rt.users
         .profile(target.id)
         .get<UserGET>()
         .then(async (obj) => {
           const fields = [
             [{ name: EMBED.EMBED_PROFILE_LINK, value: `${EXTENDED_PROFILE_LINK}${target.id}` }],
             [
-              { name: EMBED.EMBED_NAME, value: obj.information.name, inline: true },
+              { name: EMBED.EMBED_NAME, value: obj.information.name || NOT_FOUND, inline: true },
               { name: EMBED.EMBED_NICKNAME, value: obj.information.nickname || LANGUAGE_NONE_ONE, inline: true },
               { name: EMBED.EMBED_UF, value: obj.address.state || UF_NONE, inline: true },
             ],
             [
-              { name: EMBED.EMBED_ABOUT, value: obj.information.about, inline: true },
-              { name: EMBED.EMBED_GIT, value: obj.information.github_url, inline: true },
+              { name: EMBED.EMBED_ABOUT, value: obj.information.about || NOT_FOUND, inline: true },
+              { name: EMBED.EMBED_GIT, value: obj.information.github_url || NOT_FOUND, inline: true },
               { name: EMBED.EMBED_LINKEDIN, value: obj.information?.linkedin_url || NOT_FOUND, inline: true },
             ],
             [
-              { name: EMBED.EMBED_LEVEL, value: `${obj.character.level}`, inline: true },
+              { name: EMBED.EMBED_LEVEL, value: String(obj.character.level || 0), inline: true },
               {
                 name: EMBED.EMBED_XP,
                 inline: true,
-                value: `${obj.character.experience}`,
+                value: String(obj.character.experience || 0),
               },
             ],
             [
