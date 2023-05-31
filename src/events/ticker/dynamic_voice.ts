@@ -5,9 +5,9 @@ import {
   TICKER_SETTER,
 } from '@/defines/values.json'
 import { getDynamicVoiceCategory, getGuild } from '@/utils'
-import { Collection, GuildMember } from 'discord.js'
+import { Collection, GuildMember, VoiceChannel } from 'discord.js'
 
-export const setDynamicVoiceRemover = async (client: He4rtClient) => {
+export const setDynamicVoice = (client: He4rtClient) => {
   const guild = getGuild(client)
 
   const voiceTimer = 60 * DYNAMIC_VOICE_DELETE_CHANNELS_IN_MINUTES
@@ -20,7 +20,7 @@ export const setDynamicVoiceRemover = async (client: He4rtClient) => {
       voiceCounterInSeconds = voiceTimer
 
       const category = getDynamicVoiceCategory(client)
-      const channels = [...guild.channels.cache]
+      const channels = [...guild.channels.cache] as [string, VoiceChannel][]
 
       channels.forEach(async ([_, channel]) => {
         if (channel.parentId !== category.id) return
@@ -30,17 +30,25 @@ export const setDynamicVoiceRemover = async (client: He4rtClient) => {
         const actuallyTime = new Date().valueOf()
         const expirationLimitTime = new Date(channel.createdAt).valueOf() + DYNAMIC_VOICE_INVITE_LIMIT_TIME
 
-        if (targets.length === 0 && actuallyTime > expirationLimitTime) {
+        const debounceTime = actuallyTime > expirationLimitTime
+
+        if (targets.length === 0 && debounceTime) {
           channel
             .delete()
             .then(() => {
               client.logger.emit({
                 message: `O canal de voz dinâmico **${channel.id}** foi deletado automaticamente com sucesso!`,
                 type: 'command',
-                color: 'success',
+                color: 'info',
               })
             })
-            .catch(() => {})
+            .catch(() => {
+              client.logger.emit({
+                message: `O canal de voz dinâmico **${channel.id}** não foi deletado!`,
+                type: 'command',
+                color: 'error',
+              })
+            })
         }
       })
     }

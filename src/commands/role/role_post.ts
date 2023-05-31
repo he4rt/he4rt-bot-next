@@ -3,7 +3,7 @@ import { Command } from '@/types'
 import { ROLE_CREATE } from '@/defines/commands.json'
 import { isHex, reply } from '@/utils'
 import { HEX_OPTION, NAME_OPTION } from '-/commands/role_create.json'
-import { HEX_ERROR, HEX_ERROR_IN_SPECIFIC_COLOR } from '-/commands/color.json'
+import { HEX_ERROR, HEX_ERROR_IN_SPECIFIC_COLORS } from '-/commands/color.json'
 
 export const useRolePost = (): Command => {
   const data = new SlashCommandBuilder()
@@ -27,7 +27,7 @@ export const useRolePost = (): Command => {
       }
 
       if (color.value === '#000000') {
-        await interaction.reply({ content: HEX_ERROR_IN_SPECIFIC_COLOR, ephemeral: true })
+        await interaction.reply({ content: HEX_ERROR_IN_SPECIFIC_COLORS, ephemeral: true })
 
         return
       }

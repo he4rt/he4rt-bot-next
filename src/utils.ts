@@ -1,6 +1,7 @@
 import {
   ButtonInteraction,
   CategoryChannel,
+  Channel,
   CommandInteraction,
   CommandInteractionOption,
   DMChannel,
@@ -14,8 +15,8 @@ import {
   PermissionFlagsBits,
   TextBasedChannel,
   User,
+  VoiceChannel,
 } from 'discord.js'
-import { formatInTimeZone } from 'date-fns-tz'
 import { CLIENT_NAME, CLIENT_TIMEZONE, COLORS, HE4RT_DELAS_ICON_1_URL, HE4RT_ICON_1_URL } from '@/defines/values.json'
 import {
   VOLUNTEER_ROLE,
@@ -29,6 +30,12 @@ import {
   VALID_PRESENTATION_ENG_ROLES,
   FORUM_CHANNEL,
   DYNAMIC_CATEGORY_CHANNEL,
+  HE4RTLESS_ROLE,
+  HE4RT_ROLE,
+  SUPREME_ROLE,
+  ADVANCED_ROLE,
+  INTERMEDIATE_ROLE,
+  BEGINNER_ROLE,
 } from '@/defines/ids.json'
 import {
   SUCCESS_COMMAND_DEFAULT,
@@ -44,12 +51,13 @@ import {
   ERROR_CANNOT_BE_BANNED,
   ERROR_PAGINATION,
   ERROR_PRESENTING,
-  ERROR_PARTICIPANT_EVENT,
-  ERROR_EVENT_NO_FOUND,
+  ERROR_EVENT_NOT_FOUND,
+  ERROR_PARTICIPANT_EVENT
 } from '-/defaults/reply.json'
 import { NOT_FOUND, LANGUAGE_NONE } from '-/defaults/display.json'
 import { TIMEOUT_COMMAND_STRING, DEFINE_STRING_REPLACED } from '@/defines/values.json'
 import { CommandGetOption, EmbedTemplateOptions, GetChannelOptions, He4rtClient } from '@/types'
+import { DYNAMIC_VOICE_MIN_SIZE, DYNAMIC_VOICE_MAX_SIZE } from '@/defines/values.json'
 import pkg from '../package.json'
 
 export const validDisplayDevRoles = (member: GuildMember) => {
@@ -57,7 +65,7 @@ export const validDisplayDevRoles = (member: GuildMember) => {
     member?.roles?.cache
       ?.filter((role) => VALID_PRESENTATION_DEV_ROLES.some((v) => v.id === role.id))
       .map((role) => `<@&${role.id}>`)
-      .join(', ') || LANGUAGE_NONE
+      .join(' ') || LANGUAGE_NONE
   )
 }
 
@@ -66,7 +74,20 @@ export const validDisplayEngRoles = (member: GuildMember) => {
     member?.roles?.cache
       ?.filter((role) => VALID_PRESENTATION_ENG_ROLES.some((v) => v.id === role.id))
       .map((role) => `<@&${role.id}>`)
-      .join(', ') || LANGUAGE_NONE
+      .join(' ') || LANGUAGE_NONE
+  )
+}
+
+export const validDisplaySpecialRoles = (member: GuildMember) => {
+  return (
+    member?.roles?.cache
+      ?.filter((role) =>
+        [HE4RTLESS_ROLE, HE4RT_ROLE, SUPREME_ROLE, ADVANCED_ROLE, INTERMEDIATE_ROLE, BEGINNER_ROLE].some(
+          (v) => v.id === role.id
+        )
+      )
+      .map((role) => `<@&${role.id}>`)
+      .join(' ') || LANGUAGE_NONE
   )
 }
 
@@ -110,7 +131,7 @@ export const isAdministrator = (member: GuildMember) => {
   return member.permissions.has(PermissionFlagsBits.Administrator, true)
 }
 
-export const isValidXPMessage = (message: Message) => {
+export const isValidMessage = (message: Message) => {
   return (
     !isBot(message.author) && message.content && message.member && message.inGuild && message?.id && message?.author?.id
   )
@@ -122,6 +143,10 @@ export const isValidId = (id: number, arr: any[]) => {
 
 export const isCustomColorRole = (name: string) => {
   return /.+#\d{4}/i.test(name)
+}
+
+export const isCancellable = (str: string) => {
+  return str === TIMEOUT_COMMAND_STRING
 }
 
 export const hasRole = (member: GuildMember, target: string) => {
@@ -160,6 +185,29 @@ export const embedTemplate = (options: EmbedTemplateOptions) => {
   return embed
 }
 
+export const dynamicVoiceEmbedTemplate = async (
+  channel: VoiceChannel | TextBasedChannel,
+  owner: GuildMember,
+  options?: { send?: boolean }
+) => {
+  const embed = embedTemplate({
+    title: `Canal de Voz Dinâmico`,
+    description: `Para alterar o limite de membros, use \`/sala-limite\`, sendo o  limite mínimo de membros **${DYNAMIC_VOICE_MIN_SIZE}** com o máximo de **${DYNAMIC_VOICE_MAX_SIZE}**. Para transferir o dono da sala a outro membro, use \`/sala-transferir\`. Para alterar o título da sala, use \`/sala-titulo\`. **Atenção: O discord limita alterações do canal de voz em 2 vezes a cada 10 minutos!**`,
+    fields: [
+      [
+        { name: '**ID do Canal**', value: channel.id, inline: false },
+        { name: '**ID do Dono**', value: owner.id, inline: false },
+      ],
+    ],
+  })
+
+  const message = { content: `<@${owner.id}>`, embeds: [embed] }
+
+  if (options?.send) await channel.send(message).catch(() => {})
+
+  return message
+}
+
 export const getUserAvatar = (author: User) => {
   return `https://cdn.discordapp.com/avatars/${author.id}/${author.avatar}.png?size=256`
 }
@@ -168,8 +216,8 @@ export const getGuild = ({ guilds }: He4rtClient): Guild => {
   return guilds.cache.get(process.env.DISCORD_GUILD_ID)
 }
 
-export const getChannel = ({ client, id }: GetChannelOptions) => {
-  return client.channels.cache.get(id) as TextBasedChannel
+export function getChannel<T extends Channel = TextBasedChannel>({ client, id }: GetChannelOptions): T {
+  return client.channels.cache.get(id) as T
 }
 
 export const getForumChannel = (client: He4rtClient) => {
@@ -177,7 +225,7 @@ export const getForumChannel = (client: He4rtClient) => {
 }
 
 export const getDynamicVoiceCategory = (client: He4rtClient) => {
-  return client.channels.cache.get(DYNAMIC_CATEGORY_CHANNEL.id) as CategoryChannel
+  return getChannel<CategoryChannel>({ client, id: DYNAMIC_CATEGORY_CHANNEL.id })
 }
 
 export const getOption: CommandGetOption = (interaction: CommandInteraction, target: string) => {
@@ -189,8 +237,10 @@ export const getCustomColorRole = ({ roles }: GuildMember | PartialGuildMember) 
 }
 
 export const getTaggedMembers = (ids: string[]): string => {
-  return ids.map((id) => `<@${id}>`).join(' ') || ''
+  return ids.map((id) => getUserTemplate(id)).join(' ') || ''
 }
+
+export const getUserTemplate = (id: string) => `<@${id}>`
 
 export const getTargetMember = (member: GuildMember): string => {
   return `**${member.id || 0} - ${member.user?.username || 'Indefinido'}**`
@@ -200,16 +250,14 @@ export const getBotVersion = (): string => {
   return `v${pkg.version}`
 }
 
+export const getOptionType = (arr: { value: number; name: string }[], type: number): string =>
+  arr.reduce((prev, current) => ({ [current.value]: current.name, ...prev }), {})[type]
+
 export const replaceDefineString = (str: string, target: string) => {
   return str.replaceAll(DEFINE_STRING_REPLACED, target)
 }
 
-export const sendInDM = async (
-  dm: DMChannel,
-  interaction: CommandInteraction | ButtonInteraction,
-  str: string,
-  embed?: EmbedBuilder
-) => {
+export const sendInDM = async (dm: DMChannel, interaction: CommandInteraction | ButtonInteraction, str: string, embed?: EmbedBuilder) => {
   await dm.send({ content: str, embeds: [embed] }).catch(async () => {
     await reply(interaction).errorInAccessDM()
 
@@ -217,6 +265,44 @@ export const sendInDM = async (
   })
 
   return true
+}
+
+export const openAndSendMessageInDm = (
+  client: He4rtClient,
+  member: GuildMember,
+  message: string,
+  suppress: boolean = false
+): Promise<void> => {
+  return new Promise((res) => {
+    member
+      ?.createDM()
+      .then((dm) => {
+        dm.send(message)
+          .then(async (msg) => {
+            if (suppress) await msg.suppressEmbeds(true).catch(() => {})
+
+            res()
+          })
+          .catch(() => {
+            client.logger.emit({
+              message: `Não foi possível enviar uma mensagem na DM para o usuário ${getTargetMember(member)}!`,
+              type: 'bot',
+              color: 'error',
+            })
+
+            res()
+          })
+      })
+      .catch(() => {
+        client.logger.emit({
+          message: `Não foi possível enviar uma mensagem na DM para o usuário ${getTargetMember(member)}!`,
+          type: 'bot',
+          color: 'error',
+        })
+
+        res()
+      })
+  })
 }
 
 export const reply = (interaction: CommandInteraction | ButtonInteraction) => {
@@ -233,10 +319,12 @@ export const reply = (interaction: CommandInteraction | ButtonInteraction) => {
   }
 
   const error = async () => {
-    return await interaction.reply({
-      content: ERROR_DEFAULT,
-      ephemeral: true,
-    })
+    return await interaction
+      .reply({
+        content: ERROR_DEFAULT,
+        ephemeral: true,
+      })
+      .catch(() => {})
   }
 
   const errorInvalidEmail = async () => {
@@ -283,7 +371,7 @@ export const reply = (interaction: CommandInteraction | ButtonInteraction) => {
   }
 
   const errorEventNotFound = async () => {
-    await interaction.reply({ content: ERROR_EVENT_NO_FOUND, ephemeral: true })
+    await interaction.reply({ content: ERROR_EVENT_NOT_FOUND, ephemeral: true })
   }
 
   return {
@@ -301,7 +389,7 @@ export const reply = (interaction: CommandInteraction | ButtonInteraction) => {
     errorPaginationFail,
     errorPresentingFail,
     errorParticipantFail,
-    errorEventNotFound,
+    errorEventNotFound
   }
 }
 
@@ -322,21 +410,34 @@ export const js = () => {
     return new Promise((resolve) => setTimeout(resolve, ms))
   }
 
-  const getFullTime = (): string => {
-    const utc = formatInTimeZone(new Date(), CLIENT_TIMEZONE, 'yyyy-MM-dd HH:mm:ss')
+  const getUTCDate = () => {
+    const date = new Date()
+    date.toLocaleString('pt-BR', {
+      timeZone: CLIENT_TIMEZONE,
+    })
 
-    return utc
+    return date
+  }
+
+  const getFullTime = (): string => {
+    const date = getUTCDate()
+
+    return `${date.getFullYear()}-${date.getMonth()}-${date.getDay()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
   }
 
   const getTime = (): string => {
-    const utc = formatInTimeZone(new Date(), CLIENT_TIMEZONE, 'HH:mm')
+    const date = getUTCDate()
 
-    return utc
+    let hours = (date.getHours() < 10 ? '0' : '') + date.getHours()
+
+    let minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes()
+
+    return `${hours}:${minutes}`
   }
 
   const randomHex = (): HexColorString => {
     return `#${Math.floor(Math.random() * 16777215).toString(16)}`
   }
 
-  return { sleep, getFullTime, getTime, randomHex }
+  return { sleep, getUTCDate, getFullTime, getTime, randomHex }
 }

@@ -18,9 +18,9 @@ export const useBadgeRedeem = (): Command => {
 
       const code = getOption(interaction, 'codigo')
 
-      client.api.he4rt
-        .users(member.id)
-        ['claim-badge'].post({
+      client.api.he4rt.characters
+        .discord(member.id)
+        ['claimBadge'].post({
           redeem_code: code.value as string,
         })
         .then(async () => {

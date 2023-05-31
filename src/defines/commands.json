@@ -3,13 +3,9 @@
     "TITLE": "apresentar",
     "DESCRIPTION": "Se apresente para os membros de nossa comunidade e ganhe cargos!"
   },
-  "START_CODE_CHALLENGE": {
-    "TITLE": "ajudar-bot",
-    "DESCRIPTION": "Iniciar sequência de desafio de perguntas."
-  },
   "ANNOUNCE": {
     "TITLE": "anunciar",
-    "DESCRIPTION": "ADM: Anuncie no discord automaticamente com o uso do everyone."
+    "DESCRIPTION": "ADM: Anuncie no canal de anúncios com o uso do everyone automático."
   },
   "COLOR": {
     "TITLE": "cor",
@@ -123,10 +119,6 @@
     "TITLE": "reuniao-ata",
     "DESCRIPTION": "(ATA): Submeta a ATA de uma reunião que já terminou."
   },
-  "STAGE": {
-    "TITLE": "reuniao",
-    "DESCRIPTION": "Participe de uma reunião existente."
-  },
   "ONBOARDING_WHY": {
     "TITLE": "onboarding",
     "DESCRIPTION": "Entenda o que é o nosso sistema de onboarding."
@@ -150,5 +142,41 @@
   "DYNAMIC_VOICE": {
     "TITLE": "sala",
     "DESCRIPTION": "Crie um canal de voz temporário."
+  },
+  "DYNAMIC_VOICE_SIZE": {
+    "TITLE": "sala-limite",
+    "DESCRIPTION": "(DONO): Altere o limite de membros permitidos da sala."
+  },
+  "DYNAMIC_VOICE_OWNER": {
+    "TITLE": "sala-transferir",
+    "DESCRIPTION": "(DONO): Transfira o dono da sala para outro membro que esteja no mesmo canal de voz."
+  },
+  "DYNAMIC_VOICE_TITLE": {
+    "TITLE": "sala-titulo",
+    "DESCRIPTION": "(DONO): Altere o título da sala por outro."
+  },
+  "MEDAL": {
+    "TITLE": "medalha",
+    "DESCRIPTION": "Selecione sua medalha de contribuição com a comunidade."
+  },
+  "MEDAL_ADD": {
+    "TITLE": "medalha-adicionar",
+    "DESCRIPTION": "(ADM): Adiciona um usuário a uma medalha em específico"
+  },
+  "WATCH": {
+    "TITLE": "observar",
+    "DESCRIPTION": "(ADM|MOD): Observe um membro em específico."
+  },
+  "WATCH_LIST": {
+    "TITLE": "observar-lista",
+    "DESCRIPTION": "(ADM|MOD): Veja a lista de membros observados."
+  },
+  "WATCH_REMOVE": {
+    "TITLE": "observar-remover",
+    "DESCRIPTION": "(ADM|MOD): Remova um membro que esteja sendo observado."
+  },
+  "START_CODE_CHALLENGE": {
+    "TITLE": "quiz-start",
+    "DESCRIPTION": "Iniciar sequência de desafio de perguntas."
   }
 }

@@ -37,16 +37,20 @@ export const useProfilePut = (): Command => {
       if (name?.value) body['name'] = name.value
       if (nickname?.value) body['nickname'] = nickname.value
       if (about?.value) body['about'] = about.value
-      if (git?.value) body['git'] = git.value
-      if (linkedin?.value) body['linkedin'] = linkedin.value
+      if (git?.value) body['github_url'] = git.value
+      if (linkedin?.value) body['linkedin_url'] = linkedin.value
 
-      client.api.he4rt
-        .users(member.id)
-        .put<IntroducePUT>(body)
+      client.api.he4rt.users
+        .profile(member.id)
+        .put<IntroducePUT>({
+          info: body,
+        })
         .then(async () => {
           await reply(interaction).success()
         })
-        .catch(async () => {
+        .catch(async (e) => {
+          console.log(e)
+
           await reply(interaction).error()
         })
     },

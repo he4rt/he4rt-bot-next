@@ -2,15 +2,17 @@
   "IS_PRESENTED_ERROR": "**Você já se apresentou!** Caso queira editar o seu perfil, utilize o comando `/perfil-editar`!",
   "CONTINUE": "``❗`` Este é o nosso sistema de apresentação.\n\nResponda as perguntas a seguir com sinceridade total por sua pessoa.\nEu aguardo por cinco minutos em cada resposta, caso este tempo seja ultrapassado, os valores são ignorados.\nSe desejar omitir algum dado, não tem problema algum!\n\n``❗`` Como primeira questão:\n\n",
   "CONTINUE_MESSAGE": "\n**0 **-   Continuar a Apresentação.\n",
+  "STOP": "\n``❗`` A apresentação foi parada por conta que algum dos dados foi inserido erroneamente ou o tempo foi excedido. \n\nPara iniciar a apresentação novamente, utilize o comando `/apresentar` em algum canal dentro do servidor.",
   "USER": {
     "NAME": "> **Qual é seu nome?** (Exemplo: Daniel Reis)",
     "NICK": "> **Qual é seu nickname?** (Exemplo: DanielHe4rt)",
     "ABOUT": "> **Diga um pouco sobre você:** (Exemplo: Me chamo Gustavo...)",
     "GIT": "> **Qual é seu Git?** (Exemplo: https://github.com/DanielHe4rt)",
     "LINKEDIN": "> **Qual é seu Linkedin?** (Exemplo: https://br.linkedin.com/in/danielheart)",
+    "UF": ">  **Qual é o seu estado?**\n",
     "LANGUAGES": "> **Linguagens?** (Digite o número designado para a linguagem que queira receber um cargo no servidor)\n\n",
     "ENGLISH": "> **Nível de Inglês?**",
-    "DELAS": "**Você se identifica como parte do projeto @💗 He4rt Delas(ela/dela)?**\n\n ⚠️ (Espaço restrito para mulheres e pessoas não-binárias, caso reage sem se identificar ou desrespeite este espaço = banimento)\n\n"
+    "DELAS": "**Você se identifica como parte do projeto @💗 He4rt Delas(ela/dela)?**\n\n ⚠️ (Espaço restrito para mulheres e pessoas não-binárias, caso você **digite 1** sem se identificar ou desrespeite este espaço = banimento)\n\n"
   },
   "EMBED": {
     "TITLE": "**Apresentação** » ",
@@ -22,7 +24,5 @@
     "LANGUAGES": "**Linguagens:**",
     "ENGLISH": "**Nível de Inglês:**"
   },
-  "FINISH": "**Sua apresentação foi concluída com sucesso!**",
-  "INVALID_STRING_DATA": "\n**Algum dos seus dados inseridos não é válido! Tente novamente, por favor!**\n",
-  "INVALID_NUMBER": "**Valor INVÁLIDO! Insira um novo valor.**"
+  "FINISH": "**Sua apresentação foi concluída com sucesso!**"
 }

@@ -1,4 +1,4 @@
-import {
+import type {
   APIEmbedField,
   CacheType,
   Client,
@@ -15,12 +15,14 @@ import {
   User,
   VoiceChannel,
 } from 'discord.js'
-import { ClientBuilder } from 'uncreate'
+import type { ClientBuilder } from 'uncreate'
+import admin from 'firebase-admin'
 import { Logger } from './client/logger'
 import { Ticker } from './client/ticker'
 
 export type Maybe<T> = T | undefined | null
 export type RESTJson<T extends string | number | symbol = string, K = any> = Record<T, K>
+export type Cancellable<T extends unknown> = T | '__INVALID__RESPONSE__'
 export type CommandGetOption<T extends CacheType = CacheType> = (
   interaction: CommandInteraction,
   target: string
@@ -45,6 +47,7 @@ export type He4rtClient = Client<boolean> & {
   commands: Collection<CommandSet, CommandCallback>
   ticker: Ticker
   logger: Logger
+  firestore: admin.firestore.Firestore
   api: {
     he4rt: ClientBuilder
     apoiase: ClientBuilder
@@ -56,6 +59,7 @@ export interface LoggerEmitOptions {
   type: 'bot' | 'http' | 'apoiase' | 'command' | 'event' | 'role' | 'discord' | 'he4rt-api' | 'ticket'
   color: 'success' | 'info' | 'warning' | 'error'
   user?: User
+  customChannelId?: string
 }
 
 export interface RoleDefine {
@@ -85,7 +89,7 @@ export interface GetChannelOptions {
 }
 
 export interface RankingGET extends RESTJson {
-  data: RankingMember[]
+  data: RESTJson[]
 }
 
 export interface DailyPOST extends RESTJson {
@@ -106,11 +110,17 @@ export interface BadgePOST {
 }
 
 export interface UserGETBody {
-  name: string
-  nickname: string
-  about: string
-  git: string
-  linkedin: string | null
+  info: {
+    name: string
+    nickname: string
+    about: string
+    github_url: string
+    linkedin_url: string | null
+    birthdate: string
+  }
+  address: {
+    state: string | null
+  }
 }
 
 export interface UserLevelXP {
@@ -122,18 +132,7 @@ export interface UserLevelXP {
   }
 }
 
-export interface UserGET extends RESTJson, UserGETBody, UserLevelXP {
-  id: number
-  discord_id: string
-  twitch_id: any
-  email: string | null
-  level: number
-  current_exp: number
-  money: string
-  daily: string | null
-  created_at: string | null
-  updated_at: string | null
-}
+export interface UserGET extends RESTJson, UserGETBody, UserLevelXP {}
 
 export interface UserPUT extends UserGET {}
 
@@ -200,4 +199,28 @@ export interface RankingMember extends UserLevelXP {
 export interface Context {
   client: He4rtClient
   rest: REST
+}
+
+export interface FirestoreUser {
+  id: string
+  donator_email?: string
+  donator_value?: number
+  daily?: number
+  daily_last?: string
+  nitro?: boolean
+  join_space?: number
+  reputation?: number
+  time_voice?: number
+}
+
+export interface FirestoreMedal {
+  name: string
+  description: string
+  role_id: string
+  users_id: string[]
+}
+
+export interface FirestoreMedalUser {
+  id: string
+  expires_at: string
 }

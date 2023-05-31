@@ -1,10 +1,11 @@
 import { GuildMember, SlashCommandBuilder } from 'discord.js'
-import { ApoiaseGET, Command, UserPUT } from '@/types'
+import { ApoiaseGET, Command } from '@/types'
 import { APOIASE } from '@/defines/commands.json'
 import { APOIASE_CUSTOM_COLOR_MINIMAL_VALUE } from '@/defines/values.json'
-import { DONATOR_ROLE, CHAT_CHANNEL } from '@/defines/ids.json'
-import { EMAIL_OPTION, APOIASE_MEMBER, INVALID_ACCOUNT, SUCCESS_IN_CHAT } from '-/commands/apoiase.json'
-import { getChannel, getOption, getTargetMember, isApoiaseMember, isPresentedMember, reply } from '@/utils'
+import { DONATOR_ROLE, CHAT_CHANNEL, HE4RT_EMOJI_ID } from '@/defines/ids.json'
+import { EMAIL_OPTION, SUCCESS_IN_CHAT } from '-/commands/apoiase.json'
+import { getChannel, getOption, getTargetMember, isPresentedMember, reply } from '@/utils'
+import { upsertUser } from '@/http/firebase'
 
 export const useApoiase = (): Command => {
   const data = new SlashCommandBuilder()
@@ -35,15 +36,6 @@ export const useApoiase = (): Command => {
         return
       }
 
-      if (isApoiaseMember(member)) {
-        await interaction.reply({
-          content: APOIASE_MEMBER,
-          ephemeral: true,
-        })
-
-        return
-      }
-
       client.api.apoiase.backers
         .charges(email)
         .get<ApoiaseGET>()
@@ -54,12 +46,7 @@ export const useApoiase = (): Command => {
             thisMonthPaidValue &&
             thisMonthPaidValue >= APOIASE_CUSTOM_COLOR_MINIMAL_VALUE
           ) {
-            client.api.he4rt
-              .users(member.id)
-              .put<UserPUT>({
-                email: email,
-                is_donator: 1,
-              })
+            upsertUser(client, { id: member.id, donator_email: email, donator_value: thisMonthPaidValue })
               .then(async () => {
                 await member.roles.add(DONATOR_ROLE.id)
 
@@ -78,7 +65,7 @@ export const useApoiase = (): Command => {
 
                 await message.suppressEmbeds(true).catch(() => {})
 
-                await message.react('💜').catch(() => {})
+                await message.react(HE4RT_EMOJI_ID).catch(() => {})
               })
               .catch(() => {
                 client.logger.emit({
@@ -90,14 +77,7 @@ export const useApoiase = (): Command => {
                   user: member.user,
                 })
               })
-
-            return
           }
-
-          await interaction.reply({
-            content: INVALID_ACCOUNT,
-            ephemeral: true,
-          })
         })
         .catch(() => {
           client.logger.emit({

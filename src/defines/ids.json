@@ -1,4 +1,9 @@
 {
+  "BOT_ID": "546150119792443403",
+  "DEPOSITIONS_CHANNEL": {
+    "id": "958175169359265802",
+    "title": "depoimentos-he4rt"
+  },
   "DYNAMIC_CATEGORY_CHANNEL": {
     "id": "1051218990174838814",
     "title": "Voz Dinâmica"
@@ -80,22 +85,197 @@
     "name": "evento-he4rt"
   },
   "VALID_PRESENTATION_DEV_ROLES": [
-    { "id": "550411669084569602", "name": "GameDev", "emoji": "🎮" },
-    { "id": "540993488410378281", "name": "JavaScript", "emoji": "📜" },
-    { "id": "540994118634176512", "name": "PHP", "emoji": "🐘" },
-    { "id": "540994295541399552", "name": "Python", "emoji": "🐍" },
-    { "id": "540995072246939648", "name": "Perl", "emoji": "🐪" },
-    { "id": "540995379538165774", "name": "Java", "emoji": "☕" },
-    { "id": "540995627559944207", "name": "Ruby", "emoji": "💎" },
-    { "id": "541021498064896000", "name": "C, C++, C#", "emoji": "🇨" },
-    { "id": "546152565633449995", "name": "UX/UI", "emoji": "🎨" },
-    { "id": "1043325810347606056", "name": "Rust", "emoji": "r" },
-    { "id": "547606728179449895", "name": "Designer", "emoji": "🎨" }
+    {
+      "id": "550411669084569602",
+      "name": "GameDev",
+      "emoji": "🎮"
+    },
+    {
+      "id": "540993488410378281",
+      "name": "JavaScript",
+      "emoji": "📜"
+    },
+    {
+      "id": "540994118634176512",
+      "name": "PHP",
+      "emoji": "🐘"
+    },
+    {
+      "id": "540994295541399552",
+      "name": "Python",
+      "emoji": "🐍"
+    },
+    {
+      "id": "540995072246939648",
+      "name": "Perl",
+      "emoji": "🐪"
+    },
+    {
+      "id": "540995379538165774",
+      "name": "Java",
+      "emoji": "☕"
+    },
+    {
+      "id": "540995627559944207",
+      "name": "Ruby",
+      "emoji": "💎"
+    },
+    {
+      "id": "541021498064896000",
+      "name": "C, C++, C#",
+      "emoji": "🇨"
+    },
+    {
+      "id": "546152565633449995",
+      "name": "UX/UI",
+      "emoji": "🎨"
+    },
+    {
+      "id": "1043325810347606056",
+      "name": "Rust",
+      "emoji": "r"
+    },
+    {
+      "id": "547606728179449895",
+      "name": "Designer",
+      "emoji": "🎨"
+    },
+    {
+      "id": "958788344974831687",
+      "name": "Elixir",
+      "emoji": "💧"
+    }
   ],
   "VALID_PRESENTATION_ENG_ROLES": [
-    { "id": "546148712833875985", "name": "Advanced English", "emoji": "🗽" },
-    { "id": "546148711416332298", "name": "Intermediate English", "emoji": "🗽" },
-    { "id": "546148708077666315", "name": "Basic English", "emoji": "🗽" }
+    {
+      "id": "546148712833875985",
+      "name": "Advanced English",
+      "emoji": "🗽"
+    },
+    {
+      "id": "546148711416332298",
+      "name": "Intermediate English",
+      "emoji": "🗽"
+    },
+    {
+      "id": "546148708077666315",
+      "name": "Basic English",
+      "emoji": "🗽"
+    }
+  ],
+  "VALID_PRESENTATION_RF": [
+    {
+      "id": "AC",
+      "name": "Acre"
+    },
+    {
+      "id": "AL",
+      "name": "Alagoas"
+    },
+    {
+      "id": "AP",
+      "name": "Amapá"
+    },
+    {
+      "id": "AM",
+      "name": "Amazonas"
+    },
+    {
+      "id": "BA",
+      "name": "Bahia"
+    },
+    {
+      "id": "CE",
+      "name": "Ceará"
+    },
+    {
+      "id": "DF",
+      "name": "Distrito Federal"
+    },
+    {
+      "id": "ES",
+      "name": "Espírito Santo"
+    },
+    {
+      "id": "GO",
+      "name": "Goiás"
+    },
+    {
+      "id": "MA",
+      "name": "Maranhão"
+    },
+    {
+      "id": "MT",
+      "name": "Mato Grosso"
+    },
+    {
+      "id": "MS",
+      "name": "Mato Grosso do Sul"
+    },
+    {
+      "id": "MG",
+      "name": "Minas Gerais"
+    },
+    {
+      "id": "PA",
+      "name": "Pará"
+    },
+    {
+      "id": "PB",
+      "name": "Paraíba"
+    },
+    {
+      "id": "PR",
+      "name": "Paraná"
+    },
+    {
+      "id": "PE",
+      "name": "Pernambuco"
+    },
+    {
+      "id": "PI",
+      "name": "Piauí"
+    },
+    {
+      "id": "RJ",
+      "name": "Rio de Janeiro"
+    },
+    {
+      "id": "RN",
+      "name": "Rio Grande do Norte"
+    },
+    {
+      "id": "RS",
+      "name": "Rio Grande do Sul"
+    },
+    {
+      "id": "RO",
+      "name": "Rondônia"
+    },
+    {
+      "id": "RR",
+      "name": "Roraima"
+    },
+    {
+      "id": "SC",
+      "name": "Santa Catarina"
+    },
+    {
+      "id": "SP",
+      "name": "São Paulo"
+    },
+    {
+      "id": "SE",
+      "name": "Sergipe"
+    },
+    {
+      "id": "TO",
+      "name": "Tocantins"
+    },
+    {
+      "id": "__",
+      "name": "Não moro no Brasil"
+    }
   ],
   "HE4RT_DELAS_ROLE": {
     "id": "1018009963903328308",
@@ -147,6 +327,16 @@
     "name": "He4rt",
     "emoji": "💜"
   },
+  "HE4RTLESS_ROLE": {
+    "id": "547543574091268118",
+    "name": "He4rtless",
+    "emoji": "🍷"
+  },
+  "ADMINISTRATOR_ROLE": {
+    "id": "547549400164073472",
+    "name": "Equipe de Administração",
+    "emoji": "💼"
+  },
   "MODERATION_ROLE": {
     "id": "547549463942791181",
     "name": "Equipe de Moderação",
@@ -170,5 +360,6 @@
     "id": "1021558149695680554",
     "name": "Não Resolvido"
   },
-  "HE4RT_EMOJI_ID": "<:he4rt:1050907314384810014>"
+  "HE4RT_EMOJI_ID": "<:he4rt:1051194598891991141>",
+  "HE4RT_DELAS_EMOJI_ID": "<:he4rtDelas:1051983616437145610>"
 }

@@ -1,43 +1,45 @@
 import { Events, GuildMember } from 'discord.js'
 import { buttonListener, commandsListener } from '@/commands'
 import { He4rtClient } from '@/types'
-import { XPListener } from './gamification'
-import { isBot, isValidXPMessage } from '@/utils'
-import { createUserInServerEnter, deletePossibleUserInServerLeave, sendDmToNewUser } from './guild'
+import { isBot, isValidMessage } from '@/utils'
+import { userEnter, userLeave, sendDmToNewUser } from './guild'
 import {
   reactMessagesInSuggestionChannel,
   sendGoodMessagesInBusyChannels,
   suppressEmbedMessagesInBusyChannels,
   reactMessagesInLearningDiaryChannel,
   reactAnnouncesInAdvertsChannel,
-  reactEmbedsInPresentationsChannel,
+  bussinOrCap,
+  MessageListener,
+  reactMessagesInDepositionsChannel,
 } from './channel'
-import { setMemberIsADonatorOrNot } from './role'
-import { weeklyMeetingVoiceController, removeUserMuteInLeavePomodoro } from './voice'
+import { setMemberIsAPrivilegedOrNot, setMemberIsANitroOrNot, userBoostingServerMessage } from './role'
+import { removeUserMuteInLeavePomodoro } from './voice'
 import { emitDefaultDiscordError, emitWebhookUpdate } from './logger'
 
-export const discordEvents = (client: He4rtClient) => {
+export const discordEvents = async (client: He4rtClient) => {
   client.on(Events.GuildMemberAdd, (member) => {
     if (isBot(member.user)) return
 
-    createUserInServerEnter(client, member)
+    userEnter(client, member)
     sendDmToNewUser(client, member)
   })
 
   client.on(Events.GuildMemberRemove, (member) => {
     if (isBot(member.user)) return
 
-    deletePossibleUserInServerLeave(client, member)
+    userLeave(client, member)
   })
 
-  client.on(Events.GuildMemberUpdate, (oldMember, newMember) => {
+  client.on(Events.GuildMemberUpdate, async (oldMember, newMember) => {
     if (isBot(oldMember.user) || isBot(newMember.user) || !oldMember) return
 
-    setMemberIsADonatorOrNot(client, oldMember as GuildMember, newMember)
+    await setMemberIsAPrivilegedOrNot(client, oldMember as GuildMember, newMember)
+    await setMemberIsANitroOrNot(client, oldMember as GuildMember, newMember)
+    await userBoostingServerMessage(client, oldMember as GuildMember, newMember)
   })
 
   client.on(Events.VoiceStateUpdate, (oldVoice, newVoice) => {
-    weeklyMeetingVoiceController(oldVoice, newVoice)
     removeUserMuteInLeavePomodoro(oldVoice, newVoice)
   })
 
@@ -46,15 +48,16 @@ export const discordEvents = (client: He4rtClient) => {
 
     if (isBot(message.author)) return
 
-    if (isValidXPMessage(message)) {
-      XPListener(client, message)
+    if (isValidMessage(message)) {
+      MessageListener(client, message)
     }
 
     suppressEmbedMessagesInBusyChannels(message)
     sendGoodMessagesInBusyChannels(message)
-    reactEmbedsInPresentationsChannel(message)
+    bussinOrCap(message)
     reactMessagesInSuggestionChannel(message)
     reactMessagesInLearningDiaryChannel(message)
+    reactMessagesInDepositionsChannel(message)
   })
 
   client.on(Events.InteractionCreate, (interaction) => {

@@ -5,7 +5,7 @@
   "ERROR_DEFAULT": "Algum erro inesperado ocorreu. Tente novamente mais tarde!",
   "ERROR_INVALID_EMAIL": "Insira um email válido!",
   "ERROR_MISS_PERMISSION": "Você não tem permissão para realizar esta ação!",
-  "ERROR_MEMBER_IS_NOT_PRESENTED": "Você não se apresentou! Use o comando `/apresentar` antes de executar este comando!",
+  "ERROR_MEMBER_IS_NOT_PRESENTED": "Você ou o alvo não se apresentou! Use o comando `/apresentar` antes de executar este comando!",
   "ERROR_ACCESS_DM": "**Não foi possível enviar mensagem pelo privado!** Certifique-se que eu possa enviar mensagens para você! Clique na aba de configurações do servidor -> **Config. de privacidade** -> **Mensagens Diretas**",
   "ERROR_INVALID_ARGUMENT": "Algum argumento inserido é inválido!",
   "ERROR_CHANNEL_PERMISSION": "Só é permitido usar este comando no canal ",
@@ -13,5 +13,5 @@
   "ERROR_PAGINATION": "Este número de página não existe.",
   "ERROR_PRESENTING": "**Você já está se apresentando! Consulte sua DM.**",
   "ERROR_PARTICIPANT_EVENT": "**Você já completou este evento.**",
-  "ERROR_EVENT_NO_FOUND": "**Não há evento ativo neste momento.**"
+  "ERROR_EVENT_NOT_FOUND": "**Não há evento ativo neste momento.**"
 }

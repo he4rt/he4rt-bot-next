@@ -1,7 +1,9 @@
 {
   "MEMBER_OPTION": "OPCIONAL: Escolha o perfil de outra pessoa.",
+  "EMBED_PROFILE_LINK": "**Link do Perfil:**",
   "EMBED_NAME": "**Nome:**",
   "EMBED_NICKNAME": "**Nickname:**",
+  "EMBED_UF": "**Estado:**",
   "EMBED_ABOUT": "**Sobre:**",
   "EMBED_GIT": "**GIT:**",
   "EMBED_LINKEDIN": "**Linkedin**",
@@ -10,5 +12,6 @@
   "EMBED_COINS": "**HCoins:**",
   "EMBED_LANGUAGES": "**Linguagens:**",
   "EMBED_ENGLISH": "**Nível de Inglês:**",
+  "EMBED_SPECIAL": "**Cargos Especiais:**",
   "EMBED_PROFILE": "Perfil"
 }

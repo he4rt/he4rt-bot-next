@@ -6,7 +6,13 @@ dist
 coverage
 logs
 
+firebase_admin.json
+firebase_admin_prod.json
+
 .env
 
 TODO.md
 .idea
+
+output.log
+error.log

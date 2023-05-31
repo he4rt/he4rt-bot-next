@@ -1,0 +1,9 @@
+{
+  "MEMBER_OPTION": "Selecione um membro para dar uma medalha a ele.",
+  "MEDAL_OPTION": "Selecione sua medalha que deseja ficar ao lado do seu nick.",
+  "TIME_OPTION": "Insira em dias o tempo máximo que o usuário terá a medalha.",
+  "DO_NOT_HAVE": "Você não possui essa medalha. :(",
+  "HAVE": "O usuário já possui esta medalha!",
+  "ALREADY": "Você já está com essa medalha selecionada.",
+  "SUCCESS": "Medalha selecionada com sucesso."
+}

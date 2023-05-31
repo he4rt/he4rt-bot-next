@@ -1,8 +1,9 @@
 import { CommandInteractionOption, GuildMember, HexColorString, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@/types'
 import { COLOR } from '@/defines/commands.json'
+import { RESTRICTED_CUSTOM_ROLE_COLORS } from '@/defines/values.json'
 import { DONATORS_CHANNEL } from '@/defines/ids.json'
-import { HEX_ERROR, HEX_OPTION, HEX_SUCCESS, HEX_ERROR_IN_SPECIFIC_COLOR } from '-/commands/color.json'
+import { HEX_ERROR, HEX_OPTION, HEX_SUCCESS, HEX_ERROR_IN_SPECIFIC_COLORS } from '-/commands/color.json'
 import { getCustomColorRole, getTargetMember, isCustomColorRole, isHex, isPrivilegedMember, reply } from '@/utils'
 
 export const useColor = (): Command => {
@@ -39,8 +40,8 @@ export const useColor = (): Command => {
         return
       }
 
-      if (color === '#000000') {
-        await interaction.reply({ content: HEX_ERROR_IN_SPECIFIC_COLOR, ephemeral: true })
+      if (RESTRICTED_CUSTOM_ROLE_COLORS.some((v) => v === color)) {
+        await interaction.reply({ content: HEX_ERROR_IN_SPECIFIC_COLORS, ephemeral: true })
 
         return
       }

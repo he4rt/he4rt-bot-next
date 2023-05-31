@@ -5,7 +5,6 @@ import { useBan } from './ban'
 import { useColor } from './color'
 import { useDaily } from './daily'
 import { useIntroduction } from './introduction'
-import { useQuizEvent } from './event_coding'
 import { useProfileGet } from './profile/profile_get'
 import { useRanking } from './ranking'
 import { useUnban } from './unban'
@@ -18,7 +17,6 @@ import { useApoiase } from './apoiase'
 import { useVersion } from './version'
 import { useAsk } from './ask'
 import { getTargetMember } from '@/utils'
-import { useBadgePost } from './badge/badge_post'
 import { useProfilePut } from './profile/profile_put'
 import { useBadgeRedeem } from './badge/badge_redeem'
 import { useRolePost } from './role/role_post'
@@ -26,17 +24,24 @@ import { useRoleDelete } from './role/role_delete'
 import { resolveJudgeCommandButtonEvents, useJudge } from './judge'
 import { useForumClose } from './forum/forum_close'
 import { useForumCreate } from './forum/forum_create'
-import { useDynamicVoice } from './dynamic_voice'
+import { useDynamicVoice } from './dynamic_voice/dynamic_voice_create'
+import { useDynamicVoiceSize } from './dynamic_voice/dynamic_voice_size'
+import { useDynamicVoiceOwner } from './dynamic_voice/dynamic_voice_owner'
 import { useStageATA } from './stage/stage_ata'
 import { useStageStart } from './stage/stage_start'
 import { useStageFinish } from './stage/stage_finish'
-import { useStageEnter } from './stage/stage_enter'
 import { useOnboardingVoluntary } from './onboarding/onboarding_voluntary'
 import { useOnboardingRequire } from './onboarding/onboarding_require'
 import { useOnboardingFinalize } from './onboarding/onboarding_finalize'
 import { useOnboardingQuit } from './onboarding/onboarding_quit'
 import { useOnboardingWhy } from './onboarding/onboarding_why'
-import { useSpecial } from './special'
+import { useDynamicVoiceTitle } from './dynamic_voice/dynamic_voice_title'
+import { useMedal } from './medal/medal_set'
+import { useMedalAdd } from './medal/medal_add'
+import { useWatch } from './watch/watch_set'
+import { useWatchList } from './watch/watch_get'
+import { useWatchRemove } from './watch/watch_remove'
+import { useQuizEvent } from './event_coding'
 
 const registerHooks = (client: He4rtClient, commands: Command[]) => {
   commands.forEach(([data, cb]) => {
@@ -47,7 +52,6 @@ const registerHooks = (client: He4rtClient, commands: Command[]) => {
 export const registerCommands = async ({ client, rest }: Context) => {
   registerHooks(client, [
     useIntroduction(),
-    useQuizEvent(),
     useAnnounce(),
     useColor(),
     useBan(),
@@ -64,7 +68,6 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useApoiase(),
     useVersion(),
     useAsk(),
-    useBadgePost(),
     useBadgeRedeem(),
     useRolePost(),
     useRoleDelete(),
@@ -72,8 +75,10 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useForumClose(),
     useForumCreate(),
     useDynamicVoice(),
+    useDynamicVoiceSize(),
+    useDynamicVoiceOwner(),
+    useDynamicVoiceTitle(),
     useStageATA(),
-    useStageEnter(),
     useStageFinish(),
     useStageStart(),
     useOnboardingVoluntary(),
@@ -81,7 +86,12 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useOnboardingFinalize(),
     useOnboardingQuit(),
     useOnboardingWhy(),
-    useSpecial(),
+    useMedal(),
+    useMedalAdd(),
+    useWatch(),
+    useWatchList(),
+    useWatchRemove(),
+    useQuizEvent()
     // useReputation()
   ])
 
