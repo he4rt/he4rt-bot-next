@@ -7,7 +7,7 @@ import { CronJob } from 'cron'
 export const verifyEventCode = async (client: He4rtClient) => {
   const guild = getGuild(client)
 
-  await new CronJob('00 01 * * * *', async () => {
+  await new CronJob('0 */1 * * *', async () => {
     console.log('trigger')
   }).start()
 }

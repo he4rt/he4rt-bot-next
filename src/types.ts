@@ -224,3 +224,30 @@ export interface FirestoreMedalUser {
   id: string
   expires_at: string
 }
+
+export interface FirestoreReward {
+  he4rt_xp: number
+  earned: boolean
+  badge: string
+  participant_reward: boolean
+  id: string
+  fk_event: string
+}
+
+export interface FirestoreEvent {
+  date_start: Date
+  date_end: Date
+  description: string
+  is_active: boolean
+  id: string
+}
+
+export interface FirestoreQuiz {
+  tip: string
+  question: string
+  answer: string
+  has_next_question: boolean
+  id: string
+  fk_event: number
+  title: string
+}

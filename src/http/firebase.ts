@@ -1,4 +1,4 @@
-import { FirestoreMedal, FirestoreMedalUser, FirestoreUser, He4rtClient } from '@/types'
+import { FirestoreMedal, FirestoreMedalUser, FirestoreUser, FirestoreReward, FirestoreEvent, FirestoreQuiz, He4rtClient } from '@/types'
 import { defu } from 'defu'
 
 export const upsertUser = async (client: He4rtClient, fields: Partial<FirestoreUser>) => {
@@ -18,7 +18,7 @@ export const deleteUser = async (client: He4rtClient, fields: Pick<FirestoreUser
 
 export const createUser = async (client: He4rtClient, fields: Pick<FirestoreUser, 'id'>) => {
   const collection = client.firestore.collection('users')
-
+  
   return collection.doc(fields.id).create({ id: fields.id })
 }
 
@@ -134,4 +134,12 @@ export const addUserInMedal = async (
   const userCollection = medal.ref.collection('users')
 
   return userCollection.doc(fields.id).set({ id: fields.id, expires_at: fields.expires_at })
+}
+
+export const getReward = async (client: He4rtClient) => {
+  const rewardsCollection = client.firestore.collection('rewards')
+  
+  const reward = await rewardsCollection.doc('4VA73aMLRsmyqQiMs3PM').get()
+  console.log(reward.data() as FirestoreReward)
+  return reward.data() as FirestoreReward
 }
