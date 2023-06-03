@@ -173,3 +173,13 @@ export const claimEventReward = async (client: He4rtClient, eventId: string, mem
   await updateEventReward(client, reward)
   return reward.data() as FirestoreReward
 }
+
+export const checkUserEventEntry = async (client: He4rtClient, {userId, eventId}): Promise<boolean> => {
+  const eventUserCollection = client.firestore.collection('users_event')
+
+  return await !!eventUserCollection
+    .where('event', '==', eventId)
+    .where('id', '==', userId)
+    .limit(1)
+    .get()
+}

@@ -150,25 +150,22 @@ export const useQuizEvent = (): Command => {
           await nextStringsData(dm, interaction)
 
           const channel = getChannel({ id: EVENT_CODING.id, client })
-          // await instace.post('https://localhost:7168/api/EventUser?api-version=1', {
-          //   fkEvent: 1,
-          //   fkUser: interaction.user.id,
-          // })
 
-          // const reward = await getReward()
+          const claimedReward = await claimEventReward(client, 'sadkaskdaskdmklam', interaction.user.id)
 
-          // await member.roles.add(reward.badge)
+          await member.roles.add(claimedReward.badge)
 
-          // let winnerMessage = CODING.REWARD_ANNOUNCE
-          // winnerMessage = winnerMessage.replace('{user}', `<@${interaction.user.id}>`)
-          // winnerMessage = winnerMessage.replace('{coins}', `${reward.he4rtCoin}`)
-          // winnerMessage = winnerMessage.replace('{exp}', `${reward.he4rtXp} XP`)
+          let winnerMessage = CODING.REWARD_ANNOUNCE
+          winnerMessage = winnerMessage
+            .replace('{user}', `<@${interaction.user.id}>`)
+            .replace('{exp}', `${claimedReward.he4rt_xp} XP`)
 
-          // reward.earned = true
-          // if (!reward.participantReward) await instace.put('https://localhost:7168/api/Reward/?api-version=1', reward)
-          // await channel?.send({
-          //   content: `👋 ${winnerMessage}`,
-          // })
+          if (claimedReward.place !== 'participant') {
+            await channel?.send({
+              content: `👋 ${winnerMessage}`,
+            })
+          }
+          
         })
         .catch(() => {})
         .finally(async () => {})
