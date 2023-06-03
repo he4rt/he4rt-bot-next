@@ -136,10 +136,40 @@ export const addUserInMedal = async (
   return userCollection.doc(fields.id).set({ id: fields.id, expires_at: fields.expires_at })
 }
 
-export const getReward = async (client: He4rtClient) => {
-  const rewardsCollection = client.firestore.collection('rewards')
+const addUserEvent = async (client: He4rtClient, {user, eventId}): Promise<void> => {
+  const collection = client.firestore.collection('users_event')
   
-  const reward = await rewardsCollection.doc('4VA73aMLRsmyqQiMs3PM').get()
-  console.log(reward.data() as FirestoreReward)
+  await collection.add({ id: user, event: eventId})
+}
+
+const updateEventReward = async (client: He4rtClient, reward: FirebaseFirestore.QueryDocumentSnapshot<FirebaseFirestore.DocumentData>): Promise<void> => {
+  const collection = client.firestore.collection('rewards')
+  const entity = defu({earned: true}, reward.data() as FirestoreReward)
+  
+  collection.doc(reward.id).set(entity)
+}
+
+const getReward = async (client: He4rtClient, eventId: string, place?: string) => {
+  const rewardsCollection = client.firestore.collection('rewards')
+
+  const query = place === 'participant'
+    ? await rewardsCollection.where('fk_event', '==', eventId).where('earned', '==', false).limit(1).get()
+    : await rewardsCollection.where('fk_event', '==', eventId).where('place', '==', 'participant').limit(1).get()
+
+
+  const reward = query.docs[0]
+  return reward
+}
+
+export const claimEventReward = async (client: He4rtClient, eventId: string, memberId: string) => {
+  const result = await getReward(client, eventId)
+
+  const avaliableReward = result.data() as FirestoreReward
+
+  const reward = avaliableReward.place === 'participant'
+    ? await getReward(client, eventId, 'participant') : result
+ 
+  await addUserEvent(client, { user: memberId, eventId })
+  await updateEventReward(client, reward)
   return reward.data() as FirestoreReward
 }

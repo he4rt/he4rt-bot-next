@@ -229,7 +229,7 @@ export interface FirestoreReward {
   he4rt_xp: number
   earned: boolean
   badge: string
-  participant_reward: boolean
+  place: string
   id: string
   fk_event: string
 }
