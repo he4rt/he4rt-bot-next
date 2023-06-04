@@ -41,7 +41,7 @@ import { useMedalAdd } from './medal/medal_add'
 import { useWatch } from './watch/watch_set'
 import { useWatchList } from './watch/watch_get'
 import { useWatchRemove } from './watch/watch_remove'
-import { useQuizEvent } from './event_coding'
+import { useQuizEvent } from './quiz_event'
 
 const registerHooks = (client: He4rtClient, commands: Command[]) => {
   commands.forEach(([data, cb]) => {

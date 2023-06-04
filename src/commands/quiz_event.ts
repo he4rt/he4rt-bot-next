@@ -54,8 +54,6 @@ const nextMultipleRoleSelection = async (
   await nextMultipleRoleSelection(roles, text, dm, member, interaction)
 }
 
-
-
 const nextStringsData = async (dm: DMChannel, interaction: CommandInteraction, client: He4rtClient, eventId: string): Promise<void> => {
   
   const quizzes = await getEventQuizzesById(client, eventId)
