@@ -1,17 +1,6 @@
 {
   "INTRO": "Nosso bot resolveu aprender sobre desenvolvimento e está dando seus primeiros passos com algoritimos, você está afim de ajudar nosso bot a resolver algumas questões? Se sim digite `/ajudar-bot` para iniciar esses desafios, toda ajuda é bem vinda e como recompensa você ganhará he4rt coins por participar e os três primeiros iram ganhar he4rt coins + experiência.",
-  "CONTINUE": "Muito obrgiado topar em ajudar!! No total temos 3 desafios para resolvermos, você poderá pedir dicas digitando `/hint` caso esteja com dificuldades e aqui vai o primeiro desafio...",
-  "QUESTION_1": {
-    "text": "Qual o resultado da seguinte equação? \n  (/ (+ 5 4 (- 2 (- 3 (+ 6 (/ 4 5))))) (* 3 (- 6 2)  /(- 2 7)))",
-    "answer": "-0.24666666666666667"
-  },
-  "QUESTION_2": {
-    "text": "Qual o resultado da segunda equação? \n (/ (+ 4 5 6 (/ 4 5) (- 2 3)) (* 3 (- 6 2) (- 2 7)))",
-    "answer": "-37/150"
-  },
-  "QUESTION_3": {
-    "text": "Resolva a seguinte equação de bhaskara dado o seguinte input: 0.0 20.0 5.0",
-    "answer": "não computa"
-  },
-  "REWARD_ANNOUNCE": "Parábens!!{user} Você conseguiu ajudar em todos os desafios e como recompensa você ganhou **{coins}** HCOINS e **{exp}** de experiência`!!!"
+  "CONTINUE": "Você topou o desafio!! No total temos 3 perguntas para você responder, você poderá pedir dicas digitando `!dica` caso esteja com dificuldades e aqui vai a primeira pergunta...",
+  "REWARD_ANNOUNCE": "Parábens!!{user} Você conseguiu responder todas as perguntas e como recompensa você ganhou **{exp}** de experiência!",
+  "REWARD_PARTICIPANT": "Parábens!! {user} Você conseguiu responder todas as perguntas e como recompensa você ganhou **{exp}** de experiência!"
 }

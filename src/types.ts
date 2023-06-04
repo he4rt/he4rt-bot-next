@@ -244,10 +244,9 @@ export interface FirestoreEvent {
 
 export interface FirestoreQuiz {
   tip: string
-  question: string
   answer: string
   has_next_question: boolean
-  id: string
   fk_event: number
-  title: string
+  title: string,
+  question: string
 }

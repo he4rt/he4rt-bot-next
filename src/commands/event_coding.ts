@@ -33,7 +33,7 @@ const nextMultipleRoleSelection = async (
     roles.reduce((acc, val, index) => (acc += `**${index + 1}**` + ` -   ${val.emoji} ${val.name}` + '\n'), '\n')
   )
   const myEmbed = embedTemplate({
-    title: 'Evento de código',
+    title: '',
     description: CODING.CONTINUE,
   })
 
@@ -58,23 +58,46 @@ const nextMultipleRoleSelection = async (
 
 const nextStringsData = async (dm: DMChannel, interaction: CommandInteraction, client: He4rtClient, eventId: string): Promise<void> => {
   
-  const questions = await getEventQuizzesById(client, eventId)
+  const quizzes = await getEventQuizzesById(client, eventId)
 
-  for (const question of questions) {
-    await dm.send({ embeds: [question] })
+  for (const quiz of quizzes) {
+    const embed = embedTemplate({ title: quiz.title, description: quiz.question })
+    await dm.send({ embeds: [embed] })
+
+    const embedWrongAnswer = embedTemplate({
+      title: 'Excelente tentativa, mas a resposta não está correta.',
+      description: 'Essa foi a resposta errada.',
+      color: '#FF0000'
+    })
+
+    const embedRightAnswer = embedTemplate({
+      title: 'Ótima resposta, aqui vai a próxima!',
+      description: `Respostas: **${quiz.answer}**`,
+      color: '#00FF00'
+    })
+
+    const embedTipQuestion = embedTemplate({
+      title: quiz.tip,
+      color: '#00FFFF'
+    })
+
+    const embedFinishedEvent = embedTemplate({
+      title: 'Parabéns!! você conseguiu concluir o evento🎉🎉🎉',
+    })
 
     async function retry() {
       const userInput = await nextTextMessage(dm, interaction)
-      if (userInput === '/hint') {
-        dm.send(`**${question.tip}**`)
+      if (userInput === '!dica') {
+        dm.send({embeds: [embedTipQuestion]})
         await retry()
-      } else if (userInput !== question.answer) {
-        dm.send('Resposta errada')
+      } else if (userInput !== quiz.answer) {
+        dm.send('💥')
+        dm.send({embeds: [embedWrongAnswer]})
         await retry()
-      } else if (!question.has_next_question) {
-        dm.send('Parabéns!! você conseguiu concluir o evento🎉🎉🎉')
+      } else if (!quiz.has_next_question) {
+        dm.send({ embeds: [embedFinishedEvent]})
       } else {
-        dm.send('**Próxima pergunta**')
+        dm.send({ embeds: [embedRightAnswer]})
       }
     }
 
@@ -84,7 +107,7 @@ const nextStringsData = async (dm: DMChannel, interaction: CommandInteraction, c
 
 const validateAccess = async (dm: DMChannel, interaction: CommandInteraction): Promise<boolean> => {
   const myEmbed = embedTemplate({
-    title: 'Evento de código',
+    title: 'Evento de programação',
     description: CODING.CONTINUE,
   })
   await sendInDM(dm, interaction, '', myEmbed)
@@ -122,6 +145,12 @@ export const useQuizEvent = (): Command => {
         return
       }
 
+      const places = {
+        first: 'Primeiro',
+        second: 'Segundo',
+        third: 'Terceiro',
+      }
+
       client.users
         .createDM(author)
         .then(async (dm) => {
@@ -142,9 +171,23 @@ export const useQuizEvent = (): Command => {
             .replace('{user}', `<@${interaction.user.id}>`)
             .replace('{exp}', `${claimedReward.he4rt_xp} XP`)
 
+          let participantMessage = CODING.REWARD_PARTICIPANT
+          participantMessage = participantMessage
+            .replace('{user}', `<@${interaction.user.id}>`)
+            .replace('{exp}', `${claimedReward.he4rt_xp} XP`)
+
+          const participantEmbed = embedTemplate({title: participantMessage})
+          
+          const winnerEmbed = embedTemplate({
+            title: `${interaction.user.tag} conseguiu concluir todas as respostas com sucesso!`,
+            description: `Como recompensa do ${places[claimedReward.place]} lugar ganhou **${claimedReward.he4rt_xp}** de experiência!`
+          })
+          if(claimedReward.place === 'participant')
+            await dm.send({ embeds: [(participantEmbed)]})
           if (claimedReward.place !== 'participant') {
             await channel?.send({
-              content: `👋 ${winnerMessage}`,
+              content: `👋`,
+              embeds: [winnerEmbed]
             })
           }
           
