@@ -1,12 +1,12 @@
 import { CommandInteraction, DMChannel, GuildMember, SlashCommandBuilder } from 'discord.js'
-import { Command } from '@/types'
+import { Command, He4rtClient } from '@/types'
 import { EVENT_CODING } from '@/defines/ids.json'
 import CODING from '-/commands/event_coding.json'
 import { START_CODE_CHALLENGE } from '@/defines/commands.json'
 import { TIMEOUT_ANSWER, TIMEOUT_COMMAND_STRING } from '@/defines/values.json'
 import { getChannel, isValidId, reply, sendInDM } from '@/utils'
 import { embedTemplate } from '@/utils'
-import { checkUserEventEntry, claimEventReward, getActiveEvent } from '@/http/firebase'
+import { checkUserEventEntry, claimEventReward, getActiveEvent, getEventQuizzesById } from '@/http/firebase'
 const nextTextMessage = async (dm: DMChannel, interaction: CommandInteraction): Promise<string> => {
   try {
     const result = await dm.awaitMessages({
@@ -51,49 +51,35 @@ const nextMultipleRoleSelection = async (
 
   if (value === 0) return
 
-  await dm.send('Voce erroou brother')
   await nextMultipleRoleSelection(roles, text, dm, member, interaction)
 }
 
 
 
-const nextStringsData = async (dm: DMChannel, interaction: CommandInteraction): Promise<void> => {
-  // const instace = axios.create({ httpsAgent: new https.Agent({ rejectUnauthorized: false }) })
+const nextStringsData = async (dm: DMChannel, interaction: CommandInteraction, client: He4rtClient, eventId: string): Promise<void> => {
+  
+  const questions = await getEventQuizzesById(client, eventId)
 
-  // const { data } = await instace.get<ApiResult<Quiz[]>>(
-  //   'http://localhost:5028/api/Quiz/get-all-by-event-id?eventId=1&api-version=1'
-  // )
+  for (const question of questions) {
+    await dm.send({ embeds: [question] })
 
-  // const embedQuestions = data.dataResult.map((question) => {
-  //   return {
-  //     title: question.title,
-  //     hint: question.tip,
-  //     description: question.question,
-  //     answer: question.answer,
-  //     nextQuestion: question.hasNextQuestion,
-  //   }
-  // })
+    async function retry() {
+      const userInput = await nextTextMessage(dm, interaction)
+      if (userInput === '/hint') {
+        dm.send(`**${question.tip}**`)
+        await retry()
+      } else if (userInput !== question.answer) {
+        dm.send('Resposta errada')
+        await retry()
+      } else if (!question.has_next_question) {
+        dm.send('Parabéns!! você conseguiu concluir o evento🎉🎉🎉')
+      } else {
+        dm.send('**Próxima pergunta**')
+      }
+    }
 
-  // for (const embedQuestion of embedQuestions) {
-  //   await dm.send({ embeds: [embedQuestion] })
-
-  //   async function retry() {
-  //     const userAnswer = await nextTextMessage(dm, interaction)
-  //     if (userAnswer === '/dica') {
-  //       dm.send(`**${embedQuestion.hint}**`)
-  //       await retry()
-  //     } else if (userAnswer !== embedQuestion.answer) {
-  //       dm.send('resposta errada')
-  //       await retry()
-  //     } else if (!embedQuestion.nextQuestion) {
-  //       dm.send('parabainsss 🎉🎉🎉🎉🎉🎉')
-  //     } else {
-  //       dm.send('próxima pergunta')
-  //     }
-  //   }
-
-  //   await retry()
-  // }
+    await retry()
+  }
 }
 
 const validateAccess = async (dm: DMChannel, interaction: CommandInteraction): Promise<boolean> => {
@@ -123,13 +109,13 @@ export const useQuizEvent = (): Command => {
       const author = interaction.user
       const member = interaction.member as GuildMember
 
-      const activeEvent = await getActiveEvent(client)
-      if (!activeEvent) {
+      const activeEventId = await getActiveEvent(client)
+      if (!activeEventId) {
         await reply(interaction).errorEventNotFound()
         return
       }
 
-      const isUserEligible = await checkUserEventEntry(client, { eventId: 'ognAHjTLGPO1XEqkBMk0', userId: interaction.user.id })
+      const isUserEligible = await checkUserEventEntry(client, { eventId: activeEventId, userId: interaction.user.id })
 
       if (!isUserEligible) {
         await reply(interaction).errorParticipantFail()
@@ -143,12 +129,12 @@ export const useQuizEvent = (): Command => {
 
           if (!valid) return
 
-          await nextStringsData(dm, interaction)
+          await nextStringsData(dm, interaction, client, activeEventId)
 
           const channel = getChannel({ id: EVENT_CODING.id, client })
 
-          const claimedReward = await claimEventReward(client, 'sadkaskdaskdmklam', interaction.user.id)
-
+          const claimedReward = await claimEventReward(client, activeEventId, interaction.user.id)
+          
           await member.roles.add(claimedReward.badge)
 
           let winnerMessage = CODING.REWARD_ANNOUNCE

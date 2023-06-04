@@ -198,3 +198,14 @@ export const getActiveEvent = async (client: He4rtClient) => {
 
   return '';
 }
+
+export const getEventQuizzesById = async (client: He4rtClient, eventId) => {
+  const quizzesCollection = client.firestore.collection('quizzes')
+
+  const query = await quizzesCollection
+    .where('fk_event', '==', eventId)
+    .get()
+
+  const questions = query.docs.map((doc) => doc.data());
+  return questions as FirestoreQuiz[]
+}
