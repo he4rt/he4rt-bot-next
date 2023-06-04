@@ -6,7 +6,7 @@ import { START_CODE_CHALLENGE } from '@/defines/commands.json'
 import { TIMEOUT_ANSWER, TIMEOUT_COMMAND_STRING } from '@/defines/values.json'
 import { getChannel, isValidId, reply, sendInDM } from '@/utils'
 import { embedTemplate } from '@/utils'
-import { claimEventReward } from '@/http/firebase'
+import { checkUserEventEntry, claimEventReward, getActiveEvent } from '@/http/firebase'
 const nextTextMessage = async (dm: DMChannel, interaction: CommandInteraction): Promise<string> => {
   try {
     const result = await dm.awaitMessages({
@@ -123,23 +123,19 @@ export const useQuizEvent = (): Command => {
       const author = interaction.user
       const member = interaction.member as GuildMember
 
-      const result = await claimEventReward(client, 'ognAHjTLGPO1XEqkBMk0', member.id)
-      console.log(result)
-      // const instace = axios.create({ httpsAgent: new https.Agent({ rejectUnauthorized: false }) })
-      // const { data } = await instace.get<ApiResult<null>>(
-      //   'https://localhost:7168/api/EventUser/check-user?userId=228956489690251264&api-version=1'
-      // )
-      // if (data.type.toUpperCase() === 'WARNING') {
-      //   await reply(interaction).errorParticipantFail()
-      //   return
-      // }
+      const activeEvent = await getActiveEvent(client)
+      if (!activeEvent) {
+        await reply(interaction).errorEventNotFound()
+        return
+      }
 
-      // const evt = await instace.get<ApiResult<Event>>('https://localhost:7168/api/Event/active-event?api-version=1')
+      const isUserEligible = await checkUserEventEntry(client, { eventId: 'ognAHjTLGPO1XEqkBMk0', userId: interaction.user.id })
 
-      // if (evt.data.type.toUpperCase() === 'NONE') {
-      //   await reply(interaction).errorEventNotFound()
-      //   return
-      // }
+      if (!isUserEligible) {
+        await reply(interaction).errorParticipantFail()
+        return
+      }
+
       client.users
         .createDM(author)
         .then(async (dm) => {
