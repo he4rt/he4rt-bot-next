@@ -146,9 +146,9 @@ export const useQuizEvent = (): Command => {
       }
 
       const places = {
-        first: 'Primeiro',
-        second: 'Segundo',
-        third: 'Terceiro',
+        first: 'primeiro',
+        second: 'segundo',
+        third: 'terceiro',
       }
 
       client.users
@@ -166,31 +166,21 @@ export const useQuizEvent = (): Command => {
           
           await member.roles.add(claimedReward.badge)
 
-          let winnerMessage = CODING.REWARD_ANNOUNCE
-          winnerMessage = winnerMessage
-            .replace('{user}', `<@${interaction.user.id}>`)
-            .replace('{exp}', `${claimedReward.he4rt_xp} XP`)
-
           let participantMessage = CODING.REWARD_PARTICIPANT
           participantMessage = participantMessage
-            .replace('{user}', `<@${interaction.user.id}>`)
+            .replace('{user}', `${author.username}`)
             .replace('{exp}', `${claimedReward.he4rt_xp} XP`)
 
           const participantEmbed = embedTemplate({title: participantMessage})
           
           const winnerEmbed = embedTemplate({
-            title: `${interaction.user.tag} conseguiu concluir todas as respostas com sucesso!`,
+            title: `${author.username} conseguiu responder todas as perguntas com sucesso!`,
             description: `Como recompensa do ${places[claimedReward.place]} lugar ganhou **${claimedReward.he4rt_xp}** de experiência!`
           })
-          if(claimedReward.place === 'participant')
-            await dm.send({ embeds: [(participantEmbed)]})
-          if (claimedReward.place !== 'participant') {
-            await channel?.send({
-              content: `👋`,
-              embeds: [winnerEmbed]
-            })
-          }
-          
+
+          claimedReward.place === 'participant'
+            ? await dm.send({ embeds: [(participantEmbed)]})
+            : await channel?.send({ embeds: [winnerEmbed] })         
         })
         .catch(() => {})
         .finally(async () => {})

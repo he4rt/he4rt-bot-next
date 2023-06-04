@@ -151,11 +151,14 @@ const updateEventReward = async (client: He4rtClient, reward: FirebaseFirestore.
 
 const getReward = async (client: He4rtClient, eventId: string, place?: string) => {
   const rewardsCollection = client.firestore.collection('rewards')
-
-  const query = place === 'participant'
+  const query = place !== 'participant'
     ? await rewardsCollection.where('fk_event', '==', eventId).where('earned', '==', false).limit(1).get()
-    : await rewardsCollection.where('fk_event', '==', eventId).where('place', '==', 'participant').limit(1).get()
-
+    : await rewardsCollection
+        .where('fk_event', '==', eventId)
+        .where('place', '==', 'participant')
+        .where('earned', '==', true)
+        .limit(1)
+        .get()
 
   const reward = query.docs[0]
   return reward
@@ -164,11 +167,8 @@ const getReward = async (client: He4rtClient, eventId: string, place?: string) =
 export const claimEventReward = async (client: He4rtClient, eventId: string, memberId: string) => {
   const result = await getReward(client, eventId)
 
-  const avaliableReward = result.data() as FirestoreReward
-
-  const reward = avaliableReward.place === 'participant'
-    ? await getReward(client, eventId, 'participant') : result
- 
+  const reward = result === undefined ? await getReward(client, eventId, 'participant') : result
+  
   await addUserEvent(client, { user: memberId, eventId })
   await updateEventReward(client, reward)
   return reward.data() as FirestoreReward
