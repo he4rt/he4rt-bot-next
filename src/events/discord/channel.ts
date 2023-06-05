@@ -5,13 +5,11 @@ import {
   MEETING_CHANNEL,
   MEETING_DELAS_CHANNEL,
   LEARNING_DIARY_CHANNEL,
-  ADVERTS_CHANNEL,
-  EVENT_CODING
+  ADVERTS_CHANNEL
 } from '@/defines/ids.json'
-import CODING_EVENT from '@/defines/localisation/commands/event_coding.json'
 import { HE4RT_EMOJI_ID } from '@/defines/ids.json'
-import { isAdministrator, isImageHTTPUrl, isValidProxyContent, js, embedTemplate } from '@/utils'
-import { ChannelType, GuildMember, Message, MessageType, TextBasedChannel } from 'discord.js'
+import { isAdministrator, isImageHTTPUrl, isValidProxyContent, js } from '@/utils'
+import { ChannelType, GuildMember, Message, MessageType } from 'discord.js'
 import { He4rtClient, MessagePOST } from '@/types'
 
 export const MessageListener = (client: He4rtClient, message: Message) => {
@@ -77,32 +75,6 @@ export const sendGoodMessagesInBusyChannels = (message: Message) => {
       message.reply({ content: `noite!` }).catch(() => {})
     } else if (content.match(/(boa madrugada)/gi) && currentPeriod(currentHour).dawn) {
       message.reply({ content: `boa madrugada!` }).catch(() => {})
-    }
-  }
-}
-
-export const sendStartQuizInBusyChannels = (message: Message) => {
-  const validChannels = [CHAT_CHANNEL, EVENT_CODING]
-
-  if (validChannels.some((v) => v.id === message.channel.id)) {
-    const isChatChannel = message.channel.id === CHAT_CHANNEL.id
-    const content = message.content.toLowerCase().trim()
-
-    const eventCodingChannel = message.channel.client.channels.cache.find((channel) => channel.id === EVENT_CODING.id)
-
-    const myEmbed = embedTemplate({
-      title: 'Evento de código',
-      description: CODING_EVENT.INTRO,
-      color: '#581c87',
-    })
-
-    if (content.length > 50 && isChatChannel) return
-
- 
-    if (content.match(/(iniciar quiz)/gi)) {
-      (<TextBasedChannel>eventCodingChannel).send({
-        embeds: [myEmbed],
-      })
     }
   }
 }

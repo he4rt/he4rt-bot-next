@@ -1,7 +1,7 @@
 import { CommandInteraction, DMChannel, GuildMember, SlashCommandBuilder } from 'discord.js'
 import { Command, He4rtClient } from '@/types'
-import { EVENT_CODING } from '@/defines/ids.json'
-import CODING from '-/commands/event_coding.json'
+import { QUIZ_EVENT } from '@/defines/ids.json'
+import QUIZ from '-/commands/quiz_event.json'
 import { START_CODE_CHALLENGE } from '@/defines/commands.json'
 import { TIMEOUT_ANSWER, TIMEOUT_COMMAND_STRING } from '@/defines/values.json'
 import { getChannel, isValidId, reply, sendInDM } from '@/utils'
@@ -34,7 +34,7 @@ const nextMultipleRoleSelection = async (
   )
   const myEmbed = embedTemplate({
     title: '',
-    description: CODING.CONTINUE,
+    description: QUIZ.CONTINUE,
   })
 
   await dm.send({ embeds: [myEmbed] })
@@ -108,7 +108,7 @@ const nextStringsData = async (dm: DMChannel, interaction: CommandInteraction, c
 const validateAccess = async (dm: DMChannel, interaction: CommandInteraction): Promise<boolean> => {
   const myEmbed = embedTemplate({
     title: 'Evento de programação',
-    description: CODING.CONTINUE,
+    description: QUIZ.CONTINUE,
   })
   await sendInDM(dm, interaction, '', myEmbed)
 
@@ -160,13 +160,13 @@ export const useQuizEvent = (): Command => {
 
           await nextStringsData(dm, interaction, client, activeEventId)
 
-          const channel = getChannel({ id: EVENT_CODING.id, client })
+          const channel = getChannel({ id: QUIZ_EVENT.id, client })
 
           const claimedReward = await claimEventReward(client, activeEventId, interaction.user.id)
           
           await member.roles.add(claimedReward.badge)
 
-          let participantMessage = CODING.REWARD_PARTICIPANT
+          let participantMessage = QUIZ.REWARD_PARTICIPANT
           participantMessage = participantMessage
             .replace('{user}', `${author.username}`)
             .replace('{exp}', `${claimedReward.he4rt_xp} XP`)
