@@ -85,10 +85,12 @@ const nextStringsData = async (dm: DMChannel, interaction: CommandInteraction, c
 
     async function retry() {
       const userInput = await nextTextMessage(dm, interaction)
+      const regex = new RegExp('\\b' + userInput.toLowerCase() + '\\b');
+
       if (userInput === '!dica') {
         dm.send({embeds: [embedTipQuestion]})
         await retry()
-      } else if (userInput !== quiz.answer) {
+      } else if (regex.test(quiz.answer.toLowerCase())) {
         dm.send('💥')
         dm.send({embeds: [embedWrongAnswer]})
         await retry()
