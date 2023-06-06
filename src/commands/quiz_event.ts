@@ -163,7 +163,7 @@ export const useQuizEvent = (): Command => {
           const channel = getChannel({ id: QUIZ_EVENT.id, client })
 
           const claimedReward = await claimEventReward(client, activeEventId, interaction.user.id)
-          
+
           await member.roles.add(claimedReward.badge)
 
           let participantMessage = QUIZ.REWARD_PARTICIPANT
@@ -178,9 +178,10 @@ export const useQuizEvent = (): Command => {
             description: `Como recompensa do ${places[claimedReward.place]} lugar ganhou **${claimedReward.he4rt_xp}** de experiência!`
           })
 
-          claimedReward.place === 'participant'
-            ? await dm.send({ embeds: [(participantEmbed)]})
-            : await channel?.send({ embeds: [winnerEmbed] })         
+          claimedReward.place !== 'participant'
+          ? channel.send({ embeds: [winnerEmbed] })
+          : dm.send({ embeds: [(participantEmbed)]})
+            
         })
         .catch(() => {})
         .finally(async () => {})

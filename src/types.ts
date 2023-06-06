@@ -19,6 +19,7 @@ import type { ClientBuilder } from 'uncreate'
 import admin from 'firebase-admin'
 import { Logger } from './client/logger'
 import { Ticker } from './client/ticker'
+import { Timestamp } from '@google-cloud/firestore'
 
 export type Maybe<T> = T | undefined | null
 export type RESTJson<T extends string | number | symbol = string, K = any> = Record<T, K>
@@ -235,8 +236,8 @@ export interface FirestoreReward {
 }
 
 export interface FirestoreEvent {
-  date_start: Date
-  date_end: Date
+  date_start: Timestamp
+  date_end: Timestamp
   description: string
   is_active: boolean
   id: string

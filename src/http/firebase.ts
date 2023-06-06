@@ -194,9 +194,7 @@ export const getActiveEvent = async (client: He4rtClient) => {
   .limit(1)
   .get()
 
-  if(!query.empty) return query.docs[0].id
-
-  return '';
+  return !query.empty ? query.docs[0].id : ''
 }
 
 export const getEventQuizzesById = async (client: He4rtClient, eventId) => {
@@ -208,4 +206,21 @@ export const getEventQuizzesById = async (client: He4rtClient, eventId) => {
 
   const questions = query.docs.map((doc) => doc.data());
   return questions as FirestoreQuiz[]
+}
+
+export const getEvents = async (client: He4rtClient) => {
+  const eventsCollection = client.firestore.collection('events')
+
+  const query = await eventsCollection
+    .get()
+
+  const events = query.docs.map((doc) => doc.data());   
+  return events as FirestoreEvent[]
+}
+
+export const updateEventStatus = async (client: He4rtClient, event: FirestoreEvent) => {
+  const collection = client.firestore.collection('events')
+  const entity = defu({is_active: !event.is_active}, event)
+  
+  collection.doc(event.id).set(entity)
 }

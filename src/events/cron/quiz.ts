@@ -1,17 +1,37 @@
+import { getEvents, updateEventStatus } from '@/http/firebase'
 import { He4rtClient } from '@/types'
-import { getGuild } from '@/utils'
-import { QUIZ_EVENT } from '@/defines/ids.json'
+import { embedTemplate, getChannel } from '@/utils'
 import { CronJob } from 'cron'
+import { QUIZ_EVENT } from '@/defines/ids.json'
 
-export const verifyEventCode = async (client: He4rtClient) => {
-  const guild = getGuild(client)
+export const everyQuizEvent = async (client: He4rtClient) => {
 
-  await new CronJob('*/10 * * * * *', async () => {
-    // TODO
-    // BUSCAR TODOS OS EVENTOS QUE A DATA FINAL SEJA SUPERIOR AO DIA DE HOJE
-    // AO TRAZER OS EVENTOS VERIFICAR SE A DATA INICIAL DO EVENTO É SUPERIOR AO DIA DE HOJE
-    // SE FOR SUPERIOR ALTERAR O STATUS ACTIVE PARA VERDADEIRO
-    // AO ATIVAR O EVENT ENVIAR MENSAGEM PARA O CANAL DE QUIZ INFORMANDO QUE O EVENTO ESTÁ DISPONÍVEL PARA PARTICIPAR
-    // QUANDO A DATA DE HOJE FOR SUPERIOR A DATA FINAL ALTERAR O STATUS DO EVENTO PARA INATIVO
+  await new CronJob('0 * * * *', async () => {
+    const events = await getEvents(client)
+    const today = new Date()
+
+    const currentEvent = events.reduce((result, event) => {
+      if (today >= event.date_start.toDate() && today <= event.date_end.toDate()) {
+        return event
+      }
+      return result
+    }, null)
+    
+
+    if(!currentEvent.is_active) {
+      updateEventStatus(client, currentEvent)
+      const chat = getChannel({ id: QUIZ_EVENT.id, client })
+      const embed = embedTemplate({
+        title: 'Novo evento de Q&A disponível 👋',
+        description: `@everyone ${currentEvent.description}`
+      })
+      await chat.send({ embeds: [embed] })
+    }
+
+    events.forEach((event) => {
+      if(event.is_active && event.date_end.toDate() < today) {
+        updateEventStatus(client, event)
+      }
+    })
   }).start()
 }
