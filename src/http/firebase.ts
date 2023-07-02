@@ -142,11 +142,11 @@ const addUserEvent = async (client: He4rtClient, {user, eventId}): Promise<void>
   await collection.add({ id: user, event: eventId})
 }
 
-const updateEventReward = async (client: He4rtClient, reward: FirebaseFirestore.QueryDocumentSnapshot<FirebaseFirestore.DocumentData>): Promise<void> => {
+const updateEventReward = async (client: He4rtClient, reward: FirebaseFirestore.QueryDocumentSnapshot<FirebaseFirestore.DocumentData>) => {
   const collection = client.firestore.collection('rewards')
   const entity = defu({earned: true}, reward.data() as FirestoreReward)
   
-  collection.doc(reward.id).set(entity)
+  return collection.doc(reward.id).set(entity)
 }
 
 const getReward = async (client: He4rtClient, eventId: string, place?: string) => {
@@ -222,5 +222,5 @@ export const updateEventStatus = async (client: He4rtClient, event: FirestoreEve
   const collection = client.firestore.collection('events')
   const entity = defu({is_active: !event.is_active}, event)
   
-  collection.doc(event.id).set(entity)
+  return collection.doc(event.id).set(entity)
 }

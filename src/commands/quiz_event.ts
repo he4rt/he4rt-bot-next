@@ -1,9 +1,9 @@
-import { CommandInteraction, DMChannel, GuildMember, SlashCommandBuilder } from 'discord.js'
+import { CommandInteraction, DMChannel, GuildMember, HexColorString, SlashCommandBuilder } from 'discord.js'
 import { Command, He4rtClient } from '@/types'
 import { QUIZ_EVENT } from '@/defines/ids.json'
 import QUIZ from '-/commands/quiz_event.json'
 import { START_CODE_CHALLENGE } from '@/defines/commands.json'
-import { TIMEOUT_ANSWER, TIMEOUT_COMMAND_STRING } from '@/defines/values.json'
+import { TIMEOUT_ANSWER, TIMEOUT_COMMAND_STRING, COLORS } from '@/defines/values.json'
 import { getChannel, isValidId, reply, sendInDM } from '@/utils'
 import { embedTemplate } from '@/utils'
 import { checkUserEventEntry, claimEventReward, getActiveEvent, getEventQuizzesById } from '@/http/firebase'
@@ -65,18 +65,18 @@ const nextStringsData = async (dm: DMChannel, interaction: CommandInteraction, c
     const embedWrongAnswer = embedTemplate({
       title: 'Excelente tentativa, mas a resposta não está correta.',
       description: 'Essa foi a resposta errada.',
-      color: '#FF0000'
+      color: COLORS.ERROR as HexColorString
     })
 
     const embedRightAnswer = embedTemplate({
       title: 'Ótima resposta, aqui vai a próxima!',
       description: `Respostas: **${quiz.answer}**`,
-      color: '#00FF00'
+      color: COLORS.SUCCESS as HexColorString
     })
 
     const embedTipQuestion = embedTemplate({
       title: quiz.tip,
-      color: '#00FFFF'
+      color: COLORS.TIP_ANSWER as HexColorString
     })
 
     const embedFinishedEvent = embedTemplate({
