@@ -15,7 +15,7 @@ export const manageBreakfast = async (client: He4rtClient) => {
     })
 
     const parent = getChannel<CategoryChannel>({ client, id: BREAKFAST_CATEGORY_CHANNEL.id })
-
+    
     const voice = await guild.channels.create({
       name: `☕ Café da Manhã - 6h/11h`,
       type: ChannelType.GuildVoice,
@@ -24,7 +24,7 @@ export const manageBreakfast = async (client: He4rtClient) => {
     })
 
     setTimeout(async () => {
-      await voice.send(`${getTaggedMembers(parent.members.map((m) => m.id))} O canal de voz será deletado daqui um minuto!`).catch(() => {})
+      await voice.send(`${getTaggedMembers(voice.members.map((m) => m.id))} O canal de voz será deletado daqui um minuto!`).catch(() => {})
 
       setTimeout(async () => {
         await voice.delete().catch(() => {})
