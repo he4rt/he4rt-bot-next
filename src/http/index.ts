@@ -1,10 +1,10 @@
 import { createClient } from 'uncreate'
-import JSON_PARSE from 'destr'
+import { destr } from 'destr'
 import firebase_admin from '../../firebase_admin.json'
 import firebase from 'firebase-admin'
 
 export const HE4RT = createClient({
-  parseResponse: JSON_PARSE,
+  parseResponse: destr,
   baseURL: `${process.env.HE4RT_URL}/api/`,
   headers: {
     'X-He4rt-Authorization': process.env.HE4RT_TOKEN,
@@ -12,7 +12,7 @@ export const HE4RT = createClient({
 })
 
 export const APOIASE = createClient({
-  parseResponse: JSON_PARSE,
+  parseResponse: destr,
   baseURL: process.env.APOIASE_URL,
   retry: 3,
   headers: {
