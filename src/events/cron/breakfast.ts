@@ -7,7 +7,7 @@ import { CategoryChannel, ChannelType } from 'discord.js'
 export const manageBreakfast = async (client: He4rtClient) => {
   const guild = getGuild(client)
 
-  await new CronJob('0 6 * * *', async () => {
+  await new CronJob('0 0 6 * * *', async () => {
     client.logger.emit({
       type: 'event',
       color: 'info',
