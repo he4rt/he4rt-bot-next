@@ -1,6 +1,6 @@
 import { He4rtClient } from '@/types'
 import { getChannel, getGuild, getTaggedMembers } from '@/utils'
-import { BREAKFAST_CATEGORY_CHANNEL } from '@/defines/ids.json'
+import { DYNAMIC_CATEGORY_CHANNEL } from '@/defines/ids.json'
 import { CronJob } from 'cron'
 import { CategoryChannel, ChannelType } from 'discord.js'
 
@@ -14,7 +14,7 @@ export const manageBreakfast = async (client: He4rtClient) => {
       message: '`CronJob 0 6 * * *` **do canal da manhã iniciado!**',
     })
 
-    const parent = getChannel<CategoryChannel>({ client, id: BREAKFAST_CATEGORY_CHANNEL.id })
+    const parent = getChannel<CategoryChannel>({ client, id: DYNAMIC_CATEGORY_CHANNEL.id })
     
     const voice = await guild.channels.create({
       name: `☕ Café da Manhã - 6h/11h`,
