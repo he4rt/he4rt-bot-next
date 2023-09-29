@@ -20,11 +20,11 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "cron": "^2.4.1",
+    "cron": "^2.4.4",
     "defu": "^6.1.2",
     "destr": "^2.0.1",
     "discord.js": "^14.13.0",
-    "firebase-admin": "^11.10.1",
+    "firebase-admin": "^11.11.0",
     "uncreate": "^0.9.3"
   },
   "devDependencies": {
