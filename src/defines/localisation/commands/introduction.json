@@ -10,7 +10,7 @@
     "GIT": "> **Qual é seu Git?** (Exemplo: https://github.com/DanielHe4rt)",
     "LINKEDIN": "> **Qual é seu Linkedin?** (Exemplo: https://br.linkedin.com/in/danielheart)",
     "UF": ">  **Qual é o seu estado?**\n",
-    "LANGUAGES": "> **Linguagens?** (Digite o número designado para a linguagem que queira receber um cargo no servidor)\n\n",
+    "LANGUAGES": "> **Linguagens?** (Digite o número designado para a linguagem que queira receber um cargo no servidor) **ATENÇÃO! Digite um número por vez!**\n\n",
     "ENGLISH": "> **Nível de Inglês?**",
     "DELAS": "**Você se identifica como parte do projeto @💗 He4rt Delas(ela/dela)?**\n\n ⚠️ (Espaço restrito para mulheres e pessoas não-binárias, caso você **digite 1** sem se identificar ou desrespeite este espaço = banimento)\n\n"
   },
