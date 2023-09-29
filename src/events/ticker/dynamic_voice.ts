@@ -26,33 +26,32 @@ export const setDynamicVoice = (client: He4rtClient) => {
       channels.forEach(async ([_, channel]) => {
         if (channel.parentId !== category.id) return
 
-        if (DYNAMIC_VOICE_IGNORABLE_CHANNELS.some(i => i === channel.name)) return
-
-        const targets = [...(channel.members as Collection<string, GuildMember>)]
-
-        const actuallyTime = new Date().valueOf()
-        const expirationLimitTime = new Date(channel.createdAt).valueOf() + DYNAMIC_VOICE_INVITE_LIMIT_TIME
-
-        const debounceTime = actuallyTime > expirationLimitTime
-
-        if (targets.length === 0 && debounceTime) {
-
-          channel
-            .delete()
-            .then(() => {
-              client.logger.emit({
-                message: `O canal de voz dinâmico **${channel.id}** foi deletado automaticamente com sucesso!`,
-                type: 'command',
-                color: 'info',
+        if (!DYNAMIC_VOICE_IGNORABLE_CHANNELS.some(i => i === channel.name)) {
+          const targets = [...(channel.members as Collection<string, GuildMember>)]
+  
+          const actuallyTime = new Date().valueOf()
+          const expirationLimitTime = new Date(channel.createdAt).valueOf() + DYNAMIC_VOICE_INVITE_LIMIT_TIME
+  
+          const debounceTime = actuallyTime > expirationLimitTime
+  
+          if (targets.length === 0 && debounceTime) {
+            channel
+              .delete()
+              .then(() => {
+                client.logger.emit({
+                  message: `O canal de voz dinâmico **${channel.id}** foi deletado automaticamente com sucesso!`,
+                  type: 'command',
+                  color: 'info',
+                })
               })
-            })
-            .catch(() => {
-              client.logger.emit({
-                message: `O canal de voz dinâmico **${channel.id}** não foi deletado!`,
-                type: 'command',
-                color: 'error',
+              .catch(() => {
+                client.logger.emit({
+                  message: `O canal de voz dinâmico **${channel.id}** não foi deletado!`,
+                  type: 'command',
+                  color: 'error',
+                })
               })
-            })
+          }
         }
       })
     }
