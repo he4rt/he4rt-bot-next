@@ -2,7 +2,7 @@ import { He4rtClient } from '@/types'
 import { getChannel, getGuild, getTaggedMembers } from '@/utils'
 import { DYNAMIC_CATEGORY_CHANNEL } from '@/defines/ids.json'
 import { CronJob } from 'cron'
-import { CategoryChannel, ChannelType, range } from 'discord.js'
+import { CategoryChannel, ChannelType } from 'discord.js'
 
 export const manageBreakfast = async (client: He4rtClient) => {
   const guild = getGuild(client)
