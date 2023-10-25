@@ -4,7 +4,7 @@ import { useAnnounce } from './announce'
 import { useBan } from './ban'
 import { useColor } from './color'
 import { useDaily } from './daily'
-import { useIntroduction } from './introduction'
+import { resolveIntroduceCommandButtonEvents, useIntroduction } from './introduction'
 import { useProfileGet } from './profile/profile_get'
 import { useRanking } from './ranking'
 import { useUnban } from './unban'
@@ -116,4 +116,5 @@ export const commandsListener = (client: He4rtClient, interaction: CommandIntera
 
 export const buttonListener = async (client: He4rtClient, interaction: ButtonInteraction) => {
   await resolveJudgeCommandButtonEvents(client, interaction)
+  await resolveIntroduceCommandButtonEvents(client, interaction)
 }

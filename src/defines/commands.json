@@ -3,6 +3,10 @@
     "TITLE": "apresentar",
     "DESCRIPTION": "Se apresente para os membros de nossa comunidade e ganhe cargos!"
   },
+  "SUGGEST_INTRODUCE": {
+    "TITLE": "pedir-apresentar",
+    "DESCRIPTION": "Sugira alguém à se apresentar com um botão de fácil acesso."
+  },
   "ANNOUNCE": {
     "TITLE": "anunciar",
     "DESCRIPTION": "ADM: Anuncie no canal de anúncios com o uso do everyone automático."

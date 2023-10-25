@@ -24,5 +24,10 @@
     "LANGUAGES": "**Linguagens:**",
     "ENGLISH": "**Nível de Inglês:**"
   },
-  "FINISH": "**Sua apresentação foi concluída com sucesso!**"
+  "FINISH": "**Sua apresentação foi concluída com sucesso!**",
+  "STICKY": {
+    "TITLE": "Ainda não se apresentou?",
+    "DESCRIPTION": "Clique no botão abaixo e se apresente! **O nosso bot te mandará uma DM.**\n\nAo se apresentar, você ganha acesso aos diversos canais da He4rt.",
+    "CALL_TO_ACTION": "Apresentar"
+  }
 }
