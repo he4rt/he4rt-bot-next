@@ -12,6 +12,7 @@ import {
   bussinOrCap,
   MessageListener,
   reactMessagesInDepositionsChannel,
+  deletePinningMessagesInPresentationChannel,
 } from './channel'
 import { setMemberIsAPrivilegedOrNot, setMemberIsANitroOrNot, userBoostingServerMessage } from './role'
 import { removeUserMuteInLeavePomodoro } from './voice'
@@ -45,6 +46,7 @@ export const discordEvents = async (client: He4rtClient) => {
 
   client.on(Events.MessageCreate, (message) => {
     reactAnnouncesInAdvertsChannel(message)
+    deletePinningMessagesInPresentationChannel(message)
 
     if (isBot(message.author)) return
 
