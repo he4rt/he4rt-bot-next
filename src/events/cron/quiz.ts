@@ -18,7 +18,7 @@ export const verifyQuizEvent = async (client: He4rtClient) => {
     }, null)
     
 
-    if(!currentEvent.is_active) {
+    if (!currentEvent.is_active) {
       updateEventStatus(client, currentEvent)
       const chat = getChannel({ id: QUIZ_EVENT.id, client })
       const embed = embedTemplate({
@@ -29,7 +29,7 @@ export const verifyQuizEvent = async (client: He4rtClient) => {
     }
 
     events.forEach((event) => {
-      if(event.is_active && event.date_end.toDate() < today) {
+      if (event.is_active && event.date_end.toDate() < today) {
         updateEventStatus(client, event)
       }
     })

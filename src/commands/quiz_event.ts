@@ -4,9 +4,12 @@ import { QUIZ_EVENT } from '@/defines/ids.json'
 import QUIZ from '-/commands/quiz_event.json'
 import { START_CODE_CHALLENGE } from '@/defines/commands.json'
 import { TIMEOUT_ANSWER, TIMEOUT_COMMAND_STRING, COLORS } from '@/defines/values.json'
-import { getChannel, isValidId, reply, sendInDM } from '@/utils'
+import { getChannel, reply, sendInDM } from '@/utils'
 import { embedTemplate } from '@/utils'
 import { checkUserEventEntry, claimEventReward, getActiveEvent, getEventQuizzesById } from '@/http/firebase'
+
+const HINT_COMMMAND = '!dica'
+
 const nextTextMessage = async (dm: DMChannel, interaction: CommandInteraction): Promise<string> => {
   try {
     const result = await dm.awaitMessages({
@@ -16,7 +19,7 @@ const nextTextMessage = async (dm: DMChannel, interaction: CommandInteraction): 
     })
 
     return result.first()!.content
-  } catch (e) {
+  } catch {
     return TIMEOUT_COMMAND_STRING
   }
 }
@@ -38,19 +41,6 @@ const nextMultipleRoleSelection = async (
   })
 
   await dm.send({ embeds: [myEmbed] })
-
-  const value = Number(await nextTextMessage(dm, interaction))
-
-  if (isValidId(value, roles)) {
-    member.roles.add(roles[value - 1].id)
-
-    await nextMultipleRoleSelection(roles, text, dm, member, interaction)
-
-    return
-  }
-
-  if (value === 0) return
-
   await nextMultipleRoleSelection(roles, text, dm, member, interaction)
 }
 
@@ -62,46 +52,39 @@ const nextStringsData = async (dm: DMChannel, interaction: CommandInteraction, c
     const embed = embedTemplate({ title: quiz.title, description: quiz.question })
     await dm.send({ embeds: [embed] })
 
-    const embedWrongAnswer = embedTemplate({
-      title: 'Excelente tentativa, mas a resposta não está correta.',
-      description: 'Essa foi a resposta errada.',
-      color: COLORS.ERROR as HexColorString
-    })
+    const wrongResponse = createEmbedResponse(COLORS.ERROR as HexColorString, 'Excelente tentativa, mas a resposta não está correta.', 'Essa foi a resposta errada.')
+    const rightResponse = createEmbedResponse(COLORS.SUCCESS as HexColorString, 'Ótima resposta, aqui vai a próxima!', `Respostas: **${quiz.answer}**`)
+    const hintResponse = createEmbedResponse(COLORS.HINT_ANSWER as HexColorString, quiz.tip)
+    const finishEventResponse = createEmbedResponse(null, 'Parabéns!! você conseguiu concluir o evento🎉🎉🎉')
 
-    const embedRightAnswer = embedTemplate({
-      title: 'Ótima resposta, aqui vai a próxima!',
-      description: `Respostas: **${quiz.answer}**`,
-      color: COLORS.SUCCESS as HexColorString
-    })
 
-    const embedTipQuestion = embedTemplate({
-      title: quiz.tip,
-      color: COLORS.TIP_ANSWER as HexColorString
-    })
-
-    const embedFinishedEvent = embedTemplate({
-      title: 'Parabéns!! você conseguiu concluir o evento🎉🎉🎉',
-    })
-
-    async function retry() {
+    async function handleUserInput() {
       const userInput = await nextTextMessage(dm, interaction)
       const regex = new RegExp('\\b' + userInput.toLowerCase() + '\\b');
 
-      if (userInput === '!dica') {
-        dm.send({embeds: [embedTipQuestion]})
-        await retry()
-      } else if (regex.test(quiz.answer.toLowerCase())) {
-        dm.send('💥')
-        dm.send({embeds: [embedWrongAnswer]})
-        await retry()
-      } else if (!quiz.has_next_question) {
-        dm.send({ embeds: [embedFinishedEvent]})
-      } else {
-        dm.send({ embeds: [embedRightAnswer]})
+      const inputResult = userInput === HINT_COMMMAND ? 'hint'
+        : !regex.test(quiz.answer.toLowerCase()) ? 'retry'
+        : quiz.has_next_question ? 'continue' : 'finished'
+      
+        const actions = {
+        hint: () => dm.send({embeds: [hintResponse]}),
+        retry: () => {
+          dm.send('💥')
+          dm.send({embeds: [wrongResponse]})
+        },
+        continue: () => dm.send({ embeds: [rightResponse]}),
+        finished: () => dm.send({ embeds: [finishEventResponse]})
       }
+
+      const result = actions[inputResult] || actions.finished
+      result()
+
+      if(inputResult === 'hint' || inputResult === 'retry')
+        await handleUserInput()
+
     }
 
-    await retry()
+    await handleUserInput()
   }
 }
 
@@ -186,3 +169,9 @@ export const useQuizEvent = (): Command => {
     },
   ]
 }
+
+const createEmbedResponse = (color: HexColorString, title: string, description?: string) => embedTemplate({
+    title,
+    description,
+    color
+})

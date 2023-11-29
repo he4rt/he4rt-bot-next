@@ -92,7 +92,6 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useWatchList(),
     useWatchRemove(),
     useQuizEvent()
-    // useReputation()
   ])
 
   await rest.put(Routes.applicationGuildCommands(process.env.DISCORD_CLIENT_ID, process.env.DISCORD_GUILD_ID), {
@@ -101,12 +100,12 @@ export const registerCommands = async ({ client, rest }: Context) => {
 }
 
 export const commandsListener = (client: He4rtClient, interaction: CommandInteraction) => {
-  for (const [key, cb] of client.commands) {
-    if (key.name === interaction.commandName) {
-      cb && cb(interaction, client)
+  for (const [commandSet, commandCallBack] of client.commands) {
+    if (commandSet.name === interaction.commandName) {
+      commandCallBack && commandCallBack(interaction, client)
 
       client.logger.emit({
-        message: `${getTargetMember(interaction.member as GuildMember)} acionou **/${key.name}** no canal **${
+        message: `${getTargetMember(interaction.member as GuildMember)} acionou **/${commandSet.name}** no canal **${
           interaction.channel.name
         }**`,
         type: 'command',

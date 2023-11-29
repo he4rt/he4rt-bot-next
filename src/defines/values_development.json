@@ -14,7 +14,7 @@
     "ERROR": "#C90B04",
     "WARNING": "#FFD421",
     "INFO": "#7291FA",
-    "TIP_ANSWER": "#00FFFF"
+    "HINT_ANSWER": "#00FFFF"
   },
   "RESTRICTED_CUSTOM_ROLE_COLORS": [
     "#313335",

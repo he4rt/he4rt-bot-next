@@ -22,7 +22,6 @@ export const MessageListener = (client: He4rtClient, message: Message) => {
   client.api.he4rt
     .messages()
     .discord.post<MessagePOST>({
-      // provider_message_parent_id: message.parentId
       provider_id: member.id,
       provider_message_id: message.id,
       channel_id: message.channelId,
