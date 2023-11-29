@@ -80,10 +80,6 @@
     "id": "1051348602259251250",
     "title": "🏆|voluntários"
   },
-  "QUIZ_EVENT": {
-    "id": "1050944705610911774",
-    "name": "evento_q&a"
-  },
   "VALID_PRESENTATION_DEV_ROLES": [
     {
       "id": "550411669084569602",
@@ -119,6 +115,11 @@
       "id": "540995627559944207",
       "name": "Ruby",
       "emoji": "💎"
+    },
+    {
+      "id": "1136369892736647359",
+      "name": "Crystal",
+      "emoji": "🖤"
     },
     {
       "id": "541021498064896000",
@@ -361,5 +362,9 @@
     "name": "Não Resolvido"
   },
   "HE4RT_EMOJI_ID": "<:he4rt:1051194598891991141>",
-  "HE4RT_DELAS_EMOJI_ID": "<:he4rtDelas:1051983616437145610>"
+  "HE4RT_DELAS_EMOJI_ID": "<:he4rtDelas:1051983616437145610>",
+  "QUIZ_EVENT": {
+    "id": "1050944705610911774",
+    "name": "evento_q&a"
+  }
 }
