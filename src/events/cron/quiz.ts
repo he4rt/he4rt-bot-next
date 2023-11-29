@@ -4,9 +4,9 @@ import { embedTemplate, getChannel } from '@/utils'
 import { CronJob } from 'cron'
 import { QUIZ_EVENT } from '@/defines/ids.json'
 
-export const everyQuizEvent = async (client: He4rtClient) => {
+export const verifyQuizEvent = async (client: He4rtClient) => {
 
-  await new CronJob('0 * * * *', async () => {
+  await new CronJob('0 2 * * *', async () => {
     const events = await getEvents(client)
     const today = new Date()
 

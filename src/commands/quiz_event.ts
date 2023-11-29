@@ -161,9 +161,7 @@ export const useQuizEvent = (): Command => {
           await nextStringsData(dm, interaction, client, activeEventId)
 
           const channel = getChannel({ id: QUIZ_EVENT.id, client })
-
           const claimedReward = await claimEventReward(client, activeEventId, interaction.user.id)
-
           await member.roles.add(claimedReward.badge)
 
           let participantMessage = QUIZ.REWARD_PARTICIPANT
