@@ -51,6 +51,7 @@ export type He4rtClient = Client<boolean> & {
   api: {
     he4rt: ClientBuilder
     apoiase: ClientBuilder
+    gif: ClientBuilder
   }
 }
 
@@ -187,6 +188,20 @@ export interface FeedbackCreatePOST extends RESTJson {
 export interface FeedbackReviewPOST extends RESTJson {
   message: string
 }
+
+export interface GifGET extends RESTJson {
+  results: Gif[]
+  next: string
+}
+
+interface Gif {
+  id: string,
+  title: string,
+  content_description: string,
+  itemurl: string,
+  url: string
+}
+
 
 export interface RankingMember extends UserLevelXP {
   nickname?: string

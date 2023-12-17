@@ -1,7 +1,7 @@
 import { Client, Collection, GatewayIntentBits, Options, REST } from 'discord.js'
 import { Context, He4rtClient } from './types'
 import { registerCommands } from './commands'
-import { HE4RT, APOIASE, FIRESTORE } from './http'
+import { HE4RT, APOIASE, FIRESTORE, GIF } from './http'
 import { Ticker } from './client/ticker'
 import { Logger } from './client/logger'
 
@@ -26,6 +26,7 @@ export const runner = async (): Promise<Context> => {
   client.api = {
     he4rt: HE4RT,
     apoiase: APOIASE,
+    gif: GIF
   }
 
   const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN)

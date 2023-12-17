@@ -30,3 +30,8 @@ const FIREBASE = firebase.initializeApp({
 })
 
 export const FIRESTORE = FIREBASE.firestore()
+
+export const GIF = createClient({
+  parseResponse: JSON_PARSE,
+  baseURL: `${process.env.TENOR_URL}`,
+})
