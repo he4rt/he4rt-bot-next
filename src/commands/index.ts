@@ -4,7 +4,7 @@ import { useAnnounce } from './announce'
 import { useBan } from './ban'
 import { useColor } from './color'
 import { useDaily } from './daily'
-import { useIntroduction } from './introduction'
+import { resolveIntroduceCommandButtonEvents, useIntroduction } from './introduction'
 import { useProfileGet } from './profile/profile_get'
 import { useRanking } from './ranking'
 import { useUnban } from './unban'
@@ -41,6 +41,7 @@ import { useMedalAdd } from './medal/medal_add'
 import { useWatch } from './watch/watch_set'
 import { useWatchList } from './watch/watch_get'
 import { useWatchRemove } from './watch/watch_remove'
+import { useSuggestIntroduction } from './suggest_introduction'
 
 const registerHooks = (client: He4rtClient, commands: Command[]) => {
   commands.forEach(([data, cb]) => {
@@ -90,7 +91,7 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useWatch(),
     useWatchList(),
     useWatchRemove(),
-    // useReputation()
+    useSuggestIntroduction()
   ])
 
   await rest.put(Routes.applicationGuildCommands(process.env.DISCORD_CLIENT_ID, process.env.DISCORD_GUILD_ID), {
@@ -116,4 +117,5 @@ export const commandsListener = (client: He4rtClient, interaction: CommandIntera
 
 export const buttonListener = async (client: He4rtClient, interaction: ButtonInteraction) => {
   await resolveJudgeCommandButtonEvents(client, interaction)
+  await resolveIntroduceCommandButtonEvents(client, interaction)
 }

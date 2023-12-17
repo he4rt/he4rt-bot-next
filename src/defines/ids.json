@@ -4,6 +4,10 @@
     "id": "958175169359265802",
     "title": "depoimentos-he4rt"
   },
+  "BREAKFAST_CATEGORY_CHANNEL": {
+    "id": "1051218990174838814",
+    "title": "Canal de Categoria"
+  },
   "DYNAMIC_CATEGORY_CHANNEL": {
     "id": "1051218990174838814",
     "title": "Voz Dinâmica"
@@ -135,6 +139,11 @@
       "id": "1043325810347606056",
       "name": "Rust",
       "emoji": "r"
+    },
+    {
+      "id": "1161119383872082090",
+      "name": "Golang",
+      "emoji": "🦫"
     },
     {
       "id": "547606728179449895",

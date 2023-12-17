@@ -1,0 +1,8 @@
+{
+  "OPTIONS_MEMBER": "Pessoa para se apresentar",
+  "CALL_TO_ACTION": "Apresentar",
+  "EMBED": {
+    "TITLE": "Fale um pouco de você para a comunidade, ${user}!",
+    "DESCRIPTION": "Clique no botão abaixo para se apresentar, o nosso bot te enviará uma DM! Ao se apresentar, você ganha acesso aos diversos canais da He4rt."
+  }
+}

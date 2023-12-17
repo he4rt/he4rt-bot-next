@@ -75,5 +75,8 @@
     { "name": "UI|UX", "value": 16 },
     { "name": "SoftSkills", "value": 17 }
   ],
+  "DYNAMIC_VOICE_IGNORABLE_CHANNELS": [
+    "☕ Café da Manhã - 6h/11h"
+  ],
   "EXTENDED_PROFILE_LINK": "https://heartdevs.com/p/"
 }

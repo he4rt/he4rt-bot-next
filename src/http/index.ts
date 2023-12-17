@@ -1,5 +1,5 @@
 import { createClient } from 'uncreate'
-import JSON_PARSE from 'destr'
+import { destr as JSON_PARSE } from 'destr'
 import firebase_admin from '../../firebase_admin.json'
 import firebase from 'firebase-admin'
 
