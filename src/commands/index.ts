@@ -41,6 +41,7 @@ import { useMedalAdd } from './medal/medal_add'
 import { useWatch } from './watch/watch_set'
 import { useWatchList } from './watch/watch_get'
 import { useWatchRemove } from './watch/watch_remove'
+import { useQuizEvent } from './quiz_event'
 
 const registerHooks = (client: He4rtClient, commands: Command[]) => {
   commands.forEach(([data, cb]) => {
@@ -90,7 +91,7 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useWatch(),
     useWatchList(),
     useWatchRemove(),
-    // useReputation()
+    useQuizEvent()
   ])
 
   await rest.put(Routes.applicationGuildCommands(process.env.DISCORD_CLIENT_ID, process.env.DISCORD_GUILD_ID), {
@@ -99,12 +100,12 @@ export const registerCommands = async ({ client, rest }: Context) => {
 }
 
 export const commandsListener = (client: He4rtClient, interaction: CommandInteraction) => {
-  for (const [key, cb] of client.commands) {
-    if (key.name === interaction.commandName) {
-      cb && cb(interaction, client)
+  for (const [commandSet, commandCallBack] of client.commands) {
+    if (commandSet.name === interaction.commandName) {
+      commandCallBack && commandCallBack(interaction, client)
 
       client.logger.emit({
-        message: `${getTargetMember(interaction.member as GuildMember)} acionou **/${key.name}** no canal **${
+        message: `${getTargetMember(interaction.member as GuildMember)} acionou **/${commandSet.name}** no canal **${
           interaction.channel.name
         }**`,
         type: 'command',

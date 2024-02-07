@@ -5,7 +5,7 @@ import {
   MEETING_CHANNEL,
   MEETING_DELAS_CHANNEL,
   LEARNING_DIARY_CHANNEL,
-  ADVERTS_CHANNEL,
+  ADVERTS_CHANNEL
 } from '@/defines/ids.json'
 import { HE4RT_EMOJI_ID } from '@/defines/ids.json'
 import { isAdministrator, isImageHTTPUrl, isValidProxyContent, js } from '@/utils'
@@ -22,7 +22,6 @@ export const MessageListener = (client: He4rtClient, message: Message) => {
   client.api.he4rt
     .messages()
     .discord.post<MessagePOST>({
-      // provider_message_parent_id: message.parentId
       provider_id: member.id,
       provider_message_id: message.id,
       channel_id: message.channelId,

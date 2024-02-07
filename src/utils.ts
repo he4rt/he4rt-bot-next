@@ -51,6 +51,8 @@ import {
   ERROR_CANNOT_BE_BANNED,
   ERROR_PAGINATION,
   ERROR_PRESENTING,
+  ERROR_EVENT_NOT_FOUND,
+  ERROR_PARTICIPANT_EVENT
 } from '-/defaults/reply.json'
 import { NOT_FOUND, LANGUAGE_NONE } from '-/defaults/display.json'
 import { TIMEOUT_COMMAND_STRING, DEFINE_STRING_REPLACED } from '@/defines/values.json'
@@ -255,8 +257,8 @@ export const replaceDefineString = (str: string, target: string) => {
   return str.replaceAll(DEFINE_STRING_REPLACED, target)
 }
 
-export const sendInDM = async (dm: DMChannel, interaction: CommandInteraction | ButtonInteraction, str: string) => {
-  await dm.send(str).catch(async () => {
+export const sendInDM = async (dm: DMChannel, interaction: CommandInteraction | ButtonInteraction, str: string, embed?: EmbedBuilder) => {
+  await dm.send({ content: str, embeds: [embed] }).catch(async () => {
     await reply(interaction).errorInAccessDM()
 
     return false
@@ -364,6 +366,14 @@ export const reply = (interaction: CommandInteraction | ButtonInteraction) => {
     await interaction.reply({ content: ERROR_PRESENTING, ephemeral: true })
   }
 
+  const errorParticipantFail = async () => {
+    await interaction.reply({ content: ERROR_PARTICIPANT_EVENT, ephemeral: true })
+  }
+
+  const errorEventNotFound = async () => {
+    await interaction.reply({ content: ERROR_EVENT_NOT_FOUND, ephemeral: true })
+  }
+
   return {
     success,
     successInAccessDM,
@@ -378,6 +388,8 @@ export const reply = (interaction: CommandInteraction | ButtonInteraction) => {
     errorSpecificChannel,
     errorPaginationFail,
     errorPresentingFail,
+    errorParticipantFail,
+    errorEventNotFound
   }
 }
 

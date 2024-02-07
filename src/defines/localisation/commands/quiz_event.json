@@ -1,0 +1,6 @@
+{
+  "INTRO": "Nosso bot resolveu aprender sobre desenvolvimento e está dando seus primeiros passos com algoritimos, você está afim de ajudar nosso bot a resolver algumas questões? Se sim digite `/ajudar-bot` para iniciar esses desafios, toda ajuda é bem vinda e como recompensa você ganhará he4rt coins por participar e os três primeiros iram ganhar he4rt coins + experiência.",
+  "CONTINUE": "Você topou o desafio!! No total temos 3 perguntas para você responder, você poderá pedir dicas digitando `!dica` caso esteja com dificuldades e aqui vai a primeira pergunta...",
+  "REWARD_ANNOUNCE": "Parábens!!{user} Você conseguiu responder todas as perguntas e como recompensa você ganhou **{exp}** de experiência!",
+  "REWARD_PARTICIPANT": "Parábens!! {user} Você conseguiu responder todas as perguntas e como recompensa você ganhou **{exp}** de experiência!"
+}

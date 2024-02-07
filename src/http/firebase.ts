@@ -1,4 +1,4 @@
-import { FirestoreMedal, FirestoreMedalUser, FirestoreUser, He4rtClient } from '@/types'
+import { FirestoreMedal, FirestoreMedalUser, FirestoreUser, FirestoreReward, FirestoreEvent, FirestoreQuiz, He4rtClient } from '@/types'
 import { defu } from 'defu'
 
 export const upsertUser = async (client: He4rtClient, fields: Partial<FirestoreUser>) => {
@@ -18,7 +18,7 @@ export const deleteUser = async (client: He4rtClient, fields: Pick<FirestoreUser
 
 export const createUser = async (client: He4rtClient, fields: Pick<FirestoreUser, 'id'>) => {
   const collection = client.firestore.collection('users')
-
+  
   return collection.doc(fields.id).create({ id: fields.id })
 }
 
@@ -134,4 +134,93 @@ export const addUserInMedal = async (
   const userCollection = medal.ref.collection('users')
 
   return userCollection.doc(fields.id).set({ id: fields.id, expires_at: fields.expires_at })
+}
+
+const addUserEvent = async (client: He4rtClient, {user, eventId}): Promise<void> => {
+  const collection = client.firestore.collection('users_event')
+  
+  await collection.add({ id: user, event: eventId})
+}
+
+const updateEventReward = async (client: He4rtClient, reward: FirebaseFirestore.QueryDocumentSnapshot<FirebaseFirestore.DocumentData>) => {
+  const collection = client.firestore.collection('rewards')
+  const entity = defu({earned: true}, reward.data() as FirestoreReward)
+  
+  return collection.doc(reward.id).set(entity)
+}
+
+const getReward = async (client: He4rtClient, eventId: string, place?: string) => {
+  const rewardsCollection = client.firestore.collection('rewards')
+  const query = place !== 'participant'
+    ? await rewardsCollection.where('fk_event', '==', eventId).where('earned', '==', false).limit(1).get()
+    : await rewardsCollection
+        .where('fk_event', '==', eventId)
+        .where('place', '==', 'participant')
+        .where('earned', '==', true)
+        .limit(1)
+        .get()
+
+  const reward = query.docs[0]
+  return reward
+}
+
+export const claimEventReward = async (client: He4rtClient, eventId: string, memberId: string) => {
+  const result = await getReward(client, eventId)
+
+  const reward = result === undefined ? await getReward(client, eventId, 'participant') : result
+  
+  await addUserEvent(client, { user: memberId, eventId })
+  await updateEventReward(client, reward)
+  return reward.data() as FirestoreReward
+}
+
+export const checkUserEventEntry = async (client: He4rtClient, {userId, eventId}): Promise<boolean> => {
+  const eventUserCollection = client.firestore.collection('users_event')
+
+  const query =  await eventUserCollection
+    .where('event', '==', eventId)
+    .where('id', '==', userId)
+    .limit(1)
+    .get()
+
+  return !!query.empty
+}
+
+export const getActiveEvent = async (client: He4rtClient) => {
+  const eventCollection = client.firestore.collection('events')
+
+  const query = await eventCollection
+  .where('is_active', '==', true)
+  .limit(1)
+  .get()
+
+  return !query.empty ? query.docs[0].id : ''
+}
+
+export const getEventQuizzesById = async (client: He4rtClient, eventId) => {
+  const quizzesCollection = client.firestore.collection('quizzes')
+
+  const query = await quizzesCollection
+    .where('fk_event', '==', eventId)
+    .get()
+
+  const questions = query.docs.map((doc) => doc.data());
+  return questions as FirestoreQuiz[]
+}
+
+export const getEvents = async (client: He4rtClient) => {
+  const eventsCollection = client.firestore.collection('events')
+
+  const query = await eventsCollection
+    .get()
+
+  const events = query.docs.map((doc) => doc.data());   
+  return events as FirestoreEvent[]
+}
+
+export const updateEventStatus = async (client: He4rtClient, event: FirestoreEvent) => {
+  const collection = client.firestore.collection('events')
+  const entity = defu({is_active: !event.is_active}, event)
+  
+  return collection.doc(event.id).set(entity)
 }

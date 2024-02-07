@@ -174,5 +174,9 @@
   "WATCH_REMOVE": {
     "TITLE": "observar-remover",
     "DESCRIPTION": "(ADM|MOD): Remova um membro que esteja sendo observado."
+  },
+  "START_CODE_CHALLENGE": {
+    "TITLE": "quiz-start",
+    "DESCRIPTION": "Iniciar sequência de desafio de perguntas."
   }
 }
