@@ -1,7 +1,8 @@
 import { createClient } from 'uncreate'
 import { destr as JSON_PARSE } from 'destr'
-import firebase_admin from '../../firebase_admin.json'
 import firebase from 'firebase-admin'
+import path from 'path'
+import fs from 'fs/promises'
 
 export const HE4RT = createClient({
   parseResponse: JSON_PARSE,
@@ -23,10 +24,15 @@ export const APOIASE = createClient({
   },
 })
 
-const FIREBASE = firebase.initializeApp({
-  // @ts-expect-error
-  credential: firebase.credential.cert(firebase_admin),
-  databaseURL: process.env.FIREBASE_DATABASE_URL,
-})
+export const createFirebaseClient = async (): Promise<firebase.firestore.Firestore> => {
+  const FILE_PATH = path.resolve(__dirname, '..', '..', 'firebase_admin.json')
+  const RAW_FILE = await fs.readFile(FILE_PATH, 'utf-8')
+  const firebaseConfig = JSON.parse(RAW_FILE)
 
-export const FIRESTORE = FIREBASE.firestore()
+  return firebase
+    .initializeApp({
+      databaseURL: process.env.FIREBASE_DATABASE_URL,
+      credential: firebase.credential.cert(firebaseConfig),
+    })
+    .firestore()
+}
