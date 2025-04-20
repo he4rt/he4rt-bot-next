@@ -2,7 +2,7 @@ import { He4rtClient, TickerName } from '@/types'
 import { ActivityType } from 'discord.js'
 import { DISCORD_PRESENCE_IN_MINUTES, TICKER_SETTER } from '@/defines/values.json'
 
-export const setPresence = (client: He4rtClient) => {
+export const setPresence = async (client: He4rtClient) => {
   const type = ActivityType.Watching as Exclude<ActivityType, ActivityType.Custom>
 
   const activities = [
