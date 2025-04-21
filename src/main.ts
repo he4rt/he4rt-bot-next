@@ -1,7 +1,7 @@
 import { Client, Collection, GatewayIntentBits, Options, REST } from 'discord.js'
 import { Context, He4rtClient } from './types'
 import { registerCommands } from './commands'
-import { HE4RT, APOIASE, FIRESTORE } from './http'
+import { HE4RT, APOIASE, createFirebaseClient } from './http'
 import { Ticker } from './client/ticker'
 import { Logger } from './client/logger'
 
@@ -22,7 +22,11 @@ export const runner = async (): Promise<Context> => {
   client.commands = new Collection()
   client.ticker = new Ticker()
   client.logger = new Logger(client)
-  if (process.env.FIREBASE_DATABASE_URL) client.firestore = FIRESTORE
+
+  if (process.env.FIREBASE_DATABASE_URL) {
+    client.firestore = await createFirebaseClient()
+  }
+
   client.api = {
     he4rt: HE4RT,
     apoiase: APOIASE,
