@@ -3,12 +3,12 @@ import {
   DYNAMIC_VOICE_DELETE_CHANNELS_IN_MINUTES,
   DYNAMIC_VOICE_INVITE_LIMIT_TIME,
   DYNAMIC_VOICE_IGNORABLE_CHANNELS,
-  TICKER_SETTER
+  TICKER_SETTER,
 } from '@/defines/values.json'
 import { getDynamicVoiceCategory, getGuild } from '@/utils'
 import { Collection, GuildMember, VoiceChannel } from 'discord.js'
 
-export const setDynamicVoice = (client: He4rtClient) => {
+export const setDynamicVoice = async (client: He4rtClient) => {
   const guild = getGuild(client)
 
   const voiceTimer = 60 * DYNAMIC_VOICE_DELETE_CHANNELS_IN_MINUTES
@@ -26,14 +26,14 @@ export const setDynamicVoice = (client: He4rtClient) => {
       channels.forEach(async ([_, channel]) => {
         if (channel.parentId !== category.id) return
 
-        if (!DYNAMIC_VOICE_IGNORABLE_CHANNELS.some(i => i === channel.name)) {
+        if (!DYNAMIC_VOICE_IGNORABLE_CHANNELS.some((i) => i === channel.name)) {
           const targets = [...(channel.members as Collection<string, GuildMember>)]
-  
+
           const actuallyTime = new Date().valueOf()
           const expirationLimitTime = new Date(channel.createdAt).valueOf() + DYNAMIC_VOICE_INVITE_LIMIT_TIME
-  
+
           const debounceTime = actuallyTime > expirationLimitTime
-  
+
           if (targets.length === 0 && debounceTime) {
             channel
               .delete()
