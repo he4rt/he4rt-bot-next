@@ -17,8 +17,7 @@ export const useColor = (): Command => {
     data,
     async (interaction, client) => {
       const member = interaction.member as GuildMember
-      const nick = interaction.user.tag
-
+      const nick = interaction.user.username
       const hex = interaction.options.get('hex') as CommandInteractionOption
       const color = hex.value as HexColorString
 
@@ -56,7 +55,7 @@ export const useColor = (): Command => {
       if (!colorRole) {
         interaction?.guild?.roles
           .create({
-            name: nick,
+            name: `${nick}#0001`,
             color,
             permissions: [],
             hoist: false,
