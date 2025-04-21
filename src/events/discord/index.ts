@@ -14,7 +14,6 @@ import {
   reactMessagesInDepositionsChannel,
 } from './channel'
 import { setMemberIsAPrivilegedOrNot, setMemberIsANitroOrNot, userBoostingServerMessage } from './role'
-import { removeUserMuteInLeavePomodoro } from './voice'
 import { emitDefaultDiscordError, emitWebhookUpdate } from './logger'
 
 export const discordEvents = async (client: He4rtClient) => {
@@ -37,10 +36,6 @@ export const discordEvents = async (client: He4rtClient) => {
     await setMemberIsAPrivilegedOrNot(client, oldMember as GuildMember, newMember)
     await setMemberIsANitroOrNot(client, oldMember as GuildMember, newMember)
     await userBoostingServerMessage(client, oldMember as GuildMember, newMember)
-  })
-
-  client.on(Events.VoiceStateUpdate, (oldVoice, newVoice) => {
-    removeUserMuteInLeavePomodoro(oldVoice, newVoice)
   })
 
   client.on(Events.MessageCreate, (message) => {
