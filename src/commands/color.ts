@@ -17,7 +17,8 @@ export const useColor = (): Command => {
     data,
     async (interaction, client) => {
       const member = interaction.member as GuildMember
-      const nick = interaction.user.username
+      const nick = interaction.user.tag
+
       const hex = interaction.options.get('hex') as CommandInteractionOption
       const color = hex.value as HexColorString
 
