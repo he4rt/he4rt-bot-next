@@ -56,7 +56,7 @@ export const useColor = (): Command => {
       if (!colorRole) {
         interaction?.guild?.roles
           .create({
-            name: `${nick}#0001`,
+            name: nick,
             color,
             permissions: [],
             hoist: false,
@@ -84,7 +84,7 @@ export const useColor = (): Command => {
       }
 
       await colorRole.setColor(color).catch(() => {})
-      if (!isCustomColorRole(highestRole.name)) await colorRole.setPosition(priority).catch(() => {})
+      if (!isCustomColorRole(highestRole.name, colorRole.name)) await colorRole.setPosition(priority).catch(() => {})
 
       client.logger.emit({
         message: `${getTargetMember(member)} atualizou seu cargo colorido!`,

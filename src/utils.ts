@@ -141,8 +141,8 @@ export const isValidId = (id: number, arr: any[]) => {
   return !isNaN(id) && id <= arr.length && id > 0
 }
 
-export const isCustomColorRole = (name: string) => {
-  return /.+#\d{4}/i.test(name)
+export const isCustomColorRole = (rolename: string, username: string) => {
+  return rolename === username
 }
 
 export const isCancellable = (str: string) => {
@@ -232,8 +232,8 @@ export const getOption: CommandGetOption = (interaction: CommandInteraction, tar
   return interaction.options.get(target) as CommandInteractionOption
 }
 
-export const getCustomColorRole = ({ roles }: GuildMember | PartialGuildMember) => {
-  return roles.cache.find((x) => isCustomColorRole(x.name)) || false
+export const getCustomColorRole = ({ roles, user }: GuildMember | PartialGuildMember) => {
+  return roles.cache.find((x) => isCustomColorRole(x.name, user.username)) || false
 }
 
 export const getTaggedMembers = (ids: string[]): string => {
