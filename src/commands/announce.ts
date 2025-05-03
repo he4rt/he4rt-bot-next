@@ -1,9 +1,9 @@
 import { PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
-import { Command } from '@/types'
+import { Command, CommandSet } from '@/types'
 import { ANNOUNCE } from '@/defines/commands.json'
 import { ADVERTS_CHANNEL } from '@/defines/ids.json'
 import { TEXT_OPTION, EMBED_CONTENT } from '-/commands/announce.json'
-import { getChannel, reply } from '@/utils'
+import { getChannel, reply, sendMessageToChannel } from '@/utils'
 
 export const useAnnounce = (): Command => {
   const data = new SlashCommandBuilder()
@@ -11,7 +11,7 @@ export const useAnnounce = (): Command => {
     .setDescription(ANNOUNCE.DESCRIPTION)
     .setDMPermission(false)
     .addStringOption((option) => option.setName('texto').setDescription(TEXT_OPTION).setRequired(true))
-    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator) as CommandSet
 
   return [
     data,
@@ -20,7 +20,7 @@ export const useAnnounce = (): Command => {
 
       const channel = getChannel({ id: ADVERTS_CHANNEL.id, client })
 
-      await channel?.send({ content: `${EMBED_CONTENT} ${text.value as string}` })
+      sendMessageToChannel(channel, { content: `${EMBED_CONTENT} ${text.value as string}` })
 
       await reply(interaction).success()
     },

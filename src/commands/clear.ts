@@ -1,5 +1,5 @@
 import { PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
-import { Command } from '@/types'
+import { Command, CommandSet } from '@/types'
 import { CLEAR } from '@/defines/commands.json'
 import { QUANTITY_OPTION } from '-/commands/clear.json'
 import { getOption, reply } from '@/utils'
@@ -10,7 +10,7 @@ export const useClear = (): Command => {
     .setDescription(CLEAR.DESCRIPTION)
     .setDMPermission(false)
     .addNumberOption((option) => option.setName('quantidade').setDescription(QUANTITY_OPTION).setRequired(true))
-    .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
+    .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages) as CommandSet
 
   return [
     data,

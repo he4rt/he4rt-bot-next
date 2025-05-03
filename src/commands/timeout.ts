@@ -1,5 +1,5 @@
 import { GuildMember, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
-import { Command } from '@/types'
+import { Command, CommandSet } from '@/types'
 import COMMANDS from '@/defines/commands.json'
 import { PUNISHMENTS_CHANNEL } from '@/defines/ids.json'
 import { CLIENT_NAME } from '@/defines/values.json'
@@ -10,7 +10,7 @@ import {
   EMBED_FIELD_REASON,
   EMBED_FIELD_REASON_VALUE,
 } from '-/commands/shared.json'
-import { embedTemplate, getChannel, getOption, openAndSendMessageInDm, reply } from '@/utils'
+import { embedTemplate, getChannel, getOption, openAndSendMessageInDm, reply, sendMessageToChannel } from '@/utils'
 
 export const useTimeout = (): Command => {
   const data = new SlashCommandBuilder()
@@ -30,15 +30,16 @@ export const useTimeout = (): Command => {
           { name: '10 minutos', value: 600_000 },
           { name: '1 hora', value: 3600_000 },
           { name: '1 dia', value: 86400_000 },
-          { name: '1 semana', value: 604800_000 }
-        )
+          { name: '1 semana', value: 604800_000 },
+        ),
     )
-    .setDefaultMemberPermissions(PermissionFlagsBits.MuteMembers)
+    .setDefaultMemberPermissions(PermissionFlagsBits.MuteMembers) as CommandSet
 
   return [
     data,
     async (interaction, client) => {
-      const member = interaction.options.getMember('membro') as GuildMember
+      const memberOption = getOption(interaction, 'membro')
+      const member = interaction.guild.members.cache.get(memberOption.user.id) as GuildMember
       const reason = getOption(interaction, 'razao')
       const time = getOption(interaction, 'tempo')
 
@@ -86,12 +87,15 @@ export const useTimeout = (): Command => {
           604800000: '1 semana',
         }[timeout] || 'deu ruim'
 
-      await channel?.send({ content: `Usuário **${member.id}** suprimido por ${normalize}!`, embeds: [embed] })
+      await sendMessageToChannel(channel, {
+        content: `Usuário **${member.id}** suprimido por ${normalize}!`,
+        embeds: [embed],
+      })
 
       openAndSendMessageInDm(
         client,
         member,
-        `Você foi silenciado no servidor **${CLIENT_NAME}** por **${normalize}**!\n\nMotivo: ${reason.value}`
+        `Você foi silenciado no servidor **${CLIENT_NAME}** por **${normalize}**!\n\nMotivo: ${reason.value}`,
       )
 
       await reply(interaction).success()

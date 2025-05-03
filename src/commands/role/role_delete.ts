@@ -1,5 +1,5 @@
 import { PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
-import { Command } from '@/types'
+import { Command, CommandSet } from '@/types'
 import { ROLE_DELETE } from '@/defines/commands.json'
 import { ROLE_OPTION } from '-/commands/role_delete.json'
 import { reply } from '@/utils'
@@ -10,7 +10,7 @@ export const useRoleDelete = (): Command => {
     .setDescription(ROLE_DELETE.DESCRIPTION)
     .setDMPermission(false)
     .addRoleOption((option) => option.setName('cargo').setDescription(ROLE_OPTION).setRequired(true))
-    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator) as CommandSet
 
   return [
     data,

@@ -1,5 +1,5 @@
 import { GuildMember, SlashCommandBuilder } from 'discord.js'
-import { Command, IntroducePUT } from '@/types'
+import { Command, IntroducePUT, CommandSet } from '@/types'
 import { PROFILE_PUT } from '@/defines/commands.json'
 import { NAME_OPTION, NICKNAME_OPTION, ABOUT_OPTION, GIT_OPTION, LINKEDIN_OPTION } from '-/commands/profile_put.json'
 import { isPresentedMember, reply } from '@/utils'
@@ -13,7 +13,7 @@ export const useProfilePut = (): Command => {
     .addStringOption((option) => option.setName('nick').setDescription(NICKNAME_OPTION))
     .addStringOption((option) => option.setName('sobre').setDescription(ABOUT_OPTION))
     .addStringOption((option) => option.setName('git').setDescription(GIT_OPTION))
-    .addStringOption((option) => option.setName('linkedin').setDescription(LINKEDIN_OPTION))
+    .addStringOption((option) => option.setName('linkedin').setDescription(LINKEDIN_OPTION)) as CommandSet
 
   return [
     data,

@@ -1,5 +1,5 @@
 import { PermissionFlagsBits, SlashCommandBuilder, TextChannel } from 'discord.js'
-import { Command } from '@/types'
+import { Command, CommandSet } from '@/types'
 import COMMANDS from '@/defines/commands.json'
 import { PRESENTED_ROLE } from '@/defines/ids.json'
 import { getOption, reply } from '@/utils'
@@ -12,7 +12,7 @@ export const useChat = (): Command => {
     .setDMPermission(false)
     .addChannelOption((option) => option.setName('canal').setDescription(CHAT.CHANNEL_OPTION).setRequired(true))
     .addBooleanOption((option) => option.setName('parar').setDescription(CHAT.STOP_OPTION).setRequired(true))
-    .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
+    .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages) as CommandSet
 
   return [
     data,

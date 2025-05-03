@@ -1,5 +1,5 @@
 import { GuildMember, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
-import { Command, MeetingPOST } from '@/types'
+import { Command, MeetingPOST, CommandSet } from '@/types'
 import { STAGE_START } from '@/defines/commands.json'
 import { MEETING_OPTION } from '-/commands/stage_start.json'
 import { getOption, getTargetMember, reply } from '@/utils'
@@ -14,9 +14,9 @@ export const useStageStart = (): Command => {
         .setName('reuniao')
         .setDescription(MEETING_OPTION)
         .setRequired(true)
-        .addChoices({ name: 'Reunião Semanal', value: 1 }, { name: 'Reunião das Primas', value: 2 })
+        .addChoices({ name: 'Reunião Semanal', value: 1 }, { name: 'Reunião das Primas', value: 2 }),
     )
-    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator) as CommandSet
 
   return [
     data,

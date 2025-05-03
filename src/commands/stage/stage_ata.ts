@@ -1,5 +1,5 @@
 import { GuildMember, SlashCommandBuilder } from 'discord.js'
-import { Command, MeetingPATCH } from '@/types'
+import { Command, MeetingPATCH, CommandSet } from '@/types'
 import { STAGE_ATA } from '@/defines/commands.json'
 import { DISCORD_MESSAGE_LIMIT } from '@/defines/values.json'
 import { ATA_OPTION, MEETING_OPTION } from '-/commands/stage_ata.json'
@@ -11,7 +11,7 @@ export const useStageATA = (): Command => {
     .setDescription(STAGE_ATA.DESCRIPTION)
     .setDMPermission(false)
     .addIntegerOption((option) => option.setName('reuniao').setDescription(MEETING_OPTION).setRequired(true))
-    .addStringOption((option) => option.setName('ata').setDescription(ATA_OPTION).setRequired(true))
+    .addStringOption((option) => option.setName('ata').setDescription(ATA_OPTION).setRequired(true)) as CommandSet
 
   return [
     data,

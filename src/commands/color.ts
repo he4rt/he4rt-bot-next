@@ -1,5 +1,5 @@
 import { CommandInteractionOption, GuildMember, HexColorString, SlashCommandBuilder } from 'discord.js'
-import { Command } from '@/types'
+import { Command, CommandSet } from '@/types'
 import { COLOR } from '@/defines/commands.json'
 import { RESTRICTED_CUSTOM_ROLE_COLORS } from '@/defines/values.json'
 import { DONATORS_CHANNEL } from '@/defines/ids.json'
@@ -11,7 +11,7 @@ export const useColor = (): Command => {
     .setName(COLOR.TITLE)
     .setDescription(COLOR.DESCRIPTION)
     .setDMPermission(false)
-    .addStringOption((option) => option.setName('hex').setDescription(HEX_OPTION).setRequired(true))
+    .addStringOption((option) => option.setName('hex').setDescription(HEX_OPTION).setRequired(true)) as CommandSet
 
   return [
     data,

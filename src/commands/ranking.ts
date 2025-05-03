@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, RestOrArray, APIEmbedField, GuildMember } from 'discord.js'
-import { Command, RankingGET } from '@/types'
+import { Command, CommandSet, RankingGET } from '@/types'
 import { RANKING } from '@/defines/commands.json'
 import { PAGE_OPTION, NULL_ACCOUNT, EMBED_TITLE } from '-/commands/ranking.json'
 import { COLORS } from '@/defines/values.json'
@@ -11,7 +11,7 @@ export const useRanking = (): Command => {
     .setName(RANKING.TITLE)
     .setDescription(RANKING.DESCRIPTION)
     .setDMPermission(false)
-    .addNumberOption((option) => option.setName('pagina').setDescription(PAGE_OPTION).setRequired(true))
+    .addNumberOption((option) => option.setName('pagina').setDescription(PAGE_OPTION).setRequired(true)) as CommandSet
 
   return [
     data,

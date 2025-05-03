@@ -1,5 +1,5 @@
 import { GuildMember, SlashCommandBuilder } from 'discord.js'
-import { Command } from '@/types'
+import { Command, CommandSet } from '@/types'
 import { BADGE_SET } from '@/defines/commands.json'
 import { CODE_OPTION, REPLY_SUCCESS, REPLY_ERROR } from '-/commands/badge_redeem.json'
 import { getOption, getTargetMember } from '@/utils'
@@ -9,7 +9,7 @@ export const useBadgeRedeem = (): Command => {
     .setName(BADGE_SET.TITLE)
     .setDescription(BADGE_SET.DESCRIPTION)
     .setDMPermission(false)
-    .addStringOption((option) => option.setName('codigo').setDescription(CODE_OPTION).setRequired(true))
+    .addStringOption((option) => option.setName('codigo').setDescription(CODE_OPTION).setRequired(true)) as CommandSet
 
   return [
     data,

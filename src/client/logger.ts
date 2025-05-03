@@ -1,5 +1,5 @@
 import { He4rtClient, LoggerEmitOptions } from '@/types'
-import { getChannel, getUserAvatar } from '@/utils'
+import { getChannel, getUserAvatar, sendMessageToChannel } from '@/utils'
 import { EmbedBuilder, HexColorString } from 'discord.js'
 import { REPORT_CHANNEL } from '@/defines/ids.json'
 import { COLORS, CLIENT_NAME } from '@/defines/values.json'
@@ -75,6 +75,8 @@ export class Logger {
 
     const channel = getChannel({ id: options?.customChannelId ?? REPORT_CHANNEL.id, client: this._client })
 
-    channel?.send({ embeds: [embed] })
+    if (channel) {
+      sendMessageToChannel(channel, { embeds: [embed] })
+    }
   }
 }
