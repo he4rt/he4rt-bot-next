@@ -14,6 +14,12 @@ import type {
   TextChannel,
   User,
   VoiceChannel,
+  DMChannel,
+  ThreadChannel,
+  StageChannel,
+  Message,
+  MessageCreateOptions,
+  MediaChannel,
 } from 'discord.js'
 import type { ClientBuilder } from 'uncreate'
 import admin from 'firebase-admin'
@@ -21,14 +27,14 @@ import { Logger } from './client/logger'
 import { Ticker } from './client/ticker'
 
 export type Maybe<T> = T | undefined | null
-export type RESTJson<T extends string | number | symbol = string, K = any> = Record<T, K>
-export type Cancellable<T extends unknown> = T | '__INVALID__RESPONSE__'
+export type RESTJson<T extends string | number | symbol = string, K = unknown> = Record<T, K>
+export type Cancellable<T> = T | '__INVALID__RESPONSE__'
 export type CommandGetOption<T extends CacheType = CacheType> = (
   interaction: CommandInteraction,
-  target: string
+  target: string,
 ) => CommandInteractionOption<T>
 
-export type WebhookEvent = NewsChannel | TextChannel | VoiceChannel | ForumChannel
+export type WebhookEvent = NewsChannel | TextChannel | VoiceChannel | ForumChannel | MediaChannel
 
 export type CommandCallback = (interaction: CommandInteraction, client: He4rtClient) => Promise<void>
 export type CommandSet = SlashCommandBuilder | Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>
@@ -88,18 +94,25 @@ export interface GetChannelOptions {
   client: He4rtClient
 }
 
-export interface RankingGET extends RESTJson {
-  data: RESTJson[]
+export interface RankingGET {
+  data: Array<{
+    user?: {
+      username: string
+    }
+    ranking: number
+    level: number
+    experience: number
+  }>
 }
 
-export interface DailyPOST extends RESTJson {
+export interface DailyPOST {
   points: number
   date: string
 }
 
-export interface IntroducePUT extends RESTJson {}
+export type IntroducePUT = RESTJson
 
-export interface IntroducePOST extends RESTJson {}
+export type IntroducePOST = RESTJson
 
 export interface BadgePOST {
   name: string
@@ -132,21 +145,33 @@ export interface UserLevelXP {
   }
 }
 
-export interface UserGET extends RESTJson, UserGETBody, UserLevelXP {}
+export interface UserGET extends UserGETBody, UserLevelXP {
+  information: {
+    name: string
+    nickname: string
+    about: string
+    github_url: string
+    linkedin_url: string | null
+  }
+  character: {
+    level: number
+    experience: number
+  }
+}
 
-export interface UserPUT extends UserGET {}
+export type UserPUT = UserGET
 
-export interface MessagePOST extends RESTJson {}
+export type MessagePOST = RESTJson
 
-export interface VoicePOST extends RESTJson {}
+export type VoicePOST = RESTJson
 
-export interface ApoiaseGET extends RESTJson {
+export interface ApoiaseGET {
   isPaidThisMonth: boolean
   isBacker: boolean
   thisMonthPaidValue?: number
 }
 
-export interface MeetingPATCH extends RESTJson {
+export interface MeetingPATCH {
   id: number
   content: string
   meeting_type_id: number
@@ -157,11 +182,11 @@ export interface MeetingPATCH extends RESTJson {
   updated_at: string | null
 }
 
-export interface MeetingEndPOST extends RESTJson {
+export interface MeetingEndPOST {
   message: string
 }
 
-export interface MeetingPOST extends RESTJson {
+export interface MeetingPOST {
   meeting_type_id: number
   starts_at: string | null
   admin_id: number
@@ -170,11 +195,11 @@ export interface MeetingPOST extends RESTJson {
   id: number
 }
 
-export interface MeetingAttendPost extends RESTJson {
+export interface MeetingAttendPost {
   message: string
 }
 
-export interface FeedbackCreatePOST extends RESTJson {
+export interface FeedbackCreatePOST {
   sender_id: number
   target_id: number
   message: string
@@ -184,7 +209,7 @@ export interface FeedbackCreatePOST extends RESTJson {
   id: number
 }
 
-export interface FeedbackReviewPOST extends RESTJson {
+export interface FeedbackReviewPOST {
   message: string
 }
 
@@ -224,3 +249,6 @@ export interface FirestoreMedalUser {
   id: string
   expires_at: string
 }
+
+// Type for channels that support the send() method
+export type SendableChannel = DMChannel | TextChannel | NewsChannel | VoiceChannel | StageChannel

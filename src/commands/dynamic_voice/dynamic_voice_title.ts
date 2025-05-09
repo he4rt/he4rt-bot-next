@@ -1,5 +1,5 @@
 import { CategoryChannel, GuildMember, SlashCommandBuilder, VoiceChannel } from 'discord.js'
-import { Command } from '@/types'
+import { Command, CommandSet } from '@/types'
 import { DYNAMIC_VOICE_TITLE } from '@/defines/commands.json'
 import { TYPE_OPTION, STUDYING_TITLE_OPTION } from '-/commands/dynamic_voice.json'
 import { getChannel, getOption, getOptionType, isPresentedMember, reply } from '@/utils'
@@ -16,14 +16,14 @@ export const useDynamicVoiceTitle = (): Command => {
         .setName('tipo')
         .setDescription(TYPE_OPTION)
         .setRequired(true)
-        .addChoices(...DYNAMIC_VOICE_OPTIONS)
+        .addChoices(...DYNAMIC_VOICE_OPTIONS),
     )
     .addIntegerOption((option) =>
       option
         .setName('estudando-titulo')
         .setDescription(STUDYING_TITLE_OPTION)
-        .addChoices(...DYNAMIC_VOICE_STUDYING_OPTIONS)
-    )
+        .addChoices(...DYNAMIC_VOICE_STUDYING_OPTIONS),
+    ) as CommandSet
 
   return [
     data,
@@ -63,8 +63,7 @@ export const useDynamicVoiceTitle = (): Command => {
       }
 
       try {
-        //@ts-expect-error
-        const fetched = [...(await channel.messages.fetch({ limit: 1, after: 1 }))]
+        const fetched = [...(await channel.messages.fetch({ limit: 1 }))]
 
         const controller = fetched[0][1]
 

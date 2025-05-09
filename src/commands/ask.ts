@@ -1,21 +1,23 @@
 import { GuildMember, SlashCommandBuilder } from 'discord.js'
-import { Command } from '@/types'
+import { Command, CommandSet } from '@/types'
 import { ASK } from '@/defines/commands.json'
 import { MEMBER_OPTION, EMBED_TITLE, EMBED_IMAGE_URL } from '-/commands/ask.json'
-import { embedTemplate, reply } from '@/utils'
+import { embedTemplate, getOption, reply, sendMessageToChannel } from '@/utils'
 
 export const useAsk = (): Command => {
   const data = new SlashCommandBuilder()
     .setName(ASK.TITLE)
     .setDescription(ASK.DESCRIPTION)
     .setDMPermission(false)
-    .addUserOption((option) => option.setName('membro').setDescription(MEMBER_OPTION).setRequired(true))
+    .addUserOption((option) => option.setName('membro').setDescription(MEMBER_OPTION).setRequired(true)) as CommandSet
 
   return [
     data,
     async (interaction, client) => {
       const author = interaction.user
-      const target = interaction.options.getMember('membro') as GuildMember
+      const targetOption = getOption(interaction, 'membro')
+      const targetUser = targetOption.user
+      const target = interaction.guild.members.cache.get(targetUser.id) as GuildMember
 
       const embed = embedTemplate({
         title: EMBED_TITLE,
@@ -34,7 +36,7 @@ export const useAsk = (): Command => {
       })
       embed.setImage(EMBED_IMAGE_URL)
 
-      await interaction.channel.send({
+      await sendMessageToChannel(interaction.channel, {
         content: `<@${target.user.id}>`,
         embeds: [embed],
       })

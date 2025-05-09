@@ -1,8 +1,8 @@
 import { GuildMember, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
-import { Command, Maybe } from '@/types'
+import { Command, Maybe, CommandSet } from '@/types'
 import { MEDAL_ADD } from '@/defines/commands.json'
 import { MEDAL_OPTION, MEMBER_OPTION, DO_NOT_HAVE, SUCCESS } from '-/commands/medal.json'
-import { reply } from '../../utils'
+import { reply, getOption } from '../../utils'
 import { addUserInMedal, hasMedal } from '@/http/firebase'
 
 export const useMedalAdd = (): Command => {
@@ -13,12 +13,13 @@ export const useMedalAdd = (): Command => {
     .addUserOption((option) => option.setName('membro').setDescription(MEMBER_OPTION).setRequired(true))
     .addRoleOption((option) => option.setName('medalha').setDescription(MEDAL_OPTION).setRequired(true))
     .addNumberOption((option) => option.setName('tempo').setDescription(MEDAL_OPTION).setRequired(false))
-    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator) as CommandSet
 
   return [
     data,
     async (interaction, client) => {
-      const member = interaction.options.getMember('membro') as GuildMember
+      const memberOption = getOption(interaction, 'membro')
+      const member = interaction.guild.members.cache.get(memberOption.user.id) as GuildMember
 
       const medal = interaction.options.get('medalha')
       const medal_id = medal.value as string

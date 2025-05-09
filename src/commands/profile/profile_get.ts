@@ -1,11 +1,12 @@
 import { GuildMember, HexColorString, SlashCommandBuilder } from 'discord.js'
-import { Command, UserGET } from '@/types'
+import { Command, CommandSet, UserGET } from '@/types'
 import { PROFILE } from '@/defines/commands.json'
 import { COLORS, EXTENDED_PROFILE_LINK } from '@/defines/values.json'
 import EMBED from '-/commands/profile.json'
 import { LANGUAGE_NONE_ONE, NOT_FOUND, UF_NONE } from '-/defaults/display.json'
 import {
   embedTemplate,
+  getOption,
   getTargetMember,
   isHe4rtDelasMember,
   isPresentedMember,
@@ -20,12 +21,13 @@ export const useProfileGet = (): Command => {
     .setName(PROFILE.TITLE)
     .setDescription(PROFILE.DESCRIPTION)
     .setDMPermission(false)
-    .addUserOption((option) => option.setName('membro').setDescription(EMBED.MEMBER_OPTION))
+    .addUserOption((option) => option.setName('membro').setDescription(EMBED.MEMBER_OPTION)) as CommandSet
 
   return [
     data,
     async (interaction, client) => {
-      const member = interaction.options.getMember('membro')
+      const memberOption = getOption(interaction, 'membro')
+      const member = memberOption?.user ? interaction.guild.members.cache.get(memberOption.user.id) : null
 
       const target = (member || interaction.member) as GuildMember
 

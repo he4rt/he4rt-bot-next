@@ -1,5 +1,5 @@
 import { CategoryChannel, ChannelType, GuildMember, SlashCommandBuilder } from 'discord.js'
-import { Command } from '@/types'
+import { Command, CommandSet } from '@/types'
 import { DYNAMIC_VOICE } from '@/defines/commands.json'
 import { DYNAMIC_CATEGORY_CHANNEL } from '@/defines/ids.json'
 import {
@@ -31,7 +31,7 @@ export const useDynamicVoice = (): Command => {
         .setName('tipo')
         .setDescription(TYPE_OPTION)
         .setRequired(true)
-        .addChoices(...DYNAMIC_VOICE_OPTIONS)
+        .addChoices(...DYNAMIC_VOICE_OPTIONS),
     )
     .addIntegerOption((option) =>
       option
@@ -39,14 +39,14 @@ export const useDynamicVoice = (): Command => {
         .setDescription(LIMIT_OPTION)
         .setRequired(true)
         .setMinValue(DYNAMIC_VOICE_MIN_SIZE)
-        .setMaxValue(DYNAMIC_VOICE_MAX_SIZE)
+        .setMaxValue(DYNAMIC_VOICE_MAX_SIZE),
     )
     .addIntegerOption((option) =>
       option
         .setName('estudando-titulo')
         .setDescription(STUDYING_TITLE_OPTION)
-        .addChoices(...DYNAMIC_VOICE_STUDYING_OPTIONS)
-    )
+        .addChoices(...DYNAMIC_VOICE_STUDYING_OPTIONS),
+    ) as CommandSet
 
   return [
     data,

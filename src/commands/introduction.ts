@@ -1,5 +1,16 @@
-import { CommandInteraction, DMChannel, GuildMember, SlashCommandBuilder, Message, ButtonInteraction, TextChannel, ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
-import { Cancellable, Command, He4rtClient, IntroducePOST, RoleDefine, UserGETBody } from '@/types'
+import {
+  CommandInteraction,
+  DMChannel,
+  GuildMember,
+  SlashCommandBuilder,
+  Message,
+  ButtonInteraction,
+  TextChannel,
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+} from 'discord.js'
+import { Cancellable, Command, CommandSet, He4rtClient, IntroducePOST, RoleDefine, UserGETBody } from '@/types'
 import {
   PRESENTATIONS_CHANNEL,
   PRESENTED_ROLE,
@@ -22,6 +33,7 @@ import {
   isValidId,
   reply,
   sendInDM,
+  sendMessageToChannel,
   validDisplayDevRoles,
   validDisplayEngRoles,
 } from '@/utils'
@@ -35,7 +47,10 @@ const removePresentingFlag = async (member: GuildMember) => {
   await member.roles.remove(PRESENTING_ROLE.id)
 }
 
-const nextTextMessage = async (dm: DMChannel, interaction: CommandInteraction | ButtonInteraction): Promise<Cancellable<string>> => {
+const nextTextMessage = async (
+  dm: DMChannel,
+  interaction: CommandInteraction | ButtonInteraction,
+): Promise<Cancellable<string>> => {
   try {
     const result = await dm.awaitMessages({
       filter: (m) => m.author.id === interaction.user.id,
@@ -50,15 +65,15 @@ const nextTextMessage = async (dm: DMChannel, interaction: CommandInteraction | 
 }
 
 const nextMultipleRoleSelection = async (
-  roles: any[],
+  roles: RoleDefine[],
   text: string,
   dm: DMChannel,
   member: GuildMember,
-  interaction: CommandInteraction | ButtonInteraction
+  interaction: CommandInteraction | ButtonInteraction,
 ): Promise<number | boolean> => {
   await dm.send(text)
   await dm.send(
-    roles.reduce((acc, val, index) => (acc += `**${index + 1}**` + ` -   ${val.emoji} ${val.name}` + '\n'), '\n')
+    roles.reduce((acc, val, index) => (acc += `**${index + 1}**` + ` -   ${val.emoji} ${val.name}` + '\n'), '\n'),
   )
   await dm.send(INTRODUCTION.CONTINUE_MESSAGE)
 
@@ -77,12 +92,15 @@ const nextMultipleRoleSelection = async (
   }
 }
 
-const nextUFSelection = async (dm: DMChannel, interaction: CommandInteraction | ButtonInteraction): Promise<string | false> => {
+const nextUFSelection = async (
+  dm: DMChannel,
+  interaction: CommandInteraction | ButtonInteraction,
+): Promise<string | false> => {
   await dm.send(
     VALID_PRESENTATION_RF.reduce(
       (acc, val, index) => (acc += `**${index + 1}**` + ` -   ${val.id} ${val.name}` + '\n'),
-      '\n'
-    )
+      '\n',
+    ),
   )
 
   const response = await nextTextMessage(dm, interaction)
@@ -97,11 +115,11 @@ const nextUFSelection = async (dm: DMChannel, interaction: CommandInteraction | 
 }
 
 const nextRoleSelection = async (
-  roles: any[],
+  roles: RoleDefine[],
   text: string,
   dm: DMChannel,
   member: GuildMember,
-  interaction: CommandInteraction | ButtonInteraction
+  interaction: CommandInteraction | ButtonInteraction,
 ): Promise<number | false> => {
   await dm.send(text)
   await dm.send(roles.reduce((acc, val, index) => (acc += index + 1 + ` -   ${val.emoji} ${val.name}` + '\n'), '\n'))
@@ -124,13 +142,13 @@ const nextRoleSelection = async (
 const nextHe4rtDelasRole = async (
   dm: DMChannel,
   member: GuildMember,
-  interaction: CommandInteraction | ButtonInteraction
+  interaction: CommandInteraction | ButtonInteraction,
 ): Promise<number | false> => {
   const roles: RoleDefine[] = [HE4RT_DELAS_ROLE]
 
   await dm.send(INTRODUCTION.USER.DELAS)
   await dm.send(
-    roles.reduce((acc, val, index) => (acc += `**${index + 1}**` + ` -   ${val.emoji} ${val.name}` + '\n'), '\n')
+    roles.reduce((acc, val, index) => (acc += `**${index + 1}**` + ` -   ${val.emoji} ${val.name}` + '\n'), '\n'),
   )
   await dm.send(INTRODUCTION.CONTINUE_MESSAGE)
 
@@ -155,7 +173,10 @@ const validateAccess = async (dm: DMChannel, interaction: CommandInteraction | B
   return true
 }
 
-const nextStringsData = async (dm: DMChannel, interaction: CommandInteraction | ButtonInteraction): Promise<UserGETBody | false> => {
+const nextStringsData = async (
+  dm: DMChannel,
+  interaction: CommandInteraction | ButtonInteraction,
+): Promise<UserGETBody | false> => {
   await dm.send(INTRODUCTION.USER.NAME)
   const name = await nextTextMessage(dm, interaction)
   if (isCancellable(name)) return false
@@ -206,13 +227,12 @@ const ensureStickyIntroductionMessage = async (client: He4rtClient) => {
     await message.delete().catch(() => {})
   }
 
-  const component = new ActionRowBuilder<ButtonBuilder>()
-    .addComponents(
-      new ButtonBuilder()
-        .setCustomId('c-introduce')
-        .setLabel(INTRODUCTION.STICKY.CALL_TO_ACTION)
-        .setStyle(ButtonStyle.Primary)
-    )
+  const component = new ActionRowBuilder<ButtonBuilder>().addComponents(
+    new ButtonBuilder()
+      .setCustomId('c-introduce')
+      .setLabel(INTRODUCTION.STICKY.CALL_TO_ACTION)
+      .setStyle(ButtonStyle.Primary),
+  )
 
   const embed = embedTemplate({
     title: INTRODUCTION.STICKY.TITLE,
@@ -220,22 +240,31 @@ const ensureStickyIntroductionMessage = async (client: He4rtClient) => {
     target: {
       user: client.user,
       icon: true,
-    }
+    },
   })
 
   try {
-    const msg = await channel.send({
+    const msg = await sendMessageToChannel(channel, {
       embeds: [embed],
       components: [component],
     })
 
-    await msg.pin()
-
+    if (msg) {
+      await msg.pin()
+    }
   } catch (e) {
+    client.logger.emit({
+      type: 'bot',
+      color: 'error',
+      message: `Não foi possível criar ou fixar a mensagem de introdução: ${e}`,
+    })
   }
 }
 
-const startIntroductionFlow = async (client: He4rtClient, interaction: CommandInteraction | ButtonInteraction): Promise<void> => {
+const startIntroductionFlow = async (
+  client: He4rtClient,
+  interaction: CommandInteraction | ButtonInteraction,
+): Promise<void> => {
   const author = interaction.user
   const member = interaction.member as GuildMember
 
@@ -246,7 +275,7 @@ const startIntroductionFlow = async (client: He4rtClient, interaction: CommandIn
       return
     }
 
-    const dm = await client.users.createDM(author);
+    const dm = await client.users.createDM(author)
 
     const valid = await validateAccess(dm, interaction)
 
@@ -266,7 +295,7 @@ const startIntroductionFlow = async (client: He4rtClient, interaction: CommandIn
       INTRODUCTION.USER.LANGUAGES,
       dm,
       member,
-      interaction
+      interaction,
     )
 
     if (multipleRoles === false) {
@@ -279,7 +308,7 @@ const startIntroductionFlow = async (client: He4rtClient, interaction: CommandIn
       INTRODUCTION.USER.ENGLISH,
       dm,
       member,
-      interaction
+      interaction,
     )
 
     if (role === false) {
@@ -325,16 +354,16 @@ const startIntroductionFlow = async (client: He4rtClient, interaction: CommandIn
 
     const channel = getChannel({ id: PRESENTATIONS_CHANNEL.id, client })
 
-    await channel
-      .send({
-        content: `👋 <@${interaction.user.id}>!`,
-        embeds: [embed],
+    const msg = (await sendMessageToChannel(channel, {
+      content: `👋 <@${interaction.user.id}>!`,
+      embeds: [embed],
+    })) as Message
+
+    if (msg) {
+      await msg.react(delas === 1 ? HE4RT_DELAS_EMOJI_ID : HE4RT_EMOJI_ID).catch(async () => {
+        await msg.react('💜').catch(() => {})
       })
-      .then(async (msg: Message) => {
-        await msg.react(delas === 1 ? HE4RT_DELAS_EMOJI_ID : HE4RT_EMOJI_ID).catch(async () => {
-          await msg.react('💜').catch(() => {})
-        })
-      })
+    }
 
     await member.roles.add(PRESENTED_ROLE.id)
     await removePresentingFlag(member)
@@ -390,7 +419,13 @@ const startIntroductionFlow = async (client: He4rtClient, interaction: CommandIn
       })
 
     await dm.send(INTRODUCTION.FINISH)
-  } catch {
+  } catch (error) {
+    client.logger.emit({
+      type: 'bot',
+      color: 'error',
+      message: `Erro no fluxo de introdução para ${getTargetMember(member)}: ${error}`,
+      user: member.user,
+    })
   } finally {
     await removePresentingFlag(member)
   }
@@ -400,12 +435,9 @@ export const useIntroduction = (): Command => {
   const data = new SlashCommandBuilder()
     .setName(INTRODUCE.TITLE)
     .setDescription(INTRODUCE.DESCRIPTION)
-    .setDMPermission(true)
+    .setDMPermission(true) as CommandSet
 
-  return [
-    data,
-    async (interaction, client) => startIntroductionFlow(client, interaction),
-  ]
+  return [data, async (interaction, client) => startIntroductionFlow(client, interaction)]
 }
 
 export const resolveIntroduceCommandButtonEvents = async (client: He4rtClient, interaction: ButtonInteraction) => {

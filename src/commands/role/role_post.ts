@@ -1,5 +1,5 @@
 import { HexColorString, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
-import { Command } from '@/types'
+import { Command, CommandSet } from '@/types'
 import { ROLE_CREATE } from '@/defines/commands.json'
 import { isHex, reply } from '@/utils'
 import { HEX_OPTION, NAME_OPTION } from '-/commands/role_create.json'
@@ -12,7 +12,7 @@ export const useRolePost = (): Command => {
     .setDMPermission(false)
     .addStringOption((option) => option.setName('nome').setDescription(NAME_OPTION).setRequired(true))
     .addStringOption((option) => option.setName('hex').setDescription(HEX_OPTION).setRequired(true))
-    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator) as CommandSet
 
   return [
     data,

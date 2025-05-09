@@ -91,7 +91,7 @@ export const registerCommands = async ({ client, rest }: Context) => {
     useWatch(),
     useWatchList(),
     useWatchRemove(),
-    useSuggestIntroduction()
+    useSuggestIntroduction(),
   ])
 
   await rest.put(Routes.applicationGuildCommands(process.env.DISCORD_CLIENT_ID, process.env.DISCORD_GUILD_ID), {
@@ -102,7 +102,9 @@ export const registerCommands = async ({ client, rest }: Context) => {
 export const commandsListener = (client: He4rtClient, interaction: CommandInteraction) => {
   for (const [key, cb] of client.commands) {
     if (key.name === interaction.commandName) {
-      cb && cb(interaction, client)
+      if (cb) {
+        cb(interaction, client)
+      }
 
       client.logger.emit({
         message: `${getTargetMember(interaction.member as GuildMember)} acionou **/${key.name}** no canal **${

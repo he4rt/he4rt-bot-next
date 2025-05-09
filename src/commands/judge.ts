@@ -6,12 +6,12 @@ import {
   GuildMember,
   SlashCommandBuilder,
 } from 'discord.js'
-import { Command, He4rtClient } from '@/types'
+import { Command, CommandSet, He4rtClient } from '@/types'
 import { JUDGE } from '@/defines/commands.json'
 import { MEMBER_OPTION, TYPE_OPTION, REASON_OPTION } from '-/commands/judge.json'
 import { CALLED_CHANNEL } from '@/defines/ids.json'
 import { DISCORD_MESSAGE_LIMIT, CLIENT_NAME } from '@/defines/values.json'
-import { embedTemplate, getChannel, getTargetMember, reply } from '@/utils'
+import { embedTemplate, getChannel, getOption, getTargetMember, reply, sendMessageToChannel } from '@/utils'
 import { getUser, upsertUser } from '@/http/firebase'
 
 export const useJudge = (): Command => {
@@ -25,14 +25,15 @@ export const useJudge = (): Command => {
         .setName('tipo')
         .setDescription(TYPE_OPTION)
         .setRequired(true)
-        .addChoices({ name: '✅ Elogio', value: 0 }, { name: '❌ Oportunidade de Melhoria', value: 1 })
+        .addChoices({ name: '✅ Elogio', value: 0 }, { name: '❌ Oportunidade de Melhoria', value: 1 }),
     )
-    .addStringOption((option) => option.setName('motivo').setDescription(REASON_OPTION).setRequired(true))
+    .addStringOption((option) => option.setName('motivo').setDescription(REASON_OPTION).setRequired(true)) as CommandSet
 
   return [
     data,
     async (interaction, client) => {
-      const target = interaction.options.getUser('membro')
+      const targetOption = getOption(interaction, 'membro')
+      const target = targetOption.user
       const { value } = interaction.options.get('tipo')
       const reason = interaction.options.get('motivo')
 
@@ -72,12 +73,12 @@ export const useJudge = (): Command => {
       const component = new ActionRowBuilder<ButtonBuilder>()
         .addComponents(new ButtonBuilder().setCustomId('c-judge-deny').setLabel('Negar').setStyle(ButtonStyle.Danger))
         .addComponents(
-          new ButtonBuilder().setCustomId('c-judge-accept').setLabel('Aceitar').setStyle(ButtonStyle.Success)
+          new ButtonBuilder().setCustomId('c-judge-accept').setLabel('Aceitar').setStyle(ButtonStyle.Success),
         )
 
       const calledChannel = getChannel({ id: CALLED_CHANNEL.id, client })
 
-      await calledChannel.send({ embeds: [embed], components: [component] })
+      await sendMessageToChannel(calledChannel, { embeds: [embed], components: [component] })
 
       client.logger.emit({
         type: 'command',
@@ -112,7 +113,7 @@ export const resolveJudgeCommandButtonEvents = async (client: He4rtClient, inter
             title,
             description,
           })
-          dm.send({
+          sendMessageToChannel(dm, {
             content: `Você recebeu um feedback de um usuário pertencente ao servidor **${CLIENT_NAME}!**`,
             embeds: [embed],
           })
@@ -121,11 +122,11 @@ export const resolveJudgeCommandButtonEvents = async (client: He4rtClient, inter
                 type: 'ticket',
                 color: 'success',
                 message: `O feedback para ${getTargetMember(
-                  target
+                  target,
                 )} de título ${title} e de descrição **${description}** foi criado por ${getTargetMember(
-                  author
+                  author,
                 )}, aceito por ${getTargetMember(interaction.member as GuildMember)} e enviado para ${getTargetMember(
-                  target
+                  target,
                 )}!`,
                 customChannelId: CALLED_CHANNEL.id,
               })
@@ -175,9 +176,9 @@ export const resolveJudgeCommandButtonEvents = async (client: He4rtClient, inter
         type: 'ticket',
         color: 'warning',
         message: `O feedback para ${getTargetMember(
-          target
+          target,
         )} de título ${title} e de descrição **${description}** foi recusado por ${getTargetMember(
-          interaction.member as GuildMember
+          interaction.member as GuildMember,
         )}!`,
         customChannelId: CALLED_CHANNEL.id,
       })

@@ -16,6 +16,8 @@ import {
   TextBasedChannel,
   User,
   VoiceChannel,
+  MessageCreateOptions,
+  PartialGroupDMChannel,
 } from 'discord.js'
 import { CLIENT_NAME, CLIENT_TIMEZONE, COLORS, HE4RT_DELAS_ICON_1_URL, HE4RT_ICON_1_URL } from '@/defines/values.json'
 import {
@@ -52,11 +54,11 @@ import {
   ERROR_PAGINATION,
   ERROR_PRESENTING,
   ERROR_MEMBER_PRESENTING,
-  ERROR_MEMBER_PRESENTED
+  ERROR_MEMBER_PRESENTED,
 } from '-/defaults/reply.json'
 import { NOT_FOUND, LANGUAGE_NONE } from '-/defaults/display.json'
 import { TIMEOUT_COMMAND_STRING, DEFINE_STRING_REPLACED } from '@/defines/values.json'
-import { CommandGetOption, EmbedTemplateOptions, GetChannelOptions, He4rtClient } from '@/types'
+import { CommandGetOption, EmbedTemplateOptions, GetChannelOptions, He4rtClient, SendableChannel } from '@/types'
 import { DYNAMIC_VOICE_MIN_SIZE, DYNAMIC_VOICE_MAX_SIZE } from '@/defines/values.json'
 import pkg from '../package.json'
 
@@ -83,8 +85,8 @@ export const validDisplaySpecialRoles = (member: GuildMember) => {
     member?.roles?.cache
       ?.filter((role) =>
         [HE4RTLESS_ROLE, HE4RT_ROLE, SUPREME_ROLE, ADVANCED_ROLE, INTERMEDIATE_ROLE, BEGINNER_ROLE].some(
-          (v) => v.id === role.id
-        )
+          (v) => v.id === role.id,
+        ),
       )
       .map((role) => `<@&${role.id}>`)
       .join(' ') || LANGUAGE_NONE
@@ -137,7 +139,7 @@ export const isValidMessage = (message: Message) => {
   )
 }
 
-export const isValidId = (id: number, arr: any[]) => {
+export const isValidId = (id: number, arr: unknown[]) => {
   return !isNaN(id) && id <= arr.length && id > 0
 }
 
@@ -160,7 +162,7 @@ export const normalizeStringData = (str: string) => {
 export const embedTemplate = (options: EmbedTemplateOptions) => {
   const embed = new EmbedBuilder()
     .setColor(
-      options.color || (options.delas ? (COLORS.HE4RT_DELAS as HexColorString) : (COLORS.HE4RT as HexColorString))
+      options.color || (options.delas ? (COLORS.HE4RT_DELAS as HexColorString) : (COLORS.HE4RT as HexColorString)),
     )
     .setTitle(options.title)
 
@@ -186,9 +188,9 @@ export const embedTemplate = (options: EmbedTemplateOptions) => {
 }
 
 export const dynamicVoiceEmbedTemplate = async (
-  channel: VoiceChannel | TextBasedChannel,
+  channel: VoiceChannel | Exclude<TextBasedChannel, PartialGroupDMChannel>,
   owner: GuildMember,
-  options?: { send?: boolean }
+  options?: { send?: boolean },
 ) => {
   const embed = embedTemplate({
     title: `Canal de Voz Dinâmico`,
@@ -258,7 +260,12 @@ export const replaceDefineString = (str: string, target: string) => {
 }
 
 export const interpolate = (str: string, replacements: object) => {
-  return str.replace(/\$\{.+?\}/g, (match) => match.slice(2, -1).split('.').reduce((res, key) => res[key] || match, replacements))
+  return str.replace(/\$\{.+?\}/g, (match) =>
+    match
+      .slice(2, -1)
+      .split('.')
+      .reduce((res, key) => res[key] || match, replacements),
+  )
 }
 
 export const sendInDM = async (dm: DMChannel, interaction: CommandInteraction | ButtonInteraction, str: string) => {
@@ -275,7 +282,7 @@ export const openAndSendMessageInDm = (
   client: He4rtClient,
   member: GuildMember,
   message: string,
-  suppress: boolean = false
+  suppress: boolean = false,
 ): Promise<void> => {
   return new Promise((res) => {
     member
@@ -432,9 +439,9 @@ export const js = () => {
   const getTime = (): string => {
     const date = getUTCDate()
 
-    let hours = (date.getHours() < 10 ? '0' : '') + date.getHours()
+    const hours = (date.getHours() < 10 ? '0' : '') + date.getHours()
 
-    let minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes()
+    const minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes()
 
     return `${hours}:${minutes}`
   }
@@ -444,4 +451,17 @@ export const js = () => {
   }
 
   return { sleep, getUTCDate, getFullTime, getTime, randomHex }
+}
+
+export const canSendMessage = (channel: Channel): channel is SendableChannel => {
+  return Boolean(channel && 'send' in channel)
+}
+
+export const sendMessageToChannel = (
+  channel: Channel,
+  options: string | MessageCreateOptions,
+): Promise<Message> | null => {
+  if (!canSendMessage(channel)) return null
+
+  return channel.send(options)
 }

@@ -1,5 +1,5 @@
 import { GuildMember, Message, PermissionFlagsBits, SlashCommandBuilder, TextChannel } from 'discord.js'
-import { Command } from '@/types'
+import { Command, CommandSet } from '@/types'
 import { BAN } from '@/defines/commands.json'
 import { MEMBER_OPTION, REASON_OPTION, EXPOSE_OPTION, EMBED_TITLE } from '-/commands/ban.json'
 import {
@@ -11,7 +11,7 @@ import {
 } from '-/commands/shared.json'
 import { PUNISHMENTS_CHANNEL, HE4RT_EMOJI_ID } from '@/defines/ids.json'
 import { CLIENT_NAME } from '@/defines/values.json'
-import { embedTemplate, getChannel, openAndSendMessageInDm, reply } from '@/utils'
+import { embedTemplate, getChannel, getOption, openAndSendMessageInDm, reply, sendMessageToChannel } from '@/utils'
 
 export const useBan = (): Command => {
   const data = new SlashCommandBuilder()
@@ -21,21 +21,22 @@ export const useBan = (): Command => {
     .addUserOption((option) => option.setName('membro').setDescription(MEMBER_OPTION).setRequired(true))
     .addStringOption((option) => option.setName('razao').setDescription(REASON_OPTION).setRequired(true))
     .addChannelOption((option) => option.setName('expor').setDescription(EXPOSE_OPTION))
-    .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
+    .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers) as CommandSet
 
   return [
     data,
     async (interaction, client) => {
       const author = interaction.user
 
-      const member = interaction.options.getMember('membro') as GuildMember
+      const memberOption = getOption(interaction, 'membro')
+      const member = interaction.guild.members.cache.get(memberOption.user.id) as GuildMember
       const reason = interaction.options.get('razao')
       const expose = interaction.options.get('expor')
 
       await openAndSendMessageInDm(
         client,
         member,
-        `Você foi banido do servidor **${CLIENT_NAME}**!\n\nMotivo: ${reason.value}`
+        `Você foi banido do servidor **${CLIENT_NAME}**!\n\nMotivo: ${reason.value}`,
       )
 
       interaction.guild.members
@@ -62,19 +63,20 @@ export const useBan = (): Command => {
 
           const channel = getChannel({ id: PUNISHMENTS_CHANNEL.id, client })
 
-          await channel.send({ content: `Usuário **${member.id}** Banido!`, embeds: [embed] }).catch(() => {})
+          await sendMessageToChannel(channel, { content: `Usuário **${member.id}** Banido!`, embeds: [embed] })
 
-          if (expose.channel) {
+          if (expose?.channel) {
             const target = expose.channel as TextChannel
 
-            await target
-              .send({ content: `Usuário **${member.nickname ?? member.user.username}** Banido!`, embeds: [embed] })
-              .then(async (msg: Message) => {
-                await msg.react(HE4RT_EMOJI_ID).catch(async () => {
-                  await msg.react('💜').catch(() => {})
-                })
+            const msg = (await sendMessageToChannel(target, {
+              content: `Usuário **${member.nickname ?? member.user.username}** Banido!`,
+              embeds: [embed],
+            })) as Message
+            if (msg) {
+              await msg.react(HE4RT_EMOJI_ID).catch(async () => {
+                await msg.react('💜').catch(() => {})
               })
-              .catch(() => {})
+            }
           }
 
           await reply(interaction).success()

@@ -1,8 +1,8 @@
 import { CategoryChannel, GuildMember, SlashCommandBuilder, VoiceChannel } from 'discord.js'
-import { Command } from '@/types'
+import { Command, CommandSet } from '@/types'
 import { DYNAMIC_VOICE_OWNER } from '@/defines/commands.json'
 import { USER_OPTION } from '-/commands/dynamic_voice.json'
-import { dynamicVoiceEmbedTemplate, getChannel, isPresentedMember, reply } from '@/utils'
+import { dynamicVoiceEmbedTemplate, getChannel, getOption, isPresentedMember, reply } from '@/utils'
 import { DYNAMIC_CATEGORY_CHANNEL } from '@/defines/ids.json'
 
 export const useDynamicVoiceOwner = (): Command => {
@@ -10,12 +10,13 @@ export const useDynamicVoiceOwner = (): Command => {
     .setName(DYNAMIC_VOICE_OWNER.TITLE)
     .setDescription(DYNAMIC_VOICE_OWNER.DESCRIPTION)
     .setDMPermission(false)
-    .addUserOption((option) => option.setName('usuario').setDescription(USER_OPTION).setRequired(true))
+    .addUserOption((option) => option.setName('usuario').setDescription(USER_OPTION).setRequired(true)) as CommandSet
 
   return [
     data,
     async (interaction, client) => {
-      const target = interaction.options.getMember('usuario') as GuildMember
+      const targetOption = getOption(interaction, 'usuario')
+      const target = interaction.guild.members.cache.get(targetOption.user.id) as GuildMember
       const targetState = target?.voice
       const act = interaction.member as GuildMember
       const actState = act?.voice
@@ -55,8 +56,7 @@ export const useDynamicVoiceOwner = (): Command => {
       }
 
       try {
-        //@ts-expect-error
-        const fetched = [...(await channel.messages.fetch({ limit: 1, after: 1 }))]
+        const fetched = [...(await channel.messages.fetch({ limit: 1 }))]
 
         const controller = fetched[0][1]
 

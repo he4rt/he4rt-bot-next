@@ -1,5 +1,5 @@
 import { GuildMember, SlashCommandBuilder } from 'discord.js'
-import { Command } from '@/types'
+import { Command, CommandSet } from '@/types'
 import { FORUM_OPEN } from '@/defines/commands.json'
 import { TITLE_OPTION, DESCRIPTION_OPTION } from '-/commands/forum_create.json'
 import { UNSOLVED_TAG } from '@/defines/ids.json'
@@ -11,7 +11,9 @@ export const useForumCreate = (): Command => {
     .setDescription(FORUM_OPEN.DESCRIPTION)
     .setDMPermission(false)
     .addStringOption((option) => option.setName('titulo').setDescription(TITLE_OPTION).setRequired(true))
-    .addStringOption((option) => option.setName('descricao').setDescription(DESCRIPTION_OPTION).setRequired(true))
+    .addStringOption((option) =>
+      option.setName('descricao').setDescription(DESCRIPTION_OPTION).setRequired(true),
+    ) as CommandSet
 
   return [
     data,
@@ -40,7 +42,7 @@ export const useForumCreate = (): Command => {
       } catch (e) {
         client.logger.emit({
           message: `${getTargetMember(
-            interaction.member as GuildMember
+            interaction.member as GuildMember,
           )} não conseguiu criar o canal de ajuda **${name}**!`,
           type: 'command',
           color: 'error',

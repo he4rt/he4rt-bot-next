@@ -2,7 +2,7 @@ import { TickerCallback, TickerItem, TickerName } from '@/types'
 
 export class Ticker {
   private _list: TickerItem[] = []
-  private _interval: NodeJS.Timer
+  private _interval: NodeJS.Timeout
 
   private __CALL__: number = 1000
 

@@ -8,6 +8,7 @@ import {
   getTargetMember,
   isNitroBoosterMember,
   isPrivilegedMember,
+  sendMessageToChannel,
 } from '@/utils'
 import { GuildMember, Role } from 'discord.js'
 import { upsertUser } from '@/http/firebase'
@@ -15,7 +16,7 @@ import { upsertUser } from '@/http/firebase'
 export const setMemberIsAPrivilegedOrNot = async (
   client: He4rtClient,
   oldMember: GuildMember,
-  currentMember: GuildMember
+  currentMember: GuildMember,
 ) => {
   const guild = getGuild(client)
 
@@ -41,12 +42,11 @@ export const setMemberIsAPrivilegedOrNot = async (
 export const userBoostingServerMessage = async (
   client: He4rtClient,
   oldMember: GuildMember,
-  currentMember: GuildMember
+  currentMember: GuildMember,
 ) => {
   if (!oldMember?.premiumSince && currentMember.premiumSince) {
     const channel = getChannel({ client, id: CHAT_CHANNEL.id })
-
-    const message = await channel.send(`<@${currentMember.user.id}>${SUCCESS_NITRO_MESSAGE}`)
+    const message = await sendMessageToChannel(channel, `<@${currentMember.user.id}>${SUCCESS_NITRO_MESSAGE}`)
 
     await message.suppressEmbeds(true).catch(() => {})
 
@@ -57,7 +57,7 @@ export const userBoostingServerMessage = async (
 export const setMemberIsANitroOrNot = async (
   client: He4rtClient,
   oldMember: GuildMember,
-  currentMember: GuildMember
+  currentMember: GuildMember,
 ) => {
   const old = isNitroBoosterMember(oldMember)
   const active = isNitroBoosterMember(currentMember)

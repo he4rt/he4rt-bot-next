@@ -1,9 +1,9 @@
 import { GuildMember, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
-import { Command } from '@/types'
+import { Command, CommandSet } from '@/types'
 import { WATCH_REMOVE } from '@/defines/commands.json'
 import { MEMBER_OPTION } from '-/commands/watch.json'
 import { removeWatchedUser } from '@/http/firebase'
-import { reply } from '@/utils'
+import { getOption, reply } from '@/utils'
 
 export const useWatchRemove = (): Command => {
   const data = new SlashCommandBuilder()
@@ -11,12 +11,13 @@ export const useWatchRemove = (): Command => {
     .setDescription(WATCH_REMOVE.DESCRIPTION)
     .setDMPermission(false)
     .addUserOption((option) => option.setName('membro').setDescription(MEMBER_OPTION).setRequired(true))
-    .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
+    .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers) as CommandSet
 
   return [
     data,
     async (interaction, client) => {
-      const member = interaction.options.getMember('membro') as GuildMember
+      const memberOption = getOption(interaction, 'membro')
+      const member = interaction.guild.members.cache.get(memberOption.user.id) as GuildMember
 
       removeWatchedUser(client, { id: member.id })
         .then(async () => {

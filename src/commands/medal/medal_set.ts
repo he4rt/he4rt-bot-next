@@ -1,5 +1,5 @@
 import { GuildMember, SlashCommandBuilder } from 'discord.js'
-import { Command } from '@/types'
+import { Command, CommandSet } from '@/types'
 import { MEDAL } from '@/defines/commands.json'
 import { MEDAL_OPTION, DO_NOT_HAVE, ALREADY, SUCCESS } from '-/commands/medal.json'
 import { hasRole, reply } from '../../utils'
@@ -10,7 +10,7 @@ export const useMedal = (): Command => {
     .setName(MEDAL.TITLE)
     .setDescription(MEDAL.DESCRIPTION)
     .setDMPermission(false)
-    .addRoleOption((option) => option.setName('medalha').setDescription(MEDAL_OPTION).setRequired(true))
+    .addRoleOption((option) => option.setName('medalha').setDescription(MEDAL_OPTION).setRequired(true)) as CommandSet
 
   return [
     data,

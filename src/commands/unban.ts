@@ -1,5 +1,5 @@
 import { Message, PermissionFlagsBits, SlashCommandBuilder, TextChannel } from 'discord.js'
-import { Command } from '@/types'
+import { Command, CommandSet } from '@/types'
 import { UNBAN } from '@/defines/commands.json'
 import { MEMBER_OPTION, REASON_OPTION, EXPOSE_OPTION, EMBED_TITLE } from '-/commands/unban.json'
 import { EMBED_FIELD_TYPE_BAN } from '-/commands/shared.json'
@@ -10,7 +10,7 @@ import {
   EMBED_FIELD_REASON,
   EMBED_FIELD_REASON_VALUE,
 } from '@/defines/localisation/commands/shared.json'
-import { embedTemplate, getChannel, reply } from '@/utils'
+import { embedTemplate, getChannel, getOption, reply, sendMessageToChannel } from '@/utils'
 
 export const useUnban = (): Command => {
   const data = new SlashCommandBuilder()
@@ -20,14 +20,15 @@ export const useUnban = (): Command => {
     .addUserOption((option) => option.setName('membro').setDescription(MEMBER_OPTION).setRequired(true))
     .addStringOption((option) => option.setName('razao').setDescription(REASON_OPTION).setRequired(true))
     .addChannelOption((option) => option.setName('expor').setDescription(EXPOSE_OPTION))
-    .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
+    .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers) as CommandSet
 
   return [
     data,
     async (interaction, client) => {
       const author = interaction.user
 
-      const user = interaction.options.getUser('membro')
+      const userOption = getOption(interaction, 'membro')
+      const user = userOption.user
       const reason = interaction.options.get('razao')
       const expose = interaction.options.get('expor')
 
@@ -52,18 +53,20 @@ export const useUnban = (): Command => {
 
           const channel = getChannel({ id: PUNISHMENTS_CHANNEL.id, client })
 
-          await channel?.send({ content: `Usuário **${user.id}** Desbanido!`, embeds: [embed] })
+          await sendMessageToChannel(channel, { content: `Usuário **${user.id}** Desbanido!`, embeds: [embed] })
 
-          if (expose.channel) {
+          if (expose?.channel) {
             const target = expose.channel as TextChannel
 
-            await target
-              .send({ content: `Usuário **${user.username ?? user.id}** Desbanido!`, embeds: [embed] })
-              .then(async (msg: Message) => {
-                await msg.react(HE4RT_EMOJI_ID).catch(async () => {
-                  await msg.react('💜').catch(() => {})
-                })
+            const msg = (await sendMessageToChannel(target, {
+              content: `Usuário **${user.username ?? user.id}** Desbanido!`,
+              embeds: [embed],
+            })) as Message
+            if (msg) {
+              await msg.react(HE4RT_EMOJI_ID).catch(async () => {
+                await msg.react('💜').catch(() => {})
               })
+            }
           }
 
           await reply(interaction).success()

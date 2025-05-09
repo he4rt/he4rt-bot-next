@@ -1,5 +1,5 @@
 import { CategoryChannel, GuildMember, SlashCommandBuilder, VoiceChannel } from 'discord.js'
-import { Command } from '@/types'
+import { Command, CommandSet } from '@/types'
 import { DYNAMIC_CATEGORY_CHANNEL } from '@/defines/ids.json'
 import { DYNAMIC_VOICE_SIZE } from '@/defines/commands.json'
 import { getOption, getChannel, reply, isPresentedMember } from '@/utils'
@@ -17,8 +17,8 @@ export const useDynamicVoiceSize = (): Command => {
         .setDescription(LIMIT_OPTION)
         .setRequired(true)
         .setMinValue(DYNAMIC_VOICE_MIN_SIZE)
-        .setMaxValue(DYNAMIC_VOICE_MAX_SIZE)
-    )
+        .setMaxValue(DYNAMIC_VOICE_MAX_SIZE),
+    ) as CommandSet
 
   return [
     data,
@@ -57,8 +57,7 @@ export const useDynamicVoiceSize = (): Command => {
       }
 
       try {
-        //@ts-expect-error
-        const fetched = [...(await channel.messages.fetch({ limit: 1, after: 1 }))]
+        const fetched = [...(await channel.messages.fetch({ limit: 1 }))]
 
         const controller = fetched[0][1]
 

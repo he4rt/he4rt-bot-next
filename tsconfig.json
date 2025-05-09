@@ -6,6 +6,7 @@
     "resolveJsonModule": true,
     "downlevelIteration": true,
     "esModuleInterop": true,
+    "skipLibCheck": true,
     "paths": {
       "-/*": ["src/defines/localisation/*"],
       "@/*": ["src/*"]
