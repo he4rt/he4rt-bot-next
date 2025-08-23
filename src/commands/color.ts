@@ -1,4 +1,4 @@
-import { CommandInteractionOption, GuildMember, HexColorString, SlashCommandBuilder } from 'discord.js'
+import { CommandInteractionOption, GuildMember, HexColorString, MessageFlags, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@/types'
 import { COLOR } from '@/defines/commands.json'
 import { RESTRICTED_CUSTOM_ROLE_COLORS } from '@/defines/values.json'
@@ -35,13 +35,13 @@ export const useColor = (): Command => {
       }
 
       if (!isHex(color)) {
-        await interaction.reply({ content: HEX_ERROR, ephemeral: true })
+        await interaction.reply({ content: HEX_ERROR, flags: MessageFlags.Ephemeral })
 
         return
       }
 
       if (RESTRICTED_CUSTOM_ROLE_COLORS.some((v) => v === color)) {
-        await interaction.reply({ content: HEX_ERROR_IN_SPECIFIC_COLORS, ephemeral: true })
+        await interaction.reply({ content: HEX_ERROR_IN_SPECIFIC_COLORS, flags: MessageFlags.Ephemeral })
 
         return
       }

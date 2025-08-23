@@ -1,4 +1,4 @@
-import { PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
+import { MessageFlags, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
 import { Command, MeetingEndPOST } from '@/types'
 import { STAGE_FINISH } from '@/defines/commands.json'
 import { reply } from '@/utils'
@@ -18,7 +18,7 @@ export const useStageFinish = (): Command => {
           provider_id: interaction.user.id,
         })
         .then(async ({ message }) => {
-          await interaction.reply({ content: message, ephemeral: true })
+          await interaction.reply({ content: message, flags: MessageFlags.Ephemeral })
         })
         .catch(async () => {
           await reply(interaction).error()

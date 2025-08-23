@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, RestOrArray, APIEmbedField, GuildMember } from 'discord.js'
+import { SlashCommandBuilder, RestOrArray, APIEmbedField, GuildMember, MessageFlags } from 'discord.js'
 import { Command, RankingGET } from '@/types'
 import { RANKING } from '@/defines/commands.json'
 import { PAGE_OPTION, NULL_ACCOUNT, EMBED_TITLE } from '-/commands/ranking.json'
@@ -52,7 +52,7 @@ export const useRanking = (): Command => {
             fields: [fields],
           })
 
-          await interaction.reply({ embeds: [embed], ephemeral: true })
+          await interaction.reply({ embeds: [embed], flags: MessageFlags.Ephemeral })
         })
         .catch(async () => {
           await reply(interaction).error()

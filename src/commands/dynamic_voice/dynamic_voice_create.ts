@@ -1,4 +1,4 @@
-import { CategoryChannel, ChannelType, GuildMember, SlashCommandBuilder } from 'discord.js'
+import { CategoryChannel, ChannelType, GuildMember, MessageFlags, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@/types'
 import { DYNAMIC_VOICE } from '@/defines/commands.json'
 import { DYNAMIC_CATEGORY_CHANNEL } from '@/defines/ids.json'
@@ -72,7 +72,7 @@ export const useDynamicVoice = (): Command => {
           : getOptionType(DYNAMIC_VOICE_OPTIONS, type.value as number)
 
       if (member?.voice?.channel?.parent?.id === DYNAMIC_CATEGORY_CHANNEL.id) {
-        await interaction.reply({ content: IN_DYNAMIC_VOICE_ERROR, ephemeral: true })
+        await interaction.reply({ content: IN_DYNAMIC_VOICE_ERROR, flags: MessageFlags.Ephemeral })
 
         return
       }
@@ -100,7 +100,7 @@ export const useDynamicVoice = (): Command => {
         color: 'success',
       })
 
-      await interaction.reply({ content: invite.url, ephemeral: true }).catch(() => {
+      await interaction.reply({ content: invite.url, flags: MessageFlags.Ephemeral }).catch(() => {
         client.logger.emit({
           message: `${getTargetMember(member)} não conseguiu criar o canal de voz dinâmico **${typeTitle}**!`,
           type: 'command',

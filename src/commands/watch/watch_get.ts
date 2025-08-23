@@ -1,4 +1,4 @@
-import { PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
+import { MessageFlags, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@/types'
 import { WATCH_LIST } from '@/defines/commands.json'
 import { getWatchedUsers } from '@/http/firebase'
@@ -25,7 +25,7 @@ export const useWatchList = (): Command => {
             )
             .reduce((str, item) => (str += item), '**Lista de Observados**: \n\n')
 
-          interaction.reply({ content, ephemeral: true }).catch(() => {})
+          interaction.reply({ content, flags: MessageFlags.Ephemeral }).catch(() => {})
         })
         .catch(async () => {
           await reply(interaction).error()

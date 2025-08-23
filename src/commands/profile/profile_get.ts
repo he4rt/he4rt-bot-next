@@ -1,4 +1,4 @@
-import { GuildMember, HexColorString, SlashCommandBuilder } from 'discord.js'
+import { GuildMember, HexColorString, MessageFlags, SlashCommandBuilder } from 'discord.js'
 import { Command, UserGET } from '@/types'
 import { PROFILE } from '@/defines/commands.json'
 import { COLORS, EXTENDED_PROFILE_LINK } from '@/defines/values.json'
@@ -89,7 +89,7 @@ export const useProfileGet = (): Command => {
 
           await interaction.reply({
             embeds: [embed],
-            ephemeral: true,
+            flags: MessageFlags.Ephemeral,
           })
         })
         .catch(async (e) => {

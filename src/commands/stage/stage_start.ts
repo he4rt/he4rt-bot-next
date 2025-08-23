@@ -1,4 +1,4 @@
-import { GuildMember, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
+import { GuildMember, MessageFlags, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
 import { Command, MeetingPOST } from '@/types'
 import { STAGE_START } from '@/defines/commands.json'
 import { MEETING_OPTION } from '-/commands/stage_start.json'
@@ -38,7 +38,7 @@ export const useStageStart = (): Command => {
             color: 'success',
           })
 
-          await interaction.reply({ content: `A reunião foi criada! O id da reunião é **${id}**!`, ephemeral: true })
+          await interaction.reply({ content: `A reunião foi criada! O id da reunião é **${id}**!`, flags: MessageFlags.Ephemeral })
         })
         .catch(async () => {
           await reply(interaction).error()

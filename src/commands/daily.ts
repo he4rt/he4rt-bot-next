@@ -1,4 +1,4 @@
-import { GuildMember, SlashCommandBuilder } from 'discord.js'
+import { GuildMember, MessageFlags, SlashCommandBuilder } from 'discord.js'
 import { Command, DailyPOST } from '@/types'
 import { DAILY } from '@/defines/commands.json'
 import { isPresentedMember, isPrivilegedMember, reply } from '@/utils'
@@ -29,7 +29,7 @@ export const useDaily = (): Command => {
         if (lastRedeem >= actuallyTime) {
           await interaction.reply({
             content: HCOINS_ERROR,
-            ephemeral: true,
+            flags: MessageFlags.Ephemeral,
           })
 
           return
