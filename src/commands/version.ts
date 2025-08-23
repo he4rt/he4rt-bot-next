@@ -1,4 +1,4 @@
-import { PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
+import { MessageFlags, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@/types'
 import { VERSION } from '@/defines/commands.json'
 import { getBotVersion } from '@/utils'
@@ -13,7 +13,7 @@ export const useVersion = (): Command => {
   return [
     data,
     async (interaction, client) => {
-      await interaction.reply({ content: `${getBotVersion()} | ${Math.round(client.ws.ping)}ms.`, ephemeral: true })
+      await interaction.reply({ content: `${getBotVersion()} | ${Math.round(client.ws.ping)}ms.`, flags: MessageFlags.Ephemeral })
     },
   ]
 }

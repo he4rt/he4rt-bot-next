@@ -1,4 +1,4 @@
-import { GuildMember, SlashCommandBuilder } from 'discord.js'
+import { GuildMember, MessageFlags, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@/types'
 import { MEDAL } from '@/defines/commands.json'
 import { MEDAL_OPTION, DO_NOT_HAVE, ALREADY, SUCCESS } from '-/commands/medal.json'
@@ -23,13 +23,13 @@ export const useMedal = (): Command => {
       const userHasMedal = await hasMedal(client, { id: member.id, role_id: medal_id })
 
       if (!userHasMedal) {
-        await interaction.reply({ content: DO_NOT_HAVE, ephemeral: true })
+        await interaction.reply({ content: DO_NOT_HAVE, flags: MessageFlags.Ephemeral })
 
         return
       }
 
       if (hasRole(member, medal_id)) {
-        await interaction.reply({ content: ALREADY, ephemeral: true })
+        await interaction.reply({ content: ALREADY, flags: MessageFlags.Ephemeral })
 
         return
       }
@@ -41,7 +41,7 @@ export const useMedal = (): Command => {
             .remove(medals.filter(({ role_id }) => role_id !== medal_id).map((role) => role.role_id))
             .catch(() => {})
 
-          await interaction.reply({ content: SUCCESS, ephemeral: true })
+          await interaction.reply({ content: SUCCESS, flags: MessageFlags.Ephemeral })
         })
         .catch(async () => {
           await reply(interaction).error()

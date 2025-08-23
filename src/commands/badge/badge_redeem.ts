@@ -1,4 +1,4 @@
-import { GuildMember, SlashCommandBuilder } from 'discord.js'
+import { GuildMember, MessageFlags, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@/types'
 import { BADGE_SET } from '@/defines/commands.json'
 import { CODE_OPTION, REPLY_SUCCESS, REPLY_ERROR } from '-/commands/badge_redeem.json'
@@ -34,13 +34,13 @@ export const useBadgeRedeem = (): Command => {
 
           await interaction.reply({
             content: REPLY_SUCCESS,
-            ephemeral: true,
+            flags: MessageFlags.Ephemeral,
           })
         })
         .catch(async () => {
           await interaction.reply({
             content: REPLY_ERROR,
-            ephemeral: true,
+            flags: MessageFlags.Ephemeral,
           })
         })
     },

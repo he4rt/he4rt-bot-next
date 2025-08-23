@@ -1,4 +1,4 @@
-import { GuildMember, SlashCommandBuilder } from 'discord.js'
+import { GuildMember, MessageFlags, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@/types'
 import { REPUTATION } from '@/defines/commands.json'
 import { MEMBER_OPTION, INVALID_REPUTATION } from '-/commands/reputation.json'
@@ -32,7 +32,7 @@ export const useReputation = (): Command => {
           await reply(interaction).success()
         })
         .catch(async () => {
-          await interaction.reply({ content: INVALID_REPUTATION, ephemeral: true })
+          await interaction.reply({ content: INVALID_REPUTATION, flags: MessageFlags.Ephemeral })
         })
     },
   ]

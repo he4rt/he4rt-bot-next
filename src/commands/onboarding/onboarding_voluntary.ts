@@ -1,4 +1,4 @@
-import { GuildMember, SlashCommandBuilder } from 'discord.js'
+import { GuildMember, MessageFlags, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@/types'
 import { ONBOARDING_VOLUNTARY } from '@/defines/commands.json'
 import { VOLUNTEER_CHANNEL, VOLUNTEER_ROLE } from '@/defines/ids.json'
@@ -41,7 +41,7 @@ export const useOnboardingVoluntary = (): Command => {
 
       await interaction.reply({
         content: `**Agora você é um voluntário!** Fique atento ao canal <#${VOLUNTEER_CHANNEL.id}> para atender as pessoas que solicitarem ajuda.\n\nLembre-se de usar o comando **/onboarding-finalizar** quando acabar de ajuda alguém.`,
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       })
     },
   ]

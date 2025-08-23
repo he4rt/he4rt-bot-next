@@ -24,14 +24,15 @@ export const setVoiceXP = async (client: He4rtClient) => {
         const isUnmuted = !member.voice.selfMute && !member.voice.serverMute
         const isAble = !member.voice.selfDeaf && !member.voice.serverDeaf
 
-        if (AWAY_VOICE_CHANNEL.id === voiceChannel.id) return
-
-        client.api.he4rt.voices.discord
-          .post<VoicePOST>({
-            provider_id: id,
-            status: isAble && !isUnmuted ? 'muted' : isAble && isUnmuted ? 'unmuted' : 'disabled',
-          })
-          .catch(() => {})
+        if (AWAY_VOICE_CHANNEL.id !== voiceChannel.id) {
+          client.api.he4rt.voices.discord
+              .post<VoicePOST>({
+                provider_id: id,
+                state: isAble && !isUnmuted ? 'muted' : isAble && isUnmuted ? 'unmuted' : 'disabled',
+                channel_name: voiceChannel.name
+              })
+              .catch(() => {})
+        }
       }
     }
   })

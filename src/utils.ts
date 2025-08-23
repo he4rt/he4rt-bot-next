@@ -11,6 +11,7 @@ import {
   GuildMember,
   HexColorString,
   Message,
+  MessageFlags,
   PartialGuildMember,
   PermissionFlagsBits,
   TextBasedChannel,
@@ -311,22 +312,22 @@ export const openAndSendMessageInDm = (
 
 export const reply = (interaction: CommandInteraction | ButtonInteraction) => {
   const success = async () => {
-    await interaction.reply({ content: SUCCESS_COMMAND_DEFAULT, ephemeral: true }).catch(() => {})
+    await interaction.reply({ content: SUCCESS_COMMAND_DEFAULT, flags: MessageFlags.Ephemeral }).catch(() => {})
   }
 
   const successInAccessDM = async () => {
-    await interaction.reply({ content: SUCCESS_DM_SEND, ephemeral: true }).catch(() => {})
+    await interaction.reply({ content: SUCCESS_DM_SEND, flags: MessageFlags.Ephemeral }).catch(() => {})
   }
 
   const executing = async () => {
-    await interaction.reply({ content: EXECUTING, ephemeral: true }).catch(() => {})
+    await interaction.reply({ content: EXECUTING, flags: MessageFlags.Ephemeral }).catch(() => {})
   }
 
   const error = async () => {
     return await interaction
       .reply({
         content: ERROR_DEFAULT,
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       })
       .catch(() => {})
   }
@@ -334,48 +335,48 @@ export const reply = (interaction: CommandInteraction | ButtonInteraction) => {
   const errorInvalidEmail = async () => {
     return await interaction.reply({
       content: ERROR_INVALID_EMAIL,
-      ephemeral: true,
+      flags: MessageFlags.Ephemeral,
     })
   }
 
   const errorPermission = async () => {
-    return await interaction.reply({ content: ERROR_MISS_PERMISSION, ephemeral: true })
+    return await interaction.reply({ content: ERROR_MISS_PERMISSION, flags: MessageFlags.Ephemeral })
   }
 
   const errorMemberIsNotPresented = async () => {
-    return await interaction.reply({ content: ERROR_MEMBER_IS_NOT_PRESENTED, ephemeral: true })
+    return await interaction.reply({ content: ERROR_MEMBER_IS_NOT_PRESENTED, flags: MessageFlags.Ephemeral })
   }
 
   const errorInAccessDM = async () => {
-    await interaction.reply({ content: ERROR_ACCESS_DM, ephemeral: true })
+    await interaction.reply({ content: ERROR_ACCESS_DM, flags: MessageFlags.Ephemeral })
   }
 
   const errorInMissingArgument = async () => {
-    await interaction.reply({ content: ERROR_INVALID_ARGUMENT, ephemeral: true })
+    await interaction.reply({ content: ERROR_INVALID_ARGUMENT, flags: MessageFlags.Ephemeral })
   }
 
   const errorUserCannotBeBaned = async () => {
-    await interaction.reply({ content: ERROR_CANNOT_BE_BANNED, ephemeral: true })
+    await interaction.reply({ content: ERROR_CANNOT_BE_BANNED, flags: MessageFlags.Ephemeral })
   }
 
   const errorSpecificChannel = async (str: string) => {
-    await interaction.reply({ content: `${ERROR_CHANNEL_PERMISSION}${str}!`, ephemeral: true })
+    await interaction.reply({ content: `${ERROR_CHANNEL_PERMISSION}${str}!`, flags: MessageFlags.Ephemeral })
   }
 
   const errorPaginationFail = async () => {
-    await interaction.reply({ content: ERROR_PAGINATION, ephemeral: true })
+    await interaction.reply({ content: ERROR_PAGINATION, flags: MessageFlags.Ephemeral })
   }
 
   const errorPresentingFail = async () => {
-    await interaction.reply({ content: ERROR_PRESENTING, ephemeral: true })
+    await interaction.reply({ content: ERROR_PRESENTING, flags: MessageFlags.Ephemeral })
   }
 
   const errorMemberPresentingFail = async () => {
-    await interaction.reply({ content: ERROR_MEMBER_PRESENTING, ephemeral: true })
+    await interaction.reply({ content: ERROR_MEMBER_PRESENTING, flags: MessageFlags.Ephemeral })
   }
 
   const errorMemberPresentedFail = async () => {
-    await interaction.reply({ content: ERROR_MEMBER_PRESENTED, ephemeral: true })
+    await interaction.reply({ content: ERROR_MEMBER_PRESENTED, flags: MessageFlags.Ephemeral })
   }
 
   return {

@@ -4,6 +4,7 @@ import {
   ButtonInteraction,
   ButtonStyle,
   GuildMember,
+  MessageFlags,
   SlashCommandBuilder,
 } from 'discord.js'
 import { Command, He4rtClient } from '@/types'
@@ -46,7 +47,7 @@ export const useJudge = (): Command => {
       if ((reason.value as string).length >= DISCORD_MESSAGE_LIMIT) {
         await interaction.reply({
           content: `O seu texto de motivo ultrapassa o limite do discord (${DISCORD_MESSAGE_LIMIT} caracteres) e por isso foi desconsiderado! Opte por enviar feedback's separados!`,
-          ephemeral: true,
+          flags: MessageFlags.Ephemeral,
         })
 
         return

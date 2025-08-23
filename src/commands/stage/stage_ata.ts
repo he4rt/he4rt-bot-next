@@ -1,4 +1,4 @@
-import { GuildMember, SlashCommandBuilder } from 'discord.js'
+import { GuildMember, MessageFlags, SlashCommandBuilder } from 'discord.js'
 import { Command, MeetingPATCH } from '@/types'
 import { STAGE_ATA } from '@/defines/commands.json'
 import { DISCORD_MESSAGE_LIMIT } from '@/defines/values.json'
@@ -20,7 +20,7 @@ export const useStageATA = (): Command => {
       const meeting = getOption(interaction, 'reuniao')
 
       if (!isATAMember(interaction.member as GuildMember)) {
-        await interaction.reply({ content: `Apenas o escrivão pode utilizar este comando!`, ephemeral: true })
+        await interaction.reply({ content: `Apenas o escrivão pode utilizar este comando!`, flags: MessageFlags.Ephemeral })
 
         return
       }
@@ -31,7 +31,7 @@ export const useStageATA = (): Command => {
       if (content.length >= DISCORD_MESSAGE_LIMIT) {
         await interaction.reply({
           content: `O seu texto ultrapassa o limite do discord (${DISCORD_MESSAGE_LIMIT} caracteres) e por isso foi desconsiderado!`,
-          ephemeral: true,
+          flags: MessageFlags.Ephemeral,
         })
 
         return
@@ -45,7 +45,7 @@ export const useStageATA = (): Command => {
         .then(async ({ id }) => {
           await interaction.reply({
             content: `ATA foi submetida com sucesso para a reunião de id **${id}**!`,
-            ephemeral: true,
+            flags: MessageFlags.Ephemeral,
           })
         })
         .catch(async () => {

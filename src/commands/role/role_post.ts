@@ -1,4 +1,4 @@
-import { HexColorString, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
+import { HexColorString, MessageFlags, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@/types'
 import { ROLE_CREATE } from '@/defines/commands.json'
 import { isHex, reply } from '@/utils'
@@ -21,13 +21,13 @@ export const useRolePost = (): Command => {
       const color = interaction.options.get('hex')
 
       if (!isHex(color.value as string)) {
-        await interaction.reply({ content: HEX_ERROR, ephemeral: true })
+        await interaction.reply({ content: HEX_ERROR, flags: MessageFlags.Ephemeral })
 
         return
       }
 
       if (color.value === '#000000') {
-        await interaction.reply({ content: HEX_ERROR_IN_SPECIFIC_COLORS, ephemeral: true })
+        await interaction.reply({ content: HEX_ERROR_IN_SPECIFIC_COLORS, flags: MessageFlags.Ephemeral })
 
         return
       }

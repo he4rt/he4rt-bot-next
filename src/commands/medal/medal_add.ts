@@ -1,4 +1,4 @@
-import { GuildMember, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
+import { GuildMember, MessageFlags, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
 import { Command, Maybe } from '@/types'
 import { MEDAL_ADD } from '@/defines/commands.json'
 import { MEDAL_OPTION, MEMBER_OPTION, DO_NOT_HAVE, SUCCESS } from '-/commands/medal.json'
@@ -31,7 +31,7 @@ export const useMedalAdd = (): Command => {
 
       addUserInMedal(client, { id: member.id, role_id: medal_id, expires_at })
         .then(async () => {
-          await interaction.reply({ content: SUCCESS, ephemeral: true })
+          await interaction.reply({ content: SUCCESS, flags: MessageFlags.Ephemeral })
         })
         .catch(async () => {
           await reply(interaction).error()

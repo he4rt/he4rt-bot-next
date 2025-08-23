@@ -18,6 +18,8 @@ runner()
       color: 'info',
       message: `**BOT ON! ${getBotVersion()}**`,
     })
+
+    console.info(`Bot is running with version: ${getBotVersion()}`)
   })
   .catch((reason) => {
     console.error(reason)
