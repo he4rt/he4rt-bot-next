@@ -10,6 +10,9 @@ export const HE4RT = createClient({
   headers: {
     'X-He4rt-Authorization': process.env.HE4RT_TOKEN,
   },
+  async onResponseError({ request, options, error, response }) {
+    console.error('[fetch response error]', request, options, error, JSON.stringify(response))
+  }
 })
 
 export const APOIASE = createClient({
