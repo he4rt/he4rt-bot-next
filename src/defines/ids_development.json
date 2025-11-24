@@ -1,15 +1,15 @@
 {
-  "BOT_ID": "1025630826341335122",
+  "BOT_ID": "1442307675428753438",
   "DEPOSITIONS_CHANNEL": {
     "id": "1042817315965763595",
     "title": "depoimentos-he4rt"
   },
   "BREAKFAST_CATEGORY_CHANNEL": {
-    "id": "1051218990174838814",
+    "id": "1442327865440993372",
     "title": "Canal de Categoria"
   },
   "DYNAMIC_CATEGORY_CHANNEL": {
-    "id": "1051218701338300416",
+    "id": "1442327865440993372",
     "title": "Voz Dinâmica"
   },
   "FORUM_CHANNEL": {
@@ -21,39 +21,39 @@
     "title": "💡| chamados"
   },
   "SUGGESTION_CHANNEL": {
-    "id": "1042817315965763594",
+    "id": "1442335055396601888",
     "title": "💡︱sugestões"
   },
   "POMODORO_CHANNEL": {
-    "id": "1045884603778469978",
-    "title": "🟢 Coworking"
+    "id": "1442328174900940905",
+    "title": "🟢︱Coworking"
   },
   "REPORT_CHANNEL": {
-    "id": "1042817315781218333",
-    "title": "🚨 | auto-report"
+    "id": "1442328226977419306",
+    "title": "🚨︱auto-report"
   },
   "MEETING_DELAS_CHANNEL": {
     "id": "1045470251632042064",
     "title": "✅︱reunião-das-minas"
   },
   "MEETING_CHANNEL": {
-    "id": "1045470226407506071",
+    "id": "1442335190159724544",
     "title": "✅︱reunião"
   },
   "MEETING_VOICE_CHANNEL": {
     "id": "1049873030387601449",
-    "title": "✅ Reunião Semanal"
+    "title": "✅︱Reunião Semanal"
   },
   "AWAY_VOICE_CHANNEL": {
     "id": "1042817316334866486",
-    "title": "😴 Ausente"
+    "title": "😴︱Ausente"
   },
   "CHAT_CHANNEL": {
-    "id": "1042817315965763597",
+    "id": "1442328267851038803",
     "title": "💬︱bate-papo"
   },
   "COMMANDS_CHANNEL": {
-    "id": "1042817315965763599",
+    "id": "1442328290793623696",
     "title": "🤖︱comandos"
   },
   "ADVERTS_CHANNEL": {
@@ -61,11 +61,11 @@
     "title": "📢︱anúncios"
   },
   "PRESENTATIONS_CHANNEL": {
-    "id": "1042817316754309184",
+    "id": "1442328342379626516",
     "title": "📖︱apresentações"
   },
   "DONATORS_CHANNEL": {
-    "id": "1042817316158718023",
+    "id": "1442328370041065655",
     "title": "💳︱apoiadores"
   },
   "PUNISHMENTS_CHANNEL": {
@@ -77,8 +77,8 @@
     "title": "📈│levelup"
   },
   "LEARNING_DIARY_CHANNEL": {
-    "id": "104281799981472332",
-    "title": "🏆|aprendizado-diário"
+    "id": "1442335707531055255",
+    "title": "🏆︱aprendizado-diário"
   },
   "VOLUNTEER_CHANNEL": {
     "id": "1042817315965763600",
@@ -86,94 +86,94 @@
   },
   "VALID_PRESENTATION_DEV_ROLES": [
     {
-      "id": "1042817315227582488",
+      "id": "1442328583161905304",
       "name": "GameDev",
       "emoji": "🎮"
     },
     {
-      "id": "1042817315227582487",
+      "id": "1442328642641461318",
       "name": "JavaScript",
       "emoji": "📜"
     },
     {
-      "id": "1042817315227582486",
+      "id": "1442328687931429088",
       "name": "Elixir",
       "emoji": "💧"
     },
     {
-      "id": "1042817315227582485",
+      "id": "1442328716142448662",
       "name": "PHP",
       "emoji": "🐘"
     },
     {
-      "id": "1042817315227582484",
+      "id": "1442328731287814175",
       "name": "Python",
       "emoji": "🐍"
     },
     {
-      "id": "1042817315206594640",
+      "id": "1442328746874114101",
       "name": "Perl",
       "emoji": "🐪"
     },
     {
-      "id": "1042817315206594639",
+      "id": "1442328765031120928",
       "name": "Java",
       "emoji": "☕"
     },
     {
-      "id": "1042817315206594638",
+      "id": "1442328782722564176",
       "name": "Ruby",
       "emoji": "💎"
     },
     {
-      "id": "1136369892736647359",
+      "id": "1442328803027451925",
       "name": "Crystal",
       "emoji": "🖤"
     },
     {
-      "id": "1042817315206594637",
+      "id": "1442328828801319013",
       "name": "C, C++, C#",
       "emoji": "🇨"
     },
     {
-      "id": "1042817315206594636",
+      "id": "1442328853384007701",
       "name": "UX/UI",
       "emoji": "🎨"
     },
     {
-      "id": "1042824308604551188",
+      "id": "1442328869695782923",
       "name": "Rust",
       "emoji": "r"
     },
     {
-      "id": "1161119383872082090",
+      "id": "1442328894807081063",
       "name": "Golang",
       "emoji": "🦫"
     },
     {
-      "id": "1042824387805597757",
+      "id": "1442328909340475464",
       "name": "Designer",
       "emoji": "🎨"
     },
     {
-      "id": "1042817315227582486",
+      "id": "1442328927438770337",
       "name": "Elixir",
       "emoji": "💧"
     }
   ],
   "VALID_PRESENTATION_ENG_ROLES": [
     {
-      "id": "1042817315185627258",
+      "id": "1442329305312002109",
       "name": "Advanced English",
       "emoji": "🗽"
     },
     {
-      "id": "1042817315185627257",
+      "id": "1442329326128332830",
       "name": "Intermediate English",
       "emoji": "🗽"
     },
     {
-      "id": "1042817315185627256",
+      "id": "1442329344809763017",
       "name": "Basic English",
       "emoji": "🗽"
     }
@@ -293,77 +293,77 @@
     }
   ],
   "HE4RT_DELAS_ROLE": {
-    "id": "1042817315173056629",
+    "id": "1442329482454237274",
     "name": "He4rt Delas",
     "emoji": "💗"
   },
   "PRESENTING_ROLE": {
-    "id": "1360825188517679132",
+    "id": "1442329508022718504",
     "name": "Apresentando",
     "emoji": "🎓"
   },
   "PRESENTED_ROLE": {
-    "id": "1042817315173056628",
+    "id": "1442329529602412614",
     "name": "Apresentou",
     "emoji": "🎓"
   },
   "DONATOR_ROLE": {
-    "id": "1042817315248541753",
+    "id": "1442329553900142594",
     "name": "Apoiadores",
     "emoji": "💳"
   },
   "NITRO_BOOSTER_ROLE": {
-    "id": "1042817315248541752",
+    "id": "1442329574607425546",
     "name": "Nitro Booster",
     "emoji": "⚡"
   },
   "BEGINNER_ROLE": {
-    "id": "1042817315227582491",
+    "id": "1442329590453244076",
     "name": "Beginner",
     "emoji": "🥉"
   },
   "INTERMEDIATE_ROLE": {
-    "id": "1042817315227582492",
+    "id": "1442329606223826944",
     "name": "Intermediate",
     "emoji": "🥈"
   },
   "ADVANCED_ROLE": {
-    "id": "1042817315227582493",
+    "id": "1442329644563959990",
     "name": "Advanced",
     "emoji": "🏅"
   },
   "SUPREME_ROLE": {
-    "id": "1042817315248541747",
+    "id": "1442329644563959990",
     "name": "Supreme",
     "emoji": "🥇"
   },
   "HE4RT_ROLE": {
-    "id": "1042817315269509121",
+    "id": "1442329661706211550",
     "name": "He4rt",
     "emoji": "💜"
   },
   "HE4RTLESS_ROLE": {
-    "id": "1042817315290497037",
+    "id": "1442329677111890033",
     "name": "He4rtless",
     "emoji": "🍷"
   },
   "ADMINISTRATOR_ROLE": {
-    "id": "1042817315269509120",
+    "id": "1442329698398113853",
     "name": "Equipe de Administração",
     "emoji": "💼"
   },
   "MODERATION_ROLE": {
-    "id": "1042817315248541756",
+    "id": "1442329718211739699",
     "name": "Equipe de Moderação",
     "emoji": "👮"
   },
   "ATA_ROLE": {
-    "id": "1042817315173056628",
+    "id": "1442329735311921202",
     "name": "Escrivão",
     "emoji": "✍️"
   },
   "VOLUNTEER_ROLE": {
-    "id": "1042817315185627257",
+    "id": "1442329750743023758",
     "name": "Voluntário",
     "emoji": "💜"
   },

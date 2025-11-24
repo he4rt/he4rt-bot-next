@@ -9,6 +9,8 @@ export const HE4RT = createClient({
   baseURL: `${process.env.HE4RT_URL}/api/`,
   headers: {
     'X-He4rt-Authorization': process.env.HE4RT_TOKEN,
+    'X-He4rt-Provider': 'discord',
+    'X-He4rt-Provider-Id': process.env.DISCORD_GUILD_ID,
   },
   async onResponseError({ request, options, error, response }) {
     console.error('[fetch response error]', request, options, error, JSON.stringify(response))
