@@ -12,6 +12,13 @@ He4rt Discord Bot
   <a href="https://discord.gg/he4rt"><img src="https://img.shields.io/github/license/he4rt/he4rt-bot-next?color=A655FF&style=for-the-badge"></a>
 <p>
 
+> [!WARNING]
+> **Este projeto está descontinuado e arquivado.**
+>
+> O bot foi migrado para [`he4rt/heartdevs.com`](https://github.com/he4rt/heartdevs.com). Este repositório é mantido apenas para referência histórica e não receberá mais atualizações.
+
+---
+
 ## Comandos
 
 - `/anunciar` (ADM)
