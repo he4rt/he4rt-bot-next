@@ -6,6 +6,7 @@ import {
   MEETING_DELAS_CHANNEL,
   LEARNING_DIARY_CHANNEL,
   ADVERTS_CHANNEL,
+  PRESENTATIONS_CHANNEL,
 } from '@/defines/ids.json'
 import { HE4RT_EMOJI_ID } from '@/defines/ids.json'
 import { isAdministrator, isImageHTTPUrl, isValidProxyContent, js } from '@/utils'
@@ -96,6 +97,12 @@ export const bussinOrCap = async (message: Message) => {
     } else if (containsGo && randomness === 69) {
       message.reply({ content: 'cap' }).catch(() => {})
     }
+  }
+}
+
+export const deletePinningMessagesInPresentationChannel = async (message: Message) => {
+  if (PRESENTATIONS_CHANNEL.id === message.channel.id && message.type === MessageType.ChannelPinnedMessage) {
+    await message.delete().catch(() => {})
   }
 }
 
